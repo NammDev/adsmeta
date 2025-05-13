@@ -1,7 +1,11 @@
+"use client"
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { CheckCircle } from "lucide-react"
+import { useCart } from "@/context/cart-context"
+import { useState } from "react"
 
 interface ProductCardProps {
   title: string
@@ -10,6 +14,9 @@ interface ProductCardProps {
   features: string[]
   href: string
   isPopular?: boolean
+  id?: string
+  image?: string
+  category?: string
 }
 
 export default function ProductCard({
@@ -19,12 +26,43 @@ export default function ProductCard({
   features,
   href,
   isPopular = false,
+  id = title.toLowerCase().replace(/\s+/g, "-"),
+  image = "/placeholder.svg?height=100&width=100&query=" + encodeURIComponent(title),
+  category = "pack",
 }: ProductCardProps) {
+  const { addItem, openCart } = useCart() || {}
+  const [isAdding, setIsAdding] = useState(false)
+
+  const handleAddToCart = () => {
+    if (!addItem) {
+      console.error("Cart functionality not available")
+      return
+    }
+
+    setIsAdding(true)
+
+    try {
+      addItem({
+        id,
+        name: title,
+        price,
+        quantity: 1,
+        image,
+        category,
+      })
+
+      // Optional: Open cart after adding
+      if (openCart) openCart()
+    } catch (error) {
+      console.error("Error adding to cart:", error)
+    } finally {
+      setTimeout(() => setIsAdding(false), 500)
+    }
+  }
+
   return (
     <Card
-      className={`border ${
-        isPopular ? "border-2 border-facebook" : "border-gray-200"
-      } rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md relative`}
+      className={`border ${isPopular ? "border-2 border-facebook" : "border-gray-200"} rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md relative`}
     >
       {isPopular && (
         <div className="absolute top-0 right-0 bg-facebook text-white px-4 py-1 text-sm font-medium">Most Popular</div>
@@ -47,10 +85,14 @@ export default function ProductCard({
           ))}
         </ul>
         <div className="flex flex-col gap-3">
-          <Link href={href}>
-            <Button className="bg-facebook hover:bg-facebook-dark text-white font-medium w-full py-6">Buy Now</Button>
-          </Link>
-          <Link href={href}>
+          <Button
+            className="bg-facebook hover:bg-facebook-dark text-white font-medium w-full py-6"
+            onClick={handleAddToCart}
+            disabled={isAdding}
+          >
+            {isAdding ? "Adding..." : "Add to Cart"}
+          </Button>
+          <Link href={href} className="w-full" scroll={true}>
             <Button variant="outline" className="text-gray-700 border-gray-300 hover:bg-gray-50 w-full">
               Learn More
             </Button>

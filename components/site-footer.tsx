@@ -1,5 +1,4 @@
 import Link from "next/link"
-import Image from "next/image"
 
 export default function SiteFooter() {
   return (
@@ -136,16 +135,6 @@ export default function SiteFooter() {
               </li>
             </ul>
           </div>
-        </div>
-
-        {/* Payment Methods */}
-        <div className="flex flex-wrap justify-center gap-6 mb-8">
-          <Image src="/placeholder.svg?height=30&width=60" alt="Visa" width={60} height={30} />
-          <Image src="/placeholder.svg?height=30&width=60" alt="Mastercard" width={60} height={30} />
-          <Image src="/placeholder.svg?height=30&width=60" alt="PayPal" width={60} height={30} />
-          <Image src="/placeholder.svg?height=30&width=60" alt="Bitcoin" width={60} height={30} />
-          <Image src="/placeholder.svg?height=30&width=60" alt="Ethereum" width={60} height={30} />
-          <Image src="/placeholder.svg?height=30&width=60" alt="USDT" width={60} height={30} />
         </div>
 
         <div className="border-t border-gray-100 pt-8">

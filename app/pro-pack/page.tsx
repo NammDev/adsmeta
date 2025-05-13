@@ -10,6 +10,11 @@ import EnhancedRecommendations from "@/components/enhanced-recommendations"
 import ProductImageGallery from "@/components/product-image-gallery"
 
 export default function ProPack() {
+  // Force scroll to top on page load
+  if (typeof window !== "undefined") {
+    window.scrollTo(0, 0)
+  }
+
   return (
     <MinimalProductLayout>
       <PageSection spacious>
