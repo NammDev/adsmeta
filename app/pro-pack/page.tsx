@@ -7,6 +7,7 @@ import MinimalProductDetails from "@/components/minimal-product-details"
 import MinimalProductTabs from "@/components/minimal-product-tabs"
 import PageSection from "@/components/page-section"
 import EnhancedRecommendations from "@/components/enhanced-recommendations"
+import ProductImageGallery from "@/components/product-image-gallery"
 
 export default function ProPack() {
   return (
@@ -29,17 +30,16 @@ export default function ProPack() {
 
         {/* Product Section - More spacious */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-20">
-          {/* Product Image - Simple and Abstract */}
-          <div className="bg-white rounded-lg shadow-lg p-10 flex items-center justify-center">
-            <div className="relative w-full max-w-md aspect-square">
-              <Image
-                src="/abstract-facebook-verified-business-manager.png"
-                alt="Pro Pack"
-                fill
-                className="object-contain"
-              />
-            </div>
-          </div>
+          {/* Product Image Gallery - With thumbnails */}
+          <ProductImageGallery
+            mainImage="/abstract-facebook-verified-business-manager.png"
+            thumbnails={[
+              "/facebook-ads-scaling-graph.png",
+              "/facebook-ads-dashboard-beginners.png",
+              "/multiple-payment-methods-icon.png",
+            ]}
+            altText="Pro Pack"
+          />
 
           {/* Product Details - More spacious */}
           <MinimalProductDetails
@@ -220,7 +220,7 @@ export default function ProPack() {
                   <div className="overflow-hidden bg-white rounded-lg shadow-sm">
                     <table className="min-w-full divide-y divide-gray-200">
                       <tbody className="divide-y divide-gray-200">
-                        <tr className="bg-gray-50">
+                        <tr className="bg-lightblue">
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 w-1/3">
                             Package Type
                           </td>
@@ -232,7 +232,7 @@ export default function ProPack() {
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Verified BM (Code 1)</td>
                         </tr>
-                        <tr className="bg-gray-50">
+                        <tr className="bg-lightblue">
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                             Payment Methods
                           </td>
@@ -246,7 +246,7 @@ export default function ProPack() {
                             1 Standard Facebook Pixel
                           </td>
                         </tr>
-                        <tr className="bg-gray-50">
+                        <tr className="bg-lightblue">
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                             Warranty Period
                           </td>
@@ -258,7 +258,7 @@ export default function ProPack() {
                             7 Days Priority Support via Telegram & WhatsApp
                           </td>
                         </tr>
-                        <tr className="bg-gray-50">
+                        <tr className="bg-lightblue">
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                             Delivery Time
                           </td>
