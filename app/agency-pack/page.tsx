@@ -1,14 +1,40 @@
+import { Badge } from "@/components/ui/badge"
+import { Textarea } from "@/components/ui/textarea"
+import { Input } from "@/components/ui/input"
 import Image from "next/image"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { CheckCircle, Shield, Clock, Tag, Star } from "lucide-react"
+import ProductPageLayout from "@/components/product-page-layout"
+
+export default function AgencyPack() {
+  return (
+    <ProductPageLayout>
+      <div className="container mx-auto px-4 py-12">
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-2 text-sm text-gray-500 mb-8">
+          <Link href="/" className="hover:text-facebook">Home</Link>
+          <span>/</span>
+          <Link href="/#packages" className="hover:text-facebook">Packages</Link>
+          <span>/</span>
+          <span className="text-gray-900">Agency Pack</span>
+        </div>
+
+        {/* Hero Section */}
+        <div className="grid grid-cols-1 lg
+
+Now, let's update the main page to link to these product pages:
+
+```typescriptreact file=\"app/page.tsx"
+[v0-no-op-code-block-prefix]import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
-import { CheckCircle, Headset, Tag, Users, ChevronDown, Menu, Shield, Clock, Star } from "lucide-react"
-import PackagesSection from "./packages-section"
-import SiteFooter from "@/components/site-footer"
-import NewsletterSection from "@/components/newsletter-section"
+import { CheckCircle, Headset, Tag, Users, ChevronDown, Menu, Shield, Clock, Star } from 'lucide-react'
 
 export default function Home() {
   return (
@@ -62,7 +88,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative bg-white py-12 md:py-16">
+      <section className="relative bg-white py-20 md:py-28">
         <div className="container mx-auto px-4 relative">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
@@ -122,7 +148,7 @@ export default function Home() {
       </section>
 
       {/* Trust Indicators */}
-      <section className="py-12 bg-lightblue">
+      <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
           <p className="text-center text-gray-500 mb-8 text-sm uppercase tracking-wider font-medium">
             Trusted by agencies worldwide
@@ -130,12 +156,7 @@ export default function Home() {
           <div className="flex flex-wrap justify-center items-center gap-12 opacity-70">
             {[1, 2, 3, 4, 5].map((i) => (
               <div key={i} className="h-8">
-                <Image
-                  src={`/placeholder-32px.png?height=32&width=120`}
-                  alt={`Partner logo ${i}`}
-                  width={120}
-                  height={32}
-                />
+                <Image src={`/placeholder.svg?height=32&width=120`} alt={`Partner logo ${i}`} width={120} height={32} />
               </div>
             ))}
           </div>
@@ -143,10 +164,151 @@ export default function Home() {
       </section>
 
       {/* Packages Section */}
-      <PackagesSection />
+      <section id="packages" className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">Packages</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Simple, Transparent Pricing</h2>
+            <p className="text-lg text-gray-600">
+              Choose the perfect solution to launch and scale your Facebook advertising campaigns.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Starter Pack */}
+            <Card className="border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md">
+              <CardContent className="p-8">
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Starter Pack</h3>
+                  <p className="text-gray-600">Perfect for beginners</p>
+                  <div className="mt-4 flex items-end">
+                    <span className="text-4xl font-bold text-gray-900">€50</span>
+                    <span className="text-gray-500 ml-2">one-time</span>
+                  </div>
+                </div>
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-facebook mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">1 Unverified BM (€10, code 5)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-facebook mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">1 Via XMDT Asia (€25, code 7)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-facebook mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">1 Pixel (€15)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-facebook mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">7-Day Support</span>
+                  </li>
+                </ul>
+                <div className="flex flex-col gap-3">
+                  <Button className="bg-facebook hover:bg-facebook-dark text-white font-medium w-full py-6">
+                    <Link href="/starter-pack">Buy Now</Link>
+                  </Button>
+                  <Button variant="outline" className="text-gray-700 border-gray-300 hover:bg-gray-50 w-full">
+                    <Link href="/starter-pack">Learn More</Link>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Pro Pack */}
+            <Card className="border-2 border-facebook rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md relative">
+              <div className="absolute top-0 right-0 bg-facebook text-white px-4 py-1 text-sm font-medium">
+                Most Popular
+              </div>
+              <CardContent className="p-8">
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Pro Pack</h3>
+                  <p className="text-gray-600">Scale your campaigns</p>
+                  <div className="mt-4 flex items-end">
+                    <span className="text-4xl font-bold text-gray-900">€150</span>
+                    <span className="text-gray-500 ml-2">one-time</span>
+                  </div>
+                </div>
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-facebook mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">1 Verified BM (€80, code 1)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-facebook mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">2 Via XMDT (1 Asia €25, 1 USA €40)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-facebook mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">1 Pixel (€15)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-facebook mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">7-Day Warranty</span>
+                  </li>
+                </ul>
+                <div className="flex flex-col gap-3">
+                  <Button className="bg-facebook hover:bg-facebook-dark text-white font-medium w-full py-6">
+                    <Link href="/pro-pack">Buy Now</Link>
+                  </Button>
+                  <Button variant="outline" className="text-gray-700 border-gray-300 hover:bg-gray-50 w-full">
+                    <Link href="/pro-pack">Learn More</Link>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Agency Pack */}
+            <Card className="border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md">
+              <CardContent className="p-8">
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Agency Pack</h3>
+                  <p className="text-gray-600">For high-ROAS campaigns</p>
+                  <div className="mt-4 flex items-end">
+                    <span className="text-4xl font-bold text-gray-900">€400</span>
+                    <span className="text-gray-500 ml-2">one-time</span>
+                  </div>
+                </div>
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-facebook mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">1 Verified BM5 Unlimited (€350, code 4)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-facebook mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">2 Via XMDT USA (€40 x 2, code 9)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-facebook mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">1 Pixel (€15)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-facebook mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">14-Day Warranty</span>
+                  </li>
+                </ul>
+                <div className="flex flex-col gap-3">
+                  <Button className="bg-facebook hover:bg-facebook-dark text-white font-medium w-full py-6">
+                    <Link href="/agency-pack">Buy Now</Link>
+                  </Button>
+                  <Button variant="outline" className="text-gray-700 border-gray-300 hover:bg-gray-50 w-full">
+                    <Link href="/agency-pack">Learn More</Link>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="mt-12 bg-facebook/10 text-facebook text-center py-6 px-8 rounded-lg">
+            <p className="text-lg font-medium">
+              First 50 Buyers Get 10% Off! Use Code: <span className="font-bold">META10</span>
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Products Section */}
-      <section id="products" className="py-20 bg-lightblue">
+      <section id="products" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">Products</Badge>
@@ -305,7 +467,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-lightblue">
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">Testimonials</Badge>
@@ -444,7 +606,7 @@ export default function Home() {
                   </li>
                 </ul>
               </div>
-              <div className="bg-lightblue p-8 rounded-lg">
+              <div className="bg-gray-50 p-8 rounded-lg">
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-facebook/10 rounded-full flex items-center justify-center flex-shrink-0">
@@ -481,7 +643,7 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 bg-lightblue">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">FAQ</Badge>
@@ -584,10 +746,7 @@ export default function Home() {
                         strokeLinejoin="round"
                         className="text-facebook"
                       >
-                        <path
-                          d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0
-2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
-                        ></path>
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                       </svg>
                     </div>
                     <div>
@@ -680,11 +839,160 @@ export default function Home() {
         </Button>
       </div>
 
-      {/* Newsletter Section */}
-      <NewsletterSection />
-
       {/* Footer */}
-      <SiteFooter />
+      <footer className="bg-gray-900 text-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <div>
+              <Link href="/" className="flex items-center gap-2 mb-6">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z"
+                    fill="#1877F2"
+                  />
+                  <path
+                    d="M21 16H18V14C18 13.448 18.448 13 19 13H20V10H18C15.791 10 14 11.791 14 14V16H12V19H14V26H18V19H20L21 16Z"
+                    fill="white"
+                  />
+                </svg>
+                <span className="text-2xl font-medium text-white">EasyAdsPack</span>
+              </Link>
+              <p className="text-gray-400 mb-6">
+                Professional Facebook advertising solutions for agencies and marketers worldwide.
+              </p>
+              <div className="flex gap-4">
+                <Link href="#" className="text-gray-400 hover:text-facebook">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                </Link>
+                <Link href="#" className="text-gray-400 hover:text-facebook">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold mb-6">Products</h3>
+              <ul className="space-y-4">
+                <li>
+                  <Link href="#" className="text-gray-400 hover:text-facebook">
+                    Business Manager
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="text-gray-400 hover:text-facebook">
+                    Via XMDT
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="text-gray-400 hover:text-facebook">
+                    Pixels
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="text-gray-400 hover:text-facebook">
+                    Custom Solutions
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold mb-6">Resources</h3>
+              <ul className="space-y-4">
+                <li>
+                  <Link href="#" className="text-gray-400 hover:text-facebook">
+                    Blog
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="text-gray-400 hover:text-facebook">
+                    Guides
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="text-gray-400 hover:text-facebook">
+                    FAQ
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="text-gray-400 hover:text-facebook">
+                    Support
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold mb-6">Company</h3>
+              <ul className="space-y-4">
+                <li>
+                  <Link href="#" className="text-gray-400 hover:text-facebook">
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="text-gray-400 hover:text-facebook">
+                    Contact
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="text-gray-400 hover:text-facebook">
+                    Terms of Service
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="text-gray-400 hover:text-facebook">
+                    Privacy Policy
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-800 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <p className="text-gray-400 text-sm mb-4 md:mb-0">© 2025 EasyAdsPack. All rights reserved.</p>
+              <div className="flex gap-6">
+                <Link href="#" className="text-gray-400 hover:text-facebook text-sm">
+                  Terms
+                </Link>
+                <Link href="#" className="text-gray-400 hover:text-facebook text-sm">
+                  Privacy
+                </Link>
+                <Link href="#" className="text-gray-400 hover:text-facebook text-sm">
+                  Cookies
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     </main>
   )
 }
