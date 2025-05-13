@@ -10,7 +10,7 @@ const nextConfig = {
     unoptimized: true,
   },
   experimental: {
-    appDir: true,
+    // appDir: true,
   },
 }
 

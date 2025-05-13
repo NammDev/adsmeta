@@ -35,6 +35,19 @@
   animation: countUpdate 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 6s linear infinite;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -43,9 +56,9 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --facebook: 214 89% 52%;
-    --facebook-dark: 214 89% 45%;
-    --primary: 214 89% 52%;
+    --facebook: 217 100% 50%;
+    --facebook-dark: 217 100% 40%;
+    --primary: 217 100% 50%;
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -57,7 +70,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 214 89% 52%;
+    --ring: 217 100% 50%;
     --radius: 0.5rem;
   }
 
@@ -68,9 +81,9 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --facebook: 214 89% 52%;
-    --facebook-dark: 214 89% 45%;
-    --primary: 214 89% 52%;
+    --facebook: 217 100% 50%;
+    --facebook-dark: 217 100% 40%;
+    --primary: 217 100% 50%;
     --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -82,7 +95,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 214 89% 52%;
+    --ring: 217 100% 50%;
   }
 }
 

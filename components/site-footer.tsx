@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 
 export default function SiteFooter() {
   return (
@@ -6,24 +7,16 @@ export default function SiteFooter() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div>
-            <Link href="/" className="flex items-center gap-2 mb-6">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z"
-                  fill="#1877F2"
-                />
-                <path
-                  d="M21 16H18V14C18 13.448 18.448 13 19 13H20V10H18C15.791 10 14 11.791 14 14V16H12V19H14V26H18V19H20L21 16Z"
-                  fill="white"
-                />
-              </svg>
-              <span className="text-2xl font-medium text-gray-900">EasyAdsPack</span>
+            <Link href="/" className="flex items-center mb-6">
+              <div className="relative w-16 h-16">
+                <Image src="/logo-2.svg" alt="GoAds Agency Logo" fill className="object-contain" />
+              </div>
             </Link>
             <p className="text-gray-600 mb-6">
               Professional Facebook advertising solutions for agencies and marketers worldwide.
             </p>
             <div className="flex gap-4">
-              <Link href="#" className="text-gray-500 hover:text-facebook">
+              <Link href="#" className="text-gray-500 hover:text-[#0066FF]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -40,7 +33,7 @@ export default function SiteFooter() {
                   <circle cx="4" cy="4" r="2"></circle>
                 </svg>
               </Link>
-              <Link href="#" className="text-gray-500 hover:text-facebook">
+              <Link href="#" className="text-gray-500 hover:text-[#0066FF]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -62,22 +55,22 @@ export default function SiteFooter() {
             <h3 className="text-lg font-bold text-gray-900 mb-6">Products</h3>
             <ul className="space-y-4">
               <li>
-                <Link href="#" className="text-gray-600 hover:text-facebook">
+                <Link href="#" className="text-gray-600 hover:text-[#0066FF]">
                   Business Manager
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-600 hover:text-facebook">
+                <Link href="#" className="text-gray-600 hover:text-[#0066FF]">
                   Via XMDT
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-600 hover:text-facebook">
+                <Link href="#" className="text-gray-600 hover:text-[#0066FF]">
                   Pixels
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-600 hover:text-facebook">
+                <Link href="#" className="text-gray-600 hover:text-[#0066FF]">
                   Custom Solutions
                 </Link>
               </li>
@@ -88,22 +81,22 @@ export default function SiteFooter() {
             <h3 className="text-lg font-bold text-gray-900 mb-6">Resources</h3>
             <ul className="space-y-4">
               <li>
-                <Link href="#" className="text-gray-600 hover:text-facebook">
+                <Link href="#" className="text-gray-600 hover:text-[#0066FF]">
                   Blog
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-600 hover:text-facebook">
+                <Link href="#" className="text-gray-600 hover:text-[#0066FF]">
                   Guides
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-600 hover:text-facebook">
+                <Link href="#" className="text-gray-600 hover:text-[#0066FF]">
                   FAQ
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-600 hover:text-facebook">
+                <Link href="#" className="text-gray-600 hover:text-[#0066FF]">
                   Support
                 </Link>
               </li>
@@ -114,22 +107,22 @@ export default function SiteFooter() {
             <h3 className="text-lg font-bold text-gray-900 mb-6">Company</h3>
             <ul className="space-y-4">
               <li>
-                <Link href="#" className="text-gray-600 hover:text-facebook">
+                <Link href="#" className="text-gray-600 hover:text-[#0066FF]">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-600 hover:text-facebook">
+                <Link href="#" className="text-gray-600 hover:text-[#0066FF]">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-600 hover:text-facebook">
+                <Link href="#" className="text-gray-600 hover:text-[#0066FF]">
                   Terms of Service
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-600 hover:text-facebook">
+                <Link href="#" className="text-gray-600 hover:text-[#0066FF]">
                   Privacy Policy
                 </Link>
               </li>
@@ -139,15 +132,15 @@ export default function SiteFooter() {
 
         <div className="border-t border-gray-100 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-500 text-sm mb-4 md:mb-0">© 2025 EasyAdsPack. All rights reserved.</p>
+            <p className="text-gray-500 text-sm mb-4 md:mb-0">© 2025 GoAds Agency. All rights reserved.</p>
             <div className="flex gap-6">
-              <Link href="#" className="text-gray-500 hover:text-facebook text-sm">
+              <Link href="#" className="text-gray-500 hover:text-[#0066FF] text-sm">
                 Terms
               </Link>
-              <Link href="#" className="text-gray-500 hover:text-facebook text-sm">
+              <Link href="#" className="text-gray-500 hover:text-[#0066FF] text-sm">
                 Privacy
               </Link>
-              <Link href="#" className="text-gray-500 hover:text-facebook text-sm">
+              <Link href="#" className="text-gray-500 hover:text-[#0066FF] text-sm">
                 Cookies
               </Link>
             </div>

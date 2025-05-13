@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { X } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -56,7 +57,11 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
       >
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between p-4 border-b">
-            <span className="text-xl font-medium">Menu</span>
+            <Link href="/" className="flex items-center" onClick={onClose}>
+              <div className="relative w-14 h-14">
+                <Image src="/logo-2.svg" alt="GoAds Agency Logo" fill className="object-contain" />
+              </div>
+            </Link>
             <button onClick={onClose} className="p-2 rounded-full hover:bg-gray-100" aria-label="Close menu">
               <X className="h-6 w-6" />
             </button>
@@ -67,7 +72,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
               <li>
                 <Link
                   href="/"
-                  className="block py-2 text-lg font-medium text-gray-900 hover:text-facebook"
+                  className="block py-2 text-lg font-medium text-gray-900 hover:text-[#0066FF]"
                   onClick={onClose}
                 >
                   Home
@@ -76,7 +81,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
               <li>
                 <Link
                   href="/products"
-                  className="block py-2 text-lg font-medium text-gray-900 hover:text-facebook"
+                  className="block py-2 text-lg font-medium text-gray-900 hover:text-[#0066FF]"
                   onClick={onClose}
                 >
                   Products
@@ -85,7 +90,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
               <li>
                 <Link
                   href="/packs"
-                  className="block py-2 text-lg font-medium text-gray-900 hover:text-facebook"
+                  className="block py-2 text-lg font-medium text-gray-900 hover:text-[#0066FF]"
                   onClick={onClose}
                 >
                   Packages
@@ -94,7 +99,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
               <li>
                 <Link
                   href="/blog"
-                  className="block py-2 text-lg font-medium text-gray-900 hover:text-facebook"
+                  className="block py-2 text-lg font-medium text-gray-900 hover:text-[#0066FF]"
                   onClick={onClose}
                 >
                   Blog
@@ -103,7 +108,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
               <li>
                 <Link
                   href="/faq"
-                  className="block py-2 text-lg font-medium text-gray-900 hover:text-facebook"
+                  className="block py-2 text-lg font-medium text-gray-900 hover:text-[#0066FF]"
                   onClick={onClose}
                 >
                   FAQ
@@ -112,7 +117,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
               <li>
                 <Link
                   href="/about-us"
-                  className="block py-2 text-lg font-medium text-gray-900 hover:text-facebook"
+                  className="block py-2 text-lg font-medium text-gray-900 hover:text-[#0066FF]"
                   onClick={onClose}
                 >
                   About Us
@@ -121,7 +126,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
               <li>
                 <Link
                   href="/contact"
-                  className="block py-2 text-lg font-medium text-gray-900 hover:text-facebook"
+                  className="block py-2 text-lg font-medium text-gray-900 hover:text-[#0066FF]"
                   onClick={onClose}
                 >
                   Contact

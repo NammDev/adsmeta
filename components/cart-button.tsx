@@ -1,27 +1,26 @@
 "use client"
 
-import { ShoppingCart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useCart } from "@/context/cart-context"
+import { ShoppingBag } from "lucide-react"
 
 export function CartButton() {
-  const { toggleCart, itemCount } = useCart()
+  const { toggleCart, itemCount, animateCount } = useCart()
 
   return (
     <Button
-      className="relative flex items-center gap-2 bg-facebook hover:bg-facebook-dark text-white transition-all duration-300"
+      className="relative bg-[#0066FF] hover:bg-[#0052CC] text-white rounded-full w-12 h-12 flex items-center justify-center group"
       onClick={toggleCart}
       aria-label="Open cart"
     >
-      <div className="relative">
-        <ShoppingCart className="h-4 w-4" />
-        {itemCount > 0 && (
-          <span className="absolute -top-2 -right-2 bg-white text-facebook text-[10px] rounded-full h-4 w-4 flex items-center justify-center animate-count-update">
-            {itemCount}
-          </span>
-        )}
-      </div>
-      <span className="font-medium">My Purchases</span>
+      <ShoppingBag className="h-7 w-7 transition-transform duration-300 ease-in-out group-hover:scale-110" />
+      {itemCount > 0 && (
+        <span
+          className={`absolute -top-2 -right-2 bg-white text-[#0066FF] text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center border border-[#0066FF] ${animateCount ? "animate-count-update" : ""}`}
+        >
+          {itemCount}
+        </span>
+      )}
     </Button>
   )
 }

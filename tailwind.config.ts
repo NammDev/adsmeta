@@ -26,8 +26,8 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         facebook: {
-          DEFAULT: "#1877F2", // Facebook blue
-          dark: "#0E63D3", // Darker Facebook blue
+          DEFAULT: "#0066FF", // GoAds blue
+          dark: "#0052CC", // Darker shade of GoAds blue
         },
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -58,8 +58,8 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
         lightblue: {
-          DEFAULT: "#EFF6FB",
-          dark: "#E5F0F9",
+          DEFAULT: "#EFF6FF",
+          dark: "#E5F0FF",
         },
       },
       borderRadius: {
