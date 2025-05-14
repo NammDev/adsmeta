@@ -4,11 +4,13 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Menu } from "lucide-react"
+import { usePathname } from "next/navigation"
 import { CartButton } from "./cart-button"
 import { MobileNav } from "./mobile-nav"
 
 export function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-100">
@@ -19,24 +21,48 @@ export function SiteHeader() {
           </div>
         </Link>
 
-        <nav className="hidden md:flex items-center space-x-8">
-          <Link href="/products" className="text-base text-gray-700 hover:text-[#0066FF] transition-colors">
+        <nav className="hidden md:flex items-center space-x-6">
+          <Link
+            href="/"
+            className={`text-sm ${pathname === "/" ? "text-[#0066FF] font-medium" : "text-gray-600 hover:text-gray-900"}`}
+          >
+            Home
+          </Link>
+          <Link
+            href="/products"
+            className={`text-sm ${pathname === "/products" ? "text-[#0066FF] font-medium" : "text-gray-600 hover:text-gray-900"}`}
+          >
             Products
           </Link>
-          <Link href="/packs" className="text-base text-gray-700 hover:text-[#0066FF] transition-colors">
-            Packages
+          <Link
+            href="/packs"
+            className={`text-sm ${pathname === "/packs" ? "text-[#0066FF] font-medium" : "text-gray-600 hover:text-gray-900"}`}
+          >
+            Packs
           </Link>
-          <Link href="/blog" className="text-base text-gray-700 hover:text-[#0066FF] transition-colors">
+          <Link
+            href="/blog"
+            className={`text-sm ${pathname === "/blog" || pathname.startsWith("/blog/") ? "text-[#0066FF] font-medium" : "text-gray-600 hover:text-gray-900"}`}
+          >
             Blog
           </Link>
-          <Link href="/faq" className="text-base text-gray-700 hover:text-[#0066FF] transition-colors">
-            FAQ
+          <Link
+            href="/about-us"
+            className={`text-sm ${pathname === "/about-us" ? "text-[#0066FF] font-medium" : "text-gray-600 hover:text-gray-900"}`}
+          >
+            About
           </Link>
-          <Link href="/about-us" className="text-base text-gray-700 hover:text-[#0066FF] transition-colors">
-            About Us
-          </Link>
-          <Link href="/contact" className="text-base text-gray-700 hover:text-[#0066FF] transition-colors">
+          <Link
+            href="/contact"
+            className={`text-sm ${pathname === "/contact" ? "text-[#0066FF] font-medium" : "text-gray-600 hover:text-gray-900"}`}
+          >
             Contact
+          </Link>
+          <Link
+            href="/faq"
+            className={`text-sm ${pathname === "/faq" ? "text-[#0066FF] font-medium" : "text-gray-600 hover:text-gray-900"}`}
+          >
+            FAQ
           </Link>
         </nav>
 

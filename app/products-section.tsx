@@ -1,14 +1,14 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ShoppingCart } from "lucide-react"
+import { ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react"
 import { useCart } from "@/context/cart-context"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 // Define product type
 type Product = {
@@ -20,6 +20,8 @@ type Product = {
   category: "verified-bm" | "unverified-bm" | "profile" | "page"
   badge?: string
   href?: string
+  rating?: number
+  reviewCount?: number
 }
 
 // All products data
@@ -33,6 +35,8 @@ const allProducts: Product[] = [
     image: "/verified-facebook-business-manager-icon.png",
     category: "verified-bm",
     href: "/bm1-250-limit",
+    rating: 4.8,
+    reviewCount: 42,
   },
   {
     id: "verified-bm-2",
@@ -43,6 +47,8 @@ const allProducts: Product[] = [
     category: "verified-bm",
     badge: "Popular",
     href: "/bm1-250-limit",
+    rating: 4.9,
+    reviewCount: 78,
   },
   {
     id: "verified-bm-3",
@@ -52,6 +58,8 @@ const allProducts: Product[] = [
     image: "/abstract-facebook-verified-business-manager.png",
     category: "verified-bm",
     href: "/bm1-250-limit",
+    rating: 4.7,
+    reviewCount: 36,
   },
   {
     id: "verified-bm-4",
@@ -62,6 +70,8 @@ const allProducts: Product[] = [
     category: "verified-bm",
     badge: "Premium",
     href: "/bm1-250-limit",
+    rating: 4.9,
+    reviewCount: 54,
   },
 
   // Unverified BM
@@ -73,6 +83,8 @@ const allProducts: Product[] = [
     image: "/facebook-business-manager-icon.png",
     category: "unverified-bm",
     href: "/#products",
+    rating: 4.5,
+    reviewCount: 28,
   },
   {
     id: "unverified-bm-2",
@@ -82,6 +94,8 @@ const allProducts: Product[] = [
     image: "/facebook-business-manager-icon.png",
     category: "unverified-bm",
     href: "/#products",
+    rating: 4.6,
+    reviewCount: 32,
   },
 
   // Profile - FB accounts
@@ -93,6 +107,8 @@ const allProducts: Product[] = [
     image: "/facebook-xmdt-usa.png",
     category: "profile",
     href: "/#products",
+    rating: 4.7,
+    reviewCount: 41,
   },
   {
     id: "profile-2",
@@ -102,6 +118,8 @@ const allProducts: Product[] = [
     image: "/facebook-xmdt-usa.png",
     category: "profile",
     href: "/#products",
+    rating: 4.8,
+    reviewCount: 47,
   },
   {
     id: "profile-3",
@@ -112,6 +130,8 @@ const allProducts: Product[] = [
     category: "profile",
     badge: "Premium",
     href: "/#products",
+    rating: 4.9,
+    reviewCount: 63,
   },
   {
     id: "profile-4",
@@ -122,6 +142,8 @@ const allProducts: Product[] = [
     category: "profile",
     badge: "Best Value",
     href: "/#products",
+    rating: 5.0,
+    reviewCount: 72,
   },
 
   // Recovered page
@@ -133,6 +155,8 @@ const allProducts: Product[] = [
     image: "/facebook-pixel-icon.png",
     category: "page",
     href: "/#products",
+    rating: 4.6,
+    reviewCount: 38,
   },
 ]
 
@@ -147,34 +171,12 @@ const filterOptions = [
 
 export default function ProductsSection() {
   const [currentFilter, setCurrentFilter] = useState("all")
-  const [currentPage, setCurrentPage] = useState(1)
-  // At the top of the component, add this logic to adjust products per page based on screen size
-  const [productsPerPage, setProductsPerPage] = useState(4)
-
-  // Add a useEffect to handle responsive adjustment
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 640) {
-        setProductsPerPage(4) // Show fewer on mobile
-      } else if (window.innerWidth < 1024) {
-        setProductsPerPage(6) // Show more on tablet
-      } else {
-        setProductsPerPage(8) // Show most on desktop
-      }
-    }
-
-    // Set initial value
-    handleResize()
-
-    // Add event listener
-    window.addEventListener("resize", handleResize)
-
-    // Clean up
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
-
-  // Get cart functions
+  const carouselRef = useRef<HTMLDivElement>(null)
   const { addItem, openCart } = useCart() || { addItem: null, openCart: null }
+
+  // Filter products based on selected category
+  const filteredProducts =
+    currentFilter === "all" ? allProducts : allProducts.filter((product) => product.category === currentFilter)
 
   // Safe addToCart function with error handling
   const addToCart = (product: Product) => {
@@ -198,141 +200,116 @@ export default function ProductsSection() {
     }
   }
 
-  // Filter products based on selected category
-  const filteredProducts =
-    currentFilter === "all" ? allProducts : allProducts.filter((product) => product.category === currentFilter)
+  const scrollCarousel = (direction: "left" | "right") => {
+    if (!carouselRef.current) return
 
-  // Calculate pagination
-  const indexOfLastProduct = currentPage * productsPerPage
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage
-  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct)
-  const totalPages = Math.ceil(filteredProducts.length / productsPerPage)
+    const scrollAmount = direction === "left" ? -600 : 600
+    carouselRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" })
+  }
 
   return (
     <section id="products" className="py-20 bg-lightblue">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <div className="max-w-3xl mx-auto text-center mb-12">
           <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">Products</Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Individual Solutions</h2>
           <p className="text-lg text-gray-600">Build your custom solution with our individual products</p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        {/* Category Tabs - Styled like the reference image */}
+        <div className="flex justify-center gap-4 mb-12">
           {filterOptions.map((option) => (
             <Button
               key={option.value}
-              variant="outline"
-              className={`bg-white text-gray-900 border-gray-200 hover:bg-gray-50 ${
-                currentFilter === option.value ? "border-facebook text-facebook" : ""
-              }`}
-              onClick={() => {
-                setCurrentFilter(option.value)
-                setCurrentPage(1) // Reset to first page when changing filters
-              }}
+              className={cn(
+                "rounded-full px-8 py-6 text-base font-medium transition-all",
+                currentFilter === option.value ? "bg-black text-white" : "bg-gray-200 text-gray-800 hover:bg-gray-300",
+              )}
+              onClick={() => setCurrentFilter(option.value)}
             >
               {option.label}
             </Button>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          {currentProducts.map((product) => (
-            <Card
-              key={product.id}
-              className="border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md"
-            >
-              <div className="aspect-[4/3] relative bg-gray-50">
-                <Image
-                  src={product.image || "/placeholder.svg"}
-                  alt={product.name}
-                  fill
-                  className="object-contain p-4"
-                />
-              </div>
-              <CardContent className="p-3 sm:p-5">
-                <div className="flex flex-col gap-1 sm:gap-2">
-                  <div className="flex justify-between items-start">
-                    <h3 className="text-sm sm:text-base font-bold text-gray-900 line-clamp-1">{product.name}</h3>
-                    {product.badge && (
-                      <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 text-xs">
-                        {product.badge}
-                      </Badge>
-                    )}
+        {/* Product Carousel with Navigation Arrows */}
+        <div className="relative">
+          {/* Left Arrow */}
+          <button
+            onClick={() => scrollCarousel("left")}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 bg-black rounded-full p-3 text-white shadow-lg"
+            aria-label="Previous products"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
+
+          {/* Products Container */}
+          <div
+            ref={carouselRef}
+            className="flex gap-6 overflow-x-auto pb-8 pt-4 px-4 scroll-smooth hide-scrollbar"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {filteredProducts.map((product) => (
+              <Card
+                key={product.id}
+                className="flex-shrink-0 w-[300px] border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md"
+              >
+                <div className="relative">
+                  {/* Rating Badge */}
+                  {product.rating && (
+                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md text-sm font-medium z-10 flex items-center">
+                      {product.rating} <span className="text-yellow-500 ml-1">★</span>
+                      <span className="text-gray-500 text-xs ml-1">({product.reviewCount})</span>
+                    </div>
+                  )}
+
+                  <div className="aspect-square relative bg-gray-50">
+                    <Image
+                      src={product.image || "/placeholder.svg"}
+                      alt={product.name}
+                      fill
+                      className="object-contain p-4"
+                    />
                   </div>
-                  <p className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-2 line-clamp-2">{product.description}</p>
+                </div>
+
+                <CardContent className="p-4">
+                  <h3 className="text-base font-bold text-gray-900 line-clamp-1 mb-1">{product.name}</h3>
+                  <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.description}</p>
+
                   <div className="flex justify-between items-center mt-auto">
-                    <span className="text-base sm:text-lg font-bold text-gray-900">€{product.price}</span>
-                    <div className="flex gap-1 sm:gap-2">
+                    <span className="text-lg font-bold text-gray-900">€{product.price}</span>
+                    <div className="flex gap-2">
                       <Button
                         size="sm"
                         variant="outline"
-                        className="px-1 sm:px-2 text-xs"
+                        className="px-2"
                         onClick={() => addToCart(product)}
                         title="Add to cart"
                       >
-                        <ShoppingCart className="h-3 w-3 sm:h-4 sm:w-4" />
+                        <ShoppingCart className="h-4 w-4" />
                       </Button>
                       <Link href={product.href || "/#products"}>
-                        <Button size="sm" className="bg-facebook hover:bg-facebook-dark text-white text-xs">
+                        <Button size="sm" className="bg-facebook hover:bg-facebook-dark text-white">
                           View
                         </Button>
                       </Link>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Pagination - Make it more mobile-friendly */}
-        {totalPages > 1 && (
-          <div className="flex justify-center mt-8 md:mt-12">
-            <div className="flex items-center space-x-1 md:space-x-2">
-              <Button
-                variant="outline"
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                className="border-gray-300 h-8 w-8 md:h-10 md:w-10 p-0"
-                aria-label="Previous page"
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-
-              {/* Show fewer page numbers on mobile */}
-              {window.innerWidth < 640 ? (
-                <span className="px-3 py-2 text-sm">
-                  {currentPage} / {totalPages}
-                </span>
-              ) : (
-                Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <Button
-                    key={page}
-                    variant={currentPage === page ? "default" : "outline"}
-                    className={
-                      currentPage === page
-                        ? "bg-facebook text-white hover:bg-facebook-dark h-8 w-8 md:h-10 md:w-10 p-0"
-                        : "border-gray-300 text-gray-700 h-8 w-8 md:h-10 md:w-10 p-0"
-                    }
-                    onClick={() => setCurrentPage(page)}
-                  >
-                    {page}
-                  </Button>
-                ))
-              )}
-
-              <Button
-                variant="outline"
-                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                disabled={currentPage === totalPages}
-                className="border-gray-300 h-8 w-8 md:h-10 md:w-10 p-0"
-                aria-label="Next page"
-              >
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-        )}
+
+          {/* Right Arrow */}
+          <button
+            onClick={() => scrollCarousel("right")}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 bg-black rounded-full p-3 text-white shadow-lg"
+            aria-label="Next products"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </button>
+        </div>
       </div>
     </section>
   )

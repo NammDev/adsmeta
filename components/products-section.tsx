@@ -1,12 +1,14 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { SuspenseWrapper } from "@/components/suspense-wrapper"
+import { ChevronLeft, ChevronRight, Star, ShoppingBag } from "lucide-react"
+import { useMediaQuery } from "@/hooks/use-media-query"
 
 // Define product type
 type Product = {
@@ -18,6 +20,8 @@ type Product = {
   category: "verified-bm" | "unverified-bm" | "profile" | "page"
   badge?: string
   href?: string
+  rating?: number
+  purchases?: number
 }
 
 // All products data
@@ -31,6 +35,8 @@ const allProducts: Product[] = [
     image: "/verified-facebook-business-manager-icon.png",
     category: "verified-bm",
     href: "/bm1-250-limit",
+    rating: 4.8,
+    purchases: 61,
   },
   {
     id: "verified-bm-2",
@@ -41,6 +47,8 @@ const allProducts: Product[] = [
     category: "verified-bm",
     badge: "Popular",
     href: "/bm1-250-limit",
+    rating: 4.9,
+    purchases: 122,
   },
   {
     id: "verified-bm-3",
@@ -50,6 +58,8 @@ const allProducts: Product[] = [
     image: "/abstract-facebook-verified-business-manager.png",
     category: "verified-bm",
     href: "/bm1-250-limit",
+    rating: 4.7,
+    purchases: 87,
   },
   {
     id: "verified-bm-4",
@@ -60,6 +70,8 @@ const allProducts: Product[] = [
     category: "verified-bm",
     badge: "Premium",
     href: "/bm1-250-limit",
+    rating: 4.8,
+    purchases: 45,
   },
 
   // Unverified BM
@@ -71,6 +83,8 @@ const allProducts: Product[] = [
     image: "/facebook-business-manager-icon.png",
     category: "unverified-bm",
     href: "/#products",
+    rating: 4.5,
+    purchases: 210,
   },
   {
     id: "unverified-bm-2",
@@ -80,6 +94,8 @@ const allProducts: Product[] = [
     image: "/facebook-business-manager-icon.png",
     category: "unverified-bm",
     href: "/#products",
+    rating: 4.6,
+    purchases: 98,
   },
 
   // Profile - FB accounts
@@ -91,6 +107,8 @@ const allProducts: Product[] = [
     image: "/facebook-xmdt-usa.png",
     category: "profile",
     href: "/#products",
+    rating: 4.7,
+    purchases: 76,
   },
   {
     id: "profile-2",
@@ -100,6 +118,8 @@ const allProducts: Product[] = [
     image: "/facebook-xmdt-usa.png",
     category: "profile",
     href: "/#products",
+    rating: 4.8,
+    purchases: 54,
   },
   {
     id: "profile-3",
@@ -110,6 +130,8 @@ const allProducts: Product[] = [
     category: "profile",
     badge: "Premium",
     href: "/#products",
+    rating: 4.9,
+    purchases: 32,
   },
   {
     id: "profile-4",
@@ -120,6 +142,8 @@ const allProducts: Product[] = [
     category: "profile",
     badge: "Best Value",
     href: "/#products",
+    rating: 4.8,
+    purchases: 28,
   },
 
   // Recovered page
@@ -131,6 +155,8 @@ const allProducts: Product[] = [
     image: "/facebook-pixel-icon.png",
     category: "page",
     href: "/#products",
+    rating: 4.7,
+    purchases: 65,
   },
 ]
 
@@ -148,6 +174,8 @@ function ProductsContent() {
   const [currentFilter, setCurrentFilter] = useState("all")
   const [currentPage, setCurrentPage] = useState(1)
   const [isLoading, setIsLoading] = useState(true)
+  const carouselRef = useRef<HTMLDivElement>(null)
+  const isMobile = useMediaQuery("(max-width: 768px)")
   const productsPerPage = 8
 
   // Simulate data loading
@@ -165,21 +193,104 @@ function ProductsContent() {
   const filteredProducts =
     currentFilter === "all" ? allProducts : allProducts.filter((product) => product.category === currentFilter)
 
-  // Calculate pagination
+  // Calculate pagination for desktop
   const indexOfLastProduct = currentPage * productsPerPage
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct)
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage)
 
+  // Scroll carousel left
+  const scrollLeft = () => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: -320, behavior: "smooth" })
+    }
+  }
+
+  // Scroll carousel right
+  const scrollRight = () => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: 320, behavior: "smooth" })
+    }
+  }
+
+  // Render star rating
+  const renderRating = (rating = 4.5, purchases = 0) => {
+    return (
+      <div className="flex items-center gap-1">
+        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+        <span className="text-sm font-medium">{rating.toFixed(1)}</span>
+        <span className="text-xs text-gray-500">({purchases})</span>
+      </div>
+    )
+  }
+
+  // Render product card (used in both mobile and desktop)
+  const renderProductCard = (product: Product) => (
+    <Card className="border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md h-full">
+      <div className="relative">
+        {/* Rating display */}
+        <div className="absolute left-4 top-4 z-10">{renderRating(product.rating, product.purchases)}</div>
+
+        {/* Product image */}
+        <div className="aspect-square relative bg-gray-50">
+          <Image src={product.image || "/placeholder.svg"} alt={product.name} fill className="object-contain p-8" />
+        </div>
+
+        {/* Badge if any */}
+        {product.badge && (
+          <div className="absolute right-4 top-4">
+            <Badge className="bg-facebook text-white">{product.badge}</Badge>
+          </div>
+        )}
+      </div>
+
+      <CardContent className={`${isMobile ? "p-3" : "p-6"}`}>
+        {/* Purchase count */}
+        <div className="flex items-center gap-1 mb-2 text-gray-600">
+          <ShoppingBag className="h-3 w-3" />
+          <span className="text-xs">{product.purchases} purchased</span>
+        </div>
+
+        {/* Product name and description */}
+        <h3 className={`${isMobile ? "text-base" : "text-lg"} font-bold text-gray-900 mb-1`}>{product.name}</h3>
+        {!isMobile && <p className="text-sm text-gray-600 mb-4 line-clamp-2">{product.description}</p>}
+
+        {/* Price and action */}
+        <div className="flex justify-between items-center mt-2">
+          <span className={`${isMobile ? "text-lg" : "text-xl"} font-bold text-gray-900`}>€{product.price}</span>
+          <Link href={product.href || "/#products"}>
+            <Button size={isMobile ? "sm" : "default"} className="bg-facebook hover:bg-facebook-dark text-white">
+              {isMobile ? "Add" : "Add to Cart"}
+            </Button>
+          </Link>
+        </div>
+      </CardContent>
+    </Card>
+  )
+
   return (
     <>
-      <div className="flex flex-wrap justify-center gap-4 mb-12">
+      {/* Filter buttons - styled to match website */}
+      <div
+        className={`flex ${isMobile ? "flex-wrap justify-start overflow-x-auto pb-2" : "justify-center"} gap-2 mb-6`}
+      >
         {filterOptions.map((option) => (
           <Button
             key={option.value}
             variant="outline"
-            className={`bg-white text-gray-900 border-gray-200 hover:bg-gray-50 ${
-              currentFilter === option.value ? "border-facebook text-facebook" : ""
+            size={isMobile ? "sm" : "default"}
+            className={`${
+              isMobile
+                ? "rounded-full border-0 px-3 py-1 text-xs"
+                : "bg-white text-gray-900 border-gray-200 hover:bg-gray-50"
+            } ${
+              currentFilter === option.value
+                ? isMobile
+                  ? "bg-facebook text-white hover:bg-facebook-dark"
+                  : "border-facebook text-facebook"
+                : isMobile
+                  ? "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  : ""
             }`}
             onClick={() => {
               setCurrentFilter(option.value)
@@ -191,102 +302,151 @@ function ProductsContent() {
         ))}
       </div>
 
-      {isLoading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {[...Array(8)].map((_, i) => (
-            <Card key={i} className="border border-gray-200 rounded-lg overflow-hidden">
-              <div className="aspect-square bg-gray-100 animate-pulse"></div>
-              <CardContent className="p-6">
-                <div className="h-6 bg-gray-200 rounded w-3/4 mb-3 animate-pulse"></div>
-                <div className="h-4 bg-gray-200 rounded w-full mb-4 animate-pulse"></div>
-                <div className="flex justify-between items-center">
-                  <div className="h-6 bg-gray-200 rounded w-1/4 animate-pulse"></div>
-                  <div className="h-10 bg-gray-200 rounded w-1/3 animate-pulse"></div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {currentProducts.map((product) => (
-            <Card
-              key={product.id}
-              className="border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md"
-            >
-              <div className="aspect-square relative bg-gray-50 p-8">
-                <Image
-                  src={product.image || "/placeholder.svg"}
-                  alt={product.name}
-                  fill
-                  className="object-contain p-8"
-                />
-              </div>
-              <CardContent className="p-6">
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-lg font-bold text-gray-900">{product.name}</h3>
-                  {product.badge && (
-                    <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20">{product.badge}</Badge>
-                  )}
-                </div>
-                <p className="text-sm text-gray-600 mb-4">{product.description}</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-xl font-bold text-gray-900">€{product.price}</span>
-                  <Link href={product.href || "/#products"}>
-                    <Button className="bg-facebook hover:bg-facebook-dark text-white">Add to Cart</Button>
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
+      {/* Mobile View - Carousel */}
+      {isMobile ? (
+        <div className="relative md:hidden">
+          {/* Left navigation arrow */}
+          <button
+            onClick={scrollLeft}
+            className="absolute left-0 top-1/2 z-10 -translate-y-1/2 -translate-x-1/2 rounded-full bg-white p-2 shadow-lg"
+            aria-label="Scroll left"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
 
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <div className="flex justify-center mt-12">
-          <div className="flex items-center space-x-2">
-            <Button
-              variant="outline"
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              disabled={currentPage === 1}
-            >
-              Previous
-            </Button>
+          {/* Products carousel */}
+          <div
+            ref={carouselRef}
+            className="flex gap-3 overflow-x-auto pb-4 pt-1 scrollbar-hide snap-x"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {isLoading
+              ? // Loading skeletons for mobile
+                Array(4)
+                  .fill(0)
+                  .map((_, i) => (
+                    <div key={i} className="min-w-[150px] w-[calc(50%-6px)] flex-none snap-start">
+                      <Card className="border border-gray-200 rounded-lg overflow-hidden">
+                        <div className="aspect-square bg-gray-100 animate-pulse"></div>
+                        <CardContent className="p-3">
+                          <div className="h-3 bg-gray-200 rounded w-3/4 mb-2 animate-pulse"></div>
+                          <div className="h-4 bg-gray-200 rounded w-full mb-2 animate-pulse"></div>
+                          <div className="flex justify-between items-center">
+                            <div className="h-4 bg-gray-200 rounded w-1/4 animate-pulse"></div>
+                            <div className="h-7 bg-gray-200 rounded w-1/3 animate-pulse"></div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  ))
+              : filteredProducts.slice(0, 6).map((product) => (
+                  <div key={product.id} className="min-w-[150px] w-[calc(50%-6px)] flex-none snap-start">
+                    {renderProductCard(product)}
+                  </div>
+                ))}
+          </div>
 
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <Button
-                key={page}
-                variant="outline"
-                className={currentPage === page ? "bg-facebook text-white hover:bg-facebook-dark" : ""}
-                onClick={() => setCurrentPage(page)}
-              >
-                {page}
-              </Button>
-            ))}
+          {/* Right navigation arrow */}
+          <button
+            onClick={scrollRight}
+            className="absolute right-0 top-1/2 z-10 -translate-y-1/2 translate-x-1/2 rounded-full bg-white p-2 shadow-lg"
+            aria-label="Scroll right"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
 
-            <Button
-              variant="outline"
-              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-              disabled={currentPage === totalPages}
-            >
-              Next
-            </Button>
+          {/* See More Button for Mobile - Updated to match website style */}
+          <div className="flex justify-center mt-6">
+            <Link href="/products">
+              <Button className="bg-facebook hover:bg-facebook-dark text-white px-8">See More</Button>
+            </Link>
           </div>
         </div>
+      ) : (
+        /* Desktop View - Grid with Pagination */
+        <>
+          {isLoading ? (
+            <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[...Array(8)].map((_, i) => (
+                <Card key={i} className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="aspect-square bg-gray-100 animate-pulse"></div>
+                  <CardContent className="p-6">
+                    <div className="h-6 bg-gray-200 rounded w-3/4 mb-3 animate-pulse"></div>
+                    <div className="h-4 bg-gray-200 rounded w-full mb-4 animate-pulse"></div>
+                    <div className="flex justify-between items-center">
+                      <div className="h-6 bg-gray-200 rounded w-1/4 animate-pulse"></div>
+                      <div className="h-10 bg-gray-200 rounded w-1/3 animate-pulse"></div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {currentProducts.map((product) => (
+                <div key={product.id}>{renderProductCard(product)}</div>
+              ))}
+            </div>
+          )}
+
+          {/* Pagination for desktop */}
+          {totalPages > 1 && (
+            <div className="hidden md:flex justify-center mt-12">
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </Button>
+
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <Button
+                    key={page}
+                    variant="outline"
+                    className={currentPage === page ? "bg-facebook text-white hover:bg-facebook-dark" : ""}
+                    onClick={() => setCurrentPage(page)}
+                  >
+                    {page}
+                  </Button>
+                ))}
+
+                <Button
+                  variant="outline"
+                  onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Removed the "See More Products" button for desktop as requested */}
+        </>
       )}
     </>
   )
 }
 
 export default function ProductsSection() {
+  const isMobile = useMediaQuery("(max-width: 768px)")
+
   return (
     <section id="products" className="py-20 bg-lightblue">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">Products</Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Individual Solutions</h2>
-          <p className="text-lg text-gray-600">Build your custom solution with our individual products</p>
+        {/* Title section - simplified on mobile */}
+        <div className={`${isMobile ? "" : "max-w-3xl mx-auto"} text-center mb-${isMobile ? "6" : "16"}`}>
+          {!isMobile && <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">Products</Badge>}
+          <h2
+            className={`${isMobile ? "text-2xl" : "text-3xl md:text-4xl"} font-bold text-gray-900 mb-${isMobile ? "2" : "4"}`}
+          >
+            Individual Solutions
+          </h2>
+          {!isMobile && (
+            <p className="text-lg text-gray-600">Build your custom solution with our individual products</p>
+          )}
         </div>
 
         <SuspenseWrapper>
