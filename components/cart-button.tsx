@@ -13,7 +13,10 @@ export function CartButton() {
       onClick={toggleCart}
       aria-label="Open cart"
     >
-      <ShoppingBag className="h-7 w-7 transition-transform duration-300 ease-in-out group-hover:scale-110" />
+      <ShoppingBag
+        style={{ width: "24px", height: "24px", minWidth: "24px", minHeight: "24px" }}
+        className="transition-transform duration-300 ease-in-out group-hover:scale-110"
+      />
       {itemCount > 0 && (
         <span
           className={`absolute -top-2 -right-2 bg-white text-[#0066FF] text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center border border-[#0066FF] ${animateCount ? "animate-count-update" : ""}`}
