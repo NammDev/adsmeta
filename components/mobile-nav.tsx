@@ -12,6 +12,9 @@ interface MobileNavProps {
 }
 
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
+  // Update the mobile menu to slide up from the bottom instead of from the right
+
+  // Change the backdrop and menu container styles
   const [isMounted, setIsMounted] = useState(false)
 
   // Handle escape key press to close the menu
@@ -48,14 +51,19 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
         aria-hidden="true"
       />
 
-      {/* Mobile menu */}
+      {/* Mobile menu - now slides up from bottom */}
       <div
         className={cn(
-          "fixed inset-y-0 right-0 w-[80%] max-w-sm bg-white z-50 shadow-xl transform transition-transform duration-300 ease-in-out",
-          isOpen ? "translate-x-0" : "translate-x-full",
+          "fixed inset-x-0 bottom-0 bg-white z-50 shadow-xl rounded-t-xl transform transition-transform duration-300 ease-in-out",
+          isOpen ? "translate-y-0" : "translate-y-full",
         )}
       >
-        <div className="flex flex-col h-full">
+        {/* Subtle drag handle */}
+        <div className="w-full flex justify-center py-2">
+          <div className="w-12 h-1 bg-gray-200 rounded-full"></div>
+        </div>
+
+        <div className="max-h-[80vh] overflow-y-auto">
           <div className="flex items-center justify-between p-4 border-b">
             <Link href="/" className="flex items-center" onClick={onClose}>
               <div className="relative w-14 h-14">
@@ -67,7 +75,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
             </button>
           </div>
 
-          <nav className="flex-1 overflow-y-auto p-4">
+          <nav className="p-4">
             <ul className="space-y-4">
               <li>
                 <Link

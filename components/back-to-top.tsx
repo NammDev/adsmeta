@@ -53,7 +53,7 @@ export default function BackToTop({ threshold = 300, className, showLabel = fals
       size="icon"
       aria-label="Back to top"
     >
-      <ChevronUp className="h-5 w-5" />
+      <ChevronUp className="h-6 w-6" />
       {showLabel && <span className="ml-2">Back to top</span>}
     </Button>
   )

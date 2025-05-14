@@ -15,7 +15,7 @@ const config = {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1300px",
       },
     },
     extend: {
@@ -83,6 +83,31 @@ const config = {
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],
+      },
+      fontSize: {
+        // Base sizes (mobile first)
+        xs: ["0.75rem", { lineHeight: "1rem" }],
+        sm: ["0.875rem", { lineHeight: "1.25rem" }],
+        base: ["1rem", { lineHeight: "1.5rem" }],
+        lg: ["1.125rem", { lineHeight: "1.75rem" }],
+        xl: ["1.25rem", { lineHeight: "1.75rem" }],
+        "2xl": ["1.5rem", { lineHeight: "2rem" }],
+        "3xl": ["1.875rem", { lineHeight: "2.25rem" }],
+        "4xl": ["2.25rem", { lineHeight: "2.5rem" }],
+        "5xl": ["3rem", { lineHeight: "1" }],
+        "6xl": ["3.75rem", { lineHeight: "1" }],
+
+        // Fluid typography for headings
+        "fluid-h1": ["clamp(2rem, 5vw, 3rem)", { lineHeight: "1.1" }],
+        "fluid-h2": ["clamp(1.5rem, 4vw, 2.25rem)", { lineHeight: "1.2" }],
+        "fluid-h3": ["clamp(1.25rem, 3vw, 1.75rem)", { lineHeight: "1.3" }],
+        "fluid-h4": ["clamp(1.125rem, 2vw, 1.5rem)", { lineHeight: "1.4" }],
+        "fluid-h5": ["clamp(1rem, 1.5vw, 1.25rem)", { lineHeight: "1.5" }],
+
+        // Fluid body text
+        "fluid-body": ["clamp(0.875rem, 1vw, 1rem)", { lineHeight: "1.6" }],
+        "fluid-body-lg": ["clamp(1rem, 1.2vw, 1.125rem)", { lineHeight: "1.6" }],
+        "fluid-body-sm": ["clamp(0.75rem, 0.9vw, 0.875rem)", { lineHeight: "1.5" }],
       },
     },
   },

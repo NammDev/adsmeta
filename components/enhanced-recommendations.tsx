@@ -222,27 +222,29 @@ export default function EnhancedRecommendations({ currentPackId, className }: En
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {recommendations.map((item) => (
-          <div key={item.id} className="flex-shrink-0 w-[280px]">
+          <div key={item.id} className="flex-shrink-0 w-[240px] sm:w-[280px]">
             <Link href={item.href} className="group block h-full">
               <Card className="border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md h-full flex flex-col">
-                <div className="relative aspect-square bg-gray-50 p-4">
-                  {item.badge && <Badge className="absolute top-2 right-2 bg-facebook text-white">{item.badge}</Badge>}
+                <div className="relative aspect-square bg-gray-50 p-2 sm:p-4">
+                  {item.badge && (
+                    <Badge className="absolute top-2 right-2 bg-facebook text-white text-xs">{item.badge}</Badge>
+                  )}
                   <div className="relative w-full h-full">
                     <Image
                       src={item.imageSrc || "/placeholder.svg"}
                       alt={item.name}
                       fill
-                      className="object-contain p-4"
+                      className="object-contain p-2 sm:p-4"
                     />
                   </div>
                 </div>
-                <div className="p-5 flex flex-col flex-grow">
-                  <div className="flex justify-between items-start mb-2">
+                <div className="p-3 sm:p-5 flex flex-col flex-grow">
+                  <div className="flex justify-between items-start mb-1 sm:mb-2">
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900 group-hover:text-facebook transition-colors h-[56px] line-clamp-2">
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 group-hover:text-facebook transition-colors h-[40px] sm:h-[56px] line-clamp-2">
                         {item.name}
                       </h3>
-                      <Badge className="mt-1 bg-facebook/10 text-facebook">
+                      <Badge className="mt-1 bg-facebook/10 text-facebook text-xs">
                         {item.type === "pack"
                           ? "Pack"
                           : item.type
@@ -251,10 +253,14 @@ export default function EnhancedRecommendations({ currentPackId, className }: En
                               .replace(/\b\w/g, (l) => l.toUpperCase())}
                       </Badge>
                     </div>
-                    <span className="text-lg font-bold text-facebook">€{item.price}</span>
+                    <span className="text-base sm:text-lg font-bold text-facebook">€{item.price}</span>
                   </div>
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-2 flex-grow">{item.description}</p>
-                  <Button className="w-full bg-facebook hover:bg-facebook-dark text-white mt-auto">View Details</Button>
+                  <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4 line-clamp-2 flex-grow">
+                    {item.description}
+                  </p>
+                  <Button className="w-full bg-facebook hover:bg-facebook-dark text-white mt-auto text-xs sm:text-sm py-1.5 sm:py-2">
+                    View Details
+                  </Button>
                 </div>
               </Card>
             </Link>

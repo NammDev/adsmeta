@@ -7,6 +7,9 @@ import { CheckCircle } from "lucide-react"
 import { useCart } from "@/context/cart-context"
 import { useState } from "react"
 
+// Update import path from @/components/ui/typography to @/components/typography
+import { H3, Body, Small } from "@/components/typography"
+
 interface ProductCardProps {
   title: string
   description: string
@@ -65,35 +68,43 @@ export default function ProductCard({
       className={`border ${isPopular ? "border-2 border-facebook" : "border-gray-200"} rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md relative`}
     >
       {isPopular && (
-        <div className="absolute top-0 right-0 bg-facebook text-white px-4 py-1 text-sm font-medium">Most Popular</div>
+        <div className="absolute top-0 right-0 bg-facebook text-white px-2 sm:px-4 py-0.5 sm:py-1 text-xs sm:text-sm font-medium">
+          Most Popular
+        </div>
       )}
-      <CardContent className="p-8">
-        <div className="mb-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
-          <p className="text-gray-600">{description}</p>
-          <div className="mt-4 flex items-end">
-            <span className="text-4xl font-bold text-gray-900">€{price}</span>
-            <span className="text-gray-500 ml-2">one-time</span>
+      <CardContent className="p-4 sm:p-6 md:p-8">
+        <div className="mb-4 sm:mb-6">
+          {/* Replace the h3 element with our H3 component */}
+          <H3 className="mb-1 sm:mb-2">{title}</H3>
+          {/* Replace the description paragraph with our Body component */}
+          <Body className="text-gray-600">{description}</Body>
+          <div className="mt-3 sm:mt-4 flex items-end">
+            <span className="text-2xl sm:text-4xl font-bold text-gray-900">€{price}</span>
+            <span className="text-gray-500 ml-2 text-sm sm:text-base">one-time</span>
           </div>
         </div>
-        <ul className="space-y-4 mb-8">
+        <ul className="space-y-2 sm:space-y-4 mb-4 sm:mb-8">
           {features.map((feature, index) => (
-            <li key={index} className="flex items-start gap-3">
-              <CheckCircle className="h-5 w-5 text-facebook mt-0.5 flex-shrink-0" />
-              <span className="text-gray-700">{feature}</span>
+            <li key={index} className="flex items-start gap-2 sm:gap-3">
+              <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-facebook mt-0.5 flex-shrink-0" />
+              {/* Replace the feature text spans with our Small component */}
+              <Small className="text-gray-700">{feature}</Small>
             </li>
           ))}
         </ul>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 sm:gap-3">
           <Button
-            className="bg-facebook hover:bg-facebook-dark text-white font-medium w-full py-6"
+            className="bg-facebook hover:bg-facebook-dark text-white font-medium w-full py-3 sm:py-6 text-sm sm:text-base"
             onClick={handleAddToCart}
             disabled={isAdding}
           >
             {isAdding ? "Adding..." : "Add to Cart"}
           </Button>
           <Link href={href} className="w-full" scroll={true}>
-            <Button variant="outline" className="text-gray-700 border-gray-300 hover:bg-gray-50 w-full">
+            <Button
+              variant="outline"
+              className="text-gray-700 border-gray-300 hover:bg-gray-50 w-full py-3 sm:py-6 text-sm sm:text-base"
+            >
               Learn More
             </Button>
           </Link>

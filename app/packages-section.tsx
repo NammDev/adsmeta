@@ -3,17 +3,19 @@ import ProductCard from "@/components/product-card"
 
 export default function PackagesSection() {
   return (
-    <section id="packages" className="py-20 bg-white">
+    <section id="packages" className="py-10 sm:py-16 md:py-20 bg-white">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">Packages</Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Simple, Transparent Pricing</h2>
-          <p className="text-lg text-gray-600">
+        <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-12 md:mb-16">
+          <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-3 md:mb-4">Packages</Badge>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
+            Simple, Transparent Pricing
+          </h2>
+          <p className="text-base sm:text-lg text-gray-600">
             Choose the perfect solution to launch and scale your Facebook advertising campaigns.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           <ProductCard
             title="Starter Pack"
             description="Perfect for beginners"
@@ -55,8 +57,8 @@ export default function PackagesSection() {
           />
         </div>
 
-        <div className="mt-12 bg-facebook/10 text-facebook text-center py-6 px-8 rounded-lg">
-          <p className="text-lg font-medium">
+        <div className="mt-8 sm:mt-12 bg-facebook/10 text-facebook text-center py-4 sm:py-6 px-4 sm:px-8 rounded-lg">
+          <p className="text-base sm:text-lg font-medium">
             First 50 Buyers Get 10% Off! Use Code: <span className="font-bold">META10</span>
           </p>
         </div>

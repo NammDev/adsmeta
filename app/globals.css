@@ -48,6 +48,32 @@
   animation: spin-slow 6s linear infinite;
 }
 
+@keyframes slideUpIn {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDownOut {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUpIn 0.3s ease-out;
+}
+
+.animate-slide-down {
+  animation: slideDownOut 0.3s ease-in forwards;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -96,6 +122,64 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 217 100% 50%;
+  }
+}
+
+@layer base {
+  /* Base typography styles */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-gray-900 font-bold;
+  }
+
+  h1 {
+    @apply text-fluid-h1;
+  }
+
+  h2 {
+    @apply text-fluid-h2;
+  }
+
+  h3 {
+    @apply text-fluid-h3;
+  }
+
+  h4 {
+    @apply text-fluid-h4;
+  }
+
+  h5 {
+    @apply text-fluid-h5;
+  }
+
+  p {
+    @apply text-fluid-body text-gray-700;
+  }
+
+  /* Ensure proper spacing between text elements */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    @apply mb-4;
+  }
+
+  /* Remove margin from the last child in containers */
+  h1:last-child,
+  h2:last-child,
+  h3:last-child,
+  h4:last-child,
+  h5:last-child,
+  h6:last-child,
+  p:last-child {
+    @apply mb-0;
   }
 }
 

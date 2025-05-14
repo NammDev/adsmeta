@@ -1,11 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { SuspenseWrapper } from "@/components/suspense-wrapper"
 
 // Define product type
 type Product = {
@@ -142,10 +143,23 @@ const filterOptions = [
   { label: "Pages", value: "page" },
 ]
 
-export default function ProductsSection() {
+// This component will be wrapped in Suspense
+function ProductsContent() {
   const [currentFilter, setCurrentFilter] = useState("all")
   const [currentPage, setCurrentPage] = useState(1)
+  const [isLoading, setIsLoading] = useState(true)
   const productsPerPage = 8
+
+  // Simulate data loading
+  useEffect(() => {
+    // Simulate loading delay when filter or page changes
+    setIsLoading(true)
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 800) // Simulate network delay
+
+    return () => clearTimeout(timer)
+  }, [currentFilter, currentPage])
 
   // Filter products based on selected category
   const filteredProducts =
@@ -158,32 +172,42 @@ export default function ProductsSection() {
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage)
 
   return (
-    <section id="products" className="py-20 bg-lightblue">
-      <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">Products</Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Individual Solutions</h2>
-          <p className="text-lg text-gray-600">Build your custom solution with our individual products</p>
-        </div>
+    <>
+      <div className="flex flex-wrap justify-center gap-4 mb-12">
+        {filterOptions.map((option) => (
+          <Button
+            key={option.value}
+            variant="outline"
+            className={`bg-white text-gray-900 border-gray-200 hover:bg-gray-50 ${
+              currentFilter === option.value ? "border-facebook text-facebook" : ""
+            }`}
+            onClick={() => {
+              setCurrentFilter(option.value)
+              setCurrentPage(1) // Reset to first page when changing filters
+            }}
+          >
+            {option.label}
+          </Button>
+        ))}
+      </div>
 
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {filterOptions.map((option) => (
-            <Button
-              key={option.value}
-              variant="outline"
-              className={`bg-white text-gray-900 border-gray-200 hover:bg-gray-50 ${
-                currentFilter === option.value ? "border-facebook text-facebook" : ""
-              }`}
-              onClick={() => {
-                setCurrentFilter(option.value)
-                setCurrentPage(1) // Reset to first page when changing filters
-              }}
-            >
-              {option.label}
-            </Button>
+      {isLoading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {[...Array(8)].map((_, i) => (
+            <Card key={i} className="border border-gray-200 rounded-lg overflow-hidden">
+              <div className="aspect-square bg-gray-100 animate-pulse"></div>
+              <CardContent className="p-6">
+                <div className="h-6 bg-gray-200 rounded w-3/4 mb-3 animate-pulse"></div>
+                <div className="h-4 bg-gray-200 rounded w-full mb-4 animate-pulse"></div>
+                <div className="flex justify-between items-center">
+                  <div className="h-6 bg-gray-200 rounded w-1/4 animate-pulse"></div>
+                  <div className="h-10 bg-gray-200 rounded w-1/3 animate-pulse"></div>
+                </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
-
+      ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {currentProducts.map((product) => (
             <Card
@@ -216,40 +240,58 @@ export default function ProductsSection() {
             </Card>
           ))}
         </div>
+      )}
 
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="flex justify-center mt-12">
-            <div className="flex items-center space-x-2">
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-12">
+          <div className="flex items-center space-x-2">
+            <Button
+              variant="outline"
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </Button>
+
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
               <Button
+                key={page}
                 variant="outline"
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
+                className={currentPage === page ? "bg-facebook text-white hover:bg-facebook-dark" : ""}
+                onClick={() => setCurrentPage(page)}
               >
-                Previous
+                {page}
               </Button>
+            ))}
 
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <Button
-                  key={page}
-                  variant="outline"
-                  className={currentPage === page ? "bg-facebook text-white hover:bg-facebook-dark" : ""}
-                  onClick={() => setCurrentPage(page)}
-                >
-                  {page}
-                </Button>
-              ))}
-
-              <Button
-                variant="outline"
-                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                disabled={currentPage === totalPages}
-              >
-                Next
-              </Button>
-            </div>
+            <Button
+              variant="outline"
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </Button>
           </div>
-        )}
+        </div>
+      )}
+    </>
+  )
+}
+
+export default function ProductsSection() {
+  return (
+    <section id="products" className="py-20 bg-lightblue">
+      <div className="container mx-auto px-4">
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">Products</Badge>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Individual Solutions</h2>
+          <p className="text-lg text-gray-600">Build your custom solution with our individual products</p>
+        </div>
+
+        <SuspenseWrapper>
+          <ProductsContent />
+        </SuspenseWrapper>
       </div>
     </section>
   )

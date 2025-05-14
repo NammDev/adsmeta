@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -7,33 +8,34 @@ import { CheckCircle, Headset, Tag, Users, Shield, Clock, Star } from "lucide-re
 import PackagesSection from "./packages-section"
 import SiteFooter from "@/components/site-footer"
 import NewsletterSection from "@/components/newsletter-section"
-import ProductsSection from "./products-section"
+import ProductsSection from "@/components/products-section"
+import { LoadingSpinner } from "@/components/loading-spinner"
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col bg-white">
       {/* Hero Section */}
-      <section className="relative bg-white py-12 md:py-16">
+      <section className="py-8 md:py-12 lg:py-16 bg-white">
         <div className="container mx-auto px-4 relative">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 px-4 py-1.5 text-sm">
                 Facebook Ads Solutions
               </Badge>
-              <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-2xl md:text-5xl font-bold text-gray-900 leading-tight">
                 Simplify Your <span className="text-facebook">Facebook Ads</span> Management
               </h1>
-              <p className="text-lg text-gray-600">
+              <p className="text-base md:text-lg text-gray-600">
                 Premium packages starting at €50. Get verified Business Manager, Via XMDT, and Pixels to launch
                 high-performing campaigns. Trusted by agencies worldwide.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button className="bg-facebook hover:bg-facebook-dark text-white font-medium text-base py-6 px-8 rounded-md">
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+                <Button className="bg-facebook hover:bg-facebook-dark text-white font-medium text-sm md:text-base py-4 md:py-6 px-6 md:px-8 rounded-md">
                   <Link href="#packages">Explore Packages</Link>
                 </Button>
                 <Button
                   variant="outline"
-                  className="bg-transparent hover:bg-gray-50 text-gray-700 border-gray-300 font-medium text-base py-6 px-8 rounded-md"
+                  className="bg-transparent hover:bg-gray-50 text-gray-700 border-gray-300 font-medium text-sm md:text-base py-4 md:py-6 px-6 md:px-8 rounded-md"
                 >
                   Contact Sales
                 </Button>
@@ -73,7 +75,7 @@ export default function Home() {
       </section>
 
       {/* Trust Indicators */}
-      <section className="py-12 bg-lightblue">
+      <section className="py-6 md:py-12 bg-lightblue">
         <div className="container mx-auto px-4">
           <p className="text-center text-gray-500 mb-8 text-sm uppercase tracking-wider font-medium">
             Trusted by agencies worldwide
@@ -93,18 +95,37 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Packages Section */}
-      <PackagesSection />
+      {/* Packages Section with Suspense */}
+      <Suspense
+        fallback={
+          <div className="py-20 bg-white">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto text-center mb-16">
+                <div className="w-24 h-8 bg-gray-200 rounded-full mx-auto mb-4 animate-pulse"></div>
+                <div className="h-10 bg-gray-200 rounded-lg w-3/4 mx-auto mb-4 animate-pulse"></div>
+                <div className="h-6 bg-gray-200 rounded-lg w-1/2 mx-auto animate-pulse"></div>
+              </div>
+              <div className="flex justify-center">
+                <LoadingSpinner size={40} />
+              </div>
+            </div>
+          </div>
+        }
+      >
+        <PackagesSection />
+      </Suspense>
 
       {/* Products Section */}
       <ProductsSection />
 
       {/* Why Choose Us Section */}
-      <section id="about" className="py-20 bg-white">
+      <section id="about" className="py-8 md:py-12 lg:py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">Why Us</Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why Agencies Trust Us</h2>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
+              Why Agencies Trust Us
+            </h2>
             <p className="text-lg text-gray-600">Simple solutions that deliver results</p>
           </div>
 
@@ -139,11 +160,13 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-lightblue">
+      <section className="py-6 md:py-12 bg-lightblue">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">Testimonials</Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What Our Clients Say</h2>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
+              What Our Clients Say
+            </h2>
             <p className="text-lg text-gray-600">Real feedback from agencies using our solutions</p>
           </div>
 
@@ -248,13 +271,15 @@ export default function Home() {
       </section>
 
       {/* Trust Building Section */}
-      <section className="py-16 bg-white">
+      <section className="py-8 md:py-12 lg:py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div>
                 <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">Our Guarantee</Badge>
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">We Stand Behind Our Products</h2>
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
+                  We Stand Behind Our Products
+                </h2>
                 <p className="text-lg text-gray-600 mb-6">
                   Every product we offer comes with a satisfaction guarantee and dedicated support to ensure your
                   success.
@@ -313,13 +338,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Chat Support Widget */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <Button className="rounded-full w-16 h-16 bg-facebook hover:bg-facebook-dark text-white shadow-lg flex items-center justify-center">
-          <Headset className="h-8 w-8" />
-        </Button>
-      </div>
 
       {/* Newsletter Section */}
       <NewsletterSection />

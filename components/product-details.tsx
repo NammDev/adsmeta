@@ -6,6 +6,9 @@ import { Badge } from "@/components/ui/badge"
 import { Star, ShoppingCart, Heart, Shield, Info, Truck, CreditCard } from "lucide-react"
 import Link from "next/link"
 
+// Update import path from @/components/ui/typography to @/components/typography
+import { H1, Lead, Body } from "@/components/typography"
+
 interface ProductDetailsProps {
   name: string
   tagline: string
@@ -33,8 +36,10 @@ export default function ProductDetails({
     <div className="space-y-6">
       <div>
         <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-2">Facebook Ads Solution</Badge>
-        <h1 className="text-3xl font-bold text-gray-900 mb-1">{name}</h1>
-        <p className="text-lg text-gray-600">{tagline}</p>
+        {/* Replace the h1 element with our H1 component */}
+        <H1 className="mb-1">{name}</H1>
+        {/* Replace the tagline paragraph with our Lead component */}
+        <Lead className="text-gray-600">{tagline}</Lead>
       </div>
 
       <div className="flex items-center gap-4">
@@ -60,12 +65,14 @@ export default function ProductDetails({
       </div>
 
       <div className="pt-4 border-t border-gray-200">
-        <p className="text-gray-700 mb-4">{description}</p>
+        {/* Replace the description paragraph with our Body component */}
+        <Body className="mb-4">{description}</Body>
         <ul className="space-y-2">
           {features.map((feature, index) => (
             <li key={index} className="flex items-start gap-2 text-gray-700">
               <Shield className="h-5 w-5 text-facebook mt-0.5 flex-shrink-0" />
-              <span>{feature}</span>
+              {/* Replace the feature text spans with our Body component */}
+              <Body>{feature}</Body>
             </li>
           ))}
         </ul>
