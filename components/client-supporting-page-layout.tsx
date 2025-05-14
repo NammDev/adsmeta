@@ -1,9 +1,12 @@
+"use client"
+
 import type { ReactNode } from "react"
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
 import NewsletterSection from "./newsletter-section"
+import { useMediaQuery } from "@/hooks/use-media-query"
 
-interface SupportingPageLayoutProps {
+interface ClientSupportingPageLayoutProps {
   title: string
   subtitle?: string
   children: ReactNode
@@ -11,13 +14,16 @@ interface SupportingPageLayoutProps {
   breadcrumbs?: Array<{ label: string; href: string }>
 }
 
-export default function SupportingPageLayout({
+export default function ClientSupportingPageLayout({
   title,
   subtitle,
   children,
   showNewsletter = false,
   breadcrumbs = [],
-}: SupportingPageLayoutProps) {
+}: ClientSupportingPageLayoutProps) {
+  // We can use useMediaQuery here since this is a client component
+  const isMobile = useMediaQuery("(max-width: 768px)")
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white border-b">
@@ -37,7 +43,7 @@ export default function SupportingPageLayout({
               ))}
             </div>
           )}
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">{title}</h1>
+          <h1 className={`text-3xl ${isMobile ? "" : "md:text-4xl"} font-bold text-gray-900`}>{title}</h1>
           {subtitle && <p className="mt-2 text-xl text-gray-600">{subtitle}</p>}
         </div>
       </div>

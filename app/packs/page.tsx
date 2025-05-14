@@ -1,10 +1,10 @@
-import SupportingPageLayout from "@/components/supporting-page-layout"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Package2 } from "lucide-react"
+import ClientSupportingPageLayout from "@/components/client-supporting-page-layout"
 
 // Pack type definition
 interface Pack {
@@ -106,10 +106,10 @@ export default function PacksPage() {
   ]
 
   return (
-    <SupportingPageLayout
+    <ClientSupportingPageLayout
       title="All Packs"
       subtitle="Bundled solutions for every advertising need"
-      showNewsletter={true} // Changed to true to use the built-in NewsletterSection
+      showNewsletter={true}
       breadcrumbs={[{ label: "Packs", href: "/packs" }]}
     >
       <section className="py-12 bg-white">
@@ -163,6 +163,6 @@ export default function PacksPage() {
           </div>
         </div>
       </section>
-    </SupportingPageLayout>
+    </ClientSupportingPageLayout>
   )
 }
