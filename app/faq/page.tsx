@@ -8,87 +8,104 @@ export default function FAQPage() {
       subtitle="Find answers to the most common questions about our products and services"
       breadcrumbs={[{ label: "FAQ", href: "/faq" }]}
     >
-      {/* FAQ Categories */}
+      {/* FAQ Categories - Mobile Optimized */}
       <PageSection>
-        <div className="grid md:grid-cols-4 gap-4 max-w-5xl mx-auto">
-          {[
-            { name: "Products", icon: "📦", count: 8 },
-            { name: "Ordering", icon: "🛒", count: 6 },
-            { name: "Delivery", icon: "🚚", count: 5 },
-            { name: "Support", icon: "🤝", count: 7 },
-          ].map((category, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 text-center">
-              <div className="text-3xl mb-2">{category.icon}</div>
-              <h3 className="font-medium text-gray-900">{category.name}</h3>
-              <p className="text-sm text-gray-500">{category.count} questions</p>
-            </div>
-          ))}
-        </div>
-      </PageSection>
-
-      {/* Product FAQs */}
-      <PageSection bgColor="facebook-light">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold mb-6">Product Questions</h2>
-
-          <div className="bg-white rounded-lg shadow-sm border border-gray-100 divide-y">
+        <div className="max-w-5xl mx-auto">
+          {/* Desktop view - unchanged */}
+          <div className="hidden md:grid md:grid-cols-4 md:gap-4">
             {[
-              {
-                question: "What is a Facebook Business Manager?",
-                answer:
-                  "A Facebook Business Manager is a tool that helps businesses manage their Facebook Pages, ad accounts, and the people who work on them - all in one place. It's designed for businesses that need to give different people access to their Pages and ad accounts without sharing login information.",
-              },
-              {
-                question: "What's included in the BM1 $250 Limit package?",
-                answer:
-                  "The BM1 $250 Limit package includes a verified Facebook Business Manager account with a $250 ad spend limit, 1 ad account, and basic business verification. It's perfect for beginners or small businesses just starting with Facebook advertising.",
-              },
-              {
-                question: "What's the difference between the Starter Pack and Pro Pack?",
-                answer:
-                  "The Starter Pack is designed for beginners with a lower ad spend limit and fewer features, while the Pro Pack offers higher spending limits, multiple ad accounts, and advanced verification status, making it suitable for established businesses with larger advertising budgets.",
-              },
-              {
-                question: "Are these accounts safe to use?",
-                answer:
-                  "Yes, all our accounts are properly created and verified according to Facebook's policies. However, we recommend following Facebook's advertising policies when running ads to maintain account health.",
-              },
-            ].map((faq, index) => (
-              <div key={index} className="p-6">
-                <h3 className="font-medium text-lg text-gray-900 mb-2">{faq.question}</h3>
-                <p className="text-gray-600">{faq.answer}</p>
+              { name: "Products", icon: "📦", count: 8 },
+              { name: "Ordering", icon: "🛒", count: 6 },
+              { name: "Delivery", icon: "🚚", count: 5 },
+              { name: "Support", icon: "🤝", count: 7 },
+            ].map((category, index) => (
+              <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 text-center">
+                <div className="text-3xl mb-2">{category.icon}</div>
+                <h3 className="font-medium text-gray-900">{category.name}</h3>
+                <p className="text-sm text-gray-500">{category.count} questions</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile view - single line */}
+          <div className="flex md:hidden overflow-x-auto pb-2 gap-3">
+            {[
+              { name: "Products", icon: "📦" },
+              { name: "Ordering", icon: "🛒" },
+              { name: "Delivery", icon: "🚚" },
+              { name: "Support", icon: "🤝" },
+            ].map((category, index) => (
+              <div
+                key={index}
+                className="flex-shrink-0 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-100 flex items-center gap-2"
+              >
+                <span>{category.icon}</span>
+                <span className="font-medium text-sm">{category.name}</span>
               </div>
             ))}
           </div>
         </div>
       </PageSection>
 
-      {/* Ordering FAQs */}
+      {/* Product FAQs - Mobile Optimized */}
+      <PageSection bgColor="facebook-light">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Product Questions</h2>
+
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 divide-y">
+            {[
+              {
+                question: "What is a Facebook Business Manager?",
+                answer:
+                  "A tool that helps businesses manage Facebook Pages and ad accounts in one place without sharing login information.",
+              },
+              {
+                question: "What's in the BM1 $250 Limit package?",
+                answer:
+                  "A verified Facebook Business Manager with $250 ad spend limit, 1 ad account, and basic verification.",
+              },
+              {
+                question: "Starter Pack vs Pro Pack?",
+                answer:
+                  "Starter Pack: beginners, lower limits. Pro Pack: higher limits, multiple ad accounts, advanced verification.",
+              },
+              {
+                question: "Are these accounts safe?",
+                answer: "Yes, all accounts are properly created and verified according to Facebook's policies.",
+              },
+            ].map((faq, index) => (
+              <div key={index} className="p-4 md:p-6">
+                <h3 className="font-medium text-base md:text-lg text-gray-900 mb-2">{faq.question}</h3>
+                <p className="text-sm md:text-base text-gray-600">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </PageSection>
+
+      {/* Ordering FAQs - Mobile Optimized */}
       <PageSection>
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold mb-6">Ordering & Payment</h2>
+          <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Ordering & Payment</h2>
 
           <div className="bg-white rounded-lg shadow-sm border border-gray-100 divide-y">
             {[
               {
                 question: "How do I place an order?",
-                answer:
-                  "Simply browse our products, select the one you need, and click the 'Buy Now' button. Follow the checkout process to complete your purchase.",
+                answer: "Select your product, click 'Buy Now', and follow the checkout process.",
               },
               {
                 question: "What payment methods do you accept?",
-                answer:
-                  "We accept major credit cards, PayPal, and cryptocurrency payments including Bitcoin, Ethereum, and USDT.",
+                answer: "Credit cards, PayPal, and cryptocurrencies (Bitcoin, Ethereum, USDT).",
               },
               {
                 question: "Is my payment information secure?",
-                answer:
-                  "Yes, we use industry-standard encryption and secure payment processors to ensure your payment information is protected.",
+                answer: "Yes, we use industry-standard encryption and secure payment processors.",
               },
             ].map((faq, index) => (
-              <div key={index} className="p-6">
-                <h3 className="font-medium text-lg text-gray-900 mb-2">{faq.question}</h3>
-                <p className="text-gray-600">{faq.answer}</p>
+              <div key={index} className="p-4 md:p-6">
+                <h3 className="font-medium text-base md:text-lg text-gray-900 mb-2">{faq.question}</h3>
+                <p className="text-sm md:text-base text-gray-600">{faq.answer}</p>
               </div>
             ))}
           </div>

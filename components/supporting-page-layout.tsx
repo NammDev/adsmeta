@@ -1,6 +1,10 @@
+"use client"
+
 import type { ReactNode } from "react"
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
+import PageSection from "./page-section"
+import SiteFooter from "./site-footer"
 import NewsletterSection from "./newsletter-section"
 
 interface SupportingPageLayoutProps {
@@ -15,20 +19,24 @@ export default function SupportingPageLayout({
   title,
   subtitle,
   children,
-  showNewsletter = false,
-  breadcrumbs = [],
+  showNewsletter = true,
+  breadcrumbs,
 }: SupportingPageLayoutProps) {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-4 py-8">
-          {breadcrumbs.length > 0 && (
-            <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
+    <main className="flex min-h-screen flex-col bg-white">
+      {/* Page Header */}
+      <PageSection bgColor="facebook-light" className="border-b border-gray-100">
+        <div className="max-w-4xl mx-auto text-center py-6 md:py-8">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-4">{title}</h1>
+          {subtitle && <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">{subtitle}</p>}
+
+          {breadcrumbs && (
+            <div className="flex flex-wrap items-center justify-center space-x-2 mt-4 text-sm text-gray-500">
               <Link href="/" className="hover:text-facebook">
                 Home
               </Link>
               {breadcrumbs.map((crumb, index) => (
-                <div key={index} className="flex items-center gap-2">
+                <div key={index} className="flex items-center space-x-2">
                   <ChevronRight className="h-4 w-4" />
                   <Link href={crumb.href} className="hover:text-facebook">
                     {crumb.label}
@@ -37,14 +45,17 @@ export default function SupportingPageLayout({
               ))}
             </div>
           )}
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">{title}</h1>
-          {subtitle && <p className="mt-2 text-xl text-gray-600">{subtitle}</p>}
         </div>
-      </div>
+      </PageSection>
 
-      <main>{children}</main>
+      {/* Content */}
+      <div className="flex-1 bg-white">{children}</div>
 
+      {/* Newsletter Section (optional) */}
       {showNewsletter && <NewsletterSection />}
-    </div>
+
+      {/* Footer */}
+      <SiteFooter />
+    </main>
   )
 }

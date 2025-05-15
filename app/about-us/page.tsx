@@ -1,5 +1,4 @@
 import Image from "next/image"
-import { Facebook, Instagram, Twitter } from "lucide-react"
 import SupportingPageLayout from "@/components/supporting-page-layout"
 import PageSection from "@/components/page-section"
 
@@ -38,81 +37,78 @@ export default function AboutUsPage() {
 
       {/* Mission Statement */}
       <PageSection bgColor="facebook-light" spacious>
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-6">Our Mission</h2>
-          <p className="text-xl text-gray-700 mb-8 leading-relaxed">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">Our Mission</h2>
+          <p className="text-lg text-gray-700 mb-6 leading-relaxed">
             "To empower businesses of all sizes with reliable, high-quality Facebook advertising assets that drive
             growth and success in the digital marketplace."
           </p>
-          <div className="grid md:grid-cols-3 gap-6 mt-12">
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="font-bold text-lg mb-3 text-facebook">Reliability</h3>
-              <p className="text-gray-600">We provide stable, long-lasting Facebook assets you can count on.</p>
+          <div className="grid md:grid-cols-3 gap-4 mt-8">
+            <div className="bg-white p-4 rounded-lg shadow-sm">
+              <h3 className="font-bold text-lg mb-2 text-facebook">Reliability</h3>
+              <p className="text-gray-600 text-sm">We provide stable, long-lasting Facebook assets you can count on.</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="font-bold text-lg mb-3 text-facebook">Expertise</h3>
-              <p className="text-gray-600">Our team brings years of specialized knowledge in Facebook advertising.</p>
+            <div className="bg-white p-4 rounded-lg shadow-sm">
+              <h3 className="font-bold text-lg mb-2 text-facebook">Expertise</h3>
+              <p className="text-gray-600 text-sm">
+                Our team brings years of specialized knowledge in Facebook advertising.
+              </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="font-bold text-lg mb-3 text-facebook">Support</h3>
-              <p className="text-gray-600">We're committed to your success with unmatched customer service.</p>
+            <div className="bg-white p-4 rounded-lg shadow-sm">
+              <h3 className="font-bold text-lg mb-2 text-facebook">Support</h3>
+              <p className="text-gray-600 text-sm">We're committed to your success with unmatched customer service.</p>
             </div>
           </div>
         </div>
       </PageSection>
 
-      {/* Team Introduction */}
+      {/* Team Introduction - Fixed for mobile */}
       <PageSection spacious>
-        <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Meet Our Team</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            The faces behind EasyAdsPack - a dedicated team of digital marketing experts committed to your success.
-          </p>
-        </div>
+        <div className="max-w-4xl mx-auto">
+          <div className="mb-6">
+            <h2 className="text-2xl md:text-3xl font-bold mb-2">Team Members</h2>
+            <p className="text-gray-600">The experts behind EasyAdsPack committed to your success.</p>
+          </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {[
-            {
-              name: "Alex Johnson",
-              role: "Founder & CEO",
-              bio: "Digital marketing veteran with over 10 years of experience in Facebook advertising.",
-              image: "/male-marketing-owner.png",
-            },
-            {
-              name: "Sarah Williams",
-              role: "Head of Operations",
-              bio: "Ensures smooth delivery and exceptional customer experience for all clients.",
-              image: "/female-business-owner-portrait.png",
-            },
-            {
-              name: "Michael Chen",
-              role: "Technical Lead",
-              bio: "Expert in Facebook's technical infrastructure and advertising platform.",
-              image: "/male-freelancer-portrait.png",
-            },
-          ].map((member, index) => (
-            <div key={index} className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
-              <div className="relative h-64 w-full">
-                <Image src={member.image || "/placeholder.svg"} alt={member.name} fill className="object-cover" />
-              </div>
-              <div className="p-6">
-                <h3 className="font-bold text-xl mb-1">{member.name}</h3>
-                <p className="text-facebook mb-3">{member.role}</p>
-                <p className="text-gray-600">{member.bio}</p>
-                <div className="flex space-x-4 mt-4 justify-center">
-                  <a href="#" className="text-gray-400 hover:text-facebook">
-                    <Facebook size={20} />
-                  </a>
-                  <a href="#" className="text-gray-400 hover:text-facebook">
-                    <Twitter size={20} />
-                  </a>
-                  <a href="#" className="text-gray-400 hover:text-facebook">
-                    <Instagram size={20} />
-                  </a>
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden p-6">
+            <div className="space-y-6">
+              {[
+                {
+                  name: "Alex Johnson",
+                  role: "Founder",
+                  email: "alex@gmail.com",
+                  image: "/male-marketing-owner.png",
+                },
+                {
+                  name: "Sarah Williams",
+                  role: "Operations",
+                  email: "sarah@gmail.com",
+                  image: "/female-business-owner-portrait.png",
+                },
+                {
+                  name: "Michael Chen",
+                  role: "Developer",
+                  email: "michael@gmail.com",
+                  image: "/male-freelancer-portrait.png",
+                },
+              ].map((member, index) => (
+                <div key={index} className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="relative h-12 w-12 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
+                      <Image src={member.image || "/placeholder.svg"} alt={member.name} fill className="object-cover" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-base">{member.name}</h3>
+                      <p className="text-gray-500 text-sm">{member.email}</p>
+                    </div>
+                  </div>
+                  <div className="px-4 py-2 rounded-lg border border-gray-200 min-w-[100px] text-center">
+                    <span className="font-medium text-facebook whitespace-nowrap">{member.role}</span>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </PageSection>
     </SupportingPageLayout>

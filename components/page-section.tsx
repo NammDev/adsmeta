@@ -24,7 +24,7 @@ export default function PageSection({
       <div
         className={cn(
           "container mx-auto px-4 relative",
-          !noPadding && (spacious ? "py-12 md:py-16" : "py-8 md:py-10"),
+          !noPadding && (spacious ? "py-8 md:py-12" : "py-6 md:py-8"),
           spacious && "max-w-6xl",
         )}
       >

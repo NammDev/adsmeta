@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Filter, CheckCircle, ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react"
+import { CheckCircle, ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react"
 import { useCart } from "@/context/cart-context"
 
 // Product type definition
@@ -342,13 +342,10 @@ export default function ProductsPage() {
           {/* Category Filters */}
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold flex items-center gap-2">
-                <Filter className="h-5 w-5 text-facebook" />
-                Filter by Category
-              </h2>
-              <span className="text-sm text-gray-500">
+              <span className="text-sm font-medium text-gray-700">
                 Showing {filteredProducts.length} of {products.length} products
               </span>
+              <span className="text-xs text-gray-500">Select category</span>
             </div>
 
             <div className="flex flex-wrap gap-2">
@@ -377,7 +374,7 @@ export default function ProductsPage() {
           {/* Products Grid */}
           {filteredProducts.length > 0 ? (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
                 {currentProducts.map((product) => (
                   <Card
                     key={product.id}
@@ -394,24 +391,30 @@ export default function ProductsPage() {
                         <Badge className="absolute top-2 right-2 bg-facebook text-white">{product.badge}</Badge>
                       )}
                     </div>
-                    <CardContent className="p-5">
-                      <h3 className="text-base font-semibold mb-1 line-clamp-1">{product.name}</h3>
-                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.description}</p>
+                    <CardContent className="p-3 sm:p-5">
+                      <h3 className="text-sm sm:text-base font-semibold mb-1 line-clamp-1">{product.name}</h3>
+                      <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3 line-clamp-2 hidden sm:block">
+                        {product.description}
+                      </p>
                       <div className="flex items-center justify-between">
-                        <span className="text-lg font-bold text-facebook">{product.price}</span>
-                        <div className="flex gap-2">
+                        <span className="text-sm sm:text-lg font-bold text-facebook">{product.price}</span>
+                        <div className="flex gap-1 sm:gap-2">
                           {addToCart && (
                             <Button
                               size="sm"
                               variant="outline"
-                              className="px-2"
+                              className="px-1 sm:px-2 h-8 w-8 sm:h-auto sm:w-auto"
                               onClick={() => addToCart(product)}
                               title="Add to cart"
                             >
-                              <ShoppingCart className="h-4 w-4" />
+                              <ShoppingCart className="h-3 w-3 sm:h-4 sm:w-4" />
                             </Button>
                           )}
-                          <Button asChild size="sm" className="bg-facebook hover:bg-facebook/90">
+                          <Button
+                            asChild
+                            size="sm"
+                            className="bg-facebook hover:bg-facebook/90 px-2 sm:px-3 h-8 sm:h-auto"
+                          >
                             <Link href={product.url}>View</Link>
                           </Button>
                         </div>
@@ -477,11 +480,15 @@ export default function ProductsPage() {
               )}
             </>
           ) : (
-            <div className="text-center py-16">
-              <div className="text-4xl mb-4">🔍</div>
-              <h3 className="text-xl font-semibold mb-2">No products found</h3>
-              <p className="text-gray-600 mb-4">We couldn't find any products matching your selected category.</p>
-              <Button onClick={() => handleFilterChange("all")}>View All Products</Button>
+            <div className="text-center py-8 sm:py-16">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🔍</div>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2">No products found</h3>
+              <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">
+                We couldn't find any products matching your selected category.
+              </p>
+              <Button onClick={() => handleFilterChange("all")} size="sm" className="text-sm">
+                View All Products
+              </Button>
             </div>
           )}
         </div>
