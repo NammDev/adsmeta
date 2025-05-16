@@ -274,6 +274,7 @@ export default function PackPage() {
       price: pack.price,
       image: pack.image,
       quantity: 1,
+      category: "Pack",
     })
   }
 
@@ -293,7 +294,7 @@ export default function PackPage() {
         { label: pack.name, href: `/packs/${pack.slug}` },
       ]}
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 pb-10 md:pb-16">
         {/* Mobile Pack Overview - Removed name and badge as requested */}
         <div className="md:hidden mb-6">
           <Card className="overflow-hidden">
@@ -393,8 +394,61 @@ export default function PackPage() {
               </CardContent>
             </Card>
 
-            {/* Rest of desktop layout remains unchanged */}
-            {/* ... */}
+            {/* Pack Description */}
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold mb-4">Pack Description</h3>
+                <div className="prose max-w-none">
+                  {pack.longDescription.split("\n\n").map((paragraph, index) => (
+                    <p key={index} className="mb-4 text-gray-700">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* What's Included */}
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold mb-4">What's Included</h3>
+                <div className="space-y-6">
+                  {pack.includes.map((item, index) => (
+                    <div key={index} className="flex items-start gap-4">
+                      {item.icon && (
+                        <div className="relative w-12 h-12 flex-shrink-0">
+                          <Image
+                            src={item.icon || "/placeholder.svg"}
+                            alt={item.name}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                      )}
+                      <div>
+                        <h4 className="font-medium text-gray-900 mb-1">{item.name}</h4>
+                        <p className="text-gray-700">{item.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* FAQ Section */}
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold mb-4">Frequently Asked Questions</h3>
+                <div className="space-y-4">
+                  {pack.faq.map((item, index) => (
+                    <div key={index} className="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+                      <h4 className="font-medium text-gray-900 mb-2">{item.question}</h4>
+                      <p className="text-gray-700">{item.answer}</p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
           {/* Right Column - Features & Purchase Info */}

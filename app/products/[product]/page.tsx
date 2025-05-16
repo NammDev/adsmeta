@@ -173,6 +173,7 @@ export default function ProductPage() {
       price: product.price,
       image: product.image,
       quantity: 1,
+      category: product.category,
     })
   }
 

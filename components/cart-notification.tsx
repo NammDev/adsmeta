@@ -104,13 +104,14 @@ export function CartNotification({ show, item, onClose }: CartNotificationProps)
       <audio ref={audioRef} src="/notification-sound.mp3" preload="auto" />
 
       <div
-        className={`fixed top-4 right-4 z-50 w-[85%] max-w-[320px] ${
+        className={`fixed top-4 right-4 z-[9999] w-[85%] max-w-[320px] ${
           isVisible ? "opacity-100 animate-slide-in-right" : "opacity-0 translate-x-full"
         } transition-all duration-300`}
         ref={notificationRef}
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
+        style={{ filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))" }}
       >
         <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
           <div className="flex justify-between items-center p-3 border-b border-gray-100 bg-gray-50">
