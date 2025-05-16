@@ -1,10 +1,12 @@
 import Link from "next/link"
 import Image from "next/image"
-import { CalendarIcon, Clock, ArrowLeft, Facebook, Twitter, Linkedin, Copy } from "lucide-react"
+import { CalendarIcon, Clock, Facebook, Twitter, Linkedin, Copy, ArrowRight } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import SupportingPageLayout from "@/components/supporting-page-layout"
 import PageSection from "@/components/page-section"
+import { TableOfContents } from "@/components/table-of-contents"
+import { BlogCarousel } from "@/components/blog-carousel"
 
 // This would typically come from a CMS or API based on the slug
 const blogPost = {
@@ -134,12 +136,57 @@ const blogPost = {
       image: "/placeholder.svg?key=v5ldp",
       category: "Strategy",
     },
+    {
+      id: "facebook-pixel-implementation",
+      title: "Advanced Facebook Pixel Implementation Guide",
+      excerpt:
+        "Learn how to properly set up and configure Facebook Pixel for maximum tracking accuracy and conversion optimization.",
+      image: "/placeholder.svg?key=p9j2m",
+      category: "Tracking",
+    },
+    {
+      id: "facebook-ads-creative-best-practices",
+      title: "Facebook Ads Creative Best Practices for 2025",
+      excerpt:
+        "Discover the latest creative strategies and formats that are driving the highest engagement and conversion rates on Facebook.",
+      image: "/placeholder.svg?key=r7t3n",
+      category: "Creative",
+    },
   ],
+}
+
+// Add this function before the BlogPostPage component
+function extractHeadings(content: string) {
+  const headingRegex = /<h([2-3])>(.*?)<\/h[2-3]>/g
+  const headings: { id: string; text: string; level: number }[] = []
+
+  let match
+  while ((match = headingRegex.exec(content)) !== null) {
+    const level = Number.parseInt(match[1])
+    const text = match[2]
+    const id = text.toLowerCase().replace(/[^\w]+/g, "-")
+
+    headings.push({ id, text, level })
+  }
+
+  return headings
+}
+
+// Now, modify the content rendering to add IDs to headings
+// Add this function before the BlogPostPage component
+function processContent(content: string) {
+  return content.replace(/<h([2-3])>(.*?)<\/h[2-3]>/g, (match, level, text) => {
+    const id = text.toLowerCase().replace(/[^\w]+/g, "-")
+    return `<h${level} id="${id}">${text}</h${level}>`
+  })
 }
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
   // In a real app, you would fetch the blog post data based on the slug
   // For this example, we're using the hardcoded data above
+
+  const headings = extractHeadings(blogPost.content)
+  const processedContent = processContent(blogPost.content)
 
   return (
     <SupportingPageLayout
@@ -149,93 +196,79 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         { label: "Blog", href: "/blog" },
         { label: blogPost.title, href: `/blog/${blogPost.id}` },
       ]}
-      showNewsletter={false}
+      showNewsletter={true}
     >
-      {/* Back to Blog Link */}
-      <PageSection>
-        <div className="max-w-4xl mx-auto">
-          <Link href="/blog" className="inline-flex items-center text-facebook hover:underline mb-6">
-            <ArrowLeft className="mr-2 h-4 w-4" /> Back to Blog
-          </Link>
-        </div>
-      </PageSection>
-
-      {/* Featured Image */}
-      <PageSection noPadding>
-        <div className="max-w-5xl mx-auto">
-          <div className="relative h-[300px] md:h-[400px] lg:h-[500px] w-full rounded-lg overflow-hidden">
-            <Image src={blogPost.image || "/placeholder.svg"} alt={blogPost.title} fill className="object-cover" />
-          </div>
-        </div>
-      </PageSection>
-
-      {/* Blog Post Header */}
-      <PageSection>
-        <div className="max-w-4xl mx-auto">
-          <div className="flex flex-wrap gap-3 mb-4">
-            <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20">{blogPost.category}</Badge>
-            {blogPost.tags.map((tag) => (
-              <Badge key={tag} variant="outline">
-                {tag}
-              </Badge>
-            ))}
-          </div>
-
-          <h1 className="text-3xl md:text-4xl font-bold mb-6">{blogPost.title}</h1>
-
-          <div className="flex items-center justify-between border-b border-gray-200 pb-6 mb-8">
-            <div className="flex items-center">
-              <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                <Image
-                  src={blogPost.authorImage || "/placeholder.svg"}
-                  alt={blogPost.author}
-                  width={48}
-                  height={48}
-                  className="object-cover"
-                />
+      {/* Combined Image and Content Section */}
+      <PageSection className="py-8">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              {/* Featured Image with Metadata */}
+              <div className="mb-6">
+                <div className="relative h-[250px] w-full rounded-lg overflow-hidden shadow-sm">
+                  <Image
+                    src={blogPost.image || "/placeholder.svg"}
+                    alt={blogPost.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex items-center justify-end mt-3 mb-6 text-sm text-gray-500 border-b border-gray-200 pb-4">
+                  <div className="flex items-center mr-4">
+                    <CalendarIcon className="h-4 w-4 mr-1" />
+                    <span>{blogPost.date}</span>
+                  </div>
+                  <div className="flex items-center mr-4">
+                    <Clock className="h-4 w-4 mr-1" />
+                    <span>{blogPost.readTime}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 mr-1"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                      <path
+                        fillRule="evenodd"
+                        d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <span>338 views</span>
+                  </div>
+                </div>
               </div>
-              <div>
-                <p className="font-medium text-gray-900">{blogPost.author}</p>
-                <p className="text-sm text-gray-500">{blogPost.authorRole}</p>
+
+              {/* Blog Post Content */}
+              <div className="prose prose-lg max-w-none mb-8" dangerouslySetInnerHTML={{ __html: processedContent }} />
+
+              {/* Social Sharing */}
+              <div className="border-t border-gray-200 mt-8 pt-6 mb-4">
+                <div className="flex items-center justify-between">
+                  <p className="font-medium text-gray-900">Share this article:</p>
+                  <div className="flex gap-3">
+                    <Button variant="outline" size="icon" className="rounded-full">
+                      <Facebook className="h-4 w-4" />
+                    </Button>
+                    <Button variant="outline" size="icon" className="rounded-full">
+                      <Twitter className="h-4 w-4" />
+                    </Button>
+                    <Button variant="outline" size="icon" className="rounded-full">
+                      <Linkedin className="h-4 w-4" />
+                    </Button>
+                    <Button variant="outline" size="icon" className="rounded-full">
+                      <Copy className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-4 text-sm text-gray-500">
-              <div className="flex items-center">
-                <CalendarIcon className="h-4 w-4 mr-1" />
-                <span>{blogPost.date}</span>
-              </div>
-              <div className="flex items-center">
-                <Clock className="h-4 w-4 mr-1" />
-                <span>{blogPost.readTime}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </PageSection>
-
-      {/* Blog Post Content */}
-      <PageSection>
-        <div className="max-w-4xl mx-auto">
-          <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: blogPost.content }} />
-
-          {/* Social Sharing */}
-          <div className="border-t border-gray-200 mt-12 pt-6">
-            <div className="flex items-center justify-between">
-              <p className="font-medium text-gray-900">Share this article:</p>
-              <div className="flex gap-3">
-                <Button variant="outline" size="icon" className="rounded-full">
-                  <Facebook className="h-4 w-4" />
-                </Button>
-                <Button variant="outline" size="icon" className="rounded-full">
-                  <Twitter className="h-4 w-4" />
-                </Button>
-                <Button variant="outline" size="icon" className="rounded-full">
-                  <Linkedin className="h-4 w-4" />
-                </Button>
-                <Button variant="outline" size="icon" className="rounded-full">
-                  <Copy className="h-4 w-4" />
-                </Button>
+            <div className="hidden lg:block">
+              <div className="sticky top-24">
+                <TableOfContents headings={headings} title="Table of Contents" />
               </div>
             </div>
           </div>
@@ -243,7 +276,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       </PageSection>
 
       {/* Author Bio */}
-      <PageSection bgColor="facebook-light">
+      <PageSection bgColor="facebook-light" className="py-8">
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-lg shadow-sm p-8 flex flex-col md:flex-row gap-6 items-center">
             <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0">
@@ -274,55 +307,52 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         </div>
       </PageSection>
 
-      {/* Related Posts */}
-      <PageSection>
+      {/* Related Posts Carousel */}
+      <PageSection className="py-8">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold mb-8 text-center">You Might Also Like</h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <BlogCarousel itemsPerView={3} mobileItemsPerView={2} className="px-4">
             {blogPost.relatedPosts.map((post) => (
               <div
                 key={post.id}
-                className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow"
+                className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow h-full"
               >
                 <Link href={`/blog/${post.id}`} className="block">
-                  <div className="relative h-48 w-full">
+                  <div className="relative h-36 md:h-48 w-full">
                     <Image src={post.image || "/placeholder.svg"} alt={post.title} fill className="object-cover" />
                   </div>
                 </Link>
-                <div className="p-6">
-                  <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-3">{post.category}</Badge>
-                  <h3 className="text-lg font-bold mb-2">
+                <div className="p-4 md:p-6">
+                  {/* Badge only shows on desktop */}
+                  <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-3 hidden md:inline-flex">
+                    {post.category}
+                  </Badge>
+
+                  <h3 className="text-base md:text-lg font-bold mb-1 md:mb-2 line-clamp-2">
                     <Link href={`/blog/${post.id}`} className="hover:text-facebook transition-colors">
                       {post.title}
                     </Link>
                   </h3>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">{post.excerpt}</p>
-                  <Link href={`/blog/${post.id}`} className="text-facebook hover:underline text-sm font-medium">
-                    Read Article
+
+                  {/* Summary text - reduced on mobile */}
+                  <p className="text-gray-600 text-xs md:text-sm mb-2 md:mb-4 line-clamp-1 md:line-clamp-2">
+                    {post.excerpt}
+                  </p>
+
+                  {/* Simplified link for mobile */}
+                  <Link
+                    href={`/blog/${post.id}`}
+                    className="text-facebook hover:underline text-xs md:text-sm font-medium flex items-center"
+                  >
+                    <span className="md:block">Read</span>
+                    <span className="hidden md:inline"> Article</span>
+                    <ArrowRight className="h-3 w-3 ml-1" />
                   </Link>
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </PageSection>
-
-      {/* Newsletter Section */}
-      <PageSection bgColor="facebook-light">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-4">Subscribe to Our Newsletter</h2>
-          <p className="text-gray-600 mb-6">
-            Get the latest Facebook advertising tips, guides, and updates delivered straight to your inbox.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="px-4 py-2 rounded-md border border-gray-300 flex-grow focus:outline-none focus:ring-2 focus:ring-facebook focus:border-transparent"
-            />
-            <Button>Subscribe</Button>
-          </div>
+          </BlogCarousel>
         </div>
       </PageSection>
     </SupportingPageLayout>

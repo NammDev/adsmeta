@@ -354,6 +354,8 @@ export default function BlogPage() {
                               <h3 className="text-base font-bold mb-3 group-hover:text-facebook transition-colors line-clamp-2">
                                 <Link href={`/blog/${post.id}`}>{post.title}</Link>
                               </h3>
+                              {/* Added excerpt to fill white space */}
+                              <p className="text-sm text-gray-600 mb-3 line-clamp-2">{post.excerpt}</p>
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center text-xs text-gray-500 gap-3">
                                   <div className="flex items-center">
@@ -423,6 +425,8 @@ export default function BlogPage() {
                         <h3 className="text-lg font-bold mb-3 group-hover:text-facebook transition-colors line-clamp-2">
                           <Link href={`/blog/${post.id}`}>{post.title}</Link>
                         </h3>
+                        {/* Added excerpt to fill white space */}
+                        <p className="text-sm text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
                         <div className="flex items-center justify-between mt-auto">
                           <div className="flex items-center text-xs text-gray-500 gap-3">
                             <div className="flex items-center">
@@ -507,6 +511,7 @@ export default function BlogPage() {
                       <h3 className="text-lg font-bold mb-3 hover:text-facebook transition-colors line-clamp-2">
                         <Link href={`/blog/${post.id}`}>{post.title}</Link>
                       </h3>
+                      <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-grow">{post.excerpt}</p>
                       <div className="flex items-center justify-between mt-auto">
                         <div className="flex items-center text-xs text-gray-500">
                           <Clock className="h-3 w-3 mr-1" />

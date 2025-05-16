@@ -1,6 +1,7 @@
 import type React from "react"
 import "../globals.css"
 import "./blog.css"
+import "./blog-post.css"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
