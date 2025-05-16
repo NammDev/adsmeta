@@ -18,7 +18,7 @@ export default function Home() {
   const isMobile = useMediaQuery("(max-width: 768px)")
 
   return (
-    <main className="flex min-h-screen flex-col bg-white">
+    <main className="flex min-h-screen flex-col bg-white overflow-x-hidden">
       {/* Hero Section */}
       <HeroSection />
 

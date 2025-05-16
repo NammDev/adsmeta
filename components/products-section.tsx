@@ -272,7 +272,9 @@ function ProductsContent() {
     <>
       {/* Filter buttons - styled to match website */}
       <div
-        className={`flex ${isMobile ? "flex-wrap justify-start overflow-x-auto pb-2" : "justify-center"} gap-2 mb-6`}
+        className={`flex ${
+          isMobile ? "flex-wrap justify-start overflow-x-auto pb-2" : "justify-center"
+        } gap-2 mb-6 max-w-full`}
       >
         {filterOptions.map((option) => (
           <Button
@@ -304,7 +306,7 @@ function ProductsContent() {
 
       {/* Mobile View - Carousel */}
       {isMobile ? (
-        <div className="relative md:hidden">
+        <div className="relative md:hidden overflow-hidden">
           {/* Left navigation arrow */}
           <button
             onClick={scrollLeft}
@@ -317,8 +319,12 @@ function ProductsContent() {
           {/* Products carousel */}
           <div
             ref={carouselRef}
-            className="flex gap-3 overflow-x-auto pb-4 pt-1 scrollbar-hide snap-x"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            className="flex gap-3 overflow-x-auto pb-4 pt-1 snap-x max-w-full"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              WebkitOverflowScrolling: "touch",
+            }}
           >
             {isLoading
               ? // Loading skeletons for mobile
@@ -434,8 +440,8 @@ export default function ProductsSection() {
   const isMobile = useMediaQuery("(max-width: 768px)")
 
   return (
-    <section id="products" className="py-20 bg-lightblue">
-      <div className="container mx-auto px-4">
+    <section id="products" className="py-20 bg-lightblue overflow-hidden">
+      <div className="container mx-auto px-4 overflow-hidden">
         {/* Title section - simplified on mobile */}
         <div className={`${isMobile ? "" : "max-w-3xl mx-auto"} text-center mb-${isMobile ? "6" : "16"}`}>
           {!isMobile && <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">Products</Badge>}

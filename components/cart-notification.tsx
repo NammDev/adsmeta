@@ -42,11 +42,11 @@ export function CartNotification({ show, item, onClose }: CartNotificationProps)
         audioRef.current.play().catch((err) => console.log("Audio play failed:", err))
       }
 
-      // Auto-hide after 5 seconds
+      // Auto-hide after 2 seconds (reduced from 5 seconds)
       const timer = setTimeout(() => {
         setIsVisible(false)
         onClose()
-      }, 5000)
+      }, 2000)
       return () => clearTimeout(timer)
     }
   }, [show, onClose])
