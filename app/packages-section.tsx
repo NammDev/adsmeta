@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useEffect, type TouchEvent } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import ProductCard from "@/components/product-card"
 import { useMediaQuery } from "@/hooks/use-media-query"
@@ -10,8 +10,6 @@ export default function PackagesSection() {
   const isMobile = useMediaQuery("(max-width: 768px)")
   const [activeIndex, setActiveIndex] = useState(1) // Start with Pro Pack (index 1)
   const carouselRef = useRef<HTMLDivElement>(null)
-  const [touchStart, setTouchStart] = useState<number | null>(null)
-  const [touchEnd, setTouchEnd] = useState<number | null>(null)
   const [isScrolling, setIsScrolling] = useState(false)
 
   const packages = [
@@ -126,35 +124,6 @@ export default function PackagesSection() {
     }
   }
 
-  // Touch handlers for swiping
-  const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
-    setTouchStart(e.targetTouches[0].clientX)
-  }
-
-  const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
-    setTouchEnd(e.targetTouches[0].clientX)
-  }
-
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return
-
-    const distance = touchStart - touchEnd
-    const isLeftSwipe = distance > 50
-    const isRightSwipe = distance < -50
-
-    if (isLeftSwipe && activeIndex < packages.length - 1) {
-      handleNext()
-    }
-
-    if (isRightSwipe && activeIndex > 0) {
-      handlePrev()
-    }
-
-    // Reset values
-    setTouchStart(null)
-    setTouchEnd(null)
-  }
-
   return (
     <section id="packages" className="py-10 sm:py-16 md:py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -173,14 +142,13 @@ export default function PackagesSection() {
             {/* Mobile Carousel */}
             <div
               ref={carouselRef}
-              className="flex overflow-x-scroll scrollbar-hide touch-pan-x"
+              className="flex overflow-x-auto pb-4 pt-1 scrollbar-hide snap-x"
               style={{
                 scrollSnapType: "x mandatory",
                 WebkitOverflowScrolling: "touch",
+                touchAction: "pan-x pan-y", // Allow both horizontal and vertical touch actions
+                msOverflowStyle: "none",
               }}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
             >
               {packages.map((pkg, index) => (
                 <div

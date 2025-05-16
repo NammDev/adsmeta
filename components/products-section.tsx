@@ -283,12 +283,12 @@ function ProductsContent() {
             size={isMobile ? "sm" : "default"}
             className={`${
               isMobile
-                ? "rounded-full border-0 px-3 py-1 text-xs"
+                ? "rounded-full border-0 px-3 py-1 text-xs !transition-none"
                 : "bg-white text-gray-900 border-gray-200 hover:bg-gray-50"
             } ${
               currentFilter === option.value
                 ? isMobile
-                  ? "bg-facebook text-white hover:bg-facebook-dark"
+                  ? "!bg-facebook !text-white hover:!bg-facebook-dark active:!text-white"
                   : "border-facebook text-facebook"
                 : isMobile
                   ? "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -310,10 +310,10 @@ function ProductsContent() {
           {/* Left navigation arrow */}
           <button
             onClick={scrollLeft}
-            className="absolute left-0 top-1/2 z-10 -translate-y-1/2 -translate-x-1/2 rounded-full bg-white p-2 shadow-lg"
+            className="absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-gray-800/60 backdrop-blur-sm p-2 shadow-lg border border-gray-500/30"
             aria-label="Scroll left"
           >
-            <ChevronLeft className="h-5 w-5" />
+            <ChevronLeft className="h-5 w-5 text-white" />
           </button>
 
           {/* Products carousel */}
@@ -355,10 +355,10 @@ function ProductsContent() {
           {/* Right navigation arrow */}
           <button
             onClick={scrollRight}
-            className="absolute right-0 top-1/2 z-10 -translate-y-1/2 translate-x-1/2 rounded-full bg-white p-2 shadow-lg"
+            className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-gray-800/60 backdrop-blur-sm p-2 shadow-lg border border-gray-500/30"
             aria-label="Scroll right"
           >
-            <ChevronRight className="h-5 w-5" />
+            <ChevronRight className="h-5 w-5 text-white" />
           </button>
 
           {/* See More Button for Mobile - Updated to match website style */}
