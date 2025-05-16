@@ -1,237 +1,151 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState } from "react"
+import Link from "next/link"
+import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
-import ProductCard from "@/components/product-card"
-import { useMediaQuery } from "@/hooks/use-media-query"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Check, ArrowRight } from "lucide-react"
 
 export default function PackagesSection() {
-  const isMobile = useMediaQuery("(max-width: 768px)")
-  const [activeIndex, setActiveIndex] = useState(1) // Start with Pro Pack (index 1)
-  const carouselRef = useRef<HTMLDivElement>(null)
-  const [isScrolling, setIsScrolling] = useState(false)
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null)
 
   const packages = [
     {
-      title: "Starter Pack",
-      description: "Perfect for beginners",
+      id: 1,
+      name: "Starter Pack",
+      description: "Perfect for beginners and small businesses",
       price: 50,
-      features: ["1 Unverified BM (€10, code 5)", "1 Via XMDT Asia (€25, code 7)", "1 Pixel (€15)", "7-Day Support"],
-      href: "/starter-pack",
-      isPopular: false,
+      features: ["1 Verified Business Manager", "1 Payment Method", "1 Facebook Pixel", "Basic Support"],
+      image: "/facebook-starter-pack.png",
+      gradient: "from-blue-500 to-cyan-500",
+      bgGradient: "from-blue-50 to-cyan-50",
+      borderColor: "border-blue-200",
+      hoverGradient: "from-blue-600 to-cyan-600",
     },
     {
-      title: "Pro Pack",
-      description: "Scale your campaigns",
+      id: 2,
+      name: "Pro Pack",
+      description: "Ideal for growing agencies and marketers",
       price: 150,
       features: [
-        "1 Verified BM (€80, code 1)",
-        "2 Via XMDT (1 Asia €25, 1 USA €40)",
-        "1 Pixel (€15)",
-        "7-Day Warranty",
+        "3 Verified Business Managers",
+        "3 Payment Methods",
+        "3 Facebook Pixels",
+        "Priority Support",
+        "Account Recovery Assistance",
       ],
-      href: "/pro-pack",
-      isPopular: true,
+      image: "/facebook-agency-pack.png",
+      gradient: "from-purple-500 to-pink-500",
+      bgGradient: "from-purple-50 to-pink-50",
+      borderColor: "border-purple-200",
+      hoverGradient: "from-purple-600 to-pink-600",
+      popular: true,
     },
     {
-      title: "Agency Pack",
-      description: "For high-ROAS campaigns",
+      id: 3,
+      name: "Agency Pack",
+      description: "Complete solution for professional agencies",
       price: 400,
       features: [
-        "1 Verified BM5 Unlimited (€350, code 4)",
-        "2 Via XMDT USA (€40 x 2, code 9)",
-        "1 Pixel (€15)",
-        "14-Day Warranty",
+        "5 Verified Business Managers",
+        "Unlimited Payment Methods",
+        "5 Facebook Pixels",
+        "24/7 Priority Support",
+        "Account Recovery Assistance",
+        "Custom Ad Account Setup",
+        "Scaling Strategy Consultation",
       ],
-      href: "/agency-pack",
-      isPopular: false,
+      image: "/facebook-verified-business-manager.png",
+      gradient: "from-amber-500 to-orange-500",
+      bgGradient: "from-amber-50 to-orange-50",
+      borderColor: "border-amber-200",
+      hoverGradient: "from-amber-600 to-orange-600",
     },
   ]
 
-  // Initialize carousel to show Pro Pack on first render
-  useEffect(() => {
-    if (isMobile && carouselRef.current) {
-      // Wait a bit for the DOM to be fully rendered
-      setTimeout(() => {
-        if (carouselRef.current) {
-          const cardWidth = carouselRef.current.offsetWidth
-          carouselRef.current.scrollLeft = cardWidth // Scroll to second card (Pro Pack)
-        }
-      }, 100)
-    }
-  }, [isMobile])
-
-  // Handle manual scroll and update active index
-  useEffect(() => {
-    const handleScroll = () => {
-      if (isMobile && carouselRef.current) {
-        const scrollPosition = carouselRef.current.scrollLeft
-        const cardWidth = carouselRef.current.offsetWidth
-        const newIndex = Math.round(scrollPosition / cardWidth)
-
-        // Only update if the index has actually changed
-        if (newIndex !== activeIndex && newIndex >= 0 && newIndex < packages.length) {
-          setActiveIndex(newIndex)
-        }
-      }
-    }
-
-    const handleScrollEnd = () => {
-      setIsScrolling(false)
-    }
-
-    const carousel = carouselRef.current
-    if (carousel) {
-      carousel.addEventListener("scroll", handleScroll)
-      carousel.addEventListener("scrollend", handleScrollEnd)
-      return () => {
-        carousel.removeEventListener("scroll", handleScroll)
-        carousel.removeEventListener("scrollend", handleScrollEnd)
-      }
-    }
-  }, [activeIndex, isMobile, packages.length])
-
-  // Navigate to specific card
-  const scrollToCard = (index: number) => {
-    if (carouselRef.current) {
-      setIsScrolling(true)
-      const cardWidth = carouselRef.current.offsetWidth
-      carouselRef.current.scrollTo({
-        left: index * cardWidth,
-        behavior: "smooth",
-      })
-      setActiveIndex(index)
-
-      // Set a timeout to ensure isScrolling is reset even if scrollend doesn't fire
-      setTimeout(() => {
-        setIsScrolling(false)
-      }, 500)
-    }
-  }
-
-  // Navigate to previous card
-  const handlePrev = () => {
-    if (activeIndex > 0) {
-      scrollToCard(activeIndex - 1)
-    }
-  }
-
-  // Navigate to next card
-  const handleNext = () => {
-    if (activeIndex < packages.length - 1) {
-      scrollToCard(activeIndex + 1)
-    }
-  }
-
   return (
-    <section id="packages" className="py-10 sm:py-16 md:py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-12 md:mb-16">
-          <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-3 md:mb-4">Packages</Badge>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
-            Simple, Transparent Pricing
+    <section id="packages" className="py-16 md:py-24 relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-r from-blue-200 to-cyan-200 rounded-full opacity-20 blur-3xl -translate-y-1/4 translate-x-1/4"></div>
+      <div className="absolute bottom-0 left-0 w-72 h-72 bg-gradient-to-r from-purple-200 to-pink-200 rounded-full opacity-20 blur-3xl translate-y-1/4 -translate-x-1/4"></div>
+
+      <div className="container mx-auto px-4 relative">
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md">
+            Packages
+          </Badge>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 relative inline-block">
+            <span className="relative z-10">Choose Your Package</span>
+            <div className="absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
           </h2>
-          <p className="text-base sm:text-lg text-gray-600">
-            Choose the perfect solution to launch and scale your Facebook advertising campaigns.
-          </p>
+          <p className="text-lg text-gray-600">Select the perfect solution for your advertising needs</p>
         </div>
 
-        {isMobile ? (
-          <div className="relative">
-            {/* Mobile Carousel */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {packages.map((pkg, index) => (
             <div
-              ref={carouselRef}
-              className="flex overflow-x-auto pb-4 pt-1 scrollbar-hide snap-x"
-              style={{
-                scrollSnapType: "x mandatory",
-                WebkitOverflowScrolling: "touch",
-                touchAction: "pan-x pan-y", // Allow both horizontal and vertical touch actions
-                msOverflowStyle: "none",
-              }}
+              key={pkg.id}
+              className="relative"
+              onMouseEnter={() => setHoveredCard(index)}
+              onMouseLeave={() => setHoveredCard(null)}
             >
-              {packages.map((pkg, index) => (
-                <div
-                  key={pkg.title}
-                  className="min-w-full w-full flex-shrink-0 px-4"
-                  style={{ scrollSnapAlign: "center" }}
-                >
-                  <ProductCard
-                    title={pkg.title}
-                    description={pkg.description}
-                    price={pkg.price}
-                    features={pkg.features}
-                    href={pkg.href}
-                    isPopular={pkg.isPopular}
-                  />
+              {pkg.popular && (
+                <div className="absolute -top-4 left-0 right-0 flex justify-center z-10">
+                  <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-medium px-4 py-1 rounded-full shadow-md">
+                    Most Popular
+                  </span>
                 </div>
-              ))}
+              )}
+              <Card
+                className={`border ${pkg.borderColor} rounded-xl overflow-hidden bg-gradient-to-br ${pkg.bgGradient} shadow-md hover:shadow-xl transition-all duration-300 h-full transform ${hoveredCard === index ? "scale-105" : "scale-100"}`}
+              >
+                <div className="p-6 pb-0">
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-1">{pkg.name}</h3>
+                      <p className="text-sm text-gray-600">{pkg.description}</p>
+                    </div>
+                    <div className="relative w-16 h-16 bg-white rounded-lg shadow-sm overflow-hidden">
+                      <Image src={pkg.image || "/placeholder.svg"} alt={pkg.name} fill className="object-contain p-2" />
+                    </div>
+                  </div>
+
+                  <div className="mb-6">
+                    <span className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${pkg.gradient}">
+                      €{pkg.price}
+                    </span>
+                    <span className="text-gray-600 ml-1">one-time</span>
+                  </div>
+                </div>
+
+                <CardContent className="p-6 pt-0">
+                  <ul className="space-y-3 mb-6">
+                    {pkg.features.map((feature, i) => (
+                      <li key={i} className="flex items-start">
+                        <div
+                          className={`w-5 h-5 rounded-full bg-gradient-to-r ${pkg.gradient} flex-shrink-0 flex items-center justify-center mt-0.5 mr-3`}
+                        >
+                          <Check className="h-3 w-3 text-white" />
+                        </div>
+                        <span className="text-gray-700">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link href={`/packs/${pkg.name.toLowerCase().replace(" ", "-")}`}>
+                    <Button
+                      className={`w-full bg-gradient-to-r ${pkg.gradient} hover:${pkg.hoverGradient} text-white border-0 shadow-md group`}
+                    >
+                      <span>Get Started</span>
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
             </div>
-
-            {/* Navigation Arrows */}
-            <button
-              onClick={handlePrev}
-              disabled={activeIndex === 0}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white rounded-full p-2 shadow-md disabled:opacity-30 z-10"
-              aria-label="Previous package"
-            >
-              <ChevronLeft className="h-6 w-6 text-facebook" />
-            </button>
-
-            <button
-              onClick={handleNext}
-              disabled={activeIndex === packages.length - 1}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-white rounded-full p-2 shadow-md disabled:opacity-30 z-10"
-              aria-label="Next package"
-            >
-              <ChevronRight className="h-6 w-6 text-facebook" />
-            </button>
-
-            {/* Pagination Indicators - Fixed Animation */}
-            <div className="flex justify-center mt-6 gap-2">
-              {packages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => scrollToCard(index)}
-                  className="relative h-2.5 rounded-full bg-gray-300 overflow-hidden"
-                  style={{
-                    width: activeIndex === index ? "1.5rem" : "0.625rem",
-                    transition: "width 0.3s ease-in-out",
-                  }}
-                  aria-label={`Go to package ${index + 1}`}
-                >
-                  <span
-                    className="absolute inset-0 bg-facebook rounded-full"
-                    style={{
-                      opacity: activeIndex === index ? 1 : 0,
-                      transition: "opacity 0.3s ease-in-out",
-                    }}
-                  />
-                </button>
-              ))}
-            </div>
-          </div>
-        ) : (
-          // Desktop Grid Layout (unchanged)
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {packages.map((pkg) => (
-              <ProductCard
-                key={pkg.title}
-                title={pkg.title}
-                description={pkg.description}
-                price={pkg.price}
-                features={pkg.features}
-                href={pkg.href}
-                isPopular={pkg.isPopular}
-              />
-            ))}
-          </div>
-        )}
-
-        <div className="mt-8 sm:mt-12 bg-facebook/10 text-facebook text-center py-4 sm:py-6 px-4 sm:px-8 rounded-lg">
-          <p className="text-base sm:text-lg font-medium">
-            First 50 Buyers Get 10% Off! Use Code: <span className="font-bold">META10</span>
-          </p>
+          ))}
         </div>
       </div>
     </section>

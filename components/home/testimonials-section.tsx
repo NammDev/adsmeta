@@ -6,110 +6,132 @@ import { Star } from "lucide-react"
 
 export default function TestimonialsSection() {
   return (
-    <section className="py-6 md:py-12 bg-lightblue">
-      <div className="container mx-auto px-4">
+    <section className="py-12 md:py-20 relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-0 right-1/4 w-64 h-64 bg-gradient-to-r from-purple-200 to-pink-200 rounded-full opacity-20 blur-3xl -translate-y-1/2"></div>
+      <div className="absolute bottom-0 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-200 to-cyan-200 rounded-full opacity-20 blur-3xl translate-y-1/2"></div>
+
+      <div className="container mx-auto px-4 relative">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">Testimonials</Badge>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
-            What Our Clients Say
+          <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600 mb-4 border-0 shadow-md">
+            Testimonials
+          </Badge>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 relative inline-block">
+            <span className="relative z-10">What Our Clients Say</span>
+            <div className="absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-purple-200 to-pink-200 opacity-50 rounded-full"></div>
           </h2>
           <p className="text-lg text-gray-600">Real feedback from agencies using our solutions</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <Card className="border border-gray-200 rounded-lg overflow-hidden bg-white">
-            <CardContent className="p-8">
-              <div className="flex items-center mb-6">
-                <div className="w-12 h-12 rounded-full bg-gray-200 overflow-hidden mr-4">
-                  <Image
-                    src="/placeholder.svg?height=48&width=48"
-                    alt="Sarah"
-                    width={48}
-                    height={48}
-                    className="object-cover"
-                  />
+          <Card className="border-0 rounded-xl overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50 shadow-md hover:shadow-lg transition-shadow">
+            <CardContent className="p-8 relative">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-200 to-indigo-200 rounded-full opacity-20 -translate-y-1/2 translate-x-1/2"></div>
+              <div className="flex items-center mb-6 relative z-10">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-indigo-500 overflow-hidden mr-4 p-0.5">
+                  <div className="w-full h-full rounded-full overflow-hidden bg-white">
+                    <Image
+                      src="/placeholder.svg?height=48&width=48"
+                      alt="Sarah"
+                      width={48}
+                      height={48}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
                 </div>
                 <div>
                   <p className="font-bold text-gray-900">Sarah Johnson</p>
-                  <p className="text-sm text-gray-500">Digital Marketing Freelancer</p>
+                  <p className="text-sm text-blue-600">Digital Marketing Freelancer</p>
                 </div>
               </div>
               <div className="mb-6 flex">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <Star key={star} className="h-5 w-5 text-yellow-400 fill-yellow-400" />
+                  <Star key={star} className="h-5 w-5 text-amber-400 fill-amber-400" />
                 ))}
               </div>
-              <p className="text-gray-700 mb-4">
+              <p className="text-gray-700 mb-4 relative z-10">
                 "EasyAdsPack made running FB ads so simple! The Starter Pack had everything I needed to launch
                 successful campaigns from day one."
               </p>
-              <p className="text-sm text-gray-500">Starter Pack (€50) Customer</p>
+              <div className="text-sm font-medium px-3 py-1 rounded-full bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 inline-block">
+                Starter Pack (€50) Customer
+              </div>
             </CardContent>
           </Card>
 
-          <Card className="border border-gray-200 rounded-lg overflow-hidden bg-white">
-            <CardContent className="p-8">
-              <div className="flex items-center mb-6">
-                <div className="w-12 h-12 rounded-full bg-gray-200 overflow-hidden mr-4">
-                  <Image
-                    src="/placeholder.svg?height=48&width=48"
-                    alt="Mike"
-                    width={48}
-                    height={48}
-                    className="object-cover"
-                  />
+          <Card className="border-0 rounded-xl overflow-hidden bg-gradient-to-br from-purple-50 to-pink-50 shadow-md hover:shadow-lg transition-shadow">
+            <CardContent className="p-8 relative">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-purple-200 to-pink-200 rounded-full opacity-20 -translate-y-1/2 translate-x-1/2"></div>
+              <div className="flex items-center mb-6 relative z-10">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 overflow-hidden mr-4 p-0.5">
+                  <div className="w-full h-full rounded-full overflow-hidden bg-white">
+                    <Image
+                      src="/placeholder.svg?height=48&width=48"
+                      alt="Mike"
+                      width={48}
+                      height={48}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
                 </div>
                 <div>
                   <p className="font-bold text-gray-900">Michael Chen</p>
-                  <p className="text-sm text-gray-500">Small Agency Owner</p>
+                  <p className="text-sm text-purple-600">Small Agency Owner</p>
                 </div>
               </div>
               <div className="mb-6 flex">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <Star key={star} className="h-5 w-5 text-yellow-400 fill-yellow-400" />
+                  <Star key={star} className="h-5 w-5 text-amber-400 fill-amber-400" />
                 ))}
               </div>
-              <p className="text-gray-700 mb-4">
+              <p className="text-gray-700 mb-4 relative z-10">
                 "The Pro Pack helped me scale my agency's campaigns without restrictions. Their support team is
                 responsive and knowledgeable."
               </p>
-              <p className="text-sm text-gray-500">Pro Pack (€150) Customer</p>
+              <div className="text-sm font-medium px-3 py-1 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 inline-block">
+                Pro Pack (€150) Customer
+              </div>
             </CardContent>
           </Card>
 
-          <Card className="border border-gray-200 rounded-lg overflow-hidden bg-white">
-            <CardContent className="p-8">
-              <div className="flex items-center mb-6">
-                <div className="w-12 h-12 rounded-full bg-gray-200 overflow-hidden mr-4">
-                  <Image
-                    src="/placeholder.svg?height=48&width=48"
-                    alt="John"
-                    width={48}
-                    height={48}
-                    className="object-cover"
-                  />
+          <Card className="border-0 rounded-xl overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50 shadow-md hover:shadow-lg transition-shadow">
+            <CardContent className="p-8 relative">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-amber-200 to-orange-200 rounded-full opacity-20 -translate-y-1/2 translate-x-1/2"></div>
+              <div className="flex items-center mb-6 relative z-10">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 overflow-hidden mr-4 p-0.5">
+                  <div className="w-full h-full rounded-full overflow-hidden bg-white">
+                    <Image
+                      src="/placeholder.svg?height=48&width=48"
+                      alt="John"
+                      width={48}
+                      height={48}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
                 </div>
                 <div>
                   <p className="font-bold text-gray-900">John Rodriguez</p>
-                  <p className="text-sm text-gray-500">ROAS Agency Director</p>
+                  <p className="text-sm text-amber-600">ROAS Agency Director</p>
                 </div>
               </div>
               <div className="mb-6 flex">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <Star key={star} className="h-5 w-5 text-yellow-400 fill-yellow-400" />
+                  <Star key={star} className="h-5 w-5 text-amber-400 fill-amber-400" />
                 ))}
               </div>
-              <p className="text-gray-700 mb-4">
+              <p className="text-gray-700 mb-4 relative z-10">
                 "Agency Pack is a game-changer for our high-ROAS campaigns. The unlimited BM5 has been crucial for our
                 agency's growth and client success."
               </p>
-              <p className="text-sm text-gray-500">Agency Pack (€400) Customer</p>
+              <div className="text-sm font-medium px-3 py-1 rounded-full bg-gradient-to-r from-amber-100 to-orange-100 text-amber-700 inline-block">
+                Agency Pack (€400) Customer
+              </div>
             </CardContent>
           </Card>
         </div>
 
         <div className="mt-12 text-center">
-          <Button className="bg-facebook hover:bg-facebook-dark text-white font-medium text-lg py-6 px-8 rounded-md">
+          <Button className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-medium text-lg py-6 px-8 rounded-md shadow-md hover:shadow-lg transition-all border-0">
             Join Our Success Stories
           </Button>
         </div>

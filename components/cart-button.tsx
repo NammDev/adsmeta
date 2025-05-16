@@ -1,29 +1,24 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { useCart } from "@/context/cart-context"
 import { ShoppingBag } from "lucide-react"
 
 export function CartButton() {
-  const { toggleCart, itemCount, animateCount } = useCart()
+  const { itemCount, toggleCart, animateCount } = useCart()
 
   return (
-    <Button
-      className="relative bg-[#0066FF] hover:bg-[#0052CC] text-white rounded-full w-12 h-12 flex items-center justify-center group"
+    <button
       onClick={toggleCart}
-      aria-label="Open cart"
+      className="relative p-2 rounded-full bg-gradient-to-r from-blue-50 to-purple-50 hover:from-blue-100 hover:to-purple-100 transition-all duration-300"
+      aria-label={`Shopping cart with ${itemCount} items`}
     >
-      <ShoppingBag
-        style={{ width: "24px", height: "24px", minWidth: "24px", minHeight: "24px" }}
-        className="transition-transform duration-300 ease-in-out group-hover:scale-110"
-      />
+      <ShoppingBag className="h-5 w-5 text-gray-700" />
       {itemCount > 0 && (
-        <span
-          className={`absolute -top-2 -right-2 bg-white text-[#0066FF] text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center border border-[#0066FF] ${animateCount ? "animate-count-update" : ""}`}
-        >
+        <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-[10px] font-medium text-white">
           {itemCount}
         </span>
       )}
-    </Button>
+      <span className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400/20 to-purple-400/20 animate-pulse"></span>
+    </button>
   )
 }

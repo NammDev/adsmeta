@@ -22,6 +22,8 @@ type Product = {
   href?: string
   rating?: number
   purchases?: number
+  gradient?: string
+  bgGradient?: string
 }
 
 // All products data
@@ -37,6 +39,8 @@ const allProducts: Product[] = [
     href: "/bm1-250-limit",
     rating: 4.8,
     purchases: 61,
+    gradient: "from-blue-500 to-cyan-500",
+    bgGradient: "from-blue-50 to-cyan-50",
   },
   {
     id: "verified-bm-2",
@@ -49,6 +53,8 @@ const allProducts: Product[] = [
     href: "/bm1-250-limit",
     rating: 4.9,
     purchases: 122,
+    gradient: "from-blue-600 to-indigo-600",
+    bgGradient: "from-blue-50 to-indigo-50",
   },
   {
     id: "verified-bm-3",
@@ -60,6 +66,8 @@ const allProducts: Product[] = [
     href: "/bm1-250-limit",
     rating: 4.7,
     purchases: 87,
+    gradient: "from-indigo-500 to-purple-500",
+    bgGradient: "from-indigo-50 to-purple-50",
   },
   {
     id: "verified-bm-4",
@@ -72,6 +80,8 @@ const allProducts: Product[] = [
     href: "/bm1-250-limit",
     rating: 4.8,
     purchases: 45,
+    gradient: "from-purple-500 to-pink-500",
+    bgGradient: "from-purple-50 to-pink-50",
   },
 
   // Unverified BM
@@ -85,6 +95,8 @@ const allProducts: Product[] = [
     href: "/#products",
     rating: 4.5,
     purchases: 210,
+    gradient: "from-teal-500 to-green-500",
+    bgGradient: "from-teal-50 to-green-50",
   },
   {
     id: "unverified-bm-2",
@@ -96,6 +108,8 @@ const allProducts: Product[] = [
     href: "/#products",
     rating: 4.6,
     purchases: 98,
+    gradient: "from-green-500 to-emerald-500",
+    bgGradient: "from-green-50 to-emerald-50",
   },
 
   // Profile - FB accounts
@@ -109,6 +123,8 @@ const allProducts: Product[] = [
     href: "/#products",
     rating: 4.7,
     purchases: 76,
+    gradient: "from-amber-500 to-orange-500",
+    bgGradient: "from-amber-50 to-orange-50",
   },
   {
     id: "profile-2",
@@ -120,6 +136,8 @@ const allProducts: Product[] = [
     href: "/#products",
     rating: 4.8,
     purchases: 54,
+    gradient: "from-orange-500 to-red-500",
+    bgGradient: "from-orange-50 to-red-50",
   },
   {
     id: "profile-3",
@@ -132,6 +150,8 @@ const allProducts: Product[] = [
     href: "/#products",
     rating: 4.9,
     purchases: 32,
+    gradient: "from-red-500 to-rose-500",
+    bgGradient: "from-red-50 to-rose-50",
   },
   {
     id: "profile-4",
@@ -144,6 +164,8 @@ const allProducts: Product[] = [
     href: "/#products",
     rating: 4.8,
     purchases: 28,
+    gradient: "from-rose-500 to-pink-500",
+    bgGradient: "from-rose-50 to-pink-50",
   },
 
   // Recovered page
@@ -157,6 +179,8 @@ const allProducts: Product[] = [
     href: "/#products",
     rating: 4.7,
     purchases: 65,
+    gradient: "from-blue-500 to-indigo-500",
+    bgGradient: "from-blue-50 to-indigo-50",
   },
 ]
 
@@ -174,6 +198,7 @@ function ProductsContent() {
   const [currentFilter, setCurrentFilter] = useState("all")
   const [currentPage, setCurrentPage] = useState(1)
   const [isLoading, setIsLoading] = useState(true)
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null)
   const carouselRef = useRef<HTMLDivElement>(null)
   const isMobile = useMediaQuery("(max-width: 768px)")
   const productsPerPage = 8
@@ -217,7 +242,7 @@ function ProductsContent() {
   const renderRating = (rating = 4.5, purchases = 0) => {
     return (
       <div className="flex items-center gap-1">
-        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+        <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
         <span className="text-sm font-medium">{rating.toFixed(1)}</span>
         <span className="text-xs text-gray-500">({purchases})</span>
       </div>
@@ -226,25 +251,35 @@ function ProductsContent() {
 
   // Render product card (used in both mobile and desktop)
   const renderProductCard = (product: Product) => (
-    <Card className="border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md h-full">
+    <Card
+      className={`border-0 rounded-xl overflow-hidden bg-gradient-to-br ${product.bgGradient || "from-blue-50 to-indigo-50"} shadow-md hover:shadow-lg transition-all duration-300 h-full transform ${hoveredCard === product.id ? "scale-105" : "scale-100"}`}
+      onMouseEnter={() => setHoveredCard(product.id)}
+      onMouseLeave={() => setHoveredCard(null)}
+    >
       <div className="relative">
         {/* Rating display */}
-        <div className="absolute left-4 top-4 z-10">{renderRating(product.rating, product.purchases)}</div>
+        <div className="absolute left-4 top-4 z-10 bg-white/80 backdrop-blur-sm rounded-full px-2 py-1 shadow-sm">
+          {renderRating(product.rating, product.purchases)}
+        </div>
 
         {/* Product image */}
-        <div className="aspect-square relative bg-gray-50">
+        <div className="aspect-square relative bg-white/50">
           <Image src={product.image || "/placeholder.svg"} alt={product.name} fill className="object-contain p-8" />
         </div>
 
         {/* Badge if any */}
         {product.badge && (
           <div className="absolute right-4 top-4">
-            <Badge className="bg-facebook text-white">{product.badge}</Badge>
+            <Badge
+              className={`bg-gradient-to-r ${product.gradient || "from-blue-500 to-indigo-500"} text-white border-0 shadow-sm`}
+            >
+              {product.badge}
+            </Badge>
           </div>
         )}
       </div>
 
-      <CardContent className={`${isMobile ? "p-3" : "p-6"}`}>
+      <CardContent className={`${isMobile ? "p-4" : "p-6"}`}>
         {/* Purchase count */}
         <div className="flex items-center gap-1 mb-2 text-gray-600">
           <ShoppingBag className="h-3 w-3" />
@@ -257,9 +292,16 @@ function ProductsContent() {
 
         {/* Price and action */}
         <div className="flex justify-between items-center mt-2">
-          <span className={`${isMobile ? "text-lg" : "text-xl"} font-bold text-gray-900`}>€{product.price}</span>
+          <span
+            className={`${isMobile ? "text-lg" : "text-xl"} font-bold text-transparent bg-clip-text bg-gradient-to-r ${product.gradient || "from-blue-500 to-indigo-500"}`}
+          >
+            €{product.price}
+          </span>
           <Link href={product.href || "/#products"}>
-            <Button size={isMobile ? "sm" : "default"} className="bg-facebook hover:bg-facebook-dark text-white">
+            <Button
+              size={isMobile ? "sm" : "default"}
+              className={`bg-gradient-to-r ${product.gradient || "from-blue-500 to-indigo-500"} hover:opacity-90 text-white border-0 shadow-sm`}
+            >
               {isMobile ? "Add" : "Add to Cart"}
             </Button>
           </Link>
@@ -288,8 +330,8 @@ function ProductsContent() {
             } ${
               currentFilter === option.value
                 ? isMobile
-                  ? "!bg-facebook !text-white hover:!bg-facebook-dark active:!text-white"
-                  : "border-facebook text-facebook"
+                  ? "!bg-gradient-to-r from-blue-500 to-indigo-500 !text-white hover:opacity-90"
+                  : "border-blue-500 text-blue-500"
                 : isMobile
                   ? "bg-gray-100 text-gray-700 hover:bg-gray-200"
                   : ""
@@ -310,10 +352,10 @@ function ProductsContent() {
           {/* Left navigation arrow */}
           <button
             onClick={scrollLeft}
-            className="absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-gray-800/60 backdrop-blur-sm p-2 shadow-lg border border-gray-500/30"
+            className="absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/80 backdrop-blur-sm p-2 shadow-lg border border-gray-100"
             aria-label="Scroll left"
           >
-            <ChevronLeft className="h-5 w-5 text-white" />
+            <ChevronLeft className="h-5 w-5 text-gray-700" />
           </button>
 
           {/* Products carousel */}
@@ -332,14 +374,14 @@ function ProductsContent() {
                   .fill(0)
                   .map((_, i) => (
                     <div key={i} className="min-w-[150px] w-[calc(50%-6px)] flex-none snap-start">
-                      <Card className="border border-gray-200 rounded-lg overflow-hidden">
-                        <div className="aspect-square bg-gray-100 animate-pulse"></div>
-                        <CardContent className="p-3">
-                          <div className="h-3 bg-gray-200 rounded w-3/4 mb-2 animate-pulse"></div>
-                          <div className="h-4 bg-gray-200 rounded w-full mb-2 animate-pulse"></div>
+                      <Card className="border-0 rounded-xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
+                        <div className="aspect-square bg-white/50 animate-pulse"></div>
+                        <CardContent className="p-4">
+                          <div className="h-3 bg-gray-200 rounded-full w-3/4 mb-2 animate-pulse"></div>
+                          <div className="h-4 bg-gray-200 rounded-full w-full mb-2 animate-pulse"></div>
                           <div className="flex justify-between items-center">
-                            <div className="h-4 bg-gray-200 rounded w-1/4 animate-pulse"></div>
-                            <div className="h-7 bg-gray-200 rounded w-1/3 animate-pulse"></div>
+                            <div className="h-4 bg-gray-200 rounded-full w-1/4 animate-pulse"></div>
+                            <div className="h-7 bg-gray-200 rounded-full w-1/3 animate-pulse"></div>
                           </div>
                         </CardContent>
                       </Card>
@@ -355,16 +397,18 @@ function ProductsContent() {
           {/* Right navigation arrow */}
           <button
             onClick={scrollRight}
-            className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-gray-800/60 backdrop-blur-sm p-2 shadow-lg border border-gray-500/30"
+            className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/80 backdrop-blur-sm p-2 shadow-lg border border-gray-100"
             aria-label="Scroll right"
           >
-            <ChevronRight className="h-5 w-5 text-white" />
+            <ChevronRight className="h-5 w-5 text-gray-700" />
           </button>
 
           {/* See More Button for Mobile - Updated to match website style */}
           <div className="flex justify-center mt-6">
             <Link href="/products">
-              <Button className="bg-facebook hover:bg-facebook-dark text-white px-8">See More</Button>
+              <Button className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:opacity-90 text-white px-8 border-0 shadow-md">
+                See More
+              </Button>
             </Link>
           </div>
         </div>
@@ -374,14 +418,17 @@ function ProductsContent() {
           {isLoading ? (
             <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {[...Array(8)].map((_, i) => (
-                <Card key={i} className="border border-gray-200 rounded-lg overflow-hidden">
-                  <div className="aspect-square bg-gray-100 animate-pulse"></div>
+                <Card
+                  key={i}
+                  className="border-0 rounded-xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100"
+                >
+                  <div className="aspect-square bg-white/50 animate-pulse"></div>
                   <CardContent className="p-6">
-                    <div className="h-6 bg-gray-200 rounded w-3/4 mb-3 animate-pulse"></div>
-                    <div className="h-4 bg-gray-200 rounded w-full mb-4 animate-pulse"></div>
+                    <div className="h-6 bg-gray-200 rounded-full w-3/4 mb-3 animate-pulse"></div>
+                    <div className="h-4 bg-gray-200 rounded-full w-full mb-4 animate-pulse"></div>
                     <div className="flex justify-between items-center">
-                      <div className="h-6 bg-gray-200 rounded w-1/4 animate-pulse"></div>
-                      <div className="h-10 bg-gray-200 rounded w-1/3 animate-pulse"></div>
+                      <div className="h-6 bg-gray-200 rounded-full w-1/4 animate-pulse"></div>
+                      <div className="h-10 bg-gray-200 rounded-full w-1/3 animate-pulse"></div>
                     </div>
                   </CardContent>
                 </Card>
@@ -403,6 +450,7 @@ function ProductsContent() {
                   variant="outline"
                   onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                   disabled={currentPage === 1}
+                  className="border-gray-200 hover:bg-gray-50"
                 >
                   Previous
                 </Button>
@@ -411,7 +459,11 @@ function ProductsContent() {
                   <Button
                     key={page}
                     variant="outline"
-                    className={currentPage === page ? "bg-facebook text-white hover:bg-facebook-dark" : ""}
+                    className={
+                      currentPage === page
+                        ? "bg-gradient-to-r from-blue-500 to-indigo-500 text-white hover:opacity-90 border-0"
+                        : "border-gray-200 hover:bg-gray-50"
+                    }
                     onClick={() => setCurrentPage(page)}
                   >
                     {page}
@@ -422,14 +474,13 @@ function ProductsContent() {
                   variant="outline"
                   onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                   disabled={currentPage === totalPages}
+                  className="border-gray-200 hover:bg-gray-50"
                 >
                   Next
                 </Button>
               </div>
             </div>
           )}
-
-          {/* Removed the "See More Products" button for desktop as requested */}
         </>
       )}
     </>
@@ -440,15 +491,26 @@ export default function ProductsSection() {
   const isMobile = useMediaQuery("(max-width: 768px)")
 
   return (
-    <section id="products" className="py-20 bg-lightblue overflow-hidden">
-      <div className="container mx-auto px-4 overflow-hidden">
+    <section id="products" className="py-20 relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-0 left-1/4 w-72 h-72 bg-gradient-to-r from-blue-200 to-cyan-200 rounded-full opacity-20 blur-3xl -translate-y-1/2"></div>
+      <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-gradient-to-r from-purple-200 to-pink-200 rounded-full opacity-20 blur-3xl translate-y-1/2"></div>
+
+      <div className="container mx-auto px-4 relative">
         {/* Title section - simplified on mobile */}
         <div className={`${isMobile ? "" : "max-w-3xl mx-auto"} text-center mb-${isMobile ? "6" : "16"}`}>
-          {!isMobile && <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">Products</Badge>}
+          {!isMobile && (
+            <Badge className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white hover:from-blue-600 hover:to-indigo-600 mb-4 border-0 shadow-md">
+              Products
+            </Badge>
+          )}
           <h2
-            className={`${isMobile ? "text-2xl" : "text-3xl md:text-4xl"} font-bold text-gray-900 mb-${isMobile ? "2" : "4"}`}
+            className={`${isMobile ? "text-2xl" : "text-3xl md:text-4xl"} font-bold text-gray-900 mb-${isMobile ? "2" : "4"} relative inline-block`}
           >
-            Individual Solutions
+            <span className="relative z-10">Individual Solutions</span>
+            {!isMobile && (
+              <div className="absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 to-indigo-200 opacity-50 rounded-full"></div>
+            )}
           </h2>
           {!isMobile && (
             <p className="text-lg text-gray-600">Build your custom solution with our individual products</p>

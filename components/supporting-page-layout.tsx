@@ -48,8 +48,8 @@ export default function SupportingPageLayout({
         </div>
       </PageSection>
 
-      {/* Content - Removed top padding as requested */}
-      <div className="flex-1 bg-white">{children}</div>
+      {/* Content - Added proper top padding to prevent overflow issues */}
+      <div className="flex-1 bg-white pt-8 md:pt-10">{children}</div>
 
       {/* Newsletter Section (optional) */}
       {showNewsletter && <NewsletterSection />}
