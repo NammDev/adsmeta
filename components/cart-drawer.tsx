@@ -6,10 +6,12 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { ShoppingCart, X, Plus, Minus, Trash2 } from "lucide-react"
 import Image from "next/image"
 import { useEffect, useState } from "react"
+import { useMediaQuery } from "@/hooks/use-media-query"
 
 export function CartDrawer() {
   const { items, isOpen, closeCart, removeItem, updateQuantity, subtotal, itemCount } = useCart()
   const [isAnimating, setIsAnimating] = useState(false)
+  const isMobile = useMediaQuery("(max-width: 767px)")
 
   // Handle animations and keyboard events
   useEffect(() => {
@@ -20,10 +22,16 @@ export function CartDrawer() {
     if (isOpen) {
       setIsAnimating(true)
       document.addEventListener("keydown", handleEscape)
+      // Prevent body scrolling when cart is open
+      document.body.style.overflow = "hidden"
+    } else {
+      // Restore scrolling when cart is closed
+      document.body.style.overflow = ""
     }
 
     return () => {
       document.removeEventListener("keydown", handleEscape)
+      document.body.style.overflow = ""
     }
   }, [isOpen, closeCart])
 
@@ -41,13 +49,22 @@ export function CartDrawer() {
         aria-hidden="true"
       />
 
-      {/* Cart sidebar */}
+      {/* Cart sidebar/modal */}
       <div
-        className={`fixed right-0 top-0 z-50 h-auto w-full max-w-md rounded-l-xl bg-white shadow-xl transition-all duration-300 ease-out md:top-1/2 md:max-h-[80vh] md:-translate-y-1/2 ${
-          isOpen ? "translate-x-0" : "translate-x-[105%]"
-        }`}
+        className={`fixed z-50 bg-white shadow-xl transition-all duration-300 ease-out overflow-hidden
+          ${
+            isMobile
+              ? "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md max-h-[80vh] rounded-xl"
+              : "right-0 top-1/2 -translate-y-1/2 h-auto w-full max-w-md rounded-l-xl"
+          } ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
         style={{
-          animation: isOpen ? "slideIn 0.4s ease-out" : "slideOut 0.3s ease-in forwards",
+          animation: isOpen
+            ? isMobile
+              ? "fadeIn 0.3s ease-out"
+              : "slideIn 0.4s ease-out"
+            : isMobile
+              ? "fadeOut 0.3s ease-in forwards"
+              : "slideOut 0.3s ease-in forwards",
         }}
         onAnimationEnd={() => {
           if (!isOpen) setIsAnimating(false)
@@ -55,27 +72,24 @@ export function CartDrawer() {
       >
         <style jsx global>{`
           @keyframes slideIn {
-            0% { transform: translate(105%, 0); }
-            70% { transform: translate(-5px, 0); }
-            100% { transform: translate(0, 0); }
+            0% { transform: translate(105%, -50%); }
+            70% { transform: translate(-5px, -50%); }
+            100% { transform: translate(0, -50%); }
           }
           
           @keyframes slideOut {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(105%, 0); }
+            0% { transform: translate(0, -50%); }
+            100% { transform: translate(105%, -50%); }
           }
           
-          @media (min-width: 768px) {
-            @keyframes slideIn {
-              0% { transform: translate(105%, -50%); }
-              70% { transform: translate(-5px, -50%); }
-              100% { transform: translate(0, -50%); }
-            }
-            
-            @keyframes slideOut {
-              0% { transform: translate(0, -50%); }
-              100% { transform: translate(105%, -50%); }
-            }
+          @keyframes fadeIn {
+            0% { opacity: 0; transform: translate(-50%, -40%); }
+            100% { opacity: 1; transform: translate(-50%, -50%); }
+          }
+          
+          @keyframes fadeOut {
+            0% { opacity: 1; transform: translate(-50%, -50%); }
+            100% { opacity: 0; transform: translate(-50%, -40%); }
           }
         `}</style>
 
@@ -104,10 +118,7 @@ export function CartDrawer() {
               <ScrollArea
                 className="flex-1 overflow-auto"
                 style={{
-                  maxHeight: "calc(100vh - 180px)",
-                  "@media (min-width: 768px)": {
-                    maxHeight: "calc(80vh - 180px)",
-                  },
+                  maxHeight: isMobile ? "calc(60vh - 180px)" : "calc(80vh - 180px)",
                 }}
               >
                 <div className="space-y-4 p-6">

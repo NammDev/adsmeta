@@ -1,8 +1,7 @@
 "use client"
 
-import type React from "react"
-
 import { useState, useEffect, useRef } from "react"
+import { createPortal } from "react-dom"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useCart } from "@/context/cart-context"
@@ -24,13 +23,14 @@ interface CartNotificationProps {
 export function CartNotification({ show, item, onClose }: CartNotificationProps) {
   const { openCart } = useCart()
   const [isVisible, setIsVisible] = useState(false)
-  const [touchStart, setTouchStart] = useState<number | null>(null)
-  const [touchEnd, setTouchEnd] = useState<number | null>(null)
+  const [isMounted, setIsMounted] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const notificationRef = useRef<HTMLDivElement>(null)
 
-  // Minimum swipe distance (in px)
-  const minSwipeDistance = 50
+  // Mount check for client-side portal rendering
+  useEffect(() => {
+    setIsMounted(true)
+    return () => setIsMounted(false)
+  }, [])
 
   useEffect(() => {
     if (show) {
@@ -51,43 +51,7 @@ export function CartNotification({ show, item, onClose }: CartNotificationProps)
     }
   }, [show, onClose])
 
-  // Touch event handlers for swipe
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null)
-    setTouchStart(e.targetTouches[0].clientX)
-  }
-
-  const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX)
-
-    // If swiping left, move the notification with the finger
-    if (touchStart && touchEnd && touchStart > touchEnd) {
-      const distance = touchStart - touchEnd
-      if (notificationRef.current && distance > 0) {
-        notificationRef.current.style.transform = `translateX(-${distance}px)`
-      }
-    }
-  }
-
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return
-
-    // Reset transform
-    if (notificationRef.current) {
-      notificationRef.current.style.transform = ""
-    }
-
-    // Swipe left to dismiss
-    const distance = touchStart - touchEnd
-    const isLeftSwipe = distance > minSwipeDistance
-
-    if (isLeftSwipe) {
-      setIsVisible(false)
-      setTimeout(onClose, 300)
-    }
-  }
-
-  if (!show || !item) return null
+  if (!show || !item || !isMounted) return null
 
   const handleViewCart = () => {
     openCart()
@@ -98,28 +62,29 @@ export function CartNotification({ show, item, onClose }: CartNotificationProps)
     onClose()
   }
 
-  return (
+  // The actual notification content
+  const notificationContent = (
     <>
       {/* Hidden audio element for notification sound */}
       <audio ref={audioRef} src="/notification-sound.mp3" preload="auto" />
 
       <div
-        className={`fixed top-4 right-4 z-[9999] w-[85%] max-w-[320px] ${
-          isVisible ? "opacity-100 animate-slide-in-right" : "opacity-0 translate-x-full"
-        } transition-all duration-300`}
-        ref={notificationRef}
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-        style={{ filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))" }}
+        className={`fixed top-4 right-4 w-[85%] max-w-[320px] transition-opacity duration-300 ${
+          isVisible ? "opacity-100" : "opacity-0"
+        }`}
+        style={{
+          zIndex: 2147483647, // Maximum possible z-index (2^31 - 1)
+          boxShadow: "0 0 0 2000px rgba(0, 0, 0, 0)",
+          pointerEvents: "auto",
+        }}
       >
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
-          <div className="flex justify-between items-center p-3 border-b border-gray-100 bg-gray-50">
+        <div className="bg-white rounded-lg overflow-hidden border-2 border-gray-300 shadow-[0_0_20px_rgba(0,0,0,0.2)]">
+          <div className="flex justify-between items-center p-3 border-b border-gray-200 bg-gray-50">
             <div className="flex items-center">
               <ShoppingBag size={16} className="text-facebook mr-2" />
               <h3 className="font-medium text-sm">Added to cart!</h3>
             </div>
-            <button onClick={onClose} className="text-gray-500 hover:text-gray-700" aria-label="Close notification">
+            <button onClick={onClose} className="text-gray-500 hover:text-gray-700 p-1" aria-label="Close notification">
               <X size={16} />
             </button>
           </div>
@@ -150,12 +115,26 @@ export function CartNotification({ show, item, onClose }: CartNotificationProps)
               View Cart
             </Button>
           </div>
-
-          <div className="px-3 pb-2 text-center">
-            <p className="text-xs text-gray-500">Swipe left to dismiss</p>
-          </div>
         </div>
       </div>
     </>
+  )
+
+  // Use a portal to render at the root level of the DOM
+  return createPortal(
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        pointerEvents: "none",
+        zIndex: 2147483647,
+      }}
+    >
+      {notificationContent}
+    </div>,
+    document.body,
   )
 }
