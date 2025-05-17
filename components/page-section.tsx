@@ -1,35 +1,36 @@
-import type { ReactNode } from "react"
+import type React from "react"
 import { cn } from "@/lib/utils"
 
 interface PageSectionProps {
-  children: ReactNode
+  children: React.ReactNode
+  bgColor?: string
   className?: string
-  noPadding?: boolean
-  spacious?: boolean
-  bgColor?: "white" | "gray-50" | "facebook-light"
+  id?: string
 }
 
-export default function PageSection({
-  children,
-  className,
-  noPadding = false,
-  spacious = false,
-  bgColor = "white",
-}: PageSectionProps) {
-  const bgColorClass =
-    bgColor === "gray-50" ? "bg-lightblue" : bgColor === "facebook-light" ? "bg-lightblue" : "bg-white"
+export default function PageSection({ children, bgColor, className, id }: PageSectionProps) {
+  // Create the background color class based on the bgColor prop
+  let bgColorClass = ""
+
+  if (bgColor === "facebook-light") {
+    bgColorClass = "bg-lightblue"
+  } else if (bgColor === "facebook") {
+    bgColorClass = "bg-facebook"
+  } else if (bgColor === "gray-light") {
+    bgColorClass = "bg-gray-50"
+  } else if (bgColor === "white") {
+    bgColorClass = "bg-white"
+  } else if (bgColor === "transparent") {
+    bgColorClass = "bg-transparent"
+  }
+  // If no bgColor is provided, default to transparent instead of white
+  else {
+    bgColorClass = "bg-transparent"
+  }
 
   return (
-    <section className={cn(bgColorClass, className)}>
-      <div
-        className={cn(
-          "container mx-auto px-4 relative",
-          !noPadding && (spacious ? "py-8 md:py-12" : "py-6 md:py-8"),
-          spacious && "max-w-6xl",
-        )}
-      >
-        {children}
-      </div>
+    <section id={id} className={cn("py-8 md:py-12 lg:py-16 px-4 md:px-6", bgColorClass, className)}>
+      {children}
     </section>
   )
 }

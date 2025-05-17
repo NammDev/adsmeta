@@ -11,6 +11,7 @@ import {
   CheckCircle,
   ArrowRight,
   Facebook,
+  Phone,
 } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 
@@ -103,18 +104,22 @@ export default function HeroSection() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-3 w-full max-w-xs mb-8">
-              <Button className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium py-4 w-full rounded-md shadow-md">
+            {/* Mobile buttons - simplified to two buttons */}
+            <div className="grid grid-cols-2 gap-3 w-full max-w-xs mb-8">
+              <Button className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium py-4 rounded-md shadow-md">
                 <Link href="#packages" className="flex items-center justify-center gap-2">
-                  Get Your Account Now
+                  Get Account
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
               <Button
                 variant="outline"
-                className="bg-white hover:bg-gray-50 text-gray-700 border-gray-300 font-medium py-4 w-full rounded-md"
+                className="bg-white hover:bg-green-50 text-gray-700 border-gray-300 hover:border-green-300 font-medium py-4 rounded-md"
               >
-                <span className="flex items-center gap-2">💬 Chat with Support</span>
+                <span className="flex items-center gap-2">
+                  <Phone className="h-4 w-4 text-green-600" />
+                  WhatsApp
+                </span>
               </Button>
             </div>
 
@@ -144,10 +149,8 @@ export default function HeroSection() {
 
   // Desktop hero section - original two-column layout with repositioned Facebook logo
   return (
-    <section className="py-16 bg-white overflow-hidden relative">
+    <section className="py-10 md:py-16 relative overflow-hidden">
       {/* Colorful background elements */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full -translate-x-1/3 -translate-y-1/3 blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-green-400/20 to-blue-400/20 rounded-full translate-x-1/3 translate-y-1/3 blur-3xl"></div>
 
       <div className="container mx-auto px-4 relative">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -191,71 +194,60 @@ export default function HeroSection() {
               Getting nowhere with Facebook support? GoAds delivers verified accounts with 24/7 expert assistance.
             </p>
 
-            {/* Pain points section - with colorful accents */}
-            <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-lg relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-red-400/10 to-orange-400/10 rounded-bl-full"></div>
-              <h3 className="text-lg font-semibold mb-4 text-gray-900 relative z-10">Why advertisers choose GoAds:</h3>
-              <div className="space-y-4 relative z-10">
-                <div className="flex items-start gap-3">
-                  <div className="bg-red-100 p-2 rounded-full">
-                    <AlertTriangle className="h-5 w-5 text-red-500" />
+            {/* "Why advertisers choose GoAds" section */}
+            <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-md relative overflow-hidden">
+              {/* Top border accent */}
+
+              <div className="mb-3">
+                <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-sm font-medium rounded-md shadow-sm">
+                  Why advertisers choose GoAds
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 gap-3 relative z-10">
+                <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="bg-red-100 p-2 rounded-full shadow-sm flex-shrink-0">
+                    <AlertTriangle className="h-4 w-4 text-red-500" />
                   </div>
-                  <p className="text-gray-600 mt-1">
-                    <span className="font-semibold text-gray-900">Ad accounts banned</span> without warning or
-                    explanation
-                  </p>
+                  <span className="text-gray-700 text-sm">No more unexpected account bans</span>
                 </div>
-                <div className="flex items-start gap-3">
-                  <div className="bg-orange-100 p-2 rounded-full">
-                    <DollarSign className="h-5 w-5 text-orange-500" />
+
+                <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="bg-orange-100 p-2 rounded-full shadow-sm flex-shrink-0">
+                    <DollarSign className="h-4 w-4 text-orange-500" />
                   </div>
-                  <p className="text-gray-600 mt-1">
-                    <span className="font-semibold text-gray-900">Revenue lost</span> while waiting for new accounts
-                  </p>
+                  <span className="text-gray-700 text-sm">Stop losing revenue while waiting for new accounts</span>
                 </div>
-                <div className="flex items-start gap-3">
-                  <div className="bg-purple-100 p-2 rounded-full">
-                    <HeadphonesOff className="h-5 w-5 text-purple-500" />
+
+                <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="bg-purple-100 p-2 rounded-full shadow-sm flex-shrink-0">
+                    <HeadphonesOff className="h-4 w-4 text-purple-500" />
                   </div>
-                  <p className="text-gray-600 mt-1">
-                    <span className="font-semibold text-gray-900">No support</span> from Facebook when you need it most
-                  </p>
+                  <span className="text-gray-700 text-sm">Get expert support when Facebook leaves you stranded</span>
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium text-base py-6 px-8 rounded-md shadow-md">
-                <Link href="#packages" className="flex items-center gap-2">
-                  Get Your Account Now
+            {/* SIMPLIFIED: Just two buttons in one line */}
+            <div className="grid grid-cols-2 gap-4">
+              {/* Main CTA button */}
+              <Button className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium py-5 rounded-md shadow-md transition-all hover:shadow-lg">
+                <Link href="#packages" className="flex items-center justify-center gap-2">
+                  Get Your Account
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
+
+              {/* WhatsApp support button */}
               <Button
                 variant="outline"
-                className="bg-white hover:bg-gray-50 text-gray-700 border-gray-300 font-medium text-base py-6 px-8 rounded-md"
+                className="bg-white hover:bg-green-50 text-gray-700 border-gray-300 hover:border-green-300 font-medium py-5 rounded-md transition-colors"
               >
-                <span className="flex items-center gap-2">💬 Chat with Support</span>
+                <span className="flex items-center gap-2">
+                  <Phone className="h-5 w-5 text-green-600" />
+                  WhatsApp Support
+                </span>
               </Button>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4 pt-4">
-              <div className="flex items-center gap-2 bg-blue-50 p-3 rounded-lg border border-blue-100">
-                <Shield className="h-5 w-5 text-blue-500" />
-                <span className="text-gray-700">100% Verified</span>
-              </div>
-              <div className="flex items-center gap-2 bg-purple-50 p-3 rounded-lg border border-purple-100">
-                <Zap className="h-5 w-5 text-purple-500" />
-                <span className="text-gray-700">Instant Delivery</span>
-              </div>
-              <div className="flex items-center gap-2 bg-green-50 p-3 rounded-lg border border-green-100">
-                <Clock className="h-5 w-5 text-green-500" />
-                <span className="text-gray-700">24/7 Support</span>
-              </div>
-              <div className="flex items-center gap-2 bg-orange-50 p-3 rounded-lg border border-orange-100">
-                <Lock className="h-5 w-5 text-orange-500" />
-                <span className="text-gray-700">No Recycled Accounts</span>
-              </div>
             </div>
           </div>
 
@@ -400,32 +392,6 @@ export default function HeroSection() {
             <div className="absolute -bottom-4 -left-4 w-8 h-8 rounded-full bg-purple-100 border border-purple-200 z-0"></div>
             <div className="absolute -top-4 -right-4 w-6 h-6 rounded-full bg-blue-100 border border-blue-200 z-0"></div>
             <div className="absolute top-1/2 left-1/3 w-4 h-4 rounded-full bg-green-100 border border-green-200 z-0"></div>
-          </div>
-        </div>
-      </div>
-
-      {/* Colorful success counter - moved down to accommodate the Facebook logo */}
-      <div className="hidden md:block mt-40 max-w-5xl mx-auto">
-        <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 border border-blue-100 shadow-md">
-          <div className="grid grid-cols-3 gap-4 text-center">
-            <div className="p-3">
-              <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                5,000+
-              </div>
-              <div className="text-gray-600 text-sm">Accounts Delivered</div>
-            </div>
-            <div className="p-3 border-x border-gray-200">
-              <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
-                98%
-              </div>
-              <div className="text-gray-600 text-sm">Success Rate</div>
-            </div>
-            <div className="p-3">
-              <div className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-                24/7
-              </div>
-              <div className="text-gray-600 text-sm">Expert Support</div>
-            </div>
           </div>
         </div>
       </div>

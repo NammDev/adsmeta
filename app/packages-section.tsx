@@ -67,10 +67,6 @@ export default function PackagesSection() {
 
   return (
     <section id="packages" className="py-16 md:py-24 relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-r from-blue-200 to-cyan-200 rounded-full opacity-20 blur-3xl -translate-y-1/4 translate-x-1/4"></div>
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-gradient-to-r from-purple-200 to-pink-200 rounded-full opacity-20 blur-3xl translate-y-1/4 -translate-x-1/4"></div>
-
       <div className="container mx-auto px-4 relative">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md">
@@ -99,7 +95,7 @@ export default function PackagesSection() {
                 </div>
               )}
               <Card
-                className={`border ${pkg.borderColor} rounded-xl overflow-hidden bg-gradient-to-br ${pkg.bgGradient} shadow-md hover:shadow-xl transition-all duration-300 h-full transform ${hoveredCard === index ? "scale-105" : "scale-100"}`}
+                className={`border ${pkg.borderColor} rounded-xl overflow-hidden bg-white/90 backdrop-blur-sm shadow-md hover:shadow-xl transition-all duration-300 h-full transform ${hoveredCard === index ? "scale-105" : "scale-100"}`}
               >
                 <div className="p-6 pb-0">
                   <div className="flex justify-between items-start mb-4">

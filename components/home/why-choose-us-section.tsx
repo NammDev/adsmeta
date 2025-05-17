@@ -4,10 +4,6 @@ import { Shield, Clock, Tag } from "lucide-react"
 export default function WhyChooseUsSection() {
   return (
     <section id="about" className="py-12 md:py-20 relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-blue-200 to-cyan-200 rounded-full opacity-20 blur-3xl -translate-x-1/2"></div>
-      <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-gradient-to-r from-purple-200 to-pink-200 rounded-full opacity-20 blur-3xl translate-x-1/2"></div>
-
       <div className="container mx-auto px-4 relative">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md">

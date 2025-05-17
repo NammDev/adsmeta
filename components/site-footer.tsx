@@ -3,12 +3,8 @@ import Image from "next/image"
 
 export default function SiteFooter() {
   return (
-    <footer className="py-12 md:py-16 relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-0 left-1/3 w-72 h-72 bg-gradient-to-r from-blue-200 to-indigo-200 rounded-full opacity-10 blur-3xl -translate-y-1/2"></div>
-      <div className="absolute bottom-0 right-1/3 w-72 h-72 bg-gradient-to-r from-purple-200 to-pink-200 rounded-full opacity-10 blur-3xl translate-y-1/2"></div>
-
-      <div className="container mx-auto px-4 relative">
+    <footer className="py-12 md:py-16 relative overflow-hidden z-10">
+      <div className="container mx-auto px-4 relative z-10">
         {/* Desktop Footer - Logo on left, 4 columns on right */}
         <div className="hidden md:flex flex-col md:flex-row gap-12 mb-12">
           {/* Left side - Logo and Company Info */}

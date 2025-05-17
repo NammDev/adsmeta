@@ -491,30 +491,12 @@ export default function ProductsSection() {
   const isMobile = useMediaQuery("(max-width: 768px)")
 
   return (
-    <section id="products" className="py-20 relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-0 left-1/4 w-72 h-72 bg-gradient-to-r from-blue-200 to-cyan-200 rounded-full opacity-20 blur-3xl -translate-y-1/2"></div>
-      <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-gradient-to-r from-purple-200 to-pink-200 rounded-full opacity-20 blur-3xl translate-y-1/2"></div>
-
-      <div className="container mx-auto px-4 relative">
-        {/* Title section - simplified on mobile */}
-        <div className={`${isMobile ? "" : "max-w-3xl mx-auto"} text-center mb-${isMobile ? "6" : "16"}`}>
-          {!isMobile && (
-            <Badge className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white hover:from-blue-600 hover:to-indigo-600 mb-4 border-0 shadow-md">
-              Products
-            </Badge>
-          )}
-          <h2
-            className={`${isMobile ? "text-2xl" : "text-3xl md:text-4xl"} font-bold text-gray-900 mb-${isMobile ? "2" : "4"} relative inline-block`}
-          >
-            <span className="relative z-10">Individual Solutions</span>
-            {!isMobile && (
-              <div className="absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 to-indigo-200 opacity-50 rounded-full"></div>
-            )}
-          </h2>
-          {!isMobile && (
-            <p className="text-lg text-gray-600">Build your custom solution with our individual products</p>
-          )}
+    <section id="products" className="py-20 relative">
+      <div className="container mx-auto px-4">
+        <div className="max-w-3xl mx-auto text-center mb-12">
+          <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">Products</Badge>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Individual Solutions</h2>
+          <p className="text-lg text-gray-600">Build your custom solution with our individual products</p>
         </div>
 
         <SuspenseWrapper>

@@ -10,17 +10,13 @@ export default function NewsletterSection() {
 
   return (
     <section className="py-16 relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-0 left-1/4 w-72 h-72 bg-gradient-to-r from-blue-200 to-cyan-200 rounded-full opacity-20 blur-3xl -translate-y-1/2"></div>
-      <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-gradient-to-r from-purple-200 to-pink-200 rounded-full opacity-20 blur-3xl translate-y-1/2"></div>
-
       <div className="container mx-auto px-4 relative">
         <div className="max-w-5xl mx-auto">
           {/* Mobile Design */}
           {isMobile ? (
             <div className="space-y-8">
               {/* Newsletter Subscription - Mobile */}
-              <div className="bg-gradient-to-br from-white to-blue-50 rounded-xl p-6 shadow-md border border-blue-100">
+              <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-md border border-blue-100/50">
                 <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-to-br from-blue-200 to-indigo-200 rounded-full opacity-30 blur-md"></div>
                 <h3 className="text-xl font-bold text-center text-gray-900 mb-3 relative z-10">
                   Get updates and special offers
@@ -41,7 +37,7 @@ export default function NewsletterSection() {
               </div>
 
               {/* Contact Options - Mobile */}
-              <div className="bg-gradient-to-br from-white to-purple-50 rounded-xl p-6 shadow-md border border-purple-100">
+              <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-md border border-purple-100/50">
                 <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-to-br from-purple-200 to-pink-200 rounded-full opacity-30 blur-md"></div>
                 <h3 className="text-xl font-bold text-center text-gray-900 mb-4 relative z-10">Contact us directly</h3>
                 <div className="space-y-5 relative z-10">

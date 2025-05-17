@@ -7,10 +7,6 @@ import { Star } from "lucide-react"
 export default function TestimonialsSection() {
   return (
     <section className="py-12 md:py-20 relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-0 right-1/4 w-64 h-64 bg-gradient-to-r from-purple-200 to-pink-200 rounded-full opacity-20 blur-3xl -translate-y-1/2"></div>
-      <div className="absolute bottom-0 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-200 to-cyan-200 rounded-full opacity-20 blur-3xl translate-y-1/2"></div>
-
       <div className="container mx-auto px-4 relative">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600 mb-4 border-0 shadow-md">
@@ -24,7 +20,7 @@ export default function TestimonialsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <Card className="border-0 rounded-xl overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50 shadow-md hover:shadow-lg transition-shadow">
+          <Card className="border-0 rounded-xl overflow-hidden bg-white/90 backdrop-blur-sm shadow-md hover:shadow-lg transition-shadow">
             <CardContent className="p-8 relative">
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-200 to-indigo-200 rounded-full opacity-20 -translate-y-1/2 translate-x-1/2"></div>
               <div className="flex items-center mb-6 relative z-10">
@@ -59,7 +55,7 @@ export default function TestimonialsSection() {
             </CardContent>
           </Card>
 
-          <Card className="border-0 rounded-xl overflow-hidden bg-gradient-to-br from-purple-50 to-pink-50 shadow-md hover:shadow-lg transition-shadow">
+          <Card className="border-0 rounded-xl overflow-hidden bg-white/90 backdrop-blur-sm shadow-md hover:shadow-lg transition-shadow">
             <CardContent className="p-8 relative">
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-purple-200 to-pink-200 rounded-full opacity-20 -translate-y-1/2 translate-x-1/2"></div>
               <div className="flex items-center mb-6 relative z-10">
@@ -94,7 +90,7 @@ export default function TestimonialsSection() {
             </CardContent>
           </Card>
 
-          <Card className="border-0 rounded-xl overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50 shadow-md hover:shadow-lg transition-shadow">
+          <Card className="border-0 rounded-xl overflow-hidden bg-white/90 backdrop-blur-sm shadow-md hover:shadow-lg transition-shadow">
             <CardContent className="p-8 relative">
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-amber-200 to-orange-200 rounded-full opacity-20 -translate-y-1/2 translate-x-1/2"></div>
               <div className="flex items-center mb-6 relative z-10">
