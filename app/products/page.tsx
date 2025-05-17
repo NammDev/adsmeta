@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react"
+import { CheckCircle, ChevronLeft, ChevronRight, ShoppingCart, Package2 } from "lucide-react"
 import { useCart } from "@/context/cart-context"
 
 // Product type definition
@@ -337,18 +337,39 @@ export default function ProductsPage() {
       showNewsletter={true}
       breadcrumbs={[{ label: "Products", href: "/products" }]}
     >
-      <section className="py-12 bg-white">
+      <section className="py-8 md:py-12">
         <div className="container mx-auto px-4">
+          {/* Page Title */}
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md">
+              Facebook Products
+            </Badge>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
+              <span className="relative z-10">Facebook Advertising Solutions</span>
+              <div className="absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
+            </h1>
+            <p className="text-lg text-gray-600">Find the perfect tools to boost your Facebook advertising campaigns</p>
+          </div>
+
           {/* Category Filters */}
-          <div className="mb-8">
-            <div className="flex items-center justify-between mb-4">
+          <div className="mb-8 relative">
+            <div className="flex items-center gap-3 mb-6 relative z-10">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md">
+                <Package2 className="h-6 w-6 text-white" />
+              </div>
+              <h2 className="text-2xl font-bold relative">
+                <span className="relative z-10">Browse Categories</span>
+                <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
+              </h2>
+            </div>
+
+            <div className="flex items-center justify-between mb-4 relative z-10">
               <span className="text-sm font-medium text-gray-700">
                 Showing {filteredProducts.length} of {products.length} products
               </span>
-              <span className="text-xs text-gray-500">Select category</span>
             </div>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 relative z-10">
               {categories.map((category) => (
                 <Button
                   key={category.id}
@@ -356,14 +377,18 @@ export default function ProductsPage() {
                   size="sm"
                   className={`transition-all ${
                     activeFilter === category.id
-                      ? "bg-facebook text-white hover:bg-facebook/90"
-                      : "text-gray-700 hover:border-facebook hover:text-facebook"
+                      ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 border-0 shadow-sm"
+                      : "text-gray-700 hover:border-blue-400 hover:text-blue-600"
                   }`}
                   onClick={() => handleFilterChange(category.id)}
                 >
                   {activeFilter === category.id && <CheckCircle className="mr-1 h-3.5 w-3.5" />}
                   {category.name}
-                  <span className="ml-1.5 text-xs rounded-full px-1.5 py-0.5 bg-gray-100 text-gray-600">
+                  <span
+                    className={`ml-1.5 text-xs rounded-full px-1.5 py-0.5 ${
+                      activeFilter === category.id ? "bg-white/20 text-white" : "bg-gray-100 text-gray-600"
+                    }`}
+                  >
                     {category.count}
                   </span>
                 </Button>
@@ -374,36 +399,43 @@ export default function ProductsPage() {
           {/* Products Grid */}
           {filteredProducts.length > 0 ? (
             <>
-              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 relative z-10">
                 {currentProducts.map((product) => (
                   <Card
                     key={product.id}
-                    className="overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-md"
+                    className="overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-xl group relative"
                   >
-                    <div className="relative aspect-[4/3] bg-gray-100">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="relative aspect-[4/3] bg-gradient-to-br from-gray-50 to-white overflow-hidden">
                       <Image
                         src={product.image || "/placeholder.svg"}
                         alt={product.name}
                         fill
-                        className="object-cover p-4"
+                        className="object-cover p-4 transition-transform duration-500 group-hover:scale-105"
                       />
                       {product.badge && (
-                        <Badge className="absolute top-2 right-2 bg-facebook text-white">{product.badge}</Badge>
+                        <Badge className="absolute top-2 right-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white border-0 shadow-sm">
+                          {product.badge}
+                        </Badge>
                       )}
                     </div>
-                    <CardContent className="p-3 sm:p-5">
-                      <h3 className="text-sm sm:text-base font-semibold mb-1 line-clamp-1">{product.name}</h3>
+                    <CardContent className="p-3 sm:p-5 relative z-10">
+                      <h3 className="text-sm sm:text-base font-semibold mb-1 line-clamp-1 group-hover:text-blue-600 transition-colors">
+                        {product.name}
+                      </h3>
                       <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3 line-clamp-2 hidden sm:block">
                         {product.description}
                       </p>
                       <div className="flex items-center justify-between">
-                        <span className="text-sm sm:text-lg font-bold text-facebook">{product.price}</span>
+                        <span className="text-sm sm:text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                          {product.price}
+                        </span>
                         <div className="flex gap-1 sm:gap-2">
                           {addToCart && (
                             <Button
                               size="sm"
                               variant="outline"
-                              className="px-1 sm:px-2 h-8 w-8 sm:h-auto sm:w-auto"
+                              className="px-1 sm:px-2 h-8 w-8 sm:h-auto sm:w-auto hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300 transition-colors"
                               onClick={() => addToCart(product)}
                               title="Add to cart"
                             >
@@ -413,7 +445,7 @@ export default function ProductsPage() {
                           <Button
                             asChild
                             size="sm"
-                            className="bg-facebook hover:bg-facebook/90 px-2 sm:px-3 h-8 sm:h-auto"
+                            className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 border-0 text-white px-2 sm:px-3 h-8 sm:h-auto shadow-sm"
                           >
                             <Link href={product.url}>View</Link>
                           </Button>
@@ -431,7 +463,7 @@ export default function ProductsPage() {
                     <Button
                       variant="outline"
                       size="icon"
-                      className="h-9 w-9"
+                      className="h-9 w-9 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300 transition-colors"
                       onClick={() => setCurrentPage(currentPage - 1)}
                       disabled={currentPage === 1}
                       aria-label="Previous page"
@@ -454,7 +486,9 @@ export default function ProductsPage() {
                           variant={currentPage === pageNumber ? "default" : "outline"}
                           size="icon"
                           className={`h-9 w-9 ${
-                            currentPage === pageNumber ? "bg-facebook text-white hover:bg-facebook/90" : ""
+                            currentPage === pageNumber
+                              ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 border-0 shadow-sm"
+                              : "hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300"
                           }`}
                           onClick={() => setCurrentPage(pageNumber as number)}
                           aria-label={`Page ${pageNumber}`}
@@ -468,7 +502,7 @@ export default function ProductsPage() {
                     <Button
                       variant="outline"
                       size="icon"
-                      className="h-9 w-9"
+                      className="h-9 w-9 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300 transition-colors"
                       onClick={() => setCurrentPage(currentPage + 1)}
                       disabled={currentPage === totalPages}
                       aria-label="Next page"
@@ -480,17 +514,55 @@ export default function ProductsPage() {
               )}
             </>
           ) : (
-            <div className="text-center py-8 sm:py-16">
-              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🔍</div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-2">No products found</h3>
-              <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">
-                We couldn't find any products matching your selected category.
-              </p>
-              <Button onClick={() => handleFilterChange("all")} size="sm" className="text-sm">
-                View All Products
-              </Button>
+            <div className="text-center py-8 sm:py-16 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl relative overflow-hidden">
+              <div className="relative z-10">
+                <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🔍</div>
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">No products found</h3>
+                <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">
+                  We couldn't find any products matching your selected category.
+                </p>
+                <Button
+                  onClick={() => handleFilterChange("all")}
+                  size="sm"
+                  className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 border-0 text-white shadow-sm"
+                >
+                  View All Products
+                </Button>
+              </div>
             </div>
           )}
+
+          {/* Additional Info Section */}
+          <div className="mt-16 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 md:p-8 relative overflow-hidden">
+            <div className="flex flex-col md:flex-row items-center gap-6 relative z-10">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md flex-shrink-0">
+                <ShoppingCart className="h-8 w-8 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl md:text-2xl font-bold mb-2 text-center md:text-left">
+                  Looking for Custom Solutions?
+                </h3>
+                <p className="text-gray-600 mb-4 text-center md:text-left">
+                  Check out our value packs for bundled solutions or contact our team for custom requirements.
+                </p>
+                <div className="flex flex-wrap justify-center md:justify-start gap-3">
+                  <Button
+                    asChild
+                    className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 border-0 text-white shadow-sm"
+                  >
+                    <Link href="/packs">View Value Packs</Link>
+                  </Button>
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="border-gray-300 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300"
+                  >
+                    <Link href="/contact">Contact Us</Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </SupportingPageLayout>

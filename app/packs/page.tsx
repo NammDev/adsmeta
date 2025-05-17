@@ -203,7 +203,7 @@ export default function PacksPage() {
       showNewsletter={true}
       breadcrumbs={[{ label: "Packs", href: "/packs" }]}
     >
-      <section className="py-8 md:py-12 bg-white">
+      <section className="py-8 md:py-12">
         <div className="container mx-auto px-4">
           {/* Page Title */}
           <div className="max-w-3xl mx-auto text-center mb-12">
@@ -283,8 +283,6 @@ export default function PacksPage() {
           {/* All Packs Section */}
           <div className="relative">
             {/* Decorative elements */}
-            <div className="absolute top-1/4 right-0 w-40 h-40 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full opacity-30 translate-x-1/2 hidden lg:block"></div>
-            <div className="absolute bottom-1/4 left-0 w-48 h-48 bg-gradient-to-tr from-purple-100 to-pink-100 rounded-full opacity-30 -translate-x-1/2 hidden lg:block"></div>
 
             <div className="flex items-center gap-3 mb-8 relative z-10">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md">

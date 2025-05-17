@@ -5,7 +5,7 @@ import { createPortal } from "react-dom"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useCart } from "@/context/cart-context"
-import { X, ShoppingBag } from "lucide-react"
+import { X, ShoppingBag, ArrowRight } from "lucide-react"
 
 interface CartNotificationProps {
   show: boolean
@@ -78,41 +78,60 @@ export function CartNotification({ show, item, onClose }: CartNotificationProps)
           pointerEvents: "auto",
         }}
       >
-        <div className="bg-white rounded-lg overflow-hidden border-2 border-gray-300 shadow-[0_0_20px_rgba(0,0,0,0.2)]">
-          <div className="flex justify-between items-center p-3 border-b border-gray-200 bg-gray-50">
+        <div className="bg-white rounded-lg overflow-hidden border border-blue-100 shadow-lg">
+          {/* Header matching the cart drawer header */}
+          <div
+            className="flex justify-between items-center p-3 border-b border-gray-100"
+            style={{ backgroundColor: "#ebe3e9" }}
+          >
             <div className="flex items-center">
-              <ShoppingBag size={16} className="text-facebook mr-2" />
-              <h3 className="font-medium text-sm">Added to cart!</h3>
+              <div className="bg-facebook/10 p-1 rounded-full mr-2">
+                <ShoppingBag size={14} className="text-facebook" />
+              </div>
+              <h3 className="font-medium text-sm text-gray-900">Added to cart!</h3>
             </div>
-            <button onClick={onClose} className="text-gray-500 hover:text-gray-700 p-1" aria-label="Close notification">
-              <X size={16} />
+            <button
+              onClick={onClose}
+              className="text-gray-500 hover:text-gray-700 hover:bg-purple-200/50 p-1 rounded-full"
+              aria-label="Close notification"
+            >
+              <X size={14} />
             </button>
           </div>
 
           <div className="p-3">
             <div className="flex gap-3">
-              <div className="w-16 h-16 relative flex-shrink-0 bg-gray-100 rounded-md overflow-hidden">
-                <Image src={item.image || "/placeholder.svg"} alt={item.name} fill className="object-cover" />
+              <div className="w-16 h-16 relative flex-shrink-0 rounded-md overflow-hidden border border-blue-100 bg-gradient-to-br from-blue-50 to-white">
+                <Image src={item.image || "/placeholder.svg"} alt={item.name} fill className="object-cover p-1.5" />
               </div>
 
               <div className="flex-1 min-w-0">
-                <h4 className="font-medium text-sm mb-1 truncate">{item.name}</h4>
-                <p className="text-xs text-gray-600 mb-1">{item.category}</p>
-                <p className="text-xs text-gray-600 mb-1">Quantity: {item.quantity}</p>
-                <p className="font-bold text-sm">€{item.price}</p>
+                <h4 className="font-medium text-sm mb-1 truncate text-gray-900">{item.name}</h4>
+                <p className="text-xs text-gray-600 mb-1 capitalize">{item.category?.replace("-", " ") || "Product"}</p>
+                <div className="flex justify-between items-center">
+                  <p className="text-xs text-gray-600">Qty: {item.quantity}</p>
+                  <p className="font-bold text-sm bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    €{item.price}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="p-3 pt-0 flex gap-2">
-            <Button onClick={handleContinueShopping} variant="outline" className="flex-1 text-xs py-1 h-8">
+          <div className="p-3 pt-0 flex gap-2 bg-gradient-to-b from-white to-blue-50/30">
+            <Button
+              onClick={handleContinueShopping}
+              variant="outline"
+              className="flex-1 text-xs py-1 h-8 border-blue-200 hover:bg-blue-50 text-blue-600 hover:text-blue-700 hover:border-blue-300"
+            >
               Continue
             </Button>
             <Button
               onClick={handleViewCart}
-              className="flex-1 bg-facebook hover:bg-facebook-dark text-white text-xs py-1 h-8"
+              className="flex-1 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white text-xs py-1 h-8 border-0"
             >
-              View Cart
+              <span>View Cart</span>
+              <ArrowRight className="ml-1 h-3 w-3" />
             </Button>
           </div>
         </div>
