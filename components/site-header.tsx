@@ -29,18 +29,22 @@ export function SiteHeader() {
         }`}
       >
         {/* More colorful background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-100/90 via-purple-50/80 to-pink-100/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-50/90 via-purple-50/80 to-pink-50/90"></div>
 
-        {/* Colorful animated dots - positioned away from text areas */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-[10%] w-3 h-3 rounded-full bg-blue-400/30 animate-pulse-slow"></div>
-          <div className="absolute bottom-1/4 left-[15%] w-2 h-2 rounded-full bg-purple-400/30 animate-pulse-delay"></div>
-          <div className="absolute top-1/4 right-[10%] w-3 h-3 rounded-full bg-pink-400/30 animate-pulse-delay-2"></div>
-          <div className="absolute bottom-1/4 right-[15%] w-2 h-2 rounded-full bg-cyan-400/30 animate-pulse-slow"></div>
+        {/* Subtle decorative elements */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-1/4 left-[10%] w-3 h-3 rounded-full bg-blue-400/20 animate-pulse-slow"></div>
+          <div className="absolute bottom-1/4 left-[15%] w-2 h-2 rounded-full bg-purple-400/20 animate-pulse-delay"></div>
+          <div className="absolute top-1/4 right-[10%] w-3 h-3 rounded-full bg-pink-400/20 animate-pulse-delay-2"></div>
+          <div className="absolute bottom-1/4 right-[15%] w-2 h-2 rounded-full bg-cyan-400/20 animate-pulse-slow"></div>
+
+          {/* Add subtle diagonal lines */}
+          <div className="absolute -right-16 -top-16 w-32 h-32 border-2 border-blue-200/30 rounded-full"></div>
+          <div className="absolute -left-16 -bottom-16 w-32 h-32 border-2 border-purple-200/30 rounded-full"></div>
         </div>
 
-        {/* Wave pattern - moved to bottom only and reduced opacity */}
-        <div className="absolute bottom-0 left-0 right-0 h-8 opacity-15 pointer-events-none">
+        {/* Geometric accent pattern */}
+        <div className="absolute bottom-0 left-0 right-0 h-8 opacity-10 pointer-events-none">
           <svg className="w-full h-full" viewBox="0 0 1200 20" preserveAspectRatio="none">
             <path d="M0,10 C300,30 600,0 1200,10 L1200,20 L0,20 Z" fill="url(#header-gradient)"></path>
             <defs>
@@ -106,7 +110,7 @@ export function SiteHeader() {
             </div>
 
             <button
-              className="md:hidden relative group bg-gradient-to-r from-blue-100 to-purple-100 text-gray-700 p-2 rounded-md hover:from-blue-200 hover:to-purple-200 transition-all duration-300"
+              className="md:hidden relative group bg-white text-gray-700 p-2 rounded-md hover:from-blue-200 hover:to-purple-200 transition-all duration-300"
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Open menu"
             >

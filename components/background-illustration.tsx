@@ -10,14 +10,29 @@ const BackgroundIllustration: React.FC = () => {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const ctx = canvas.getContext("2d")
+    const ctx = canvas.getContext("2d", { alpha: true })
     if (!ctx) return
 
-    // Set canvas to full window size
+    // Set canvas to full window size with proper pixel ratio for crisp rendering
     const handleResize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight * 3 // Make it 3x the height to cover the full page
-      drawIllustration(ctx, canvas.width, canvas.height)
+      const pixelRatio = window.devicePixelRatio || 1
+      const width = window.innerWidth
+      const height = window.innerHeight * 2 // Cover the full page with some extra
+
+      // Set display size (css pixels)
+      canvas.style.width = width + "px"
+      canvas.style.height = height + "px"
+
+      // Set actual size in memory (scaled for pixel ratio)
+      canvas.width = width * pixelRatio
+      canvas.height = height * pixelRatio
+
+      // Scale context to match pixel ratio
+      ctx.scale(pixelRatio, pixelRatio)
+
+      // Clear and redraw
+      ctx.clearRect(0, 0, width, height)
+      drawIllustration(ctx, width, height)
     }
 
     window.addEventListener("resize", handleResize)
@@ -32,44 +47,62 @@ const BackgroundIllustration: React.FC = () => {
     // Clear canvas
     ctx.clearRect(0, 0, width, height)
 
-    // Facebook brand colors and complementary colors
+    // Facebook brand colors with better opacity control
     const colors = {
-      facebookBlue: "#1877F2",
-      vibrantPurple: "#6E48AA",
-      brightCyan: "#00C2CB",
-      vibrantPink: "#FF6B8B",
-      softOrange: "#FF9966",
-      lightBlue: "#61DAFB",
+      facebookBlue: "rgba(24, 119, 242, 0.7)",
+      vibrantPurple: "rgba(110, 72, 170, 0.7)",
+      brightCyan: "rgba(0, 194, 203, 0.7)",
+      vibrantPink: "rgba(255, 107, 139, 0.7)",
+      softOrange: "rgba(255, 153, 102, 0.7)",
+      lightBlue: "rgba(97, 218, 251, 0.7)",
     }
 
-    // Draw background shapes
-    drawNetworkNodes(ctx, width, height, colors)
-    drawWavyLines(ctx, width, height, colors)
-    drawFloatingIcons(ctx, width, height, colors)
-    drawConnectingLines(ctx, width, height, colors)
+    // Draw smoother, larger elements
+    drawSmoothGradients(ctx, width, height)
+    drawLargerNetworkNodes(ctx, width, height, colors)
+    drawSmoothWavyLines(ctx, width, height, colors)
+    drawAbstractShapes(ctx, width, height, colors)
   }
 
-  const drawNetworkNodes = (ctx: CanvasRenderingContext2D, width: number, height: number, colors: any) => {
-    // Create network nodes
-    const nodeCount = Math.floor((width * height) / 40000) // Adjust density based on screen size
+  const drawSmoothGradients = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
+    // Add smooth gradient backgrounds
+    const gradient1 = ctx.createRadialGradient(width * 0.3, height * 0.3, 0, width * 0.3, height * 0.3, width * 0.5)
+    gradient1.addColorStop(0, "rgba(24, 119, 242, 0.03)")
+    gradient1.addColorStop(1, "rgba(24, 119, 242, 0)")
+
+    ctx.fillStyle = gradient1
+    ctx.fillRect(0, 0, width, height)
+
+    const gradient2 = ctx.createRadialGradient(width * 0.7, height * 0.6, 0, width * 0.7, height * 0.6, width * 0.6)
+    gradient2.addColorStop(0, "rgba(110, 72, 170, 0.03)")
+    gradient2.addColorStop(1, "rgba(110, 72, 170, 0)")
+
+    ctx.fillStyle = gradient2
+    ctx.fillRect(0, 0, width, height)
+  }
+
+  const drawLargerNetworkNodes = (ctx: CanvasRenderingContext2D, width: number, height: number, colors: any) => {
+    // Create fewer, larger network nodes
+    const nodeCount = Math.floor((width * height) / 120000) // Reduced density
 
     for (let i = 0; i < nodeCount; i++) {
       const x = Math.random() * width
       const y = Math.random() * height
-      const radius = Math.random() * 5 + 2
+      const radius = Math.random() * 8 + 4 // Larger radius
 
       // Choose a random color from our palette
       const colorKeys = Object.keys(colors)
       const color = colors[colorKeys[Math.floor(Math.random() * colorKeys.length)]]
 
+      // Draw with anti-aliasing
       ctx.beginPath()
       ctx.arc(x, y, radius, 0, Math.PI * 2)
-      ctx.fillStyle = color + "40" // Add transparency
+      ctx.fillStyle = color.replace(/[\d.]+\)$/g, "0.15)") // Lower opacity
       ctx.fill()
 
-      // Add glow effect
+      // Add softer glow effect
       const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius * 3)
-      gradient.addColorStop(0, color + "30")
+      gradient.addColorStop(0, color.replace(/[\d.]+\)$/g, "0.1)"))
       gradient.addColorStop(1, "transparent")
 
       ctx.beginPath()
@@ -79,14 +112,14 @@ const BackgroundIllustration: React.FC = () => {
     }
   }
 
-  const drawWavyLines = (ctx: CanvasRenderingContext2D, width: number, height: number, colors: any) => {
-    // Draw wavy lines across the background
-    const lineCount = 5
+  const drawSmoothWavyLines = (ctx: CanvasRenderingContext2D, width: number, height: number, colors: any) => {
+    // Draw fewer, smoother wavy lines
+    const lineCount = 3 // Reduced count
 
     for (let i = 0; i < lineCount; i++) {
       const y = (height * (i + 0.5)) / (lineCount + 1)
-      const amplitude = Math.random() * 50 + 25
-      const frequency = Math.random() * 0.01 + 0.005
+      const amplitude = Math.random() * 40 + 20
+      const frequency = Math.random() * 0.005 + 0.002 // Lower frequency for smoother waves
 
       // Choose a color
       const colorKeys = Object.keys(colors)
@@ -95,52 +128,51 @@ const BackgroundIllustration: React.FC = () => {
       ctx.beginPath()
       ctx.moveTo(0, y)
 
-      for (let x = 0; x < width; x += 5) {
+      // Use more points for smoother curves
+      for (let x = 0; x < width; x += 2) {
         ctx.lineTo(x, y + Math.sin(x * frequency) * amplitude)
       }
 
-      ctx.strokeStyle = color + "30" // Add transparency
-      ctx.lineWidth = Math.random() * 2 + 1
+      ctx.strokeStyle = color.replace(/[\d.]+\)$/g, "0.15)") // Lower opacity
+      ctx.lineWidth = Math.random() * 3 + 2 // Thicker lines
       ctx.stroke()
     }
   }
 
-  const drawFloatingIcons = (ctx: CanvasRenderingContext2D, width: number, height: number, colors: any) => {
-    // Draw abstract shapes that suggest social media icons
-    const iconCount = Math.floor((width * height) / 100000)
+  const drawAbstractShapes = (ctx: CanvasRenderingContext2D, width: number, height: number, colors: any) => {
+    // Draw fewer, larger abstract shapes
+    const shapeCount = Math.floor((width * height) / 300000) // Reduced density
 
-    for (let i = 0; i < iconCount; i++) {
+    for (let i = 0; i < shapeCount; i++) {
       const x = Math.random() * width
       const y = Math.random() * height
-      const size = Math.random() * 30 + 20
+      const size = Math.random() * 60 + 40 // Larger size
 
       // Choose a color
       const colorKeys = Object.keys(colors)
       const color = colors[colorKeys[Math.floor(Math.random() * colorKeys.length)]]
 
-      // Randomly choose an icon type
-      const iconType = Math.floor(Math.random() * 4)
+      // Randomly choose a shape type
+      const shapeType = Math.floor(Math.random() * 3)
 
-      ctx.fillStyle = color + "30" // Add transparency
-      ctx.strokeStyle = color + "50"
+      ctx.fillStyle = color.replace(/[\d.]+\)$/g, "0.1)") // Lower opacity
+      ctx.strokeStyle = color.replace(/[\d.]+\)$/g, "0.15)") // Lower opacity
       ctx.lineWidth = 2
 
-      switch (iconType) {
-        case 0: // Circle (like profile picture)
+      switch (shapeType) {
+        case 0: // Circle
           ctx.beginPath()
           ctx.arc(x, y, size / 2, 0, Math.PI * 2)
           ctx.fill()
-          ctx.stroke()
           break
 
-        case 1: // Rounded square (like app icon)
+        case 1: // Rounded square
           ctx.beginPath()
           roundedRect(ctx, x - size / 2, y - size / 2, size, size, size / 5)
           ctx.fill()
-          ctx.stroke()
           break
 
-        case 2: // Like icon (simplified)
+        case 2: // Diamond
           ctx.beginPath()
           ctx.moveTo(x, y - size / 2)
           ctx.lineTo(x + size / 2, y)
@@ -148,68 +180,7 @@ const BackgroundIllustration: React.FC = () => {
           ctx.lineTo(x - size / 2, y)
           ctx.closePath()
           ctx.fill()
-          ctx.stroke()
           break
-
-        case 3: // Message bubble (simplified)
-          ctx.beginPath()
-          roundedRect(ctx, x - size / 2, y - size / 2, size, size * 0.8, size / 5)
-          ctx.fill()
-          ctx.stroke()
-
-          // Add the little triangle at bottom for message bubble
-          ctx.beginPath()
-          ctx.moveTo(x - size / 4, y + size / 3)
-          ctx.lineTo(x, y + size / 2)
-          ctx.lineTo(x, y + size / 3)
-          ctx.closePath()
-          ctx.fill()
-          ctx.stroke()
-          break
-      }
-    }
-  }
-
-  const drawConnectingLines = (ctx: CanvasRenderingContext2D, width: number, height: number, colors: any) => {
-    // Draw connecting lines between random points
-    const pointCount = Math.floor((width * height) / 80000)
-    const points: { x: number; y: number }[] = []
-
-    // Generate random points
-    for (let i = 0; i < pointCount; i++) {
-      points.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-      })
-    }
-
-    // Connect nearby points
-    for (let i = 0; i < points.length; i++) {
-      for (let j = i + 1; j < points.length; j++) {
-        const dx = points[i].x - points[j].x
-        const dy = points[i].y - points[j].y
-        const distance = Math.sqrt(dx * dx + dy * dy)
-
-        if (distance < 200) {
-          // Only connect points within this distance
-          // Opacity based on distance
-          const opacity = (1 - distance / 200) * 0.2
-
-          // Choose a color
-          const colorKeys = Object.keys(colors)
-          const color = colors[colorKeys[Math.floor(Math.random() * colorKeys.length)]]
-
-          ctx.beginPath()
-          ctx.moveTo(points[i].x, points[i].y)
-          ctx.lineTo(points[j].x, points[j].y)
-          ctx.strokeStyle =
-            color +
-            Math.floor(opacity * 255)
-              .toString(16)
-              .padStart(2, "0")
-          ctx.lineWidth = Math.random() * 1.5 + 0.5
-          ctx.stroke()
-        }
       }
     }
   }
@@ -239,7 +210,7 @@ const BackgroundIllustration: React.FC = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full opacity-40"
+      className="absolute inset-0 w-full h-full opacity-30"
       style={{
         mixBlendMode: "soft-light",
         pointerEvents: "none",
