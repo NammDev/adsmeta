@@ -199,19 +199,34 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       showNewsletter={true}
     >
       {/* Combined Image and Content Section */}
-      <PageSection className="py-8">
+      <PageSection className="py-8 relative overflow-hidden">
+        {/* Add decorative gradient circles */}
+        <div className="absolute top-20 right-0 w-64 h-64 bg-gradient-to-br from-blue-200/20 to-purple-200/20 rounded-full blur-3xl -z-10"></div>
+        <div className="absolute bottom-20 left-0 w-48 h-48 bg-gradient-to-br from-purple-200/20 to-pink-200/20 rounded-full blur-3xl -z-10"></div>
         <div className="max-w-5xl mx-auto px-4">
+          <div className="text-center mb-8 max-w-3xl mx-auto">
+            <div className="inline-block bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium shadow-md mb-4">
+              {blogPost.category}
+            </div>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 relative inline-block">
+              <span className="relative z-10">{blogPost.title}</span>
+              <div className="absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
+            </h1>
+            <p className="text-lg text-gray-600">{blogPost.excerpt}</p>
+          </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
               {/* Featured Image with Metadata */}
               <div className="mb-6">
-                <div className="relative h-[250px] w-full rounded-lg overflow-hidden shadow-sm">
-                  <Image
-                    src={blogPost.image || "/placeholder.svg"}
-                    alt={blogPost.title}
-                    fill
-                    className="object-cover"
-                  />
+                <div className="relative h-[250px] w-full rounded-lg overflow-hidden shadow-md border border-transparent bg-gradient-to-r from-blue-100 to-purple-100 p-[1px]">
+                  <div className="absolute inset-0 rounded-lg overflow-hidden">
+                    <Image
+                      src={blogPost.image || "/placeholder.svg"}
+                      alt={blogPost.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
                 <div className="flex items-center justify-end mt-3 mb-6 text-sm text-gray-500 border-b border-gray-200 pb-4">
                   <div className="flex items-center mr-4">
@@ -249,16 +264,32 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 <div className="flex items-center justify-between">
                   <p className="font-medium text-gray-900">Share this article:</p>
                   <div className="flex gap-3">
-                    <Button variant="outline" size="icon" className="rounded-full">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="rounded-full hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all"
+                    >
                       <Facebook className="h-4 w-4" />
                     </Button>
-                    <Button variant="outline" size="icon" className="rounded-full">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="rounded-full hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all"
+                    >
                       <Twitter className="h-4 w-4" />
                     </Button>
-                    <Button variant="outline" size="icon" className="rounded-full">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="rounded-full hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all"
+                    >
                       <Linkedin className="h-4 w-4" />
                     </Button>
-                    <Button variant="outline" size="icon" className="rounded-full">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="rounded-full hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all"
+                    >
                       <Copy className="h-4 w-4" />
                     </Button>
                   </div>
@@ -268,7 +299,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
             <div className="hidden lg:block">
               <div className="sticky top-24">
-                <TableOfContents headings={headings} title="Table of Contents" />
+                <div className="bg-white rounded-lg shadow-sm p-5 border border-transparent bg-gradient-to-r from-blue-50 to-purple-50 p-[1px]">
+                  <TableOfContents headings={headings} title="Table of Contents" />
+                </div>
               </div>
             </div>
           </div>
@@ -276,29 +309,43 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       </PageSection>
 
       {/* Author Bio */}
-      <PageSection bgColor="facebook-light" className="py-8">
+      <PageSection bgColor="facebook-light" className="py-8 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full blur-3xl -z-10"></div>
         <div className="max-w-4xl mx-auto">
-          <div className="bg-white rounded-lg shadow-sm p-8 flex flex-col md:flex-row gap-6 items-center">
-            <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0">
-              <Image
-                src={blogPost.authorImage || "/placeholder.svg"}
-                alt={blogPost.author}
-                width={96}
-                height={96}
-                className="object-cover"
-              />
+          <div className="bg-white rounded-lg shadow-sm p-8 flex flex-col md:flex-row gap-6 items-center border border-transparent bg-gradient-to-r from-blue-50 to-purple-50 p-[1px]">
+            <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0 border-2 border-transparent bg-gradient-to-r from-blue-300 to-purple-300 p-[2px]">
+              <div className="rounded-full overflow-hidden h-full w-full">
+                <Image
+                  src={blogPost.authorImage || "/placeholder.svg"}
+                  alt={blogPost.author}
+                  width={96}
+                  height={96}
+                  className="object-cover"
+                />
+              </div>
             </div>
             <div>
-              <h3 className="text-xl font-bold mb-2">About {blogPost.author}</h3>
+              <h3 className="text-xl font-bold mb-2 relative inline-block">
+                <span className="relative z-10">About {blogPost.author}</span>
+                <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
+              </h3>
               <p className="text-gray-600 mb-4">
                 Alex Johnson is a Facebook Ads Specialist with over 8 years of experience managing ad accounts for
                 businesses of all sizes. He specializes in account health and scaling strategies.
               </p>
               <div className="flex gap-3">
-                <Button variant="outline" size="sm" className="rounded-full">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="rounded-full hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all"
+                >
                   <Facebook className="h-4 w-4 mr-2" /> Follow
                 </Button>
-                <Button variant="outline" size="sm" className="rounded-full">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="rounded-full hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all"
+                >
                   <Twitter className="h-4 w-4 mr-2" /> Follow
                 </Button>
               </div>
@@ -308,29 +355,39 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       </PageSection>
 
       {/* Related Posts Carousel */}
-      <PageSection className="py-8">
+      <PageSection className="py-8 relative overflow-hidden">
+        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-gradient-to-br from-purple-200/20 to-pink-200/20 rounded-full blur-3xl -z-10"></div>
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold mb-8 text-center">You Might Also Like</h2>
+          <h2 className="text-2xl font-bold mb-8 text-center relative inline-block mx-auto w-full">
+            <span className="relative z-10">You Might Also Like</span>
+            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-3 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full w-48"></div>
+          </h2>
 
           <BlogCarousel itemsPerView={3} mobileItemsPerView={2} className="px-4">
             {blogPost.relatedPosts.map((post) => (
               <div
                 key={post.id}
-                className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow h-full"
+                className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow h-full group"
               >
                 <Link href={`/blog/${post.id}`} className="block">
-                  <div className="relative h-36 md:h-48 w-full">
-                    <Image src={post.image || "/placeholder.svg"} alt={post.title} fill className="object-cover" />
+                  <div className="relative h-36 md:h-48 w-full overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-500/0 group-hover:from-blue-500/10 group-hover:to-purple-500/10 transition-all duration-300 z-10"></div>
+                    <Image
+                      src={post.image || "/placeholder.svg"}
+                      alt={post.title}
+                      fill
+                      className="object-cover transition-transform group-hover:scale-105 duration-300"
+                    />
                   </div>
                 </Link>
                 <div className="p-4 md:p-6">
                   {/* Badge only shows on desktop */}
-                  <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-3 hidden md:inline-flex">
+                  <Badge className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 text-blue-700 hover:from-blue-500/20 hover:to-purple-500/20 mb-3 hidden md:inline-flex border-0">
                     {post.category}
                   </Badge>
 
                   <h3 className="text-base md:text-lg font-bold mb-1 md:mb-2 line-clamp-2">
-                    <Link href={`/blog/${post.id}`} className="hover:text-facebook transition-colors">
+                    <Link href={`/blog/${post.id}`} className="hover:text-blue-600 transition-colors">
                       {post.title}
                     </Link>
                   </h3>
@@ -343,11 +400,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                   {/* Simplified link for mobile */}
                   <Link
                     href={`/blog/${post.id}`}
-                    className="text-facebook hover:underline text-xs md:text-sm font-medium flex items-center"
+                    className="text-blue-600 hover:underline text-xs md:text-sm font-medium flex items-center group-hover:text-blue-700"
                   >
                     <span className="md:block">Read</span>
                     <span className="hidden md:inline"> Article</span>
-                    <ArrowRight className="h-3 w-3 ml-1" />
+                    <ArrowRight className="h-3 w-3 ml-1 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
               </div>

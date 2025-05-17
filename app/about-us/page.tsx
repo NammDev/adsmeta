@@ -1,116 +1,270 @@
 import Image from "next/image"
 import SupportingPageLayout from "@/components/supporting-page-layout"
-import PageSection from "@/components/page-section"
+import { Award, Users, Clock, Globe, Shield } from "lucide-react"
 
 export default function AboutUsPage() {
   return (
     <SupportingPageLayout
       title="About Us"
       subtitle="Learn more about EasyAdsPack and our mission to help businesses succeed on Facebook"
-      breadcrumbs={[{ label: "About Us", href: "/about-us" }]}
     >
-      {/* Company Background */}
-      <PageSection spacious>
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Our Story</h2>
-            <p className="text-gray-600 mb-4">
-              Founded in 2016, EasyAdsPack emerged from a simple observation: businesses were struggling to navigate
-              Facebook's complex advertising ecosystem. Our founders, experienced digital marketers themselves,
-              recognized the need for reliable, ready-to-use Facebook business assets.
-            </p>
-            <p className="text-gray-600 mb-4">
-              What began as a small operation helping local businesses has grown into a trusted provider of Facebook
-              advertising solutions for clients worldwide. We've been in the game for over 7 years, working with top
-              advertisers, eCommerce owners, and agencies.
-            </p>
-            <p className="text-gray-600">
-              Through trial and error, we've mastered the secret formula for navigating Facebook and have the expertise
-              to provide you with the most stable accounts and assets available.
-            </p>
-          </div>
-          <div className="relative h-[400px] rounded-lg overflow-hidden shadow-lg">
-            <Image src="/digital-marketing-team.png" alt="EasyAdsPack team" fill className="object-cover" />
+      {/* Company Background with Vibrant Styling */}
+      <div className="pt-10 md:pt-12">
+        {/* Section Badge */}
+        <div className="flex justify-center mb-6">
+          <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md">
+            <Clock className="w-4 h-4 mr-1" />
+            <span>Our Journey Since 2016</span>
           </div>
         </div>
-      </PageSection>
 
-      {/* Mission Statement */}
-      <PageSection bgColor="facebook-light" spacious>
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Our Mission</h2>
-          <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-            "To empower businesses of all sizes with reliable, high-quality Facebook advertising assets that drive
-            growth and success in the digital marketplace."
+        {/* Section Title with Gradient Underline */}
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold mb-2">Our Story</h2>
+          <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"></div>
+          <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
+            From a small operation to a trusted provider of Facebook advertising solutions worldwide
           </p>
-          <div className="grid md:grid-cols-3 gap-4 mt-8">
-            <div className="bg-white p-4 rounded-lg shadow-sm">
-              <h3 className="font-bold text-lg mb-2 text-facebook">Reliability</h3>
-              <p className="text-gray-600 text-sm">We provide stable, long-lasting Facebook assets you can count on.</p>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow-sm">
-              <h3 className="font-bold text-lg mb-2 text-facebook">Expertise</h3>
-              <p className="text-gray-600 text-sm">
-                Our team brings years of specialized knowledge in Facebook advertising.
+        </div>
+
+        <div className="container px-4 md:px-6">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+              <p className="text-gray-600 mb-4 leading-relaxed">
+                Founded in 2016, EasyAdsPack emerged from a simple observation: businesses were struggling to navigate
+                Facebook's complex advertising ecosystem. Our founders, experienced digital marketers themselves,
+                recognized the need for reliable, ready-to-use Facebook business assets.
               </p>
+              <p className="text-gray-600 mb-4 leading-relaxed">
+                What began as a small operation helping local businesses has grown into a trusted provider of Facebook
+                advertising solutions for clients worldwide. We've been in the game for over 7 years, working with top
+                advertisers, eCommerce owners, and agencies.
+              </p>
+              <p className="text-gray-600 leading-relaxed">
+                Through trial and error, we've mastered the secret formula for navigating Facebook and have the
+                expertise to provide you with the most stable accounts and assets available.
+              </p>
+
+              {/* Stats with Gradient */}
+              <div className="grid grid-cols-3 gap-4 mt-6">
+                <div className="text-center">
+                  <div className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+                    7+
+                  </div>
+                  <div className="text-sm text-gray-500">Years</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-600 bg-clip-text text-transparent">
+                    5k+
+                  </div>
+                  <div className="text-sm text-gray-500">Clients</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-red-600 bg-clip-text text-transparent">
+                    99%
+                  </div>
+                  <div className="text-sm text-gray-500">Success</div>
+                </div>
+              </div>
             </div>
-            <div className="bg-white p-4 rounded-lg shadow-sm">
-              <h3 className="font-bold text-lg mb-2 text-facebook">Support</h3>
-              <p className="text-gray-600 text-sm">We're committed to your success with unmatched customer service.</p>
+
+            <div className="relative rounded-xl overflow-hidden shadow-xl group">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-600/20 group-hover:opacity-75 transition-opacity duration-300"></div>
+              <div className="relative h-[400px]">
+                <Image src="/digital-marketing-team.png" alt="EasyAdsPack team" fill className="object-cover" />
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                <p className="text-white font-medium">Our dedicated team of Facebook advertising experts</p>
+              </div>
             </div>
           </div>
         </div>
-      </PageSection>
+      </div>
 
-      {/* Team Introduction - Fixed for mobile */}
-      <PageSection spacious>
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-6">
-            <h2 className="text-2xl md:text-3xl font-bold mb-2">Team Members</h2>
-            <p className="text-gray-600">The experts behind EasyAdsPack committed to your success.</p>
+      {/* Mission Statement with Vibrant Styling */}
+      <div className="py-16 bg-gradient-to-r from-blue-50 to-purple-50 mt-16">
+        <div className="container px-4 md:px-6 mx-auto">
+          {/* Section Badge */}
+          <div className="flex justify-center mb-6">
+            <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-purple-500 to-pink-600 text-white shadow-md">
+              <Award className="w-4 h-4 mr-1" />
+              <span>Our Purpose</span>
+            </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden p-6">
-            <div className="space-y-6">
+          {/* Section Title with Gradient Underline */}
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold mb-2">Our Mission</h2>
+            <div className="h-1 w-20 bg-gradient-to-r from-purple-500 to-pink-600 mx-auto rounded-full"></div>
+          </div>
+
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 mb-10 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-purple-500 to-pink-600"></div>
+              <p className="text-xl text-gray-700 italic leading-relaxed relative z-10">
+                "To empower businesses of all sizes with reliable, high-quality Facebook advertising assets that drive
+                growth and success in the digital marketplace."
+              </p>
+              <div className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-purple-500/10 to-pink-600/10 rounded-tl-full"></div>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 mt-8">
+              {[
+                {
+                  title: "Reliability",
+                  description: "We provide stable, long-lasting Facebook assets you can count on.",
+                  icon: Shield,
+                  gradient: "from-blue-500 to-indigo-600",
+                },
+                {
+                  title: "Expertise",
+                  description: "Our team brings years of specialized knowledge in Facebook advertising.",
+                  icon: Award,
+                  gradient: "from-purple-500 to-pink-600",
+                },
+                {
+                  title: "Support",
+                  description: "We're committed to your success with unmatched customer service.",
+                  icon: Users,
+                  gradient: "from-pink-500 to-red-600",
+                },
+              ].map((value, index) => (
+                <div
+                  key={index}
+                  className="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-xl transition-all duration-300 group"
+                >
+                  <div className="flex items-center mb-4">
+                    <div className={`p-3 rounded-full bg-gradient-to-r ${value.gradient} text-white mr-3`}>
+                      <value.icon className="w-5 h-5" />
+                    </div>
+                    <h3
+                      className={`font-bold text-xl bg-gradient-to-r ${value.gradient} bg-clip-text text-transparent`}
+                    >
+                      {value.title}
+                    </h3>
+                  </div>
+                  <p className="text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
+                    {value.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Team Introduction with Vibrant Styling */}
+      <div className="py-16">
+        <div className="container px-4 md:px-6 mx-auto">
+          {/* Section Badge */}
+          <div className="flex justify-center mb-6">
+            <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-green-500 to-teal-600 text-white shadow-md">
+              <Users className="w-4 h-4 mr-1" />
+              <span>Meet Our Experts</span>
+            </div>
+          </div>
+
+          {/* Section Title with Gradient Underline */}
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold mb-2">Team Members</h2>
+            <div className="h-1 w-20 bg-gradient-to-r from-green-500 to-teal-600 mx-auto rounded-full"></div>
+            <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+              The experts behind EasyAdsPack committed to your success
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-6">
               {[
                 {
                   name: "Alex Johnson",
                   role: "Founder",
                   email: "alex@gmail.com",
                   image: "/male-marketing-owner.png",
+                  gradient: "from-blue-500 to-indigo-600",
                 },
                 {
                   name: "Sarah Williams",
                   role: "Operations",
                   email: "sarah@gmail.com",
                   image: "/female-business-owner-portrait.png",
+                  gradient: "from-purple-500 to-pink-600",
                 },
                 {
                   name: "Michael Chen",
                   role: "Developer",
                   email: "michael@gmail.com",
                   image: "/male-freelancer-portrait.png",
+                  gradient: "from-green-500 to-teal-600",
                 },
               ].map((member, index) => (
-                <div key={index} className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="relative h-12 w-12 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
-                      <Image src={member.image || "/placeholder.svg"} alt={member.name} fill className="object-cover" />
+                <div
+                  key={index}
+                  className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 group"
+                >
+                  <div className={`h-2 bg-gradient-to-r ${member.gradient}`}></div>
+                  <div className="p-6">
+                    <div className="flex justify-center mb-4">
+                      <div className="relative h-24 w-24 rounded-full overflow-hidden border-4 border-white shadow-md">
+                        <Image
+                          src={member.image || "/placeholder.svg"}
+                          alt={member.name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-medium text-base">{member.name}</h3>
-                      <p className="text-gray-500 text-sm">{member.email}</p>
+                    <div className="text-center">
+                      <h3 className="font-bold text-xl mb-1">{member.name}</h3>
+                      <div
+                        className={`inline-block px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r ${member.gradient} text-white mb-2`}
+                      >
+                        {member.role}
+                      </div>
+                      <p className="text-gray-500 flex items-center justify-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4 mr-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                          />
+                        </svg>
+                        {member.email}
+                      </p>
                     </div>
-                  </div>
-                  <div className="px-4 py-2 rounded-lg border border-gray-200 min-w-[100px] text-center">
-                    <span className="font-medium text-facebook whitespace-nowrap">{member.role}</span>
                   </div>
                 </div>
               ))}
             </div>
+
+            <div className="mt-12 bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl border border-blue-100">
+              <div className="flex items-center">
+                <div className="p-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white mr-4">
+                  <Globe className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-xl mb-1">Join Our Team</h3>
+                  <p className="text-gray-600">
+                    We're always looking for talented individuals to join our growing team.
+                  </p>
+                </div>
+              </div>
+              <div className="mt-4 flex justify-end">
+                <button className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium hover:shadow-lg transition-all duration-300">
+                  View Openings
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </PageSection>
+      </div>
     </SupportingPageLayout>
   )
 }

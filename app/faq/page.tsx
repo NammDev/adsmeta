@@ -2,7 +2,17 @@
 
 import SupportingPageLayout from "@/components/supporting-page-layout"
 import { useMediaQuery } from "@/hooks/use-media-query"
-import { HelpCircle, ShoppingCart, Package, Truck, HeadphonesIcon } from "lucide-react"
+import {
+  HelpCircle,
+  ShoppingCart,
+  Package,
+  Truck,
+  HeadphonesIcon,
+  CheckCircle,
+  AlertCircle,
+  CreditCard,
+} from "lucide-react"
+import { cn } from "@/lib/utils"
 
 export default function FAQPage() {
   const isMobile = useMediaQuery("(max-width: 768px)")
@@ -12,16 +22,10 @@ export default function FAQPage() {
       title="Frequently Asked Questions"
       subtitle="Find answers to the most common questions about our products and services"
     >
-      {/* FAQ Categories - Background removed */}
-      <div className="py-16 bg-transparent">
+      {/* FAQ Categories - Styled like landing page */}
+      <div className="pt-10 md:pt-12 pb-16 bg-transparent">
         <div className="container px-4 md:px-6">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">FAQ Categories</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Browse through our most common question categories to find the answers you need
-            </p>
-          </div>
-
+          {/* Category cards with landing page styling */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
@@ -29,36 +33,52 @@ export default function FAQPage() {
                 icon: <Package className="h-8 w-8" />,
                 count: 8,
                 description: "Questions about our Facebook products and services",
+                gradient: "from-blue-500 to-indigo-600",
               },
               {
                 name: "Ordering",
                 icon: <ShoppingCart className="h-8 w-8" />,
                 count: 6,
                 description: "How to place orders and payment options",
+                gradient: "from-indigo-500 to-purple-600",
               },
               {
                 name: "Delivery",
                 icon: <Truck className="h-8 w-8" />,
                 count: 5,
                 description: "Delivery times and account access",
+                gradient: "from-purple-500 to-pink-600",
               },
               {
                 name: "Support",
                 icon: <HeadphonesIcon className="h-8 w-8" />,
                 count: 7,
                 description: "Get help with your purchase",
+                gradient: "from-pink-500 to-rose-600",
               },
             ].map((category, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-6 text-center border border-gray-100"
+                className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 text-center border border-gray-100 group hover:translate-y-[-2px]"
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 text-facebook mb-4">
+                <div
+                  className={cn(
+                    "inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br mb-4 text-white",
+                    category.gradient,
+                  )}
+                >
                   {category.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{category.name}</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-facebook transition-colors">
+                  {category.name}
+                </h3>
                 <p className="text-gray-600 mb-3">{category.description}</p>
-                <div className="inline-block px-3 py-1 bg-blue-50 text-facebook text-sm font-medium rounded-full">
+                <div
+                  className={cn(
+                    "inline-block px-3 py-1 text-white text-sm font-medium rounded-full bg-gradient-to-r shadow-sm",
+                    category.gradient,
+                  )}
+                >
                   {category.count} questions
                 </div>
               </div>
@@ -67,17 +87,27 @@ export default function FAQPage() {
         </div>
       </div>
 
-      {/* Product FAQs - Background removed */}
+      {/* Product FAQs - Styled like landing page */}
       <div className="py-16 bg-transparent">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col md:flex-row gap-10">
             <div className="md:w-1/3">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Product Questions</h2>
+              {/* Badge like landing page */}
+              <div className="inline-block px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-sm font-medium rounded-full shadow-sm mb-4">
+                Product Information
+              </div>
+
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+                Product Questions
+                <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mt-2"></div>
+              </h2>
+
               <p className="text-gray-600">
                 Everything you need to know about our Facebook Business Manager accounts and packages
               </p>
+
               <div className="hidden md:block mt-8">
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-50 text-facebook">
+                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white">
                   <Package className="h-10 w-10" />
                 </div>
               </div>
@@ -109,10 +139,10 @@ export default function FAQPage() {
                 ].map((faq, index) => (
                   <div
                     key={index}
-                    className="bg-blue-50/30 rounded-xl p-6 hover:bg-blue-50/50 transition-colors duration-300"
+                    className="bg-white rounded-xl p-6 hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-blue-200 group"
                   >
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-start">
-                      <HelpCircle className="h-5 w-5 mr-2 mt-1 flex-shrink-0 text-facebook" />
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-start group-hover:text-facebook transition-colors">
+                      <HelpCircle className="h-5 w-5 mr-2 mt-1 flex-shrink-0 text-blue-500" />
                       <span>{faq.question}</span>
                     </h3>
                     <p className="text-gray-600 ml-7">{faq.answer}</p>
@@ -124,11 +154,20 @@ export default function FAQPage() {
         </div>
       </div>
 
-      {/* Ordering FAQs - Background removed */}
+      {/* Ordering FAQs - Styled like landing page */}
       <div className="py-16 bg-transparent">
         <div className="container px-4 md:px-6">
           <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Ordering & Payment</h2>
+            {/* Badge like landing page */}
+            <div className="inline-block px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-600 text-white text-sm font-medium rounded-full shadow-sm mb-4">
+              Payment & Ordering
+            </div>
+
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+              Ordering & Payment
+              <div className="h-1 w-20 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full mt-2 mx-auto"></div>
+            </h2>
+
             <p className="text-gray-600 max-w-2xl mx-auto">
               Information about our ordering process and payment options
             </p>
@@ -141,64 +180,98 @@ export default function FAQPage() {
                 answer:
                   "Select your product, click 'Buy Now', and follow the checkout process. You'll receive access details after payment confirmation.",
                 icon: <ShoppingCart className="h-6 w-6" />,
+                gradient: "from-purple-500 to-pink-600",
               },
               {
                 question: "What payment methods do you accept?",
                 answer:
                   "We accept credit cards, PayPal, and cryptocurrencies including Bitcoin, Ethereum, and USDT for your convenience.",
-                icon: (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-6 w-6"
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
-                    <path d="M12 18V6" />
-                  </svg>
-                ),
+                icon: <CreditCard className="h-6 w-6" />,
+                gradient: "from-pink-500 to-rose-600",
               },
               {
                 question: "Is my payment information secure?",
                 answer:
                   "Yes, we use industry-standard encryption and secure payment processors to protect your payment information.",
-                icon: (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-6 w-6"
-                  >
-                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                  </svg>
-                ),
+                icon: <CheckCircle className="h-6 w-6" />,
+                gradient: "from-rose-500 to-red-600",
               },
             ].map((faq, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl shadow-md p-6 border border-gray-100 flex flex-col h-full"
+                className="bg-white rounded-xl shadow-md p-6 border border-gray-100 flex flex-col h-full hover:shadow-lg transition-all duration-300 hover:translate-y-[-2px] group"
               >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-50 text-facebook mb-4">
+                <div
+                  className={cn(
+                    "inline-flex items-center justify-center w-12 h-12 rounded-full text-white mb-4 bg-gradient-to-br",
+                    faq.gradient,
+                  )}
+                >
                   {faq.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">{faq.question}</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3 group-hover:text-facebook transition-colors">
+                  {faq.question}
+                </h3>
                 <p className="text-gray-600 flex-grow">{faq.answer}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Additional FAQ Section - Styled like landing page */}
+      <div className="py-16 bg-transparent">
+        <div className="container px-4 md:px-6">
+          <div className="max-w-4xl mx-auto">
+            {/* Badge like landing page */}
+            <div className="inline-block px-3 py-1 bg-gradient-to-r from-indigo-500 to-blue-600 text-white text-sm font-medium rounded-full shadow-sm mb-4">
+              Common Questions
+            </div>
+
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+              Other Frequently Asked Questions
+              <div className="h-1 w-20 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-full mt-2"></div>
+            </h2>
+
+            <div className="space-y-4">
+              {[
+                {
+                  question: "How long does it take to set up my account?",
+                  answer:
+                    "Most accounts are set up within 24-48 hours after purchase. You'll receive login details via email once everything is ready.",
+                },
+                {
+                  question: "Can I upgrade my package later?",
+                  answer:
+                    "Yes, you can upgrade to a higher package at any time. Contact our support team for assistance with upgrading your account.",
+                },
+                {
+                  question: "Do you offer refunds?",
+                  answer:
+                    "We offer refunds only if we're unable to deliver the services as described. Please review our refund policy for more details.",
+                },
+                {
+                  question: "How do I get support if I have issues?",
+                  answer:
+                    "We provide 24/7 support via email and live chat. You can also schedule a call with our support team for more complex issues.",
+                },
+              ].map((faq, index) => (
+                <div
+                  key={index}
+                  className="border border-gray-200 rounded-xl overflow-hidden group hover:border-blue-200 transition-colors duration-300"
+                >
+                  <div className="p-5 flex justify-between items-start cursor-pointer bg-white hover:bg-blue-50/30 transition-colors duration-300">
+                    <h3 className="text-lg font-medium text-gray-900 group-hover:text-facebook transition-colors flex items-center">
+                      <AlertCircle className="h-5 w-5 mr-2 text-indigo-500 flex-shrink-0" />
+                      {faq.question}
+                    </h3>
+                  </div>
+                  <div className="px-5 pb-5 bg-white">
+                    <p className="text-gray-600 ml-7">{faq.answer}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

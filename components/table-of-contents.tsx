@@ -55,12 +55,19 @@ export function TableOfContents({ headings, title = "Table of Contents" }: Table
               )}
             >
               <a
+                key={heading.id}
                 href={`#${heading.id}`}
+                className={`block text-sm py-1 pl-${(heading.level - 2) * 4} transition-colors ${
+                  activeId === heading.id
+                    ? "text-blue-600 font-medium bg-gradient-to-r from-blue-50 to-purple-50 rounded pl-${(heading.level - 2) * 4 + 2} -ml-2"
+                    : "text-gray-600 hover:text-blue-600"
+                }`}
                 onClick={(e) => {
                   e.preventDefault()
-                  document.getElementById(heading.id)?.scrollIntoView({ behavior: "smooth" })
+                  document.querySelector(`#${heading.id}`)?.scrollIntoView({
+                    behavior: "smooth",
+                  })
                 }}
-                className="block py-1"
               >
                 {heading.text}
               </a>

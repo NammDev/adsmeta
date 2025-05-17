@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { useState } from "react"
-import { CalendarIcon, Clock, TrendingUp, Eye, Mail, ChevronLeft, ChevronRight } from "lucide-react"
+import { Clock, TrendingUp, Eye, Mail, ChevronLeft, ChevronRight } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -263,13 +263,21 @@ export default function BlogPage() {
             {/* Most Viewed Posts Column - First on desktop, second on mobile */}
             <div className={`md:col-span-1 flex flex-col ${isMobile ? "order-2 mt-8" : "order-1"}`}>
               <div className="flex items-center gap-2 mb-6">
-                <Eye className="h-5 w-5 text-facebook" />
-                <h2 className="text-xl font-bold">Most Viewed</h2>
+                <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-500 rounded-lg flex items-center justify-center shadow-md">
+                  <Eye className="h-5 w-5 text-white" />
+                </div>
+                <h2 className="text-xl font-bold relative">
+                  <span className="relative z-10">Most Viewed</span>
+                  <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-amber-200 to-orange-200 opacity-50 rounded-full"></div>
+                </h2>
               </div>
 
               <div className="space-y-6 flex-1">
                 {mostViewedPosts.map((post) => (
-                  <div key={post.id} className="group">
+                  <div
+                    key={post.id}
+                    className="group relative rounded-lg p-2 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all"
+                  >
                     <Link href={`/blog/${post.id}`} className="flex gap-4">
                       <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
                         <Image
@@ -306,8 +314,13 @@ export default function BlogPage() {
             {/* Latest Articles - Second on desktop, first on mobile */}
             <div className={`md:col-span-2 flex flex-col ${isMobile ? "order-1" : "order-2"}`}>
               <div className="flex items-center gap-2 mb-6">
-                <TrendingUp className="h-5 w-5 text-facebook" />
-                <h2 className="text-xl font-bold">Latest Articles</h2>
+                <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center shadow-md">
+                  <TrendingUp className="h-5 w-5 text-white" />
+                </div>
+                <h2 className="text-xl font-bold relative">
+                  <span className="relative z-10">Latest Articles</span>
+                  <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-purple-200 to-pink-200 opacity-50 rounded-full"></div>
+                </h2>
               </div>
 
               {isMobile ? (
@@ -455,11 +468,14 @@ export default function BlogPage() {
       {/* Daily New Posts Section with Category Filter and Embedded Newsletter */}
       <PageSection bgColor="facebook-light" className="py-10">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center mb-6">
-            <div className="flex items-center gap-2">
-              <CalendarIcon className="h-5 w-5 text-facebook" />
-              <h2 className="text-xl font-bold">New Posts Every Day</h2>
-            </div>
+          <div className="flex flex-col items-center text-center mb-8">
+            <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md">
+              Daily Updates
+            </Badge>
+            <h2 className="text-2xl md:text-3xl font-bold mb-3 relative inline-block">
+              <span className="relative z-10">New Posts Every Day</span>
+              <div className="absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
+            </h2>
           </div>
 
           {/* Category Filter */}
@@ -468,10 +484,10 @@ export default function BlogPage() {
               {categories.map((category) => (
                 <Badge
                   key={category}
-                  className={`px-4 py-2 text-sm font-medium whitespace-nowrap cursor-pointer ${
+                  className={`px-4 py-2 text-sm font-medium whitespace-nowrap cursor-pointer border-0 transition-all ${
                     category === selectedCategory
-                      ? "bg-facebook text-white hover:bg-facebook-dark"
-                      : "bg-white text-gray-700 hover:bg-gray-100"
+                      ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 shadow-md"
+                      : "bg-white text-gray-700 hover:bg-gray-100 hover:shadow-sm"
                   }`}
                   onClick={() => handleCategoryChange(category)}
                 >
@@ -488,8 +504,9 @@ export default function BlogPage() {
                 {dailyPosts.map((post) => (
                   <Card
                     key={post.id}
-                    className="border border-gray-100 rounded-xl overflow-hidden hover:shadow-md transition-shadow flex flex-col h-full"
+                    className="border border-gray-100 rounded-xl overflow-hidden hover:shadow-lg transition-all group flex flex-col h-full relative"
                   >
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-500/0 opacity-0 group-hover:opacity-10 transition-opacity rounded-xl"></div>
                     <Link href={`/blog/${post.id}`} className="block relative">
                       <div className="relative h-48 w-full">
                         <Image
@@ -521,7 +538,7 @@ export default function BlogPage() {
                           asChild
                           variant="outline"
                           size="sm"
-                          className="text-facebook border-facebook hover:bg-facebook hover:text-white"
+                          className="bg-gradient-to-r from-blue-500/0 to-purple-500/0 hover:from-blue-500 hover:to-purple-500 text-blue-600 hover:text-white border border-blue-300 transition-all duration-300"
                         >
                           <Link href={`/blog/${post.id}`}>Read Article</Link>
                         </Button>
@@ -593,7 +610,11 @@ export default function BlogPage() {
                     <Button
                       key={page}
                       variant="outline"
-                      className={page === currentPage ? "bg-facebook text-white hover:bg-facebook-dark" : ""}
+                      className={
+                        page === currentPage
+                          ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 border-0"
+                          : "hover:border-blue-300 transition-colors"
+                      }
                       onClick={() => setCurrentPage(page)}
                     >
                       {page}
@@ -617,12 +638,20 @@ export default function BlogPage() {
           )}
 
           {/* Compact Newsletter Component - Embedded within the New Posts Every Day section */}
-          <div className="mt-12 bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-            <div className="flex flex-col md:flex-row items-center gap-6">
+          <div className="mt-12 bg-white rounded-xl shadow-md p-6 border border-gray-100 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full opacity-20 -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-purple-200 to-pink-200 rounded-full opacity-20 translate-y-1/2 -translate-x-1/2"></div>
+
+            <div className="flex flex-col md:flex-row items-center gap-6 relative z-10">
               <div className="md:w-2/3">
                 <div className="flex items-center gap-2 mb-2">
-                  <Mail className="h-5 w-5 text-facebook" />
-                  <h3 className="text-lg font-bold">Subscribe to Our Newsletter</h3>
+                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center shadow-sm">
+                    <Mail className="h-4 w-4 text-white" />
+                  </div>
+                  <h3 className="text-lg font-bold relative">
+                    <span>Subscribe to Our Newsletter</span>
+                    <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
+                  </h3>
                 </div>
                 <p className="text-gray-600 text-sm mb-0">
                   Get the latest Facebook advertising tips, strategies, and updates delivered straight to your inbox.
@@ -633,9 +662,11 @@ export default function BlogPage() {
                   <Input
                     type="email"
                     placeholder="Your email address"
-                    className="rounded-r-none border-r-0 focus:ring-facebook"
+                    className="rounded-r-none border-r-0 focus:ring-blue-500"
                   />
-                  <Button className="rounded-l-none bg-facebook hover:bg-facebook-dark">Subscribe</Button>
+                  <Button className="rounded-l-none bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 border-0">
+                    Subscribe
+                  </Button>
                 </div>
               </div>
             </div>

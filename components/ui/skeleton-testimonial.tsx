@@ -1,32 +1,30 @@
-import { SkeletonImage } from "../skeleton-image"
+import { cn } from "@/lib/utils"
 
-export function SkeletonTestimonial() {
+interface SkeletonTestimonialProps {
+  className?: string
+}
+
+export function SkeletonTestimonial({ className }: SkeletonTestimonialProps) {
   return (
-    <div className="bg-white p-6 rounded-lg border border-gray-200 h-full">
-      <div className="flex items-center mb-4">
-        <div className="w-12 h-12 mr-4">
-          <SkeletonImage aspectRatio="square" rounded="full" animation="pulse" />
+    <div className={cn("rounded-xl border border-gray-200 bg-white shadow-sm p-6 overflow-hidden relative", className)}>
+      {/* Gradient accent */}
+      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-300 to-purple-300"></div>
+
+      {/* Content */}
+      <div className="space-y-3">
+        <div className="h-4 bg-gradient-to-r from-gray-100 to-gray-200 rounded-md animate-pulse"></div>
+        <div className="h-4 bg-gradient-to-r from-gray-100 to-gray-200 rounded-md animate-pulse"></div>
+        <div className="h-4 w-3/4 bg-gradient-to-r from-gray-100 to-gray-200 rounded-md animate-pulse"></div>
+      </div>
+
+      {/* Author */}
+      <div className="mt-6 flex items-center">
+        <div className="h-12 w-12 rounded-full bg-gradient-to-r from-gray-200 to-gray-300 animate-pulse"></div>
+        <div className="ml-4">
+          <div className="h-4 w-24 bg-gradient-to-r from-gray-200 to-gray-300 rounded-md animate-pulse mb-2"></div>
+          <div className="h-3 w-32 bg-gradient-to-r from-gray-100 to-gray-200 rounded-md animate-pulse"></div>
         </div>
-        <div>
-          <div className="h-5 bg-gray-200 rounded w-32 mb-1 animate-pulse"></div>
-          <div className="h-4 bg-gray-200 rounded w-24 animate-pulse"></div>
-        </div>
       </div>
-
-      <div className="flex mb-4">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <div key={star} className="w-5 h-5 mr-1 bg-gray-200 rounded-full animate-pulse"></div>
-        ))}
-      </div>
-
-      <div className="space-y-2 mb-4">
-        <div className="h-4 bg-gray-200 rounded w-full animate-pulse"></div>
-        <div className="h-4 bg-gray-200 rounded w-full animate-pulse"></div>
-        <div className="h-4 bg-gray-200 rounded w-full animate-pulse"></div>
-        <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse"></div>
-      </div>
-
-      <div className="h-4 bg-gray-200 rounded w-1/3 animate-pulse"></div>
     </div>
   )
 }
