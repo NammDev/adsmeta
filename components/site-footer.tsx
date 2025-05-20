@@ -1,9 +1,14 @@
 import Link from "next/link"
 import Image from "next/image"
+import { cn } from "@/lib/utils"
 
-export default function SiteFooter() {
+interface SiteFooterProps {
+  className?: string
+}
+
+export default function SiteFooter({ className }: SiteFooterProps) {
   return (
-    <footer className="py-12 md:py-16 relative overflow-hidden z-10">
+    <footer className={cn("relative overflow-hidden z-10", className)}>
       <div className="container mx-auto px-4 relative z-10">
         {/* Desktop Footer - Logo on left, 4 columns on right */}
         <div className="hidden md:flex flex-col md:flex-row gap-12 mb-12">

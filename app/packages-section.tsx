@@ -169,7 +169,7 @@ export default function PackagesSection() {
   }
 
   return (
-    <section id="packages" className="py-16 md:py-24 relative overflow-hidden">
+    <section id="packages" className="py-16 relative overflow-hidden">
       <div className="container mx-auto px-4 relative">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md">

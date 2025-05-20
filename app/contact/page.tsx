@@ -9,23 +9,27 @@ import { Badge } from "@/components/ui/badge"
 export default function ContactPage() {
   return (
     <SupportingPageLayout title="Contact Us" subtitle="We're here to help with any questions you might have">
-      {/* Vibrant Messaging Channels Section */}
-      <PageSection className="pt-10 md:pt-12">
-        <div className="max-w-5xl mx-auto">
-          {/* Colorful Badge and Section Title */}
-          <div className="text-center mb-10">
-            <div className="inline-block mb-4">
-              <Badge className="bg-gradient-to-r from-pink-500 to-purple-600 text-white border-0 shadow-md px-4 py-1 text-sm">
-                Fast Response Channels
-              </Badge>
-            </div>
-            <h2 className="text-2xl md:text-3xl font-bold mb-3 relative inline-block">
+      {/* Title Section with proper spacing */}
+      <PageSection className="pt-6 md:pt-8 pb-0">
+        <div className="max-w-5xl mx-auto mb-10">
+          <div className="flex items-center justify-center gap-3">
+            <Badge className="bg-gradient-to-r from-pink-500 to-purple-600 text-white border-0 shadow-md px-4 py-1 text-sm">
+              Fast Response Channels
+            </Badge>
+            <h2 className="text-2xl md:text-3xl font-bold relative inline-block">
               Connect With Us Instantly
               <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full"></span>
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">Get the fastest support through our messaging channels</p>
           </div>
+          <p className="text-gray-600 max-w-2xl mx-auto text-center mt-4">
+            Get the fastest support through our messaging channels
+          </p>
+        </div>
+      </PageSection>
 
+      {/* Messaging Channels Section - No top padding */}
+      <PageSection className="pt-0 pb-16">
+        <div className="max-w-5xl mx-auto">
           {/* Colorful Messaging Cards */}
           <div className="grid md:grid-cols-2 gap-8">
             {/* WhatsApp Card - Enhanced with gradients and effects */}
@@ -95,28 +99,27 @@ export default function ContactPage() {
         </div>
       </PageSection>
 
-      {/* Colorful Contact Information Section */}
-      <PageSection className="pt-16 pb-16 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-purple-50/30 -z-10"></div>
-        <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-r from-transparent via-blue-100/30 to-transparent"></div>
-
-        <div className="max-w-4xl mx-auto">
-          {/* Colorful Badge and Section Title */}
-          <div className="text-center mb-10">
-            <div className="inline-block mb-4">
-              <Badge className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white border-0 shadow-md px-4 py-1 text-sm">
-                Additional Options
-              </Badge>
-            </div>
-            <h2 className="text-2xl md:text-3xl font-bold mb-3 relative inline-block">
+      {/* Additional Options Section */}
+      <PageSection className="pt-6 md:pt-8 pb-0">
+        <div className="max-w-4xl mx-auto mb-10">
+          <div className="flex items-center justify-center gap-3">
+            <Badge className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white border-0 shadow-md px-4 py-1 text-sm">
+              Additional Options
+            </Badge>
+            <h2 className="text-2xl md:text-3xl font-bold relative inline-block">
               Other Ways to Reach Us
               <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-purple-400 to-indigo-500 rounded-full"></span>
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              While WhatsApp and Telegram offer the fastest response times, you can also reach us through these channels
-            </p>
           </div>
+          <p className="text-gray-600 max-w-2xl mx-auto text-center mt-4">
+            While WhatsApp and Telegram offer the fastest response times, you can also reach us through these channels
+          </p>
+        </div>
+      </PageSection>
 
+      {/* Contact Methods Section - No top padding */}
+      <PageSection className="pt-0 pb-16">
+        <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8">
             {/* Contact Methods with Gradient Icons */}
             <div className="space-y-8">
@@ -219,26 +222,25 @@ export default function ContactPage() {
         </div>
       </PageSection>
 
-      {/* Colorful FAQ Section */}
-      <PageSection className="pt-16 pb-16 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-50/30 to-blue-50/50 -z-10"></div>
-        <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-r from-transparent via-purple-100/30 to-transparent"></div>
-
-        <div className="max-w-4xl mx-auto">
-          {/* Colorful Badge and Section Title */}
-          <div className="text-center mb-10">
-            <div className="inline-block mb-4">
-              <Badge className="bg-gradient-to-r from-blue-500 to-cyan-600 text-white border-0 shadow-md px-4 py-1 text-sm">
-                Quick Answers
-              </Badge>
-            </div>
-            <h2 className="text-2xl md:text-3xl font-bold mb-3 relative inline-block">
+      {/* FAQ Section */}
+      <PageSection className="pt-6 md:pt-8 pb-0">
+        <div className="max-w-4xl mx-auto mb-10">
+          <div className="flex items-center justify-center gap-3">
+            <Badge className="bg-gradient-to-r from-blue-500 to-cyan-600 text-white border-0 shadow-md px-4 py-1 text-sm">
+              Quick Answers
+            </Badge>
+            <h2 className="text-2xl md:text-3xl font-bold relative inline-block">
               Frequently Asked Questions
               <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full"></span>
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">Find quick answers to common questions</p>
           </div>
+          <p className="text-gray-600 max-w-2xl mx-auto text-center mt-4">Find quick answers to common questions</p>
+        </div>
+      </PageSection>
 
+      {/* FAQ Cards - No top padding */}
+      <PageSection className="pt-0 pb-12">
+        <div className="max-w-4xl mx-auto">
           {/* Colorful FAQ Cards */}
           <div className="grid gap-6">
             {[

@@ -387,6 +387,9 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    /* Default value for featured image top position */
+    --featured-image-top: 0px;
   }
 
   .dark {
@@ -499,4 +502,19 @@
 
 .slide-in {
   animation: slideIn 0.3s forwards;
+}
+
+/* Add this to ensure fixed positioning works correctly */
+.fixed-toc {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  width: 280px !important;
+}
+
+.fixed-toc > div {
+  position: fixed !important;
+  width: 280px !important;
+  max-height: calc(100vh - 8rem) !important;
+  overflow-y: auto !important;
 }

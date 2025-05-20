@@ -1,6 +1,7 @@
 import Image from "next/image"
 import SupportingPageLayout from "@/components/supporting-page-layout"
 import { Award, Users, Clock, Globe, Shield } from "lucide-react"
+import PageSection from "@/components/page-section"
 
 export default function AboutUsPage() {
   return (
@@ -8,25 +9,25 @@ export default function AboutUsPage() {
       title="About Us"
       subtitle="Learn more about EasyAdsPack and our mission to help businesses succeed on Facebook"
     >
-      {/* Company Background with Vibrant Styling */}
-      <div className="pt-10 md:pt-12">
-        {/* Section Badge */}
-        <div className="flex justify-center mb-6">
-          <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md">
-            <Clock className="w-4 h-4 mr-1" />
-            <span>Our Journey Since 2016</span>
-          </div>
-        </div>
-
-        {/* Section Title with Gradient Underline */}
+      {/* Company Background - Title Section */}
+      <PageSection className="pt-6 md:pt-8 pb-0">
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-2">Our Story</h2>
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md">
+              <Clock className="w-4 h-4 mr-1" />
+              <span>Our Journey Since 2016</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold">Our Story</h2>
+          </div>
           <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"></div>
           <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
             From a small operation to a trusted provider of Facebook advertising solutions worldwide
           </p>
         </div>
+      </PageSection>
 
+      {/* Company Background - Content Section */}
+      <PageSection className="pt-0 pb-16">
         <div className="container px-4 md:px-6">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
@@ -79,25 +80,25 @@ export default function AboutUsPage() {
             </div>
           </div>
         </div>
-      </div>
+      </PageSection>
 
-      {/* Mission Statement with Vibrant Styling */}
-      <div className="py-16 bg-gradient-to-r from-blue-50 to-purple-50 mt-16">
-        <div className="container px-4 md:px-6 mx-auto">
-          {/* Section Badge */}
-          <div className="flex justify-center mb-6">
+      {/* Mission Statement - Title Section */}
+      <PageSection className="pt-6 md:pt-8 pb-0">
+        <div className="text-center mb-10">
+          <div className="flex items-center justify-center gap-3 mb-2">
             <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-purple-500 to-pink-600 text-white shadow-md">
               <Award className="w-4 h-4 mr-1" />
               <span>Our Purpose</span>
             </div>
+            <h2 className="text-3xl md:text-4xl font-bold">Our Mission</h2>
           </div>
+          <div className="h-1 w-20 bg-gradient-to-r from-purple-500 to-pink-600 mx-auto rounded-full"></div>
+        </div>
+      </PageSection>
 
-          {/* Section Title with Gradient Underline */}
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-2">Our Mission</h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-purple-500 to-pink-600 mx-auto rounded-full"></div>
-          </div>
-
+      {/* Mission Statement - Content Section */}
+      <PageSection className="pt-0 pb-16">
+        <div className="container px-4 md:px-6 mx-auto">
           <div className="max-w-3xl mx-auto">
             <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 mb-10 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-purple-500 to-pink-600"></div>
@@ -151,28 +152,28 @@ export default function AboutUsPage() {
             </div>
           </div>
         </div>
-      </div>
+      </PageSection>
 
-      {/* Team Introduction with Vibrant Styling */}
-      <div className="py-16">
-        <div className="container px-4 md:px-6 mx-auto">
-          {/* Section Badge */}
-          <div className="flex justify-center mb-6">
+      {/* Team Introduction - Title Section */}
+      <PageSection className="pt-6 md:pt-8 pb-0">
+        <div className="text-center mb-10">
+          <div className="flex items-center justify-center gap-3 mb-2">
             <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-green-500 to-teal-600 text-white shadow-md">
               <Users className="w-4 h-4 mr-1" />
               <span>Meet Our Experts</span>
             </div>
+            <h2 className="text-3xl md:text-4xl font-bold">Team Members</h2>
           </div>
+          <div className="h-1 w-20 bg-gradient-to-r from-green-500 to-teal-600 mx-auto rounded-full"></div>
+          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+            The experts behind EasyAdsPack committed to your success
+          </p>
+        </div>
+      </PageSection>
 
-          {/* Section Title with Gradient Underline */}
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-2">Team Members</h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-green-500 to-teal-600 mx-auto rounded-full"></div>
-            <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-              The experts behind EasyAdsPack committed to your success
-            </p>
-          </div>
-
+      {/* Team Introduction - Content Section */}
+      <PageSection className="pt-0 pb-12">
+        <div className="container px-4 md:px-6 mx-auto">
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-6">
               {[
@@ -264,7 +265,7 @@ export default function AboutUsPage() {
             </div>
           </div>
         </div>
-      </div>
+      </PageSection>
     </SupportingPageLayout>
   )
 }

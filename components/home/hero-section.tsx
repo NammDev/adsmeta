@@ -19,7 +19,7 @@ export default function HeroSection() {
   // Mobile-specific hero section
   if (isMobile) {
     return (
-      <section className="py-10 relative overflow-hidden">
+      <section className="py-16 relative overflow-hidden">
         {/* Colorful background elements */}
         {/* Mobile-specific hero section */}
 

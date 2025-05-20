@@ -6,7 +6,7 @@ import SiteHeader from '@/components/site-header'
 import { CartProvider } from '@/context/cart-context'
 import SocialButtons from '@/components/social-buttons'
 import { CartDrawer } from '@/components/cart-drawer'
-// import { TopProgressBar } from '@/components/progress-bar'
+import { TopProgressBar } from '@/components/progress-bar'
 
 const inter = Inter({ subsets: ['latin'] })
 

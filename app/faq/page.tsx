@@ -13,6 +13,8 @@ import {
   CreditCard,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import PageSection from "@/components/page-section"
+import { Badge } from "@/components/ui/badge"
 
 export default function FAQPage() {
   const isMobile = useMediaQuery("(max-width: 768px)")
@@ -22,8 +24,29 @@ export default function FAQPage() {
       title="Frequently Asked Questions"
       subtitle="Find answers to the most common questions about our products and services"
     >
-      {/* FAQ Categories - Styled like landing page */}
-      <div className="pt-10 md:pt-12 pb-16 bg-transparent">
+      {/* Page Title Section - Adjusted spacing */}
+      <PageSection className="pt-6 md:pt-8 pb-0">
+        <div className="max-w-5xl mx-auto mb-10">
+          {/* Colorful Badge and Section Title */}
+          <div className="text-center">
+            <div className="inline-flex items-center gap-3">
+              <Badge className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white border-0 shadow-md px-4 py-1 text-sm">
+                Help Center
+              </Badge>
+              <h2 className="text-2xl md:text-3xl font-bold mb-0 relative inline-block">Frequently Asked Questions</h2>
+            </div>
+            <div className="mt-2">
+              <span className="inline-block w-24 h-1 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full"></span>
+            </div>
+            <p className="text-gray-600 max-w-2xl mx-auto mt-2">
+              Find answers to the most common questions about our products and services
+            </p>
+          </div>
+        </div>
+      </PageSection>
+
+      {/* FAQ Categories - Removed top padding */}
+      <div className="pb-12 bg-transparent">
         <div className="container px-4 md:px-6">
           {/* Category cards with landing page styling */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -87,8 +110,8 @@ export default function FAQPage() {
         </div>
       </div>
 
-      {/* Product FAQs - Styled like landing page */}
-      <div className="py-16 bg-transparent">
+      {/* Product FAQs - Adjusted padding */}
+      <div className="py-12 bg-transparent">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col md:flex-row gap-10">
             <div className="md:w-1/3">
@@ -154,21 +177,21 @@ export default function FAQPage() {
         </div>
       </div>
 
-      {/* Ordering FAQs - Styled like landing page */}
-      <div className="py-16 bg-transparent">
+      {/* Ordering FAQs - Adjusted padding */}
+      <div className="py-12 bg-transparent">
         <div className="container px-4 md:px-6">
           <div className="text-center mb-10">
-            {/* Badge like landing page */}
-            <div className="inline-block px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-600 text-white text-sm font-medium rounded-full shadow-sm mb-4">
-              Payment & Ordering
+            {/* Badge and title aligned on same line */}
+            <div className="inline-flex items-center gap-3 mb-2">
+              <Badge className="bg-gradient-to-r from-purple-500 to-pink-600 text-white border-0 shadow-md px-4 py-1 text-sm">
+                Payment
+              </Badge>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-0">Ordering & Payment</h2>
             </div>
-
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-              Ordering & Payment
-              <div className="h-1 w-20 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full mt-2 mx-auto"></div>
-            </h2>
-
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <div className="mt-2">
+              <span className="inline-block w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full"></span>
+            </div>
+            <p className="text-gray-600 max-w-2xl mx-auto mt-2">
               Information about our ordering process and payment options
             </p>
           </div>
@@ -219,21 +242,22 @@ export default function FAQPage() {
         </div>
       </div>
 
-      {/* Additional FAQ Section - Styled like landing page */}
-      <div className="py-16 bg-transparent">
+      {/* Additional FAQ Section - Adjusted padding */}
+      <div className="py-12 bg-transparent">
         <div className="container px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
             {/* Badge like landing page */}
-            <div className="inline-block px-3 py-1 bg-gradient-to-r from-indigo-500 to-blue-600 text-white text-sm font-medium rounded-full shadow-sm mb-4">
-              Common Questions
+            <div className="inline-flex items-center gap-3 mb-2">
+              <Badge className="bg-gradient-to-r from-indigo-500 to-blue-600 text-white border-0 shadow-md px-4 py-1 text-sm">
+                Common Questions
+              </Badge>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-0">Other Frequently Asked Questions</h2>
+            </div>
+            <div className="mt-2 mb-10">
+              <span className="inline-block w-20 h-1 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-full"></span>
             </div>
 
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
-              Other Frequently Asked Questions
-              <div className="h-1 w-20 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-full mt-2"></div>
-            </h2>
-
-            <div className="space-y-4">
+            <div className="space-y-4 mt-6">
               {[
                 {
                   question: "How long does it take to set up my account?",

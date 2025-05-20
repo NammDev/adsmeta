@@ -489,7 +489,7 @@ export default function ProductsSection() {
   const isMobile = useMediaQuery("(max-width: 768px)")
 
   return (
-    <section id="products" className="py-20 relative">
+    <section id="products" className="py-16 relative">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md">

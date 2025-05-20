@@ -9,6 +9,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { CheckCircle, ChevronLeft, ChevronRight, ShoppingCart, Package2 } from "lucide-react"
 import { useCart } from "@/context/cart-context"
+import PageSection from "@/components/page-section"
 
 // Product type definition
 interface Product {
@@ -337,21 +338,30 @@ export default function ProductsPage() {
       showNewsletter={true}
       breadcrumbs={[{ label: "Products", href: "/products" }]}
     >
-      <section className="py-8 md:py-12">
+      {/* Title Section */}
+      <PageSection className="pt-6 md:pt-8 pb-0">
         <div className="container mx-auto px-4">
-          {/* Page Title */}
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md">
-              Facebook Products
-            </Badge>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
+          <div className="max-w-3xl mx-auto text-center mb-10">
+            <div className="flex items-center justify-center gap-3">
+              <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 border-0 shadow-md">
+                Facebook Products
+              </Badge>
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold mt-3 relative inline-block">
               <span className="relative z-10">Facebook Advertising Solutions</span>
               <div className="absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
             </h1>
-            <p className="text-lg text-gray-600">Find the perfect tools to boost your Facebook advertising campaigns</p>
+            <p className="text-lg text-gray-600 mt-4">
+              Find the perfect tools to boost your Facebook advertising campaigns
+            </p>
           </div>
+        </div>
+      </PageSection>
 
-          {/* Category Filters */}
+      {/* Content Section */}
+      <PageSection className="pt-0 pb-12">
+        <div className="container mx-auto px-4">
+          {/* Category Filters Title */}
           <div className="mb-8 relative">
             <div className="flex items-center gap-3 mb-6 relative z-10">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md">
@@ -531,17 +541,27 @@ export default function ProductsPage() {
               </div>
             </div>
           )}
+        </div>
+      </PageSection>
 
-          {/* Additional Info Section */}
-          <div className="mt-16 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 md:p-8 relative overflow-hidden">
+      {/* Additional Info Section Title */}
+      <PageSection className="pt-6 md:pt-8 pb-0">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <h3 className="text-xl md:text-2xl font-bold">Looking for Custom Solutions?</h3>
+          </div>
+        </div>
+      </PageSection>
+
+      {/* Additional Info Section Content */}
+      <PageSection className="pt-0 pb-12">
+        <div className="container mx-auto px-4">
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 md:p-8 relative overflow-hidden">
             <div className="flex flex-col md:flex-row items-center gap-6 relative z-10">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md flex-shrink-0">
                 <ShoppingCart className="h-8 w-8 text-white" />
               </div>
               <div>
-                <h3 className="text-xl md:text-2xl font-bold mb-2 text-center md:text-left">
-                  Looking for Custom Solutions?
-                </h3>
                 <p className="text-gray-600 mb-4 text-center md:text-left">
                   Check out our value packs for bundled solutions or contact our team for custom requirements.
                 </p>
@@ -564,7 +584,7 @@ export default function ProductsPage() {
             </div>
           </div>
         </div>
-      </section>
+      </PageSection>
     </SupportingPageLayout>
   )
 }

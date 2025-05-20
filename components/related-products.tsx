@@ -287,7 +287,7 @@ export default function RelatedProducts({
   if (filteredProducts.length === 0) return null
 
   return (
-    <div className={cn("relative py-8", className)}>
+    <div className={cn("relative pt-8 pb-0", className)}>
       {children}
 
       <div className="container mx-auto px-4">

@@ -208,6 +208,9 @@ const blogPosts = [
 // Get unique categories from blog posts
 const categories = ["All", ...Array.from(new Set(blogPosts.map((post) => post.category)))].sort()
 
+// Limit to 6 categories for the mockup (including "All")
+const limitedCategories = categories.slice(0, 6)
+
 export default function BlogPage() {
   // State for selected category and pagination
   const [selectedCategory, setSelectedCategory] = useState("All")
@@ -256,8 +259,27 @@ export default function BlogPage() {
       breadcrumbs={[{ label: "Blog", href: "/blog" }]}
       showNewsletter={false} // Hide the newsletter section only on the blog page
     >
-      {/* Two Column Layout: Most Viewed + Regular Posts */}
-      <PageSection className="py-8">
+      {/* Title Section with proper spacing */}
+      <PageSection className="pt-6 md:pt-8 pb-0">
+        <div className="max-w-6xl mx-auto mb-10">
+          {/* Colorful Badge and Section Title */}
+          <div className="flex items-center justify-center gap-3">
+            <Badge className="bg-gradient-to-r from-blue-500 to-purple-600 text-white border-0 shadow-md px-4 py-1 text-sm">
+              Facebook Ads Insights
+            </Badge>
+            <h2 className="text-2xl md:text-3xl font-bold relative inline-block">
+              Expert Knowledge & Strategies
+              <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full"></span>
+            </h2>
+          </div>
+          <p className="text-gray-600 max-w-2xl mx-auto text-center mt-2">
+            Stay updated with the latest Facebook advertising tips and techniques
+          </p>
+        </div>
+      </PageSection>
+
+      {/* Content Section - with no top padding */}
+      <PageSection className="pt-0 pb-8">
         <div className="max-w-6xl mx-auto">
           <div className={`grid md:grid-cols-3 gap-8 ${isMobile ? "flex flex-col" : ""}`}>
             {/* Most Viewed Posts Column - First on desktop, second on mobile */}
@@ -413,7 +435,7 @@ export default function BlogPage() {
                 </div>
               ) : (
                 // Desktop grid for Latest Articles (unchanged)
-                <div className="grid sm:grid-cols-2 gap-6 flex-1">
+                <div className="grid sm:grid-cols-2 gap-6 flex-1 pb-12">
                   {regularPosts.map((post) => (
                     <Card
                       key={post.id}
@@ -465,23 +487,28 @@ export default function BlogPage() {
         </div>
       </PageSection>
 
-      {/* Daily New Posts Section with Category Filter and Embedded Newsletter */}
-      <PageSection bgColor="facebook-light" className="py-10">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col items-center text-center mb-8">
-            <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md">
+      {/* Daily New Posts Section Title */}
+      <PageSection bgColor="facebook-light" className="pt-6 md:pt-8 pb-0">
+        <div className="max-w-6xl mx-auto mb-10">
+          <div className="flex items-center justify-center gap-3">
+            <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 border-0 shadow-md">
               Daily Updates
             </Badge>
-            <h2 className="text-2xl md:text-3xl font-bold mb-3 relative inline-block">
+            <h2 className="text-2xl md:text-3xl font-bold relative inline-block">
               <span className="relative z-10">New Posts Every Day</span>
               <div className="absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
             </h2>
           </div>
+        </div>
+      </PageSection>
 
-          {/* Category Filter */}
+      {/* Daily New Posts Section Content */}
+      <PageSection bgColor="facebook-light" className="pt-0 pb-12">
+        <div className="max-w-6xl mx-auto">
+          {/* Category Filter - Limited to 6 categories */}
           <div className="mb-8">
             <div className="flex overflow-x-auto pb-2 md:pb-0 md:flex-wrap md:justify-start gap-3 scrollbar-hide">
-              {categories.map((category) => (
+              {limitedCategories.map((category) => (
                 <Badge
                   key={category}
                   className={`px-4 py-2 text-sm font-medium whitespace-nowrap cursor-pointer border-0 transition-all ${

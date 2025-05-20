@@ -34,11 +34,17 @@ export default function SupportingPageLayout({
       {/* Content - with top padding */}
       <div className="flex-1 bg-transparent relative z-20 pt-10">{children}</div>
 
-      {/* Newsletter Section (optional) */}
-      {showNewsletter && <NewsletterSection />}
+      {/* Newsletter Section (optional) with specific padding */}
+      {showNewsletter && (
+        <div className="py-0">
+          <NewsletterSection className="py-8 md:py-12" />
+        </div>
+      )}
 
-      {/* Footer */}
-      <SiteFooter />
+      {/* Footer with no padding on parent div */}
+      <div className="py-0">
+        <SiteFooter className="py-8 md:py-12" />
+      </div>
     </>
   )
 }

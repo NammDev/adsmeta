@@ -334,7 +334,7 @@ export default function PackPage() {
   }
 
   return (
-    <div className='bg-gradient-to-b from-blue-50 via-white to-purple-50'>
+    <div>
       <SupportingPageLayout
         title={pack.name}
         subtitle={pack.description}
@@ -351,13 +351,12 @@ export default function PackPage() {
           <div className='absolute bottom-40 right-1/3 w-72 h-72 rounded-full bg-indigo-200 opacity-20 blur-3xl'></div>
         </div>
 
-        <div className='container mx-auto px-4 pb-10 md:pb-16 relative z-10'>
+        <div className='container mx-auto px-4 pb-10 md:pb-12 pt-6 md:pt-8 relative z-10'>
           {/* Mobile Pack Overview */}
           <div className='md:hidden mb-6'>
             <Card className='overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm'>
-              {' '}
               <div className='absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full -translate-y-1/2 translate-x-1/2 z-0'></div>
-              <div className='p-4 relative z-10'>
+              <CardContent className='p-4 relative z-10'>
                 {/* Pack Image and Details in a more balanced layout */}
                 <div className='flex items-center rounded-lg p-3 bg-gradient-to-br from-gray-50 to-white mb-3 border border-gray-100 shadow-sm'>
                   {/* Pack Image */}
@@ -415,7 +414,7 @@ export default function PackPage() {
                   <ShoppingCart className='h-5 w-5' />
                   Add to Cart
                 </Button>
-              </div>
+              </CardContent>
             </Card>
           </div>
 
@@ -522,8 +521,6 @@ export default function PackPage() {
                 </CardContent>
               </Card>
 
-              {/* Tabs Navigation */}
-              {/* Tab Content */}
               {/* Pack Description */}
               <Card className='overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm'>
                 <div className='absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-200/10 to-purple-200/10 rounded-full -translate-y-1/2 -translate-x-1/2'></div>
@@ -743,227 +740,229 @@ export default function PackPage() {
                 </CardContent>
               </Card>
             </div>
-          </div>
 
-          {/* Right Column - Features & Purchase Info */}
-          <div className='space-y-6'>
-            {/* Features Card */}
-            <Card className='overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm'>
-              <div className='absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-200/20 to-purple-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0'></div>
-              <CardContent className='p-6 relative z-10'>
-                <h3 className='text-xl font-bold mb-5 relative inline-block'>
-                  <span className='relative z-10'>Features</span>
-                  <div className='absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full'></div>
-                </h3>
+            {/* Right Column - Features & Purchase Info */}
+            <div className='space-y-6'>
+              {/* Features Card */}
+              <Card className='overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm'>
+                <div className='absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-200/20 to-purple-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0'></div>
+                <CardContent className='p-6 relative z-10'>
+                  <h3 className='text-xl font-bold mb-5 relative inline-block'>
+                    <span className='relative z-10'>Features</span>
+                    <div className='absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full'></div>
+                  </h3>
 
-                <div className='grid grid-cols-1 gap-3'>
-                  {pack.features.map((feature, index) => (
-                    <div
-                      key={index}
-                      className='flex items-start gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 group'
-                    >
+                  <div className='grid grid-cols-1 gap-3'>
+                    {pack.features.map((feature, index) => (
                       <div
-                        className={`w-8 h-8 rounded-lg bg-gradient-to-br ${
-                          gradients[index % gradients.length]
-                        } flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0`}
+                        key={index}
+                        className='flex items-start gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 group'
                       >
-                        {featureIcons[index % featureIcons.length]}
-                      </div>
-                      <span className='text-gray-700 group-hover:text-gray-900 transition-colors duration-300'>
-                        {feature}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Purchase Info Card */}
-            <Card className='overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm'>
-              <div className='absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2 z-0'></div>
-              <CardContent className='p-6 relative z-10'>
-                <h3 className='text-xl font-bold mb-5 relative inline-block'>
-                  <span className='relative z-10'>Purchase Information</span>
-                  <div className='absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full'></div>
-                </h3>
-
-                <div className='space-y-4'>
-                  <div className='flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group'>
-                    <div className='w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0'>
-                      <Clock className='h-4 w-4 text-white' />
-                    </div>
-                    <div>
-                      <h4 className='font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-300 text-sm'>
-                        Delivery Time
-                      </h4>
-                      <p className='text-gray-700 text-sm'>{pack.deliveryTime}</p>
-                    </div>
-                  </div>
-
-                  <div className='flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group'>
-                    <div className='w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0'>
-                      <CreditCard className='h-4 w-4 text-white' />
-                    </div>
-                    <div>
-                      <h4 className='font-medium text-gray-900 group-hover:text-purple-600 transition-colors duration-300 text-sm'>
-                        Payment Methods
-                      </h4>
-                      <p className='text-gray-700 text-sm'>Credit Card, PayPal, Cryptocurrency</p>
-                    </div>
-                  </div>
-
-                  <div className='flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group'>
-                    <div className='w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0'>
-                      <Users className='h-4 w-4 text-white' />
-                    </div>
-                    <div>
-                      <h4 className='font-medium text-gray-900 group-hover:text-amber-600 transition-colors duration-300 text-sm'>
-                        Support
-                      </h4>
-                      <p className='text-gray-700 text-sm'>Email, Live Chat (Business Hours)</p>
-                    </div>
-                  </div>
-
-                  <div className='flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group'>
-                    <div className='w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0'>
-                      <Shield className='h-4 w-4 text-white' />
-                    </div>
-                    <div>
-                      <h4 className='font-medium text-gray-900 group-hover:text-emerald-600 transition-colors duration-300 text-sm'>
-                        Warranty
-                      </h4>
-                      <p className='text-gray-700 text-sm'>30-day replacement warranty</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className='mt-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-5 relative overflow-hidden border border-blue-100'>
-                  <div className='absolute top-0 right-0 w-20 h-20 bg-blue-200/20 rounded-full -translate-y-1/2 translate-x-1/2'></div>
-                  <div className='absolute bottom-0 left-0 w-16 h-16 bg-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2'></div>
-
-                  <h4 className='font-bold mb-2 text-center relative z-10 text-gray-800'>
-                    Ready to get started?
-                  </h4>
-                  <p className='text-gray-600 text-sm mb-4 text-center relative z-10'>
-                    Get your {pack.name} now and start advertising!
-                  </p>
-
-                  <Button
-                    onClick={handleAddToCart}
-                    className='w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-300 relative z-10'
-                    disabled={pack.stock === 'out-of-stock'}
-                  >
-                    Add to Cart - €{pack.price}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Compare Packs */}
-            <Card className='overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm'>
-              <div className='absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-purple-200/20 to-blue-200/20 rounded-full -translate-y-1/2 -translate-x-1/2 z-0'></div>
-              <CardContent className='p-6 relative z-10'>
-                <h3 className='text-xl font-bold mb-5 relative inline-block'>
-                  <span className='relative z-10'>Compare Packs</span>
-                  <div className='absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-purple-200 to-blue-200 opacity-70 rounded-full'></div>
-                </h3>
-
-                <div className='space-y-4'>
-                  {packsData
-                    .filter((p) => p.id !== pack.id)
-                    .slice(0, 2)
-                    .map((otherPack) => (
-                      <div
-                        key={otherPack.id}
-                        className='flex items-center gap-4 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 hover:bg-blue-50/30 transition-all duration-300 group relative overflow-hidden'
-                      >
-                        <div className='absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
-
-                        <div className='relative w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden border-2 border-gradient-to-r from-blue-300 to-purple-300 bg-white shadow-sm group-hover:shadow-md transition-all duration-300'>
-                          <div className='absolute inset-0 bg-gradient-to-br from-blue-400/10 to-purple-500/10 mix-blend-overlay'></div>
-                          <Image
-                            src={otherPack.image || '/placeholder.svg'}
-                            alt={otherPack.name}
-                            fill
-                            className='object-cover rounded transform transition-transform group-hover:scale-105 duration-300'
-                          />
+                        <div
+                          className={`w-8 h-8 rounded-lg bg-gradient-to-br ${
+                            gradients[index % gradients.length]
+                          } flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0`}
+                        >
+                          {featureIcons[index % featureIcons.length]}
                         </div>
-
-                        <div className='flex-1 min-w-0'>
-                          <h4 className='font-medium text-gray-900 truncate group-hover:text-blue-600 transition-colors duration-300'>
-                            {otherPack.name}
-                          </h4>
-                          <p className='text-sm text-gray-600 truncate'>{otherPack.description}</p>
-                        </div>
-
-                        <div className='text-right'>
-                          <p className='font-bold bg-gradient-to-r from-facebook to-blue-700 bg-clip-text text-transparent'>
-                            €{otherPack.price}
-                          </p>
-                          <Button asChild variant='link' className='h-auto p-0 text-xs'>
-                            <a href={`/packs/${otherPack.slug}`}>View</a>
-                          </Button>
-                        </div>
+                        <span className='text-gray-700 group-hover:text-gray-900 transition-colors duration-300'>
+                          {feature}
+                        </span>
                       </div>
                     ))}
-                </div>
+                  </div>
+                </CardContent>
+              </Card>
 
-                <Button
-                  asChild
-                  variant='outline'
-                  className='w-full mt-4 border-gray-300 hover:border-facebook hover:text-facebook transition-colors duration-300'
-                >
-                  <a href='/packs'>View All Packs</a>
-                </Button>
-              </CardContent>
-            </Card>
+              {/* Purchase Info Card */}
+              <Card className='overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm'>
+                <div className='absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2 z-0'></div>
+                <CardContent className='p-6 relative z-10'>
+                  <h3 className='text-xl font-bold mb-5 relative inline-block'>
+                    <span className='relative z-10'>Purchase Information</span>
+                    <div className='absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full'></div>
+                  </h3>
 
-            {/* Testimonial */}
-            <Card className='overflow-hidden border-0 shadow-xl relative bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-100'>
-              <div className='absolute top-0 right-0 w-32 h-32 bg-blue-200/10 rounded-full -translate-y-1/2 translate-x-1/2'></div>
-              <div className='absolute bottom-0 left-0 w-24 h-24 bg-purple-200/10 rounded-full translate-y-1/2 -translate-x-1/2'></div>
+                  <div className='space-y-4'>
+                    <div className='flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group'>
+                      <div className='w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0'>
+                        <Clock className='h-4 w-4 text-white' />
+                      </div>
+                      <div>
+                        <h4 className='font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-300 text-sm'>
+                          Delivery Time
+                        </h4>
+                        <p className='text-gray-700 text-sm'>{pack.deliveryTime}</p>
+                      </div>
+                    </div>
 
-              <CardContent className='p-6 relative z-10'>
-                <div className='w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md'>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='20'
-                    height='20'
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    stroke='currentColor'
-                    strokeWidth='2'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    className='text-white'
+                    <div className='flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group'>
+                      <div className='w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0'>
+                        <CreditCard className='h-4 w-4 text-white' />
+                      </div>
+                      <div>
+                        <h4 className='font-medium text-gray-900 group-hover:text-purple-600 transition-colors duration-300 text-sm'>
+                          Payment Methods
+                        </h4>
+                        <p className='text-gray-700 text-sm'>Credit Card, PayPal, Cryptocurrency</p>
+                      </div>
+                    </div>
+
+                    <div className='flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group'>
+                      <div className='w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0'>
+                        <Users className='h-4 w-4 text-white' />
+                      </div>
+                      <div>
+                        <h4 className='font-medium text-gray-900 group-hover:text-amber-600 transition-colors duration-300 text-sm'>
+                          Support
+                        </h4>
+                        <p className='text-gray-700 text-sm'>Email, Live Chat (Business Hours)</p>
+                      </div>
+                    </div>
+
+                    <div className='flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group'>
+                      <div className='w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0'>
+                        <Shield className='h-4 w-4 text-white' />
+                      </div>
+                      <div>
+                        <h4 className='font-medium text-gray-900 group-hover:text-emerald-600 transition-colors duration-300 text-sm'>
+                          Warranty
+                        </h4>
+                        <p className='text-gray-700 text-sm'>30-day replacement warranty</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className='mt-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-5 relative overflow-hidden border border-blue-100'>
+                    <div className='absolute top-0 right-0 w-20 h-20 bg-blue-200/20 rounded-full -translate-y-1/2 translate-x-1/2'></div>
+                    <div className='absolute bottom-0 left-0 w-16 h-16 bg-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2'></div>
+
+                    <h4 className='font-bold mb-2 text-center relative z-10 text-gray-800'>
+                      Ready to get started?
+                    </h4>
+                    <p className='text-gray-600 text-sm mb-4 text-center relative z-10'>
+                      Get your {pack.name} now and start advertising!
+                    </p>
+
+                    <Button
+                      onClick={handleAddToCart}
+                      className='w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-300 relative z-10'
+                      disabled={pack.stock === 'out-of-stock'}
+                    >
+                      Add to Cart - €{pack.price}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Compare Packs */}
+              <Card className='overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm'>
+                <div className='absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-purple-200/20 to-blue-200/20 rounded-full -translate-y-1/2 -translate-x-1/2 z-0'></div>
+                <CardContent className='p-6 relative z-10'>
+                  <h3 className='text-xl font-bold mb-5 relative inline-block'>
+                    <span className='relative z-10'>Compare Packs</span>
+                    <div className='absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-purple-200 to-blue-200 opacity-70 rounded-full'></div>
+                  </h3>
+
+                  <div className='space-y-4'>
+                    {packsData
+                      .filter((p) => p.id !== pack.id)
+                      .slice(0, 2)
+                      .map((otherPack) => (
+                        <div
+                          key={otherPack.id}
+                          className='flex items-center gap-4 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 hover:bg-blue-50/30 transition-all duration-300 group relative overflow-hidden'
+                        >
+                          <div className='absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
+
+                          <div className='relative w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden border-2 border-gradient-to-r from-blue-300 to-purple-300 bg-white shadow-sm group-hover:shadow-md transition-all duration-300'>
+                            <div className='absolute inset-0 bg-gradient-to-br from-blue-400/10 to-purple-500/10 mix-blend-overlay'></div>
+                            <Image
+                              src={otherPack.image || '/placeholder.svg'}
+                              alt={otherPack.name}
+                              fill
+                              className='object-cover rounded transform transition-transform group-hover:scale-105 duration-300'
+                            />
+                          </div>
+
+                          <div className='flex-1 min-w-0'>
+                            <h4 className='font-medium text-gray-900 truncate group-hover:text-blue-600 transition-colors duration-300'>
+                              {otherPack.name}
+                            </h4>
+                            <p className='text-sm text-gray-600 truncate'>
+                              {otherPack.description}
+                            </p>
+                          </div>
+
+                          <div className='text-right'>
+                            <p className='font-bold bg-gradient-to-r from-facebook to-blue-700 bg-clip-text text-transparent'>
+                              €{otherPack.price}
+                            </p>
+                            <Button asChild variant='link' className='h-auto p-0 text-xs'>
+                              <a href={`/packs/${otherPack.slug}`}>View</a>
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+
+                  <Button
+                    asChild
+                    variant='outline'
+                    className='w-full mt-4 border-gray-300 hover:border-facebook hover:text-facebook transition-colors duration-300'
                   >
-                    <path d='M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z'></path>
-                    <path d='M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z'></path>
-                  </svg>
-                </div>
+                    <a href='/packs'>View All Packs</a>
+                  </Button>
+                </CardContent>
+              </Card>
 
-                <p className='text-center mb-4 italic text-gray-700'>
-                  "The {pack.name} completely transformed our Facebook advertising capabilities.
-                  Highly recommended!"
-                </p>
+              {/* Testimonial */}
+              <Card className='overflow-hidden border-0 shadow-xl relative bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-100'>
+                <div className='absolute top-0 right-0 w-32 h-32 bg-blue-200/10 rounded-full -translate-y-1/2 translate-x-1/2'></div>
+                <div className='absolute bottom-0 left-0 w-24 h-24 bg-purple-200/10 rounded-full translate-y-1/2 -translate-x-1/2'></div>
 
-                <div className='flex items-center justify-center'>
-                  <div className='w-10 h-10 rounded-full bg-white overflow-hidden mr-3 border border-gray-200'>
-                    <Image
-                      src='/male-marketing-owner.png'
-                      alt='Customer'
-                      width={40}
-                      height={40}
-                      className='object-cover'
-                    />
+                <CardContent className='p-6 relative z-10'>
+                  <div className='w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      width='20'
+                      height='20'
+                      viewBox='0 0 24 24'
+                      fill='none'
+                      stroke='currentColor'
+                      strokeWidth='2'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      className='text-white'
+                    >
+                      <path d='M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z'></path>
+                      <path d='M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z'></path>
+                    </svg>
                   </div>
-                  <div className='text-left'>
-                    <p className='font-bold text-sm text-gray-800'>Michael Thompson</p>
-                    <p className='text-gray-600 text-xs'>Marketing Director</p>
+
+                  <p className='text-center mb-4 italic text-gray-700'>
+                    "The {pack.name} completely transformed our Facebook advertising capabilities.
+                    Highly recommended!"
+                  </p>
+
+                  <div className='flex items-center justify-center'>
+                    <div className='w-10 h-10 rounded-full bg-white overflow-hidden mr-3 border border-gray-200'>
+                      <Image
+                        src='/male-marketing-owner.png'
+                        alt='Customer'
+                        width={40}
+                        height={40}
+                        className='object-cover'
+                      />
+                    </div>
+                    <div className='text-left'>
+                      <p className='font-bold text-sm text-gray-800'>Michael Thompson</p>
+                      <p className='text-gray-600 text-xs'>Marketing Director</p>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
           </div>
 
           {/* Mobile Pack Description and Features */}
@@ -997,8 +996,8 @@ export default function PackPage() {
                 <ul className='space-y-2'>
                   {pack.features.map((feature, index) => (
                     <li key={index} className='flex items-start group'>
-                      <div className='mr-2 flex-shrink-0 mt-0.5 w-4 h-4 rounded-full bg-gradient-to-br from-green-400 to-green-500 flex items-center justify-center shadow-sm'>
-                        <Check className='h-2.5 w-2.5 text-white' />
+                      <div className='mr-2 flex-shrink-0 mt-0.5 w-5 h-5 rounded-full bg-gradient-to-br from-green-400 to-green-500 flex items-center justify-center shadow-sm'>
+                        <Check className='h-3 w-3 text-white' />
                       </div>
                       <span className='text-sm text-gray-700'>{feature}</span>
                     </li>
@@ -1017,19 +1016,20 @@ export default function PackPage() {
                 </h3>
                 <div className='space-y-4'>
                   {pack.includes.map((item, index) => (
-                    <div key={index} className='flex items-center gap-3 group'>
+                    <div key={index} className='flex items-start gap-3 group'>
                       {item.icon && (
-                        <div className='relative w-10 h-10 flex-shrink-0 rounded-lg overflow-hidden border-2 border-gradient-to-r from-blue-300 to-purple-300 bg-white shadow-sm'>
+                        <div className='relative w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden border-2 border-blue-300 bg-white shadow-sm mt-1'>
                           <div className='absolute inset-0 bg-gradient-to-br from-blue-400/10 to-purple-500/10 mix-blend-overlay'></div>
                           <Image
                             src={item.icon || '/placeholder.svg'}
                             alt={item.name}
-                            fill
+                            width={48}
+                            height={48}
                             className='object-contain p-1'
                           />
                         </div>
                       )}
-                      <div>
+                      <div className='flex-1'>
                         <h4 className='font-medium text-gray-900 text-sm'>{item.name}</h4>
                         <p className='text-xs text-gray-600'>{item.description}</p>
                       </div>
@@ -1047,14 +1047,19 @@ export default function PackPage() {
                   <span className='relative z-10'>Frequently Asked Questions</span>
                   <div className='absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full'></div>
                 </h3>
-                <div className='space-y-3'>
+                <div className='space-y-4'>
                   {pack.faq.map((item, index) => (
                     <div
                       key={index}
-                      className='border-b border-gray-100 pb-3 last:border-0 last:pb-0'
+                      className='border-b border-gray-100 pb-4 last:border-0 last:pb-0'
                     >
-                      <h4 className='font-medium text-gray-900 mb-1 text-sm'>{item.question}</h4>
-                      <p className='text-gray-700 text-sm'>{item.answer}</p>
+                      <h4 className='font-medium text-gray-900 mb-2 text-sm flex items-start'>
+                        <span className='w-5 h-5 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xs mr-2 flex-shrink-0 mt-0.5'>
+                          Q
+                        </span>
+                        {item.question}
+                      </h4>
+                      <p className='text-gray-700 text-sm pl-7'>{item.answer}</p>
                     </div>
                   ))}
                 </div>
@@ -1071,24 +1076,24 @@ export default function PackPage() {
                 </h3>
 
                 <div className='space-y-3 text-sm'>
-                  <div className='flex items-center gap-2 p-2 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm'>
-                    <Clock className='h-4 w-4 text-blue-500' />
+                  <div className='flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm'>
+                    <Clock className='h-5 w-5 text-blue-500 flex-shrink-0' />
                     <div>
                       <h4 className='font-medium text-gray-900 text-xs'>Delivery Time</h4>
                       <p className='text-gray-700 text-xs'>{pack.deliveryTime}</p>
                     </div>
                   </div>
 
-                  <div className='flex items-center gap-2 p-2 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm'>
-                    <CreditCard className='h-4 w-4 text-purple-500' />
+                  <div className='flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm'>
+                    <CreditCard className='h-5 w-5 text-purple-500 flex-shrink-0' />
                     <div>
                       <h4 className='font-medium text-gray-900 text-xs'>Payment Methods</h4>
                       <p className='text-gray-700 text-xs'>Credit Card, PayPal, Cryptocurrency</p>
                     </div>
                   </div>
 
-                  <div className='flex items-center gap-2 p-2 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm'>
-                    <Users className='h-4 w-4 text-amber-500' />
+                  <div className='flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm'>
+                    <Users className='h-5 w-5 text-amber-500 flex-shrink-0' />
                     <div>
                       <h4 className='font-medium text-gray-900 text-xs'>Support</h4>
                       <p className='text-gray-700 text-xs'>Email, Live Chat (Business Hours)</p>

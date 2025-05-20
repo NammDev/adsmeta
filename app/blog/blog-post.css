@@ -78,3 +78,10 @@
 .prose a:hover {
   background-size: 100% 2px;
 }
+
+.sticky-toc {
+  position: sticky;
+  top: 6rem; /* Adjust this value to control when it sticks */
+  max-height: calc(100vh - 8rem);
+  overflow-y: auto;
+}

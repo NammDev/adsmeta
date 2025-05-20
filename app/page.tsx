@@ -32,7 +32,7 @@ export default function Home() {
         {/* Packages Section with Suspense */}
         <Suspense
           fallback={
-            <div className="py-20">
+            <div className="py-16">
               <div className="container mx-auto px-4">
                 <div className="max-w-3xl mx-auto text-center mb-16">
                   <div className="w-24 h-8 bg-gray-200/50 rounded-full mx-auto mb-4 animate-pulse"></div>
@@ -59,10 +59,10 @@ export default function Home() {
         {!isMobile && <TestimonialsSection />}
 
         {/* Newsletter Section */}
-        <NewsletterSection />
+        <NewsletterSection className='py-8 md:py-12' />
 
         {/* Footer */}
-        <SiteFooter />
+         <SiteFooter className='py-8 md:py-12' />
       </div>
     </main>
   )

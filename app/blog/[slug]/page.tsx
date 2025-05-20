@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
 import { CalendarIcon, Clock, Facebook, Twitter, Linkedin, Copy, ArrowRight } from "lucide-react"
@@ -7,6 +9,7 @@ import SupportingPageLayout from "@/components/supporting-page-layout"
 import PageSection from "@/components/page-section"
 import { TableOfContents } from "@/components/table-of-contents"
 import { BlogCarousel } from "@/components/blog-carousel"
+import { useEffect, useRef, useState } from "react"
 
 // This would typically come from a CMS or API based on the slug
 const blogPost = {
@@ -184,9 +187,82 @@ function processContent(content: string) {
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
   // In a real app, you would fetch the blog post data based on the slug
   // For this example, we're using the hardcoded data above
-
   const headings = extractHeadings(blogPost.content)
   const processedContent = processContent(blogPost.content)
+
+  // Refs for measuring elements
+  const featuredImageRef = useRef<HTMLDivElement>(null)
+  const articleEndRef = useRef<HTMLDivElement>(null)
+  const tocRef = useRef<HTMLDivElement>(null)
+  const tocContainerRef = useRef<HTMLDivElement>(null)
+
+  // State for TOC positioning
+  const [tocStyle, setTocStyle] = useState({
+    position: "absolute" as "absolute" | "fixed",
+    top: "0px",
+    bottom: "auto",
+    maxHeight: "calc(100vh - 8rem)",
+    width: "100%",
+  })
+
+  // Effect for handling TOC positioning
+  useEffect(() => {
+    // Function to update TOC position
+    const updateTocPosition = () => {
+      if (!featuredImageRef.current || !articleEndRef.current || !tocRef.current || !tocContainerRef.current) return
+
+      const featuredRect = featuredImageRef.current.getBoundingClientRect()
+      const articleEndRect = articleEndRef.current.getBoundingClientRect()
+      const tocRect = tocRef.current.getBoundingClientRect()
+      const tocContainerRect = tocContainerRef.current.getBoundingClientRect()
+
+      const headerOffset = 96 // 6rem, adjust as needed
+      const containerWidth = tocContainerRect.width
+
+      // If featured image is below viewport top + offset, position TOC at featured image
+      if (featuredRect.top > headerOffset) {
+        setTocStyle({
+          position: "absolute",
+          top: "0px",
+          bottom: "auto",
+          maxHeight: "calc(100vh - 8rem)",
+          width: "100%",
+        })
+      }
+      // If featured image is above viewport top + offset but article end is below viewport
+      else if (articleEndRect.top > headerOffset + tocRect.height) {
+        setTocStyle({
+          position: "fixed",
+          top: `${headerOffset}px`,
+          bottom: "auto",
+          maxHeight: "calc(100vh - 8rem)",
+          width: `${containerWidth}px`, // Set explicit width when fixed
+        })
+      }
+      // If article end is about to go above the bottom of the TOC
+      else {
+        setTocStyle({
+          position: "absolute",
+          top: "auto",
+          bottom: "0px",
+          maxHeight: "calc(100vh - 8rem)",
+          width: "100%",
+        })
+      }
+    }
+
+    // Initial update
+    updateTocPosition()
+
+    // Update on scroll and resize
+    window.addEventListener("scroll", updateTocPosition)
+    window.addEventListener("resize", updateTocPosition)
+
+    return () => {
+      window.removeEventListener("scroll", updateTocPosition)
+      window.removeEventListener("resize", updateTocPosition)
+    }
+  }, [])
 
   return (
     <SupportingPageLayout
@@ -198,26 +274,34 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       ]}
       showNewsletter={true}
     >
-      {/* Combined Image and Content Section */}
-      <PageSection className="py-8 relative overflow-hidden">
+      {/* Title Section */}
+      <PageSection className="pt-6 md:pt-8 pb-0">
+        <div className="max-w-5xl mx-auto px-4 mb-10">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium shadow-md">
+              {blogPost.category}
+            </Badge>
+          </div>
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center relative inline-block mx-auto w-full">
+            <span className="relative z-10">{blogPost.title}</span>
+            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-3 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full w-48"></div>
+          </h1>
+          <p className="text-lg text-gray-600 text-center mt-2">{blogPost.excerpt}</p>
+        </div>
+      </PageSection>
+
+      {/* Content Section */}
+      <PageSection className="pt-0 pb-8 relative overflow-hidden">
         {/* Add decorative gradient circles */}
         <div className="absolute top-20 right-0 w-64 h-64 bg-gradient-to-br from-blue-200/20 to-purple-200/20 rounded-full blur-3xl -z-10"></div>
         <div className="absolute bottom-20 left-0 w-48 h-48 bg-gradient-to-br from-purple-200/20 to-pink-200/20 rounded-full blur-3xl -z-10"></div>
         <div className="max-w-5xl mx-auto px-4">
-          <div className="text-center mb-8 max-w-3xl mx-auto">
-            <div className="inline-block bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium shadow-md mb-4">
-              {blogPost.category}
-            </div>
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 relative inline-block">
-              <span className="relative z-10">{blogPost.title}</span>
-              <div className="absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
-            </h1>
-            <p className="text-lg text-gray-600">{blogPost.excerpt}</p>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main content area with sidebar */}
+          <div className="lg:grid lg:grid-cols-3 lg:gap-8">
+            {/* Left column - Main content (spans 2 columns) */}
             <div className="lg:col-span-2">
               {/* Featured Image with Metadata */}
-              <div className="mb-6">
+              <div className="mb-6" ref={featuredImageRef}>
                 <div className="relative h-[250px] w-full rounded-lg overflow-hidden shadow-md border border-transparent bg-gradient-to-r from-blue-100 to-purple-100 p-[1px]">
                   <div className="absolute inset-0 rounded-lg overflow-hidden">
                     <Image
@@ -260,7 +344,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               <div className="prose prose-lg max-w-none mb-8" dangerouslySetInnerHTML={{ __html: processedContent }} />
 
               {/* Social Sharing */}
-              <div className="border-t border-gray-200 mt-8 pt-6 mb-4">
+              <div className="border-t border-gray-200 mt-8 pt-6 mb-4" ref={articleEndRef}>
                 <div className="flex items-center justify-between">
                   <p className="font-medium text-gray-900">Share this article:</p>
                   <div className="flex gap-3">
@@ -297,72 +381,41 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               </div>
             </div>
 
-            <div className="hidden lg:block">
-              <div className="sticky top-24">
-                <div className="bg-white rounded-lg shadow-sm p-5 border border-transparent bg-gradient-to-r from-blue-50 to-purple-50 p-[1px]">
-                  <TableOfContents headings={headings} title="Table of Contents" />
-                </div>
+            {/* Right column - Table of Contents (spans 1 column) */}
+            <div className="hidden lg:block lg:col-span-1 relative" ref={tocContainerRef}>
+              {/* The TOC container with dynamic positioning */}
+              <div
+                ref={tocRef}
+                className="bg-white rounded-lg shadow-sm border border-transparent bg-gradient-to-r from-blue-50 to-purple-50 p-[1px] overflow-y-auto"
+                style={{
+                  position: tocStyle.position,
+                  top: tocStyle.top,
+                  bottom: tocStyle.bottom,
+                  maxHeight: tocStyle.maxHeight,
+                  width: tocStyle.width,
+                }}
+              >
+                <TableOfContents headings={headings} title="Table of Contents" />
               </div>
             </div>
           </div>
         </div>
       </PageSection>
 
-      {/* Author Bio */}
-      <PageSection bgColor="facebook-light" className="py-8 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full blur-3xl -z-10"></div>
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-white rounded-lg shadow-sm p-8 flex flex-col md:flex-row gap-6 items-center border border-transparent bg-gradient-to-r from-blue-50 to-purple-50 p-[1px]">
-            <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0 border-2 border-transparent bg-gradient-to-r from-blue-300 to-purple-300 p-[2px]">
-              <div className="rounded-full overflow-hidden h-full w-full">
-                <Image
-                  src={blogPost.authorImage || "/placeholder.svg"}
-                  alt={blogPost.author}
-                  width={96}
-                  height={96}
-                  className="object-cover"
-                />
-              </div>
-            </div>
-            <div>
-              <h3 className="text-xl font-bold mb-2 relative inline-block">
-                <span className="relative z-10">About {blogPost.author}</span>
-                <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Alex Johnson is a Facebook Ads Specialist with over 8 years of experience managing ad accounts for
-                businesses of all sizes. He specializes in account health and scaling strategies.
-              </p>
-              <div className="flex gap-3">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="rounded-full hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all"
-                >
-                  <Facebook className="h-4 w-4 mr-2" /> Follow
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="rounded-full hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all"
-                >
-                  <Twitter className="h-4 w-4 mr-2" /> Follow
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </PageSection>
-
-      {/* Related Posts Carousel */}
-      <PageSection className="py-8 relative overflow-hidden">
-        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-gradient-to-br from-purple-200/20 to-pink-200/20 rounded-full blur-3xl -z-10"></div>
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold mb-8 text-center relative inline-block mx-auto w-full">
+      {/* Related Posts Title Section */}
+      <PageSection className="pt-6 md:pt-8 pb-0">
+        <div className="max-w-5xl mx-auto mb-10">
+          <h2 className="text-2xl font-bold text-center relative inline-block mx-auto w-full">
             <span className="relative z-10">You Might Also Like</span>
             <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-3 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full w-48"></div>
           </h2>
+        </div>
+      </PageSection>
 
+      {/* Related Posts Content Section */}
+      <PageSection className="pt-0 pb-12 relative overflow-hidden">
+        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-gradient-to-br from-purple-200/20 to-pink-200/20 rounded-full blur-3xl -z-10"></div>
+        <div className="max-w-5xl mx-auto">
           <BlogCarousel itemsPerView={3} mobileItemsPerView={2} className="px-4">
             {blogPost.relatedPosts.map((post) => (
               <div

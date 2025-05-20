@@ -178,7 +178,6 @@ export function CartDrawer() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-500">Subtotal</p>
                     <p className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                       €{subtotal.toFixed(2)}
                     </p>

@@ -6,7 +6,7 @@ import { Star } from "lucide-react"
 
 export default function TestimonialsSection() {
   return (
-    <section className="py-12 md:py-20 relative overflow-hidden">
+    <section className="py-16 relative overflow-hidden">
       <div className="container mx-auto px-4 relative">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600 mb-4 border-0 shadow-md">

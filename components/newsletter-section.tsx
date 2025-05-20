@@ -5,11 +5,11 @@ import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { useMediaQuery } from "@/hooks/use-media-query"
 
-export default function NewsletterSection() {
+export default function NewsletterSection({ className }: { className?: string }) {
   const isMobile = useMediaQuery("(max-width: 768px)")
 
   return (
-    <section className="py-16 relative overflow-hidden">
+    <section className={`relative overflow-hidden ${className || "py-16"}`}>
       <div className="container mx-auto px-4 relative">
         <div className="max-w-5xl mx-auto">
           {/* Mobile Design */}

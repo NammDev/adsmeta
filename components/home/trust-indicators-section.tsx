@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export default function TrustIndicatorsSection() {
   return (
-    <section className="py-8 md:py-16 relative overflow-hidden">
+    <section className="py-16 relative overflow-hidden">
       <div className="container mx-auto px-4 relative">
         <h3 className="text-center mb-10 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 text-sm uppercase tracking-wider font-bold">
           Trusted by leading marketing agencies worldwide

@@ -9,6 +9,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Package2, Star, ChevronLeft, ChevronRight, Sparkles } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
+import PageSection from "@/components/page-section"
 
 // Pack type definition
 interface Pack {
@@ -203,20 +204,25 @@ export default function PacksPage() {
       showNewsletter={true}
       breadcrumbs={[{ label: "Packs", href: "/packs" }]}
     >
-      <section className="py-8 md:py-12">
-        <div className="container mx-auto px-4">
-          {/* Page Title */}
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md">
+      {/* Title Section */}
+      <PageSection className="pt-6 md:pt-8 pb-0">
+        <div className="max-w-3xl mx-auto text-center mb-10">
+          <div className="flex items-center justify-center gap-3">
+            <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 border-0 shadow-md">
               Value Packs
             </Badge>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
+            <h1 className="text-3xl md:text-4xl font-bold relative inline-block">
               <span className="relative z-10">Facebook Ads Solutions</span>
               <div className="absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
             </h1>
-            <p className="text-lg text-gray-600">Choose the perfect package for your advertising needs</p>
           </div>
+          <p className="text-lg text-gray-600 mt-2">Choose the perfect package for your advertising needs</p>
+        </div>
+      </PageSection>
 
+      {/* Content Section */}
+      <PageSection className="pt-0 pb-8">
+        <div className="container mx-auto px-4">
           {/* Featured Packs Section (Mobile Only) */}
           {isMobile && featuredPacks.length > 0 && (
             <div className="mb-12 relative">
@@ -280,20 +286,19 @@ export default function PacksPage() {
             </div>
           )}
 
-          {/* All Packs Section */}
-          <div className="relative">
-            {/* Decorative elements */}
-
-            <div className="flex items-center gap-3 mb-8 relative z-10">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md">
-                <Package2 className="h-6 w-6 text-white" />
-              </div>
-              <h2 className="text-2xl font-bold relative">
-                <span className="relative z-10">{isMobile ? "All Packs" : "Value Packs"}</span>
-                <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
-              </h2>
+          {/* All Packs Section Title */}
+          <div className="flex items-center gap-3 mb-10 relative z-10">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md">
+              <Package2 className="h-6 w-6 text-white" />
             </div>
+            <h2 className="text-2xl font-bold relative">
+              <span className="relative z-10">{isMobile ? "All Packs" : "Value Packs"}</span>
+              <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
+            </h2>
+          </div>
 
+          {/* All Packs Section Content */}
+          <div className="relative pt-0">
             {/* Desktop View - Original Layout */}
             {!isMobile && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
@@ -485,35 +490,47 @@ export default function PacksPage() {
               </div>
             )}
           </div>
+        </div>
+      </PageSection>
 
-          {/* Additional Info Section */}
-          <div className="mt-16 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 md:p-8 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-blue-200 to-indigo-200 rounded-full opacity-20 -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-purple-200 to-pink-200 rounded-full opacity-20 translate-y-1/2 -translate-x-1/4"></div>
+      {/* Additional Info Section */}
+      <PageSection className="pt-6 md:pt-8 pb-0">
+        <div className="mb-10">
+          <div className="flex items-center justify-center gap-3">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md flex-shrink-0">
+              <Sparkles className="h-6 w-6 text-white" />
+            </div>
+            <h3 className="text-xl md:text-2xl font-bold relative">
+              <span className="relative z-10">Need a Custom Solution?</span>
+              <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
+            </h3>
+          </div>
+        </div>
+      </PageSection>
 
-            <div className="flex flex-col md:flex-row items-center gap-6 relative z-10">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md flex-shrink-0">
-                <Sparkles className="h-8 w-8 text-white" />
-              </div>
-              <div>
-                <h3 className="text-xl md:text-2xl font-bold mb-2 text-center md:text-left">Need a Custom Solution?</h3>
-                <p className="text-gray-600 mb-4 text-center md:text-left">
-                  We offer tailored packages for businesses with specific requirements. Contact our team to discuss your
-                  needs.
-                </p>
-                <div className="flex justify-center md:justify-start">
-                  <Button
-                    asChild
-                    className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 border-0 text-white shadow-sm"
-                  >
-                    <Link href="/contact">Contact Us</Link>
-                  </Button>
-                </div>
+      <PageSection className="pt-0 pb-12">
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 md:p-8 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-blue-200 to-indigo-200 rounded-full opacity-20 -translate-y-1/2 translate-x-1/2"></div>
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-purple-200 to-pink-200 rounded-full opacity-20 translate-y-1/2 -translate-x-1/4"></div>
+
+          <div className="flex flex-col md:flex-row items-center gap-6 relative z-10">
+            <div>
+              <p className="text-gray-600 mb-4 text-center md:text-left">
+                We offer tailored packages for businesses with specific requirements. Contact our team to discuss your
+                needs.
+              </p>
+              <div className="flex justify-center md:justify-start">
+                <Button
+                  asChild
+                  className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 border-0 text-white shadow-sm"
+                >
+                  <Link href="/contact">Contact Us</Link>
+                </Button>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </PageSection>
     </SupportingPageLayout>
   )
 }
