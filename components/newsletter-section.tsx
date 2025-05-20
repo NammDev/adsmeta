@@ -114,7 +114,7 @@ export default function NewsletterSection() {
                     <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-indigo-200 opacity-50 rounded-full"></div>
                   </span>
                 </h3>
-                <p className="text-gray-600 mb-4 relative z-10">
+                <p className="text-gray-600 mb-4 mt-4 relative z-10">
                   Don't want to miss any of our updates? Join our email list. You'll receive all of the most recent
                   advertising updates, discounts, and other awesome news straight to your inbox.
                 </p>
@@ -132,7 +132,6 @@ export default function NewsletterSection() {
 
               {/* Contact Options */}
               <div className="flex-1 space-y-4 relative">
-                <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-purple-200 to-pink-200 rounded-full opacity-20 blur-3xl"></div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2 relative z-10">
                   <span className="relative inline-block">
                     Contact us directly

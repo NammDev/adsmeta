@@ -3,7 +3,7 @@
 import { useCart, type CartItem } from "@/context/cart-context"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { ShoppingCart, X, Plus, Minus, Trash2, CreditCard, CheckCircle, ArrowRight } from "lucide-react"
+import { ShoppingCart, X, Plus, Minus, Trash2, CreditCard, ArrowRight } from "lucide-react"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import { useMediaQuery } from "@/hooks/use-media-query"
@@ -121,14 +121,14 @@ export function CartDrawer() {
           <div className="px-4 py-3 md:px-6 md:py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <h2 className="text-base md:text-lg font-semibold text-gray-900 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <h2 className="text-base md:text-lg font-semibold text-gray-900 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent flex items-center">
                   Your Cart
+                  {itemCount > 0 && (
+                    <Badge className="ml-2 bg-facebook/10 text-facebook border-0">
+                      {itemCount} {itemCount === 1 ? "item" : "items"}
+                    </Badge>
+                  )}
                 </h2>
-                {itemCount > 0 && (
-                  <Badge className="ml-1 bg-facebook/10 text-facebook border-0">
-                    {itemCount} {itemCount === 1 ? "item" : "items"}
-                  </Badge>
-                )}
               </div>
               <Button
                 variant="ghost"
@@ -182,24 +182,6 @@ export function CartDrawer() {
                     <p className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                       €{subtotal.toFixed(2)}
                     </p>
-                  </div>
-
-                  <div className="flex flex-col items-end">
-                    <div className="flex items-center text-xs text-green-600 mb-1">
-                      <CheckCircle className="h-3 w-3 mr-1" />
-                      <span>Free shipping</span>
-                    </div>
-                    <p className="text-xs text-gray-500">Taxes calculated at checkout</p>
-                  </div>
-                </div>
-
-                {/* Payment methods */}
-                <div className="flex items-center justify-center space-x-2 py-2">
-                  <div className="flex space-x-2">
-                    <div className="w-8 h-5 bg-blue-600 rounded-sm"></div>
-                    <div className="w-8 h-5 bg-yellow-500 rounded-sm"></div>
-                    <div className="w-8 h-5 bg-green-500 rounded-sm"></div>
-                    <div className="w-8 h-5 bg-red-500 rounded-sm"></div>
                   </div>
                 </div>
 

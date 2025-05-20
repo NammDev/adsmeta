@@ -2,9 +2,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import {
   Shield,
-  Clock,
   Zap,
-  Lock,
   AlertTriangle,
   DollarSign,
   BluetoothOffIcon as HeadphonesOff,
@@ -21,10 +19,9 @@ export default function HeroSection() {
   // Mobile-specific hero section
   if (isMobile) {
     return (
-      <section className="py-10 bg-white relative overflow-hidden">
+      <section className="py-10 relative overflow-hidden">
         {/* Colorful background elements */}
-        <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-green-400/20 to-blue-400/20 rounded-full translate-x-1/2 translate-y-1/2 blur-3xl"></div>
+        {/* Mobile-specific hero section */}
 
         <div className="container mx-auto px-4 relative">
           <div className="flex flex-col items-center text-center">
@@ -72,17 +69,21 @@ export default function HeroSection() {
               Getting nowhere with Facebook support? GoAds delivers verified accounts with 24/7 expert assistance.
             </p>
 
-            {/* Pain points for mobile - with colorful accents */}
-            <div className="w-full max-w-xs mb-8 bg-white rounded-lg border border-gray-200 p-4 shadow-lg relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-red-400/10 to-orange-400/10 rounded-bl-full"></div>
+            {/* "Why advertisers choose GoAds" section for mobile */}
+            <div className="w-full max-w-xs mb-8 bg-white rounded-lg border border-gray-200 p-4 shadow-md relative overflow-hidden">
+              <div className="mb-3">
+                <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-sm font-medium rounded-md shadow-sm">
+                  Why advertisers choose GoAds
+                </span>
+              </div>
+
               <div className="flex flex-col gap-3 relative z-10">
                 <div className="flex items-start gap-3">
                   <div className="bg-red-100 p-1.5 rounded-full">
                     <AlertTriangle className="h-4 w-4 text-red-500" />
                   </div>
                   <p className="text-sm text-left text-gray-600">
-                    <span className="font-semibold text-gray-900">Ad accounts banned</span> without warning or
-                    explanation
+                    <span className="font-semibold text-gray-900">No more unexpected account bans</span>
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
@@ -90,7 +91,8 @@ export default function HeroSection() {
                     <DollarSign className="h-4 w-4 text-orange-500" />
                   </div>
                   <p className="text-sm text-left text-gray-600">
-                    <span className="font-semibold text-gray-900">Revenue lost</span> while waiting for new accounts
+                    <span className="font-semibold text-gray-900">Stop losing revenue</span> while waiting for new
+                    accounts
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
@@ -98,7 +100,8 @@ export default function HeroSection() {
                     <HeadphonesOff className="h-4 w-4 text-purple-500" />
                   </div>
                   <p className="text-sm text-left text-gray-600">
-                    <span className="font-semibold text-gray-900">No support</span> from Facebook when you need it most
+                    <span className="font-semibold text-gray-900">Get expert support</span> when Facebook leaves you
+                    stranded
                   </p>
                 </div>
               </div>
@@ -121,25 +124,6 @@ export default function HeroSection() {
                   WhatsApp
                 </span>
               </Button>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4 w-full max-w-md">
-              <div className="flex items-center gap-2 text-sm bg-blue-50 p-2 rounded-lg border border-blue-100">
-                <Shield className="h-4 w-4 text-blue-500" />
-                <span className="text-gray-700">100% Verified</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm bg-purple-50 p-2 rounded-lg border border-purple-100">
-                <Zap className="h-4 w-4 text-purple-500" />
-                <span className="text-gray-700">Instant Delivery</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm bg-green-50 p-2 rounded-lg border border-green-100">
-                <Clock className="h-4 w-4 text-green-500" />
-                <span className="text-gray-700">24/7 Support</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm bg-orange-50 p-2 rounded-lg border border-orange-100">
-                <Lock className="h-4 w-4 text-orange-500" />
-                <span className="text-gray-700">No Recycled Accounts</span>
-              </div>
             </div>
           </div>
         </div>

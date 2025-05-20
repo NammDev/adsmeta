@@ -326,15 +326,13 @@ function ProductsContent() {
             className={`${
               isMobile
                 ? "rounded-full border-0 px-3 py-1 text-xs !transition-none"
-                : "bg-white text-gray-900 border-gray-200 hover:bg-gray-50"
+                : "rounded-full border-0 px-5 py-2 text-sm"
             } ${
               currentFilter === option.value
-                ? isMobile
-                  ? "!bg-gradient-to-r from-blue-500 to-indigo-500 !text-white hover:opacity-90"
-                  : "border-blue-500 text-blue-500"
+                ? "bg-gradient-to-r from-blue-500 to-indigo-500 text-white hover:opacity-90 shadow-md"
                 : isMobile
                   ? "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  : ""
+                  : "bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-gray-100 shadow-sm"
             }`}
             onClick={() => {
               setCurrentFilter(option.value)
@@ -352,10 +350,10 @@ function ProductsContent() {
           {/* Left navigation arrow */}
           <button
             onClick={scrollLeft}
-            className="absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/80 backdrop-blur-sm p-2 shadow-lg border border-gray-100"
+            className="absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-2 shadow-lg"
             aria-label="Scroll left"
           >
-            <ChevronLeft className="h-5 w-5 text-gray-700" />
+            <ChevronLeft className="h-5 w-5" />
           </button>
 
           {/* Products carousel */}
@@ -397,16 +395,16 @@ function ProductsContent() {
           {/* Right navigation arrow */}
           <button
             onClick={scrollRight}
-            className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/80 backdrop-blur-sm p-2 shadow-lg border border-gray-100"
+            className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-2 shadow-lg"
             aria-label="Scroll right"
           >
-            <ChevronRight className="h-5 w-5 text-gray-700" />
+            <ChevronRight className="h-5 w-5" />
           </button>
 
           {/* See More Button for Mobile - Updated to match website style */}
           <div className="flex justify-center mt-6">
             <Link href="/products">
-              <Button className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:opacity-90 text-white px-8 border-0 shadow-md">
+              <Button className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:opacity-90 text-white px-8 border-0 shadow-md rounded-full">
                 See More
               </Button>
             </Link>
@@ -450,9 +448,9 @@ function ProductsContent() {
                   variant="outline"
                   onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                   disabled={currentPage === 1}
-                  className="border-gray-200 hover:bg-gray-50"
+                  className="rounded-full border-0 bg-white/80 backdrop-blur-sm shadow-sm hover:bg-gray-100 disabled:opacity-50"
                 >
-                  Previous
+                  <ChevronLeft className="h-4 w-4 mr-1" /> Previous
                 </Button>
 
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
@@ -461,8 +459,8 @@ function ProductsContent() {
                     variant="outline"
                     className={
                       currentPage === page
-                        ? "bg-gradient-to-r from-blue-500 to-indigo-500 text-white hover:opacity-90 border-0"
-                        : "border-gray-200 hover:bg-gray-50"
+                        ? "rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white hover:opacity-90 border-0 shadow-md"
+                        : "rounded-full border-0 bg-white/80 backdrop-blur-sm shadow-sm hover:bg-gray-100"
                     }
                     onClick={() => setCurrentPage(page)}
                   >
@@ -474,9 +472,9 @@ function ProductsContent() {
                   variant="outline"
                   onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                   disabled={currentPage === totalPages}
-                  className="border-gray-200 hover:bg-gray-50"
+                  className="rounded-full border-0 bg-white/80 backdrop-blur-sm shadow-sm hover:bg-gray-100 disabled:opacity-50"
                 >
-                  Next
+                  Next <ChevronRight className="h-4 w-4 ml-1" />
                 </Button>
               </div>
             </div>
@@ -493,9 +491,14 @@ export default function ProductsSection() {
   return (
     <section id="products" className="py-20 relative">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-12">
-          <Badge className="bg-facebook/10 text-facebook hover:bg-facebook/20 mb-4">Products</Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Individual Solutions</h2>
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md">
+            Products
+          </Badge>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 relative inline-block">
+            <span className="relative z-10">Individual Solutions</span>
+            <div className="absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
+          </h2>
           <p className="text-lg text-gray-600">Build your custom solution with our individual products</p>
         </div>
 

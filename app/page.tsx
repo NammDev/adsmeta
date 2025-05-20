@@ -11,7 +11,6 @@ import TrustIndicatorsSection from "@/components/home/trust-indicators-section"
 import WhyChooseUsSection from "@/components/home/why-choose-us-section"
 import TestimonialsSection from "@/components/home/testimonials-section"
 import { useMediaQuery } from "@/hooks/use-media-query"
-import MobileWhyTrustUsSection from "@/components/home/mobile-why-trust-us-section"
 import BackgroundDecorations from "@/components/background-decorations"
 
 export default function Home() {
@@ -53,8 +52,8 @@ export default function Home() {
         {/* Products Section */}
         <ProductsSection />
 
-        {/* Why Choose Us Section - Show on both mobile and desktop */}
-        {isMobile ? <MobileWhyTrustUsSection /> : <WhyChooseUsSection />}
+        {/* Why Choose Us Section - Now responsive for both mobile and desktop */}
+        <WhyChooseUsSection />
 
         {/* Testimonials Section - Desktop only */}
         {!isMobile && <TestimonialsSection />}

@@ -81,14 +81,18 @@ export function CartNotification({ show, item, onClose }: CartNotificationProps)
         <div className="bg-white rounded-lg overflow-hidden border border-blue-100 shadow-lg">
           {/* Header matching the cart drawer header */}
           <div
-            className="flex justify-between items-center p-3 border-b border-gray-100"
-            style={{ backgroundColor: "#ebe3e9" }}
+            className="flex justify-between items-center p-3 border-b border-blue-100/50"
+            style={{
+              background: "linear-gradient(to bottom, #f9f5ff, #ffffff)",
+            }}
           >
             <div className="flex items-center">
               <div className="bg-facebook/10 p-1 rounded-full mr-2">
                 <ShoppingBag size={14} className="text-facebook" />
               </div>
-              <h3 className="font-medium text-sm text-gray-900">Added to cart!</h3>
+              <h3 className="font-medium text-sm text-gray-900 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Successfully added to cart!
+              </h3>
             </div>
             <button
               onClick={onClose}

@@ -3,9 +3,9 @@ import { Shield, Clock, Tag } from "lucide-react"
 
 export default function WhyChooseUsSection() {
   return (
-    <section id="about" className="py-12 md:py-20 relative overflow-hidden">
+    <section id="about" className="py-10 md:py-20 relative overflow-hidden">
       <div className="container mx-auto px-4 relative">
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <div className="max-w-3xl mx-auto text-center mb-10 md:mb-16">
           <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md">
             Why Us
           </Badge>
@@ -16,7 +16,57 @@ export default function WhyChooseUsSection() {
           <p className="text-lg text-gray-600">Simple solutions that deliver results</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+        {/* Mobile view (stacked cards with horizontal layout) */}
+        <div className="md:hidden space-y-4">
+          <div className="bg-white rounded-lg p-5 shadow-sm">
+            <div className="flex items-start">
+              <div className="mr-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                  <Shield className="h-6 w-6 text-white" />
+                </div>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Verified Quality</h3>
+                <p className="text-gray-600">All accounts verified with 2-3 green line tick for maximum performance.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg p-5 shadow-sm">
+            <div className="flex items-start">
+              <div className="mr-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                  <Clock className="h-6 w-6 text-white" />
+                </div>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">24/7 Support</h3>
+                <p className="text-gray-600">
+                  Professional support via Telegram & WhatsApp whenever you need assistance.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg p-5 shadow-sm">
+            <div className="flex items-start">
+              <div className="mr-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center">
+                  <Tag className="h-6 w-6 text-white" />
+                </div>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Transparent Pricing</h3>
+                <p className="text-gray-600">
+                  No hidden fees. Simple, clear pricing for all our products and packages.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop view (original design) */}
+        <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
           <div className="flex flex-col items-center text-center group">
             <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg transform transition-transform group-hover:scale-110 group-hover:rotate-3">
               <Shield className="h-10 w-10 text-white" />
