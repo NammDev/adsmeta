@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Package2, Star, ChevronLeft, ChevronRight, Sparkles } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import PageSection from "@/components/page-section"
+import { getPacksPageData } from "@/data/packages"
 
 // Pack type definition
 interface Pack {
@@ -35,70 +36,8 @@ export default function PacksPage() {
   const [touchEnd, setTouchEnd] = useState<number | null>(null)
   const [isScrolling, setIsScrolling] = useState(false)
 
-  // Reduced number of packs (3-5) with featured flags
-  const packs: Pack[] = [
-    {
-      id: "starter-pack",
-      name: "Starter Pack",
-      description: "Perfect for beginners starting with Facebook ads",
-      price: "€199",
-      features: ["1 Verified Business Manager", "1 Ad Account", "Basic setup guide", "Email support"],
-      image: "/facebook-starter-pack.png",
-      badge: "Popular",
-      url: "/starter-pack",
-      featured: true,
-    },
-    {
-      id: "pro-pack",
-      name: "Pro Pack",
-      description: "For growing businesses with established ad campaigns",
-      price: "€399",
-      features: [
-        "1 Verified BM5 with $250 limit",
-        "3 Ad Accounts",
-        "Advanced setup guide",
-        "Priority email support",
-        "1 month consultation",
-      ],
-      image: "/facebook-ads-success-graph.png",
-      badge: "Best Value",
-      url: "/pro-pack",
-      featured: true,
-    },
-    {
-      id: "agency-pack",
-      name: "Agency Pack",
-      description: "Complete solution for marketing agencies managing multiple clients",
-      price: "€799",
-      features: [
-        "1 Unlimited Verified BM5",
-        "5 Ad Accounts",
-        "Agency setup guide",
-        "Priority support",
-        "3 months consultation",
-        "Account strategy review",
-      ],
-      image: "/facebook-agency-pack.png",
-      badge: "Premium",
-      url: "/agency-pack",
-    },
-    {
-      id: "business-complete-pack",
-      name: "Business Complete Pack",
-      description: "All-in-one solution for established businesses",
-      price: "€499",
-      features: [
-        "1 Verified BM5 Limited",
-        "2 USA Profiles",
-        "1 Aged Reinstated Page",
-        "Advanced setup assistance",
-        "Priority support",
-        "2 months consultation",
-      ],
-      image: "/generic-social-media-bundle.png",
-      url: "/business-complete-pack",
-    },
-  ]
+  // Get packs data from centralized source
+  const packs: Pack[] = getPacksPageData()
 
   // Separate featured packs from regular packs
   const featuredPacks = packs.filter((pack) => pack.featured)

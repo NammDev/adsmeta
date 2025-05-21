@@ -21,6 +21,7 @@ import {
 } from "lucide-react"
 import SupportingPageLayout from "@/components/supporting-page-layout"
 import { useCart } from "@/context/cart-context"
+import { getPackDetailData } from "@/data/packages"
 
 // Pack type definition
 interface Pack {
@@ -43,206 +44,6 @@ interface Pack {
   deliveryTime: string
   faq: Array<{ question: string; answer: string }>
 }
-
-// Sample pack data - in a real app, this would come from an API or database
-const packsData: Pack[] = [
-  {
-    id: "starter-pack",
-    slug: "starter-pack",
-    name: "Starter Pack",
-    description: "Perfect for beginners starting with Facebook ads",
-    longDescription: `Our Starter Pack is designed for individuals and small businesses who are just beginning their journey with Facebook advertising. This comprehensive package provides everything you need to get started with confidence.
-
-    The pack includes a verified Business Manager with basic ad account setup, essential documentation, and a beginner-friendly guide to help you navigate the Facebook ads platform. We've also included email support to assist you with any questions you might have during the setup process.
-
-    This is the ideal solution for those who want to start advertising on Facebook without the complexity and high costs often associated with advanced advertising solutions.`,
-    price: 199,
-    comparePrice: 249,
-    features: [
-      "1 Verified Business Manager",
-      "1 Ad Account",
-      "Basic setup guide",
-      "Email support",
-      "30-day warranty",
-      "Beginner-friendly documentation",
-      "Access to basic tutorials",
-      "Payment method setup assistance",
-    ],
-    includes: [
-      {
-        name: "Verified Business Manager",
-        description: "A fully verified Business Manager account ready for advertising",
-        icon: "/facebook-business-manager-icon.png",
-      },
-      {
-        name: "Ad Account",
-        description: "1 standard ad account with basic spending limit",
-        icon: "/facebook-payment-method-icon.png",
-      },
-      {
-        name: "Setup Guide",
-        description: "Step-by-step guide for beginners to start advertising",
-        icon: "/facebook-ads-setup.png",
-      },
-    ],
-    image: "/facebook-starter-pack.png",
-    badge: "Popular",
-    stock: "in-stock",
-    deliveryTime: "24 hours",
-    faq: [
-      {
-        question: "Is this pack suitable for complete beginners?",
-        answer:
-          "Yes, this pack is specifically designed for beginners with no prior experience in Facebook advertising.",
-      },
-      {
-        question: "Can I upgrade to a more advanced pack later?",
-        answer:
-          "You can upgrade to our Pro Pack or Agency Pack at any time. We'll provide a discount based on your initial purchase.",
-      },
-      {
-        question: "What kind of support is included?",
-        answer:
-          "The Starter Pack includes email support to help you with basic setup and troubleshooting. Support is available during business hours.",
-      },
-      {
-        question: "How long does it take to set everything up?",
-        answer:
-          "Most users can complete the setup process in 1-2 hours following our step-by-step guide. If you encounter any issues, our support team is ready to assist.",
-      },
-    ],
-  },
-  {
-    id: "pro-pack",
-    slug: "pro-pack",
-    name: "Pro Pack",
-    description: "For growing businesses with established ad campaigns",
-    longDescription: `The Pro Pack is our mid-tier solution designed for growing businesses and marketers who have some experience with Facebook advertising and are looking to scale their efforts.
-
-    This comprehensive package includes a verified BM5 Business Manager with a $250 spending limit, multiple ad accounts, and advanced setup documentation. The Pro Pack also comes with priority email support and a one-month consultation to help you optimize your advertising strategy.
-
-    With the Pro Pack, you'll have all the tools and resources needed to take your Facebook advertising to the next level and achieve better results for your business or clients.`,
-    price: 399,
-    features: [
-      "1 Verified BM5 with $250 limit",
-      "3 Ad Accounts",
-      "Advanced setup guide",
-      "Priority email support",
-      "1 month consultation",
-      "60-day warranty",
-      "Campaign optimization tips",
-      "Audience targeting strategies",
-    ],
-    includes: [
-      {
-        name: "Verified BM5 Business Manager",
-        description: "A premium Business Manager with $250 spending limit",
-        icon: "/verified-facebook-business-manager-icon.png",
-      },
-      {
-        name: "Multiple Ad Accounts",
-        description: "3 ad accounts for different campaigns or clients",
-        icon: "/multiple-payment-methods-icon.png",
-      },
-      {
-        name: "Pixel Setup",
-        description: "Facebook Pixel setup for conversion tracking",
-        icon: "/facebook-pixel-tracking-icon.png",
-      },
-    ],
-    image: "/facebook-ads-success-graph.png",
-    badge: "Best Value",
-    stock: "in-stock",
-    deliveryTime: "48 hours",
-    faq: [
-      {
-        question: "What's the difference between the Starter Pack and Pro Pack?",
-        answer:
-          "The Pro Pack includes a higher-tier Business Manager (BM5) with a $250 spending limit, 3 ad accounts instead of 1, priority support, and a one-month consultation for campaign optimization.",
-      },
-      {
-        question: "Is the consultation one-on-one or group-based?",
-        answer: "The consultation is one-on-one and tailored to your specific business needs and advertising goals.",
-      },
-      {
-        question: "Can I add more ad accounts later?",
-        answer:
-          "Yes, additional ad accounts can be purchased separately or you can upgrade to our Agency Pack for more accounts.",
-      },
-      {
-        question: "What kind of spending limit increases can I expect?",
-        answer:
-          "With proper account management and consistent spending, you can typically request limit increases after 2-3 months of advertising history.",
-      },
-    ],
-  },
-  {
-    id: "agency-pack",
-    slug: "agency-pack",
-    name: "Agency Pack",
-    description: "Complete solution for marketing agencies managing multiple clients",
-    longDescription: `The Agency Pack is our premium solution designed specifically for marketing agencies and professional advertisers managing multiple clients or large-scale campaigns.
-
-    This comprehensive package includes an unlimited verified BM5 Business Manager, multiple ad accounts, and a complete agency setup guide. The Agency Pack also comes with priority support and a three-month consultation to help you optimize your client campaigns and scale your agency.
-
-    With the Agency Pack, you'll have all the tools and resources needed to manage multiple clients efficiently and deliver exceptional results for your agency.`,
-    price: 799,
-    features: [
-      "1 Unlimited Verified BM5",
-      "5 Ad Accounts",
-      "Agency setup guide",
-      "Priority support",
-      "3 months consultation",
-      "Account strategy review",
-      "90-day warranty",
-      "Client management tools",
-    ],
-    includes: [
-      {
-        name: "Unlimited Verified BM5",
-        description: "Premium Business Manager with unlimited potential",
-        icon: "/verified-facebook-business-manager-icon.png",
-      },
-      {
-        name: "Multiple Client Setup",
-        description: "Structure for managing multiple clients efficiently",
-        icon: "/growing-business-icon.png",
-      },
-      {
-        name: "Advanced Strategies",
-        description: "Professional-level advertising strategies and tools",
-        icon: "/experienced-marketer-icon.png",
-      },
-    ],
-    image: "/facebook-agency-pack.png",
-    badge: "Premium",
-    stock: "low-stock",
-    deliveryTime: "72 hours",
-    faq: [
-      {
-        question: "Is this pack suitable for agencies of all sizes?",
-        answer:
-          "Yes, the Agency Pack is designed to scale with your agency, whether you're managing a handful of clients or dozens.",
-      },
-      {
-        question: "What does 'unlimited' BM5 mean?",
-        answer:
-          "The unlimited BM5 has no preset spending limit cap and can be scaled to accommodate large advertising budgets across multiple clients.",
-      },
-      {
-        question: "Can I add team members to manage different clients?",
-        answer:
-          "Yes, the Agency Pack supports multiple team members with different permission levels for efficient client management.",
-      },
-      {
-        question: "What kind of consultation is included?",
-        answer:
-          "The 3-month consultation includes strategy sessions, account reviews, and optimization recommendations tailored to your agency's client portfolio.",
-      },
-    ],
-  },
-  // Add more packs as needed
-]
 
 // Feature icons mapping
 const featureIcons = [
@@ -268,6 +69,9 @@ const gradients = [
   "from-lime-500 to-green-600",
 ]
 
+// Fetch packs data (replace with your actual data fetching logic)
+const packsData = getPackDetailData()
+
 export default function PackPage() {
   const params = useParams()
   const packSlug = params.pack as string
@@ -277,8 +81,10 @@ export default function PackPage() {
   // const [activeTab, setActiveTab] = useState("description")
 
   useEffect(() => {
+    // Get all packs from the centralized data source
+    const allPacks = getPackDetailData()
     // Find the pack based on the slug
-    const foundPack = packsData.find((p) => p.slug === packSlug)
+    const foundPack = allPacks.find((p) => p.slug === packSlug)
     setPack(foundPack || null)
   }, [packSlug])
 
@@ -1070,7 +876,9 @@ export default function PackPage() {
                   <div className="absolute top-0 right-0 w-16 h-16 bg-blue-200/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
                   <div className="absolute bottom-0 left-0 w-12 h-12 bg-purple-200/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
 
-                  <h4 className="font-bold mb-1 text-center text-sm relative z-10 text-gray-800">Ready to get started?</h4>
+                  <h4 className="font-bold mb-1 text-center text-sm relative z-10 text-gray-800">
+                    Ready to get started?
+                  </h4>
                   <p className="text-gray-600 text-xs mb-3 text-center relative z-10">Get your {pack.name} now!</p>
 
                   <Button

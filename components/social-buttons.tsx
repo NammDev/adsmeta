@@ -4,7 +4,8 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Send, Mail, X } from "lucide-react"
 import { ChatBubbleIcon } from "./chat-bubble-icon"
-import { cn } from "@/lib/utils"
+// Add the import for the openWhatsAppChat function
+import { cn, openWhatsAppChat } from "@/lib/utils"
 
 interface SocialButtonsProps {
   threshold?: number
@@ -40,12 +41,10 @@ export default function SocialButtons({ threshold = 300, className }: SocialButt
     setIsOpen(!isOpen)
   }
 
+  // Replace the openWhatsApp function with this:
   // Open WhatsApp function
   const openWhatsApp = () => {
-    // Replace with your actual WhatsApp number and message
-    const phoneNumber = "1234567890"
-    const message = "Hello! I'm interested in your products."
-    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank")
+    openWhatsAppChat("Hello! I'm interested in your products.")
   }
 
   // Open Telegram function

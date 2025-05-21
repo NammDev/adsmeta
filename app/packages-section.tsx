@@ -11,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Check, ArrowRight, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react"
 import { useCart } from "@/context/cart-context"
 import { CartNotification } from "@/components/cart-notification"
+import { getLandingPagePackages } from "@/data/packages"
 
 export default function PackagesSection() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
@@ -36,59 +37,20 @@ export default function PackagesSection() {
     }
   }, [])
 
-  const packages = [
-    {
-      id: 1,
-      name: "Starter Pack",
-      description: "Perfect for beginners and small businesses",
-      price: 50,
-      features: ["1 Verified Business Manager", "1 Payment Method", "1 Facebook Pixel", "Basic Support"],
-      image: "/facebook-starter-pack.png",
-      gradient: "from-blue-500 to-cyan-500",
-      bgGradient: "from-blue-50 to-cyan-50",
-      borderColor: "border-blue-200",
-      hoverGradient: "from-blue-600 to-cyan-600",
-    },
-    {
-      id: 2,
-      name: "Pro Pack",
-      description: "Ideal for growing agencies and marketers",
-      price: 150,
-      features: [
-        "3 Verified Business Managers",
-        "3 Payment Methods",
-        "3 Facebook Pixels",
-        "Priority Support",
-        "Account Recovery Assistance",
-      ],
-      image: "/facebook-agency-pack.png",
-      gradient: "from-purple-500 to-pink-500",
-      bgGradient: "from-purple-50 to-pink-50",
-      borderColor: "border-purple-200",
-      hoverGradient: "from-purple-600 to-pink-600",
-      popular: true,
-    },
-    {
-      id: 3,
-      name: "Agency Pack",
-      description: "Complete solution for professional agencies",
-      price: 400,
-      features: [
-        "5 Verified Business Managers",
-        "Unlimited Payment Methods",
-        "5 Facebook Pixels",
-        "24/7 Priority Support",
-        "Account Recovery Assistance",
-        "Custom Ad Account Setup",
-        "Scaling Strategy Consultation",
-      ],
-      image: "/facebook-verified-business-manager.png",
-      gradient: "from-amber-500 to-orange-500",
-      bgGradient: "from-amber-50 to-orange-50",
-      borderColor: "border-amber-200",
-      hoverGradient: "from-amber-600 to-orange-600",
-    },
-  ]
+  // Get packages from centralized data source
+  const packages = getLandingPagePackages().map((pack) => ({
+    id: pack.numericId,
+    name: pack.name,
+    description: pack.description,
+    price: pack.price,
+    features: pack.simpleFeatures || [],
+    image: typeof pack.image === "string" ? pack.image : pack.image.src,
+    gradient: pack.gradient,
+    bgGradient: pack.bgGradient,
+    borderColor: pack.borderColor,
+    hoverGradient: pack.hoverGradient,
+    popular: pack.popular,
+  }))
 
   const handleAddToCart = (pkg: any) => {
     if (!addItem) {
@@ -169,7 +131,7 @@ export default function PackagesSection() {
   }
 
   return (
-    <section id="packages" className="py-16 relative overflow-hidden">
+    <section id="packages" className="pt-32 pb-16 relative overflow-hidden">
       <div className="container mx-auto px-4 relative">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md">
