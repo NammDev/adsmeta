@@ -174,7 +174,7 @@ export function SiteHeader() {
               </div>
 
               {/* Navigation Links */}
-              <nav className='flex-1 space-y-1 px-3 py-4'>
+              <nav className='flex-1 space-y-1 px-3 py-4 pt-0'>
                 {[
                   { href: '/', label: 'Home' },
                   { href: '/products', label: 'Products' },
@@ -211,7 +211,7 @@ export function SiteHeader() {
               </nav>
 
               {/* Social Icons Footer */}
-              <div className='py-4'>
+              {/* <div className='py-4'>
                 <div className='flex justify-center space-x-8'>
                   <a
                     href='#facebook'
@@ -235,7 +235,7 @@ export function SiteHeader() {
                     <Youtube className='h-7 w-7' />
                   </a>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </>
