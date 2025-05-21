@@ -298,7 +298,7 @@ export default function BlogPage() {
                 {mostViewedPosts.map((post) => (
                   <div
                     key={post.id}
-                    className="group relative rounded-lg p-2 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all"
+                    className="group relative rounded-lg pl-0 p-2 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all"
                   >
                     <Link href={`/blog/${post.id}`} className="flex gap-4">
                       <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
@@ -435,7 +435,7 @@ export default function BlogPage() {
                 </div>
               ) : (
                 // Desktop grid for Latest Articles (unchanged)
-                <div className="grid sm:grid-cols-2 gap-6 flex-1 pb-12">
+                <div className="grid sm:grid-cols-2 gap-6 flex-1 pb-16">
                   {regularPosts.map((post) => (
                     <Card
                       key={post.id}

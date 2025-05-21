@@ -6,7 +6,7 @@ import { ShoppingCart, Home, HelpCircle, BookOpen, Package } from "lucide-react"
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+    <div className="min-h-screen relative overflow-hidden bg-transparent">
       {/* Decorative Elements */}
       <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-blue-200/30 animate-pulse-slow"></div>
       <div className="absolute bottom-20 right-10 w-40 h-40 rounded-full bg-purple-200/30 animate-pulse-slow animation-delay-1000"></div>

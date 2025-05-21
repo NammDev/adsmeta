@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, ChevronLeft, ChevronRight, ShoppingCart, Package2 } from "lucide-react"
+import { CheckCircle, ChevronLeft, ChevronRight, ShoppingCart, Package2, ShoppingBag } from "lucide-react"
 import { useCart } from "@/context/cart-context"
 import PageSection from "@/components/page-section"
 
@@ -21,6 +21,7 @@ interface Product {
   image: string
   badge?: string
   url: string
+  purchases?: number // Add this line
 }
 
 // Category type definition
@@ -81,6 +82,7 @@ export default function ProductsPage() {
       category: "business-manager",
       image: "/facebook-verified-business-manager.png",
       url: "/verified-bm",
+      purchases: 124, // Add this line
     },
     {
       id: "verified-bm-2",
@@ -91,6 +93,7 @@ export default function ProductsPage() {
       image: "/facebook-business-manager-icon.png",
       badge: "Popular",
       url: "/bm1-250-limit",
+      purchases: 256, // Add this line
     },
     {
       id: "verified-bm-3",
@@ -100,6 +103,7 @@ export default function ProductsPage() {
       category: "business-manager",
       image: "/verified-facebook-business-manager-icon.png",
       url: "/verified-bm5-limited",
+      purchases: 89,
     },
     {
       id: "verified-bm-4",
@@ -110,6 +114,7 @@ export default function ProductsPage() {
       image: "/abstract-facebook-verified-business-manager.png",
       badge: "Premium",
       url: "/unlimited-verified-bm5",
+      purchases: 312,
     },
     {
       id: "unverified-bm-1",
@@ -119,6 +124,7 @@ export default function ProductsPage() {
       category: "unverified-bm",
       image: "/abstract-facebook-business-manager.png",
       url: "/unverified-bm",
+      purchases: 578,
     },
     {
       id: "unverified-bm-2",
@@ -128,6 +134,7 @@ export default function ProductsPage() {
       category: "unverified-bm",
       image: "/facebook-ads-setup.png",
       url: "/unverified-recovered-bm",
+      purchases: 198,
     },
     {
       id: "profile-1",
@@ -137,6 +144,7 @@ export default function ProductsPage() {
       category: "profiles",
       image: "/facebook-ads-dashboard-beginners.png",
       url: "/asia-reinstated-2gl",
+      purchases: 45,
     },
     {
       id: "profile-2",
@@ -146,6 +154,7 @@ export default function ProductsPage() {
       category: "profiles",
       image: "/facebook-ads-dashboard.png",
       url: "/asia-reinstated-3gl",
+      purchases: 72,
     },
     {
       id: "profile-3",
@@ -155,6 +164,7 @@ export default function ProductsPage() {
       category: "profiles",
       image: "/facebook-pixel-icon.png",
       url: "/usa-reinstated-2gl",
+      purchases: 102,
     },
     {
       id: "profile-4",
@@ -165,6 +175,7 @@ export default function ProductsPage() {
       badge: "Best Value",
       image: "/facebook-pixel-tracking-icon.png",
       url: "/usa-reinstated-3gl",
+      purchases: 155,
     },
     {
       id: "page-1",
@@ -174,6 +185,7 @@ export default function ProductsPage() {
       category: "pages",
       image: "/growing-business-icon.png",
       url: "/aged-reinstated-page",
+      purchases: 210,
     },
     // Adding more dummy products to demonstrate pagination
     {
@@ -184,6 +196,7 @@ export default function ProductsPage() {
       category: "business-manager",
       image: "/facebook-verified-business-manager.png",
       url: "/verified-bm-premium",
+      purchases: 95,
     },
     {
       id: "verified-bm-6",
@@ -193,6 +206,7 @@ export default function ProductsPage() {
       category: "business-manager",
       image: "/facebook-business-manager-icon.png",
       url: "/bm2-500-limit",
+      purchases: 142,
     },
     {
       id: "verified-bm-7",
@@ -202,6 +216,7 @@ export default function ProductsPage() {
       category: "business-manager",
       image: "/verified-facebook-business-manager-icon.png",
       url: "/verified-bm10-limited",
+      purchases: 28,
     },
     {
       id: "verified-bm-8",
@@ -212,6 +227,7 @@ export default function ProductsPage() {
       image: "/abstract-facebook-verified-business-manager.png",
       badge: "Premium Plus",
       url: "/unlimited-verified-bm10",
+      purchases: 63,
     },
     {
       id: "unverified-bm-3",
@@ -221,6 +237,7 @@ export default function ProductsPage() {
       category: "unverified-bm",
       image: "/abstract-facebook-business-manager.png",
       url: "/unverified-bm-plus",
+      purchases: 39,
     },
     {
       id: "profile-5",
@@ -230,6 +247,7 @@ export default function ProductsPage() {
       category: "profiles",
       image: "/facebook-ads-dashboard-beginners.png",
       url: "/europe-reinstated-2gl",
+      purchases: 81,
     },
     {
       id: "profile-6",
@@ -239,6 +257,7 @@ export default function ProductsPage() {
       category: "profiles",
       image: "/facebook-ads-dashboard.png",
       url: "/europe-reinstated-3gl",
+      purchases: 114,
     },
     {
       id: "page-2",
@@ -249,6 +268,7 @@ export default function ProductsPage() {
       image: "/growing-business-icon.png",
       badge: "Premium",
       url: "/premium-reinstated-page",
+      purchases: 47,
     },
   ]
 
@@ -411,58 +431,60 @@ export default function ProductsPage() {
             <>
               <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 relative z-10">
                 {currentProducts.map((product) => (
-                  <Card
-                    key={product.id}
-                    className="overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-xl group relative"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="relative aspect-[4/3] bg-gradient-to-br from-gray-50 to-white overflow-hidden">
-                      <Image
-                        src={product.image || "/placeholder.svg"}
-                        alt={product.name}
-                        fill
-                        className="object-cover p-4 transition-transform duration-500 group-hover:scale-105"
-                      />
-                      {product.badge && (
-                        <Badge className="absolute top-2 right-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white border-0 shadow-sm">
-                          {product.badge}
-                        </Badge>
-                      )}
-                    </div>
-                    <CardContent className="p-3 sm:p-5 relative z-10">
-                      <h3 className="text-sm sm:text-base font-semibold mb-1 line-clamp-1 group-hover:text-blue-600 transition-colors">
-                        {product.name}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3 line-clamp-2 hidden sm:block">
-                        {product.description}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm sm:text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                          {product.price}
-                        </span>
-                        <div className="flex gap-1 sm:gap-2">
-                          {addToCart && (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="px-1 sm:px-2 h-8 w-8 sm:h-auto sm:w-auto hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300 transition-colors"
-                              onClick={() => addToCart(product)}
-                              title="Add to cart"
-                            >
-                              <ShoppingCart className="h-3 w-3 sm:h-4 sm:w-4" />
-                            </Button>
-                          )}
-                          <Button
-                            asChild
-                            size="sm"
-                            className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 border-0 text-white px-2 sm:px-3 h-8 sm:h-auto shadow-sm"
-                          >
-                            <Link href={product.url}>View</Link>
-                          </Button>
-                        </div>
+                  <Link href={product.url} key={product.id} className="block">
+                    <Card className="overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-xl group relative h-full flex flex-col">
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="relative aspect-[4/3] bg-gradient-to-br from-gray-50 to-white overflow-hidden">
+                        <Image
+                          src={product.image || "/placeholder.svg"}
+                          alt={product.name}
+                          fill
+                          className="object-cover p-4 transition-transform duration-500 group-hover:scale-105"
+                        />
+                        {product.badge && (
+                          <Badge className="absolute top-2 right-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white border-0 shadow-sm">
+                            {product.badge}
+                          </Badge>
+                        )}
                       </div>
-                    </CardContent>
-                  </Card>
+                      <CardContent className="p-3 sm:p-5 relative z-10 flex flex-col flex-grow">
+                        <h3 className="text-sm sm:text-base font-semibold mb-1 line-clamp-1 group-hover:text-blue-600 transition-colors">
+                          {product.name}
+                        </h3>
+                        <div className="h-10 mb-2 sm:mb-3">
+                          <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">{product.description}</p>
+                        </div>
+
+                        {/* Add the purchase count here */}
+                        <div className="flex items-center text-gray-600 mb-2">
+                          <ShoppingBag className="h-3 w-3 mr-1" />
+                          <span className="text-xs">{product.purchases || 0} purchased</span>
+                        </div>
+
+                        <div className="flex items-center justify-between mt-auto">
+                          <span className="text-sm sm:text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                            {product.price}
+                          </span>
+                          <div className="flex gap-1 sm:gap-2">
+                            {addToCart && (
+                              <Button
+                                size="icon"
+                                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 border-0 text-white h-10 w-10 rounded-full shadow-md"
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  e.stopPropagation()
+                                  addToCart(product)
+                                }}
+                                title="Add to cart"
+                              >
+                                <ShoppingCart className="h-5 w-5" />
+                              </Button>
+                            )}
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 ))}
               </div>
 

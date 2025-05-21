@@ -291,31 +291,33 @@ export default function RelatedProducts({
       {children}
 
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 relative inline-block">
-          <span className="relative z-10">You Might Also Like</span>
-          <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
-        </h2>
+        <div className="flex justify-between items-center mb-6 md:mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold relative inline-block">
+            <span className="relative z-10">You Might Also Like</span>
+            <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
+          </h2>
 
-        {/* Carousel Navigation - Desktop */}
-        <div className="hidden md:flex justify-end mb-4 gap-2">
-          <Button
-            onClick={scrollLeft}
-            variant="outline"
-            size="icon"
-            className="rounded-full border-gray-300 hover:border-blue-500 hover:text-blue-600 transition-colors duration-300"
-            aria-label="Previous products"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </Button>
-          <Button
-            onClick={scrollRight}
-            variant="outline"
-            size="icon"
-            className="rounded-full border-gray-300 hover:border-blue-500 hover:text-blue-600 transition-colors duration-300"
-            aria-label="Next products"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </Button>
+          {/* Carousel Navigation - Desktop */}
+          <div className="hidden md:flex gap-2">
+            <Button
+              onClick={scrollLeft}
+              variant="outline"
+              size="icon"
+              className="rounded-full border-gray-300 hover:border-blue-500 hover:text-blue-600 transition-colors duration-300"
+              aria-label="Previous products"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </Button>
+            <Button
+              onClick={scrollRight}
+              variant="outline"
+              size="icon"
+              className="rounded-full border-gray-300 hover:border-blue-500 hover:text-blue-600 transition-colors duration-300"
+              aria-label="Next products"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </Button>
+          </div>
         </div>
 
         {/* Carousel Container */}

@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { SuspenseWrapper } from "@/components/suspense-wrapper"
 import { ChevronLeft, ChevronRight, Star, ShoppingBag } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
+import { useCart } from "@/context/cart-context"
 
 // Define product type
 type Product = {
@@ -203,6 +204,10 @@ function ProductsContent() {
   const isMobile = useMediaQuery("(max-width: 768px)")
   const productsPerPage = 8
 
+  // Add this state for tracking which product is being added
+  const [isAddingToCart, setIsAddingToCart] = useState<string | null>(null)
+  const { addItem, openCart } = useCart()
+
   // Simulate data loading
   useEffect(() => {
     // Simulate loading delay when filter or page changes
@@ -249,6 +254,38 @@ function ProductsContent() {
     )
   }
 
+  // Add this function to handle adding products to cart
+  const handleAddToCart = (product: Product) => {
+    if (!addItem) {
+      console.error("Cart functionality not available")
+      return
+    }
+
+    setIsAddingToCart(product.id)
+
+    try {
+      const item = {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        quantity: 1,
+        image: product.image || "/placeholder.svg",
+        category: product.category,
+      }
+
+      addItem(item)
+
+      // Open cart on desktop, or just show feedback on mobile
+      if (!isMobile && openCart) {
+        openCart()
+      }
+    } catch (error) {
+      console.error("Error adding to cart:", error)
+    } finally {
+      setTimeout(() => setIsAddingToCart(null), 500)
+    }
+  }
+
   // Render product card (used in both mobile and desktop)
   const renderProductCard = (product: Product) => (
     <Card
@@ -256,39 +293,38 @@ function ProductsContent() {
       onMouseEnter={() => setHoveredCard(product.id)}
       onMouseLeave={() => setHoveredCard(null)}
     >
-      <div className="relative">
-        {/* Rating display */}
-        <div className="absolute left-4 top-4 z-10 bg-white/80 backdrop-blur-sm rounded-full px-2 py-1 shadow-sm">
-          {renderRating(product.rating, product.purchases)}
-        </div>
-
-        {/* Product image */}
-        <div className="aspect-square relative bg-white/50">
-          <Image src={product.image || "/placeholder.svg"} alt={product.name} fill className="object-contain p-8" />
-        </div>
-
-        {/* Badge if any */}
-        {product.badge && (
-          <div className="absolute right-4 top-4">
-            <Badge
-              className={`bg-gradient-to-r ${product.gradient || "from-blue-500 to-indigo-500"} text-white border-0 shadow-sm`}
-            >
-              {product.badge}
-            </Badge>
+      <Link href={`/products/${product.id}`} className="block">
+        <div className="relative">
+          {/* Product image */}
+          <div className="aspect-square relative bg-white/50">
+            <Image src={product.image || "/placeholder.svg"} alt={product.name} fill className="object-contain p-8" />
           </div>
-        )}
-      </div>
+
+          {/* Badge if any */}
+          {product.badge && (
+            <div className="absolute right-4 top-4">
+              <Badge
+                className={`bg-gradient-to-r ${product.gradient || "from-blue-500 to-indigo-500"} text-white border-0 shadow-sm`}
+              >
+                {product.badge}
+              </Badge>
+            </div>
+          )}
+        </div>
+      </Link>
 
       <CardContent className={`${isMobile ? "p-4" : "p-6"}`}>
-        {/* Purchase count */}
-        <div className="flex items-center gap-1 mb-2 text-gray-600">
-          <ShoppingBag className="h-3 w-3" />
-          <span className="text-xs">{product.purchases} purchased</span>
-        </div>
+        <Link href={`/products/${product.id}`} className="block">
+          {/* Purchase count */}
+          <div className="flex items-center gap-1 mb-2 text-gray-600">
+            <ShoppingBag className="h-3 w-3" />
+            <span className="text-xs">{product.purchases} purchased</span>
+          </div>
 
-        {/* Product name and description */}
-        <h3 className={`${isMobile ? "text-base" : "text-lg"} font-bold text-gray-900 mb-1`}>{product.name}</h3>
-        {!isMobile && <p className="text-sm text-gray-600 mb-4 line-clamp-2">{product.description}</p>}
+          {/* Product name and description */}
+          <h3 className={`${isMobile ? "text-base" : "text-lg"} font-bold text-gray-900 mb-1`}>{product.name}</h3>
+          {!isMobile && <p className="text-sm text-gray-600 mb-4 line-clamp-2">{product.description}</p>}
+        </Link>
 
         {/* Price and action */}
         <div className="flex justify-between items-center mt-2">
@@ -297,14 +333,17 @@ function ProductsContent() {
           >
             €{product.price}
           </span>
-          <Link href={product.href || "/#products"}>
-            <Button
-              size={isMobile ? "sm" : "default"}
-              className={`bg-gradient-to-r ${product.gradient || "from-blue-500 to-indigo-500"} hover:opacity-90 text-white border-0 shadow-sm`}
-            >
-              {isMobile ? "Add" : "Add to Cart"}
-            </Button>
-          </Link>
+          <Button
+            size={isMobile ? "sm" : "default"}
+            className={`bg-gradient-to-r ${product.gradient || "from-blue-500 to-indigo-500"} hover:opacity-90 text-white border-0 shadow-sm`}
+            onClick={(e) => {
+              e.preventDefault() // Prevent navigation when clicking the button
+              e.stopPropagation() // Stop event from bubbling up
+              handleAddToCart(product)
+            }}
+          >
+            {isAddingToCart === product.id ? "Adding..." : isMobile ? "Add" : "Add to Cart"}
+          </Button>
         </div>
       </CardContent>
     </Card>

@@ -15,6 +15,7 @@ import {
 import { cn } from "@/lib/utils"
 import PageSection from "@/components/page-section"
 import { Badge } from "@/components/ui/badge"
+import React from "react"
 
 export default function FAQPage() {
   const isMobile = useMediaQuery("(max-width: 768px)")
@@ -49,7 +50,7 @@ export default function FAQPage() {
       <div className="pb-12 bg-transparent">
         <div className="container px-4 md:px-6">
           {/* Category cards with landing page styling */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
             {[
               {
                 name: "Products",
@@ -82,23 +83,25 @@ export default function FAQPage() {
             ].map((category, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 text-center border border-gray-100 group hover:translate-y-[-2px]"
+                className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-3 md:p-6 text-center border border-gray-100 group hover:translate-y-[-2px]"
               >
                 <div
                   className={cn(
-                    "inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br mb-4 text-white",
+                    "inline-flex items-center justify-center w-10 h-10 md:w-16 md:h-16 rounded-full bg-gradient-to-br mb-2 md:mb-4 text-white",
                     category.gradient,
                   )}
                 >
-                  {category.icon}
+                  {React.cloneElement(category.icon, { className: "h-5 w-5 md:h-8 md:w-8" })}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-facebook transition-colors">
+                <h3 className="text-sm md:text-xl font-semibold text-gray-900 mb-1 md:mb-2 group-hover:text-facebook transition-colors">
                   {category.name}
                 </h3>
-                <p className="text-gray-600 mb-3">{category.description}</p>
+                <p className="text-xs md:text-base text-gray-600 mb-2 md:mb-3 line-clamp-2 md:line-clamp-none">
+                  {category.description}
+                </p>
                 <div
                   className={cn(
-                    "inline-block px-3 py-1 text-white text-sm font-medium rounded-full bg-gradient-to-r shadow-sm",
+                    "inline-block px-2 py-0.5 md:px-3 md:py-1 text-white text-xs md:text-sm font-medium rounded-full bg-gradient-to-r shadow-sm",
                     category.gradient,
                   )}
                 >
@@ -113,8 +116,26 @@ export default function FAQPage() {
       {/* Product FAQs - Adjusted padding */}
       <div className="py-12 bg-transparent">
         <div className="container px-4 md:px-6">
+          {/* Mobile view: centered title and badge */}
+          <div className="md:hidden text-center mb-8">
+            <div className="inline-flex items-center gap-3 mb-2">
+              <Badge className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white border-0 shadow-md px-4 py-1 text-sm">
+                FAQ
+              </Badge>
+              <h2 className="text-2xl font-bold text-gray-900 mb-0">Product</h2>
+            </div>
+            <div className="mt-2 mb-4">
+              <span className="inline-block w-20 h-1 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full"></span>
+            </div>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Everything you need to know about our Facebook Business Manager accounts and packages
+            </p>
+          </div>
+
+          {/* Desktop view: original layout */}
           <div className="flex flex-col md:flex-row gap-10">
-            <div className="md:w-1/3">
+            {/* Only show on desktop */}
+            <div className="hidden md:block md:w-1/3">
               {/* Badge like landing page */}
               <div className="inline-block px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-sm font-medium rounded-full shadow-sm mb-4">
                 Product Information
@@ -129,14 +150,14 @@ export default function FAQPage() {
                 Everything you need to know about our Facebook Business Manager accounts and packages
               </p>
 
-              <div className="hidden md:block mt-8">
+              <div className="mt-8">
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white">
                   <Package className="h-10 w-10" />
                 </div>
               </div>
             </div>
 
-            <div className="md:w-2/3">
+            <div className="w-full md:w-2/3">
               <div className="space-y-6">
                 {[
                   {

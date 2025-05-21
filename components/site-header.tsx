@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Menu, X } from "lucide-react"
+import { Menu, Facebook, Youtube, Instagram } from "lucide-react"
 import { usePathname } from "next/navigation"
 import { CartButton } from "./cart-button"
 
@@ -155,32 +155,16 @@ export function SiteHeader() {
 
           {/* Mobile Menu Panel */}
           <div
-            className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl shadow-xl z-[110] h-[65vh] mobile-menu-slide-up"
+            className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl shadow-xl z-[110] h-[55vh] mobile-menu-slide-up"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex h-full flex-col overflow-y-auto">
+            <div className="flex h-full flex-col overflow-y-auto relative">
               {/* Handle at top for better UX */}
               <div className="w-full flex justify-center py-2">
                 <div className="w-12 h-1 bg-gray-300 rounded-full"></div>
               </div>
 
-              {/* Replace the header section with logo instead of "Menu" text */}
-              <div className="flex items-center justify-between border-b border-gray-200 px-6 py-3">
-                <Link href="/" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
-                  <div className="relative w-12 h-12">
-                    <Image src="/logo-2.svg" alt="GoAds Agency Logo" fill className="object-contain" />
-                  </div>
-                </Link>
-                <button
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="rounded-md p-2 text-gray-500 hover:bg-gray-100"
-                  aria-label="Close menu"
-                >
-                  <X className="h-6 w-6" />
-                </button>
-              </div>
-
-              {/* Update the nav section to have larger font */}
+              {/* Navigation Links */}
               <nav className="flex-1 space-y-1 px-3 py-4">
                 {[
                   { href: "/", label: "Home" },
@@ -216,75 +200,26 @@ export function SiteHeader() {
                 })}
               </nav>
 
-              {/* Update the social media section with proper icons */}
-              <div className="px-6 py-4">
-                <div className="flex flex-col space-y-4">
-                  <div className="text-sm text-gray-500 font-medium">Follow us</div>
-                  <div className="flex space-x-5">
-                    <a
-                      href="#facebook"
-                      className="group flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 transition-all hover:from-blue-500/20 hover:to-purple-500/20"
-                    >
-                      <span className="sr-only">Facebook</span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="text-blue-600"
-                      >
-                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                      </svg>
-                    </a>
-                    <a
-                      href="#youtube"
-                      className="group flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-r from-red-500/10 to-pink-500/10 transition-all hover:from-red-500/20 hover:to-pink-500/20"
-                    >
-                      <span className="sr-only">YouTube</span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="text-red-600"
-                      >
-                        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
-                        <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
-                      </svg>
-                    </a>
-                    <a
-                      href="#instagram"
-                      className="group flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 transition-all hover:from-purple-500/20 hover:to-pink-500/20"
-                    >
-                      <span className="sr-only">Instagram</span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="text-pink-600"
-                      >
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                      </svg>
-                    </a>
-                  </div>
+              {/* Social Icons Footer */}
+              <div className="py-4">
+                <div className="flex justify-center space-x-8">
+                  <a
+                    href="#facebook"
+                    className="text-blue-600 hover:text-blue-800 transition-colors"
+                    aria-label="Facebook"
+                  >
+                    <Facebook className="h-7 w-7" />
+                  </a>
+                  <a
+                    href="#instagram"
+                    className="text-pink-600 hover:text-pink-800 transition-colors"
+                    aria-label="Instagram"
+                  >
+                    <Instagram className="h-7 w-7" />
+                  </a>
+                  <a href="#youtube" className="text-red-600 hover:text-red-800 transition-colors" aria-label="YouTube">
+                    <Youtube className="h-7 w-7" />
+                  </a>
                 </div>
               </div>
             </div>
