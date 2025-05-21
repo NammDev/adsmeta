@@ -155,7 +155,7 @@ export function SiteHeader() {
 
           {/* Mobile Menu Panel */}
           <div
-            className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl shadow-xl z-[110] h-[55vh] mobile-menu-slide-up"
+            className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl shadow-xl z-[110] h-[65vh] mobile-menu-slide-up"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex h-full flex-col overflow-y-auto relative">
@@ -165,7 +165,7 @@ export function SiteHeader() {
               </div>
 
               {/* Navigation Links */}
-              <nav className="flex-1 space-y-1 px-3 py-4 pt-0">
+              <nav className="flex-1 space-y-1 px-3 py-4 pt-2">
                 {[
                   { href: "/", label: "Home" },
                   { href: "/products", label: "Products" },

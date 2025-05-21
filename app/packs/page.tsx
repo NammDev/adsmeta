@@ -266,7 +266,7 @@ export default function PacksPage() {
                       </h3>
                       <p className="text-gray-600 mb-4">{pack.description}</p>
 
-                      <ul className="mb-6 space-y-2">
+                      <ul className="mb-6 space-y-2" style={{ minHeight: "180px" }}>
                         {pack.features.map((feature, index) => (
                           <li key={index} className="flex items-start">
                             <div className="h-5 w-5 text-facebook mr-2 mt-0.5 flex-shrink-0 relative">

@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react"
 import { useCart } from "@/context/cart-context"
 import { cn } from "@/lib/utils"
+import { getProductSectionItems, filterProductSectionItems, getProductSectionFilterOptions } from "@/data/products"
 
 // Define product type
 type Product = {
@@ -24,150 +25,11 @@ type Product = {
   reviewCount?: number
 }
 
-// All products data
-const allProducts: Product[] = [
-  // Verified BM
-  {
-    id: "verified-bm-1",
-    name: "Verified BM",
-    description: "Add your agency to BM and launch ads immediately.",
-    price: 80,
-    image: "/verified-facebook-business-manager-icon.png",
-    category: "verified-bm",
-    href: "/bm1-250-limit",
-    rating: 4.8,
-    reviewCount: 42,
-  },
-  {
-    id: "verified-bm-2",
-    name: "Verified BM1 $250 Limit",
-    description: "Verified Business Manager with $250 daily spending limit.",
-    price: 180,
-    image: "/verified-facebook-business-manager-icon.png",
-    category: "verified-bm",
-    badge: "Popular",
-    href: "/bm1-250-limit",
-    rating: 4.9,
-    reviewCount: 78,
-  },
-  {
-    id: "verified-bm-3",
-    name: "Verified BM5 $250 Limit",
-    description: "Verified BM5 with $250 limit and 5 ad accounts.",
-    price: 260,
-    image: "/abstract-facebook-verified-business-manager.png",
-    category: "verified-bm",
-    href: "/bm1-250-limit",
-    rating: 4.7,
-    reviewCount: 36,
-  },
-  {
-    id: "verified-bm-4",
-    name: "Unlimited Verified BM5",
-    description: "Unlimited verified BM5 with 5 ad accounts.",
-    price: 350,
-    image: "/abstract-facebook-verified-business-manager.png",
-    category: "verified-bm",
-    badge: "Premium",
-    href: "/bm1-250-limit",
-    rating: 4.9,
-    reviewCount: 54,
-  },
+// Get products data from centralized source
+const allProducts = getProductSectionItems()
 
-  // Unverified BM
-  {
-    id: "unverified-bm-1",
-    name: "Unverified BM",
-    description: "Basic unverified Business Manager for testing.",
-    price: 10,
-    image: "/facebook-business-manager-icon.png",
-    category: "unverified-bm",
-    href: "/#products",
-    rating: 4.5,
-    reviewCount: 28,
-  },
-  {
-    id: "unverified-bm-2",
-    name: "Recovered Unverified BM",
-    description: "Recovered unverified Business Manager with history.",
-    price: 30,
-    image: "/facebook-business-manager-icon.png",
-    category: "unverified-bm",
-    href: "/#products",
-    rating: 4.6,
-    reviewCount: 32,
-  },
-
-  // Profile - FB accounts
-  {
-    id: "profile-1",
-    name: "Asia Reinstated 2 Green Line",
-    description: "Asia profile with 2 green line tick (verified 1 time).",
-    price: 25,
-    image: "/facebook-xmdt-usa.png",
-    category: "profile",
-    href: "/#products",
-    rating: 4.7,
-    reviewCount: 41,
-  },
-  {
-    id: "profile-2",
-    name: "Asia Reinstated 902 3 Green Line",
-    description: "Asia profile with 3 green line tick (verified 2 times).",
-    price: 35,
-    image: "/facebook-xmdt-usa.png",
-    category: "profile",
-    href: "/#products",
-    rating: 4.8,
-    reviewCount: 47,
-  },
-  {
-    id: "profile-3",
-    name: "USA Reinstated 2 Green Line",
-    description: "USA profile with 2 green line tick (verified 1 time).",
-    price: 40,
-    image: "/facebook-xmdt-usa.png",
-    category: "profile",
-    badge: "Premium",
-    href: "/#products",
-    rating: 4.9,
-    reviewCount: 63,
-  },
-  {
-    id: "profile-4",
-    name: "USA Reinstated 902 3 Green Line",
-    description: "USA profile with 3 green line tick (verified 2 times).",
-    price: 50,
-    image: "/facebook-xmdt-usa.png",
-    category: "profile",
-    badge: "Best Value",
-    href: "/#products",
-    rating: 5.0,
-    reviewCount: 72,
-  },
-
-  // Recovered page
-  {
-    id: "page-1",
-    name: "Aged Reinstated Page",
-    description: "Recovered Facebook page with established history.",
-    price: 30,
-    image: "/facebook-pixel-icon.png",
-    category: "page",
-    href: "/#products",
-    rating: 4.6,
-    reviewCount: 38,
-  },
-]
-
-// Filter options
-const filterOptions = [
-  { label: "All Products", value: "all" },
-  { label: "Business Manager", value: "verified-bm" },
-  { label: "Unverified BM", value: "unverified-bm" },
-  { label: "Profiles", value: "profile" },
-  { label: "Pages", value: "page" },
-]
+// Get filter options from centralized source
+const filterOptions = getProductSectionFilterOptions()
 
 export default function ProductsSection() {
   const [currentFilter, setCurrentFilter] = useState("all")
@@ -175,8 +37,7 @@ export default function ProductsSection() {
   const { addItem, openCart } = useCart() || { addItem: null, openCart: null }
 
   // Filter products based on selected category
-  const filteredProducts =
-    currentFilter === "all" ? allProducts : allProducts.filter((product) => product.category === currentFilter)
+  const filteredProducts = filterProductSectionItems(currentFilter)
 
   // Safe addToCart function with error handling
   const addToCart = (product: Product) => {

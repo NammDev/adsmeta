@@ -1,6 +1,16 @@
 "use client"
 import { Button } from "@/components/ui/button"
-import { Shield, Zap, AlertTriangle, DollarSign, BluetoothOffIcon as HeadphonesOff, CheckCircle, ArrowRight, Facebook, Phone } from 'lucide-react'
+import {
+  Shield,
+  Zap,
+  AlertTriangle,
+  DollarSign,
+  BluetoothOffIcon as HeadphonesOff,
+  CheckCircle,
+  ArrowRight,
+  Facebook,
+  Phone,
+} from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { scrollToElement } from "@/lib/scroll-utils"
 import { openWhatsAppChat } from "@/lib/utils"
@@ -11,7 +21,7 @@ export default function HeroSection() {
   // Mobile-specific hero section
   if (isMobile) {
     return (
-      <section className="py-16 relative overflow-hidden">
+      <section className="py-16 pt-8 relative overflow-hidden">
         {/* Colorful background elements */}
         {/* Mobile-specific hero section */}
 
@@ -231,7 +241,11 @@ export default function HeroSection() {
               <Button
                 variant="outline"
                 className="bg-white hover:bg-green-50 text-gray-700 border-gray-300 hover:border-green-300 font-medium py-5 rounded-md transition-colors"
-                onClick={() => openWhatsAppChat("Hello! I need assistance with Facebook Ads accounts. Can you provide more information?")}
+                onClick={() =>
+                  openWhatsAppChat(
+                    "Hello! I need assistance with Facebook Ads accounts. Can you provide more information?",
+                  )
+                }
               >
                 <span className="flex items-center gap-2">
                   <Phone className="h-5 w-5 text-green-600" />

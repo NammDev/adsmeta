@@ -24,6 +24,7 @@ import {
 import SupportingPageLayout from "@/components/supporting-page-layout"
 import { useCart } from "@/context/cart-context"
 import RelatedProducts from "@/components/related-products"
+import { getProductDetailData } from "@/data/products"
 
 // Product type definition
 interface Product {
@@ -42,108 +43,6 @@ interface Product {
   deliveryTime: string
   faq: Array<{ question: string; answer: string }>
 }
-
-// Sample product data - in a real app, this would come from an API or database
-const productsData: Product[] = [
-  {
-    id: "bm1-250-limit",
-    slug: "bm1-250-limit",
-    name: "Business Manager BM1 with $250 Limit",
-    description: "Verified Business Manager with $250 spending limit for Facebook advertising.",
-    longDescription: `Our Business Manager BM1 with $250 Limit is perfect for advertisers looking to start or scale their Facebook advertising campaigns. This fully verified account comes with a $250 spending limit and is ready to use immediately after purchase.
-
-    The Business Manager is the central hub for managing your Facebook advertising assets, including ad accounts, pages, and pixels. With this BM1, you'll have a solid foundation to build your advertising strategy.
-
-    All our Business Managers are created with legitimate business information and are fully verified to ensure long-term stability and compliance with Facebook's policies.`,
-    price: 199,
-    comparePrice: 249,
-    features: [
-      "Fully verified Business Manager",
-      "$250 spending limit",
-      "Ready to use immediately",
-      "Compliant with Facebook policies",
-      "Secure payment methods added",
-      "30-day warranty",
-      "Setup assistance included",
-      "Email support",
-    ],
-    image: "/facebook-verified-business-manager.png",
-    category: "Business Manager",
-    badge: "Popular",
-    stock: "in-stock",
-    deliveryTime: "24 hours",
-    faq: [
-      {
-        question: "How soon can I start using the Business Manager after purchase?",
-        answer:
-          "You can start using the Business Manager immediately after purchase. We'll provide you with all the necessary login details and setup instructions.",
-      },
-      {
-        question: "Can I increase the spending limit later?",
-        answer:
-          "Yes, you can request a spending limit increase directly through Facebook after establishing a good payment history.",
-      },
-      {
-        question: "Is this compliant with Facebook's policies?",
-        answer:
-          "Yes, all our Business Managers are created with legitimate business information and are fully verified to ensure compliance with Facebook's policies.",
-      },
-      {
-        question: "What happens if my account gets restricted?",
-        answer:
-          "We offer a 30-day warranty on all our Business Managers. If your account gets restricted within this period, we'll provide a replacement at no additional cost.",
-      },
-    ],
-  },
-  {
-    id: "facebook-xmdt-usa",
-    slug: "facebook-xmdt-usa",
-    name: "Facebook XMDT USA Account",
-    description: "Premium USA-based Facebook account with XMDT verification for advanced advertising capabilities.",
-    longDescription: `Our Facebook XMDT USA Account is a premium solution for advertisers who need reliable, high-quality accounts for their marketing campaigns. These accounts are created with authentic USA profiles and come with full XMDT verification.
-
-    XMDT verification provides an additional layer of account security and stability, making these accounts ideal for advertisers who need dependable advertising solutions. Each account is carefully created and verified to ensure maximum longevity and performance.
-
-    These accounts are perfect for agencies and professional marketers who need reliable advertising assets for their clients or campaigns.`,
-    price: 299,
-    features: [
-      "Authentic USA-based profile",
-      "Full XMDT verification",
-      "High-quality account with history",
-      "Ready for advertising",
-      "Compatible with Business Manager",
-      "30-day warranty",
-      "Setup assistance included",
-      "Priority support",
-    ],
-    image: "/facebook-xmdt-usa.png",
-    category: "Facebook Accounts",
-    stock: "low-stock",
-    deliveryTime: "48 hours",
-    faq: [
-      {
-        question: "What is XMDT verification?",
-        answer:
-          "XMDT verification is an advanced security feature that adds an extra layer of protection to Facebook accounts, making them more stable and less likely to be flagged by Facebook's security systems.",
-      },
-      {
-        question: "Can I connect this account to my existing Business Manager?",
-        answer: "Yes, you can connect this account to your existing Business Manager as an admin or advertiser.",
-      },
-      {
-        question: "Why are USA accounts better for advertising?",
-        answer:
-          "USA accounts typically have better performance for advertising due to the market's high value and Facebook's prioritization of the region. They also face fewer restrictions compared to accounts from other regions.",
-      },
-      {
-        question: "Do you provide the email access for this account?",
-        answer:
-          "Yes, we provide full email access for all our XMDT USA accounts, giving you complete control over the account.",
-      },
-    ],
-  },
-  // Add more products as needed
-]
 
 // Feature icons mapping
 const featureIcons = [
@@ -177,9 +76,9 @@ export default function ProductPage() {
   const [quantity, setQuantity] = useState(1)
 
   useEffect(() => {
-    // Find the product based on the slug
-    const foundProduct = productsData.find((p) => p.slug === productSlug)
-    setProduct(foundProduct || null)
+    // Get the product based on the slug
+    const productData = getProductDetailData(productSlug)
+    setProduct(productData || null)
   }, [productSlug])
 
   if (!product) {
@@ -585,338 +484,113 @@ export default function ProductPage() {
                       <a href="/faq">View All FAQs</a>
                     </Button>
                   </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Right Column - Features & Purchase Info */}
-            <div className="space-y-6">
-              {/* Features Card */}
-              <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-200/20 to-purple-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
-                <CardContent className="p-6 relative z-10">
-                  <h3 className="text-xl font-bold mb-5 relative inline-block">
-                    <span className="relative z-10">Features</span>
-                    <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
-                  </h3>
-
-                  <div className="grid grid-cols-1 gap-3">
-                    {product.features.map((feature, index) => (
-                      <div
-                        key={index}
-                        className="flex items-start gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 group"
-                      >
-                        <div
-                          className={`w-8 h-8 rounded-lg bg-gradient-to-br ${gradients[index % gradients.length]} flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0`}
-                        >
-                          {featureIcons[index % featureIcons.length]}
-                        </div>
-                        <span className="text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
-                          {feature}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Purchase Info Card */}
-              <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2 z-0"></div>
-                <CardContent className="p-6 relative z-10">
-                  <h3 className="text-xl font-bold mb-5 relative inline-block">
-                    <span className="relative z-10">Purchase Information</span>
-                    <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
-                  </h3>
-
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group">
-                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0">
-                        <Clock className="h-4 w-4 text-white" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-300 text-sm">
-                          Delivery Time
-                        </h4>
-                        <p className="text-gray-700 text-sm">{product.deliveryTime}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group">
-                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0">
-                        <CreditCard className="h-4 w-4 text-white" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 group-hover:text-purple-600 transition-colors duration-300 text-sm">
-                          Payment Methods
-                        </h4>
-                        <p className="text-gray-700 text-sm">Credit Card, PayPal, Cryptocurrency</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group">
-                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0">
-                        <Users className="h-4 w-4 text-white" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 group-hover:text-amber-600 transition-colors duration-300 text-sm">
-                          Support
-                        </h4>
-                        <p className="text-gray-700 text-sm">Email, Live Chat (Business Hours)</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group">
-                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0">
-                        <Shield className="h-4 w-4 text-white" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 group-hover:text-emerald-600 transition-colors duration-300 text-sm">
-                          Warranty
-                        </h4>
-                        <p className="text-gray-700 text-sm">30-day replacement warranty</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-5 relative overflow-hidden border border-blue-100">
-                    <div className="absolute top-0 right-0 w-20 h-20 bg-blue-200/20 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-                    <div className="absolute bottom-0 left-0 w-16 h-16 bg-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-
-                    <h4 className="font-bold mb-2 text-center relative z-10 text-gray-800">Ready to get started?</h4>
-                    <p className="text-gray-600 text-sm mb-4 text-center relative z-10">
-                      Get your {product.name} now and start advertising!
-                    </p>
-
-                    <Button
-                      onClick={handleAddToCart}
-                      className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-300 relative z-10"
-                      disabled={product.stock === "out-of-stock"}
-                    >
-                      Add to Cart - €{product.price}
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Trust Indicators */}
-              <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
-                <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-purple-200/20 to-blue-200/20 rounded-full -translate-y-1/2 -translate-x-1/2 z-0"></div>
-                <CardContent className="p-6 relative z-10">
-                  <h3 className="text-xl font-bold mb-5 relative inline-block">
-                    <span className="relative z-10">Why Choose Us</span>
-                    <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-purple-200 to-blue-200 opacity-70 rounded-full"></div>
-                  </h3>
-
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3 group">
-                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-0.5">
-                        <Check className="h-4 w-4 text-white" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
-                          5+ years of experience
-                        </h4>
-                        <p className="text-sm text-gray-600">Trusted by thousands of advertisers worldwide</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3 group">
-                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-0.5">
-                        <Check className="h-4 w-4 text-white" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 group-hover:text-purple-600 transition-colors duration-300">
-                          10,000+ satisfied customers
-                        </h4>
-                        <p className="text-sm text-gray-600">With a 98% satisfaction rate</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3 group">
-                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-0.5">
-                        <Check className="h-4 w-4 text-white" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 group-hover:text-amber-600 transition-colors duration-300">
-                          Secure payment processing
-                        </h4>
-                        <p className="text-sm text-gray-600">Multiple payment options available</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3 group">
-                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-0.5">
-                        <Check className="h-4 w-4 text-white" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 group-hover:text-emerald-600 transition-colors duration-300">
-                          Dedicated customer support
-                        </h4>
-                        <p className="text-sm text-gray-600">Available to assist you every step of the way</p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Testimonial */}
-              <Card className="overflow-hidden border-0 shadow-xl relative bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-100">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-200/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-                <div className="absolute bottom-0 left-0 w-24 h-24 bg-purple-200/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-
-                <CardContent className="p-6 relative z-10">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-white"
-                    >
-                      <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
-                      <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path>
-                    </svg>
-                  </div>
-
-                  <p className="text-center mb-4 italic text-gray-700">
-                    "The {product.name} completely transformed our Facebook advertising capabilities. Highly
-                    recommended!"
-                  </p>
-
-                  <div className="flex items-center justify-center">
-                    <div className="w-10 h-10 rounded-full bg-white overflow-hidden mr-3 border border-gray-200">
-                      <Image
-                        src="/male-marketing-owner.png"
-                        alt="Customer"
-                        width={40}
-                        height={40}
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="text-left">
-                      <p className="font-bold text-sm text-gray-800">Michael Thompson</p>
-                      <p className="text-gray-600 text-xs">Marketing Director</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
-          {/* Mobile Product Description and Features */}
-          <div className="md:hidden space-y-6 mt-4">
-            {/* Description */}
-            <Card className="overflow-hidden border-0 shadow-md relative bg-white/80 backdrop-blur-sm">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-blue-200/20 to-purple-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
-              <CardContent className="p-4 relative z-10">
-                <h3 className="text-lg font-bold mb-3 relative inline-block">
-                  <span className="relative z-10">Description</span>
-                  <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
-                </h3>
-                <div className="prose max-w-none text-sm">
-                  {product.longDescription.split("\n\n").map((paragraph, index) => (
-                    <p key={index} className="mb-3 text-gray-700">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Features */}
-            <Card className="overflow-hidden border-0 shadow-md relative bg-white/80 backdrop-blur-sm">
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2 z-0"></div>
-              <CardContent className="p-4 relative z-10">
-                <h3 className="text-lg font-bold mb-3 relative inline-block">
+          {/* Right Column - Features & Purchase Info */}
+          <div className="space-y-6">
+            {/* Features Card */}
+            <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-200/20 to-purple-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
+              <CardContent className="p-6 relative z-10">
+                <h3 className="text-xl font-bold mb-5 relative inline-block">
                   <span className="relative z-10">Features</span>
-                  <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
+                  <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
                 </h3>
-                <ul className="space-y-2">
+
+                <div className="grid grid-cols-1 gap-3">
                   {product.features.map((feature, index) => (
-                    <li key={index} className="flex items-start group">
-                      <div className="mr-2 flex-shrink-0 mt-0.5 w-4 h-4 rounded-full bg-gradient-to-br from-green-400 to-green-500 flex items-center justify-center shadow-sm">
-                        <Check className="h-2.5 w-2.5 text-white" />
+                    <div
+                      key={index}
+                      className="flex items-start gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 group"
+                    >
+                      <div
+                        className={`w-8 h-8 rounded-lg bg-gradient-to-br ${gradients[index % gradients.length]} flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0`}
+                      >
+                        {featureIcons[index % featureIcons.length]}
                       </div>
-                      <span className="text-sm text-gray-700">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* FAQ */}
-            <Card className="overflow-hidden border-0 shadow-md relative bg-white/80 backdrop-blur-sm">
-              <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-blue-200/20 to-purple-200/20 rounded-full translate-y-1/2 translate-x-1/2 z-0"></div>
-              <CardContent className="p-4 relative z-10">
-                <h3 className="text-lg font-bold mb-3 relative inline-block">
-                  <span className="relative z-10">Frequently Asked Questions</span>
-                  <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
-                </h3>
-                <div className="space-y-3">
-                  {product.faq.map((item, index) => (
-                    <div key={index} className="border-b border-gray-100 pb-3 last:border-0 last:pb-0">
-                      <h4 className="font-medium text-gray-900 mb-1 text-sm">{item.question}</h4>
-                      <p className="text-gray-700 text-sm">{item.answer}</p>
+                      <span className="text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
+                        {feature}
+                      </span>
                     </div>
                   ))}
                 </div>
               </CardContent>
             </Card>
 
-            {/* Purchase Info */}
-            <Card className="overflow-hidden border-0 shadow-lg relative bg-white/80 backdrop-blur-sm">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-purple-200/20 to-blue-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
-              <CardContent className="p-4 relative z-10">
-                <h3 className="text-lg font-bold mb-3 relative inline-block">
+            {/* Purchase Info Card */}
+            <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2 z-0"></div>
+              <CardContent className="p-6 relative z-10">
+                <h3 className="text-xl font-bold mb-5 relative inline-block">
                   <span className="relative z-10">Purchase Information</span>
-                  <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-purple-200 to-blue-200 opacity-70 rounded-full"></div>
+                  <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
                 </h3>
 
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm">
-                    <Clock className="h-4 w-4 text-blue-500" />
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0">
+                      <Clock className="h-4 w-4 text-white" />
+                    </div>
                     <div>
-                      <h4 className="font-medium text-gray-900 text-xs">Delivery Time</h4>
-                      <p className="text-gray-700 text-xs">{product.deliveryTime}</p>
+                      <h4 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-300 text-sm">
+                        Delivery Time
+                      </h4>
+                      <p className="text-gray-700 text-sm">{product.deliveryTime}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm">
-                    <CreditCard className="h-4 w-4 text-purple-500" />
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0">
+                      <CreditCard className="h-4 w-4 text-white" />
+                    </div>
                     <div>
-                      <h4 className="font-medium text-gray-900 text-xs">Payment Methods</h4>
-                      <p className="text-gray-700 text-xs">Credit Card, PayPal, Cryptocurrency</p>
+                      <h4 className="font-medium text-gray-900 group-hover:text-purple-600 transition-colors duration-300 text-sm">
+                        Payment Methods
+                      </h4>
+                      <p className="text-gray-700 text-sm">Credit Card, PayPal, Cryptocurrency</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm">
-                    <Users className="h-4 w-4 text-amber-500" />
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0">
+                      <Users className="h-4 w-4 text-white" />
+                    </div>
                     <div>
-                      <h4 className="font-medium text-gray-900 text-xs">Support</h4>
-                      <p className="text-gray-700 text-xs">Email, Live Chat (Business Hours)</p>
+                      <h4 className="font-medium text-gray-900 group-hover:text-amber-600 transition-colors duration-300 text-sm">
+                        Support
+                      </h4>
+                      <p className="text-gray-700 text-sm">Email, Live Chat (Business Hours)</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0">
+                      <Shield className="h-4 w-4 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 group-hover:text-emerald-600 transition-colors duration-300 text-sm">
+                        Warranty
+                      </h4>
+                      <p className="text-gray-700 text-sm">30-day replacement warranty</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 relative overflow-hidden border border-blue-100">
-                  <div className="absolute top-0 right-0 w-16 h-16 bg-blue-200/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-                  <div className="absolute bottom-0 left-0 w-12 h-12 bg-purple-200/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+                <div className="mt-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-5 relative overflow-hidden border border-blue-100">
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-blue-200/20 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                  <div className="absolute bottom-0 left-0 w-16 h-16 bg-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2"></div>
 
-                  <h4 className="font-bold mb-1 text-center text-sm relative z-10 text-gray-800">
-                    Ready to get started?
-                  </h4>
-                  <p className="text-gray-600 text-xs mb-3 text-center relative z-10">Get your {product.name} now!</p>
+                  <h4 className="font-bold mb-2 text-center relative z-10 text-gray-800">Ready to get started?</h4>
+                  <p className="text-gray-600 text-sm mb-4 text-center relative z-10">
+                    Get your {product.name} now and start advertising!
+                  </p>
 
                   <Button
                     onClick={handleAddToCart}
-                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-300 text-sm relative z-10"
+                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-300 relative z-10"
                     disabled={product.stock === "out-of-stock"}
                   >
                     Add to Cart - €{product.price}
@@ -924,13 +598,237 @@ export default function ProductPage() {
                 </div>
               </CardContent>
             </Card>
-          </div>
 
-          {/* Related Products Section */}
-          <div className="mt-16 mb-0 relative overflow-hidden">
-            <RelatedProducts currentProductId={product.id} currentCategory={product.category} />
+            {/* Trust Indicators */}
+            <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
+              <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-purple-200/20 to-blue-200/20 rounded-full -translate-y-1/2 -translate-x-1/2 z-0"></div>
+              <CardContent className="p-6 relative z-10">
+                <h3 className="text-xl font-bold mb-5 relative inline-block">
+                  <span className="relative z-10">Why Choose Us</span>
+                  <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-purple-200 to-blue-200 opacity-70 rounded-full"></div>
+                </h3>
+
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3 group">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-0.5">
+                      <Check className="h-4 w-4 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
+                        5+ years of experience
+                      </h4>
+                      <p className="text-sm text-gray-600">Trusted by thousands of advertisers worldwide</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 group">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-0.5">
+                      <Check className="h-4 w-4 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 group-hover:text-purple-600 transition-colors duration-300">
+                        10,000+ satisfied customers
+                      </h4>
+                      <p className="text-sm text-gray-600">With a 98% satisfaction rate</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 group">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-0.5">
+                      <Check className="h-4 w-4 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 group-hover:text-amber-600 transition-colors duration-300">
+                        Secure payment processing
+                      </h4>
+                      <p className="text-sm text-gray-600">Multiple payment options available</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 group">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-0.5">
+                      <Check className="h-4 w-4 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 group-hover:text-emerald-600 transition-colors duration-300">
+                        Dedicated customer support
+                      </h4>
+                      <p className="text-sm text-gray-600">Available to assist you every step of the way</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial */}
+            <Card className="overflow-hidden border-0 shadow-xl relative bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-100">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-200/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-purple-200/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+
+              <CardContent className="p-6 relative z-10">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-white"
+                  >
+                    <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
+                    <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path>
+                  </svg>
+                </div>
+
+                <p className="text-center mb-4 italic text-gray-700">
+                  "The {product.name} completely transformed our Facebook advertising capabilities. Highly recommended!"
+                </p>
+
+                <div className="flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-white overflow-hidden mr-3 border border-gray-200">
+                    <Image
+                      src="/male-marketing-owner.png"
+                      alt="Customer"
+                      width={40}
+                      height={40}
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="text-left">
+                    <p className="font-bold text-sm text-gray-800">Michael Thompson</p>
+                    <p className="text-gray-600 text-xs">Marketing Director</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
-      </SupportingPageLayout>
+
+        {/* Mobile Product Description and Features */}
+        <div className="md:hidden space-y-6 mt-4">
+          {/* Description */}
+          <Card className="overflow-hidden border-0 shadow-md relative bg-white/80 backdrop-blur-sm">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-blue-200/20 to-purple-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
+            <CardContent className="p-4 relative z-10">
+              <h3 className="text-lg font-bold mb-3 relative inline-block">
+                <span className="relative z-10">Description</span>
+                <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
+              </h3>
+              <div className="prose max-w-none text-sm">
+                {product.longDescription.split("\n\n").map((paragraph, index) => (
+                  <p key={index} className="mb-3 text-gray-700">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Features */}
+          <Card className="overflow-hidden border-0 shadow-md relative bg-white/80 backdrop-blur-sm">
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2 z-0"></div>
+            <CardContent className="p-4 relative z-10">
+              <h3 className="text-lg font-bold mb-3 relative inline-block">
+                <span className="relative z-10">Features</span>
+                <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
+              </h3>
+              <ul className="space-y-2">
+                {product.features.map((feature, index) => (
+                  <li key={index} className="flex items-start group">
+                    <div className="mr-2 flex-shrink-0 mt-0.5 w-4 h-4 rounded-full bg-gradient-to-br from-green-400 to-green-500 flex items-center justify-center shadow-sm">
+                      <Check className="h-2.5 w-2.5 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-700">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+
+          {/* FAQ */}
+          <Card className="overflow-hidden border-0 shadow-md relative bg-white/80 backdrop-blur-sm">
+            <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-blue-200/20 to-purple-200/20 rounded-full translate-y-1/2 translate-x-1/2 z-0"></div>
+            <CardContent className="p-4 relative z-10">
+              <h3 className="text-lg font-bold mb-3 relative inline-block">
+                <span className="relative z-10">Frequently Asked Questions</span>
+                <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
+              </h3>
+              <div className="space-y-3">
+                {product.faq.map((item, index) => (
+                  <div key={index} className="border-b border-gray-100 pb-3 last:border-0 last:pb-0">
+                    <h4 className="font-medium text-gray-900 mb-1 text-sm">{item.question}</h4>
+                    <p className="text-gray-700 text-sm">{item.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Purchase Info */}
+          <Card className="overflow-hidden border-0 shadow-lg relative bg-white/80 backdrop-blur-sm">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-purple-200/20 to-blue-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
+            <CardContent className="p-4 relative z-10">
+              <h3 className="text-lg font-bold mb-3 relative inline-block">
+                <span className="relative z-10">Purchase Information</span>
+                <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-purple-200 to-blue-200 opacity-70 rounded-full"></div>
+              </h3>
+
+              <div className="space-y-3 text-sm">
+                <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm">
+                  <Clock className="h-4 w-4 text-blue-500" />
+                  <div>
+                    <h4 className="font-medium text-gray-900 text-xs">Delivery Time</h4>
+                    <p className="text-gray-700 text-xs">{product.deliveryTime}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm">
+                  <CreditCard className="h-4 w-4 text-purple-500" />
+                  <div>
+                    <h4 className="font-medium text-gray-900 text-xs">Payment Methods</h4>
+                    <p className="text-gray-700 text-xs">Credit Card, PayPal, Cryptocurrency</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm">
+                  <Users className="h-4 w-4 text-amber-500" />
+                  <div>
+                    <h4 className="font-medium text-gray-900 text-xs">Support</h4>
+                    <p className="text-gray-700 text-xs">Email, Live Chat (Business Hours)</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 relative overflow-hidden border border-blue-100">
+                <div className="absolute top-0 right-0 w-16 h-16 bg-blue-200/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                <div className="absolute bottom-0 left-0 w-12 h-12 bg-purple-200/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+
+                <h4 className="font-bold mb-1 text-center text-sm relative z-10 text-gray-800">
+                  Ready to get started?
+                </h4>
+                <p className="text-gray-600 text-xs mb-3 text-center relative z-10">Get your {product.name} now!</p>
+
+                <Button
+                  onClick={handleAddToCart}
+                  className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-300 text-sm relative z-10"
+                  disabled={product.stock === "out-of-stock"}
+                >
+                  Add to Cart - €{product.price}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Related Products Section */}
+        <div className="mt-16 mb-0 relative overflow-hidden">
+          <RelatedProducts currentProductId={product.id} currentCategory={product.category} />
+        </div>
+      </div>
+    </SupportingPageLayout>
   )
 }
