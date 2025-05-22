@@ -11,6 +11,7 @@ import { TableOfContents } from "@/components/table-of-contents"
 import { BlogCarousel } from "@/components/blog-carousel"
 import { useEffect, useRef, useState } from "react"
 import { getBlogPostBySlug, getRelatedPosts } from "@/data/blog-posts"
+import { use } from "react"
 
 // Add this function before the BlogPostPage component
 function extractHeadings(content: string) {
@@ -38,7 +39,10 @@ function processContent(content: string) {
   })
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
+export default function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  // Unwrap params using React.use()
+  const { slug } = use(params)
+
   // Refs for measuring elements
   const featuredImageRef = useRef<HTMLDivElement>(null)
   const articleEndRef = useRef<HTMLDivElement>(null)
@@ -55,7 +59,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   })
 
   // Get the blog post data from our centralized data source
-  const blogPost = getBlogPostBySlug(params.slug)
+  const blogPost = getBlogPostBySlug(slug)
 
   // If blog post not found, we could handle this better in a production app
   if (!blogPost) {
@@ -63,7 +67,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   }
 
   // Get related posts
-  const relatedPosts = getRelatedPosts(params.slug)
+  const relatedPosts = getRelatedPosts(slug)
 
   const headings = extractHeadings(blogPost.content)
   const processedContent = processContent(blogPost.content)
@@ -298,7 +302,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 </Link>
                 <div className="p-4 md:p-6">
                   {/* Badge only shows on desktop */}
-                  <Badge className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 text-blue-700 hover:from-blue-500/20 hover:to-purple-500/20 mb-3 hidden md:inline-flex border-0">
+                  <Badge variant="blog" className="mb-3 hidden md:inline-flex border-0">
                     {post.category}
                   </Badge>
 
