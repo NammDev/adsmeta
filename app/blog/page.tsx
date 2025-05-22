@@ -11,202 +11,10 @@ import { Input } from "@/components/ui/input"
 import SupportingPageLayout from "@/components/supporting-page-layout"
 import PageSection from "@/components/page-section"
 import { useMediaQuery } from "@/hooks/use-media-query"
-
-// Sample blog data - in a real app, this would come from a CMS or API
-const blogPosts = [
-  {
-    id: "facebook-ad-account-warm-up-checklist",
-    title: "Facebook Ad Account Warm-Up Checklist: The Essential Guide",
-    excerpt:
-      "Learn how to properly warm up your Facebook ad account to avoid restrictions and maximize performance with our step-by-step guide.",
-    date: "May 10, 2025",
-    readTime: "8 min read",
-    category: "Facebook Ads",
-    image: "/facebook-ads-dashboard.png",
-    views: 1930,
-  },
-  {
-    id: "business-manager-verification-guide",
-    title: "Complete Guide to Facebook Business Manager Verification",
-    excerpt:
-      "Everything you need to know about verifying your Facebook Business Manager account to unlock higher spending limits and more features.",
-    date: "May 5, 2025",
-    readTime: "6 min read",
-    category: "Business Manager",
-    image: "/placeholder.svg?key=1k2cp",
-    views: 1245,
-  },
-  {
-    id: "via-xmdt-explained",
-    title: "Via XMDT Explained: What It Is and Why You Need It",
-    excerpt:
-      "Discover what Via XMDT is, how it works, and why it's essential for serious Facebook advertisers looking to scale their campaigns.",
-    date: "April 28, 2025",
-    readTime: "5 min read",
-    category: "Payment Methods",
-    image: "/placeholder.svg?key=kjbej",
-    views: 1876,
-  },
-  {
-    id: "facebook-pixel-setup-guide",
-    title: "Facebook Pixel Setup Guide: Track Conversions Like a Pro",
-    excerpt:
-      "A comprehensive guide to setting up and optimizing your Facebook Pixel for maximum conversion tracking and audience building.",
-    date: "April 22, 2025",
-    readTime: "7 min read",
-    category: "Tracking",
-    image: "/placeholder.svg?key=yut3s",
-    views: 2103,
-  },
-  {
-    id: "scaling-facebook-ads",
-    title: "Scaling Facebook Ads: From $10 to $10,000 Per Day",
-    excerpt:
-      "Learn the proven strategies for scaling your Facebook ad campaigns from small tests to major budget allocations without losing performance.",
-    date: "April 15, 2025",
-    readTime: "10 min read",
-    category: "Strategy",
-    image: "/placeholder.svg?key=yxrvy",
-    trending: true,
-    views: 3542,
-  },
-  {
-    id: "facebook-ad-account-banned",
-    title: "What to Do When Your Facebook Ad Account Gets Banned",
-    excerpt:
-      "A step-by-step recovery plan for when your Facebook ad account gets restricted or banned, including prevention tips for the future.",
-    date: "April 8, 2025",
-    readTime: "9 min read",
-    category: "Troubleshooting",
-    image: "/placeholder.svg?key=q8kj7",
-    views: 4210,
-  },
-  {
-    id: "facebook-ads-targeting-2025",
-    title: "Facebook Ads Targeting in 2025: What's Changed and How to Adapt",
-    excerpt:
-      "Stay ahead of the curve with our comprehensive guide to Facebook's latest targeting options and strategies for 2025.",
-    date: "March 30, 2025",
-    readTime: "8 min read",
-    category: "Strategy",
-    image: "/placeholder.svg?key=t7h9p",
-    views: 1865,
-  },
-  {
-    id: "facebook-creative-best-practices",
-    title: "Creative Best Practices for Facebook Ads in 2025",
-    excerpt:
-      "Discover the latest creative trends and best practices to make your Facebook ads stand out and drive better results.",
-    date: "March 22, 2025",
-    readTime: "7 min read",
-    category: "Creative",
-    image: "/placeholder.svg?key=r5g2m",
-    views: 2341,
-  },
-  {
-    id: "facebook-ads-budget-optimization",
-    title: "Facebook Ads Budget Optimization Strategies for 2025",
-    excerpt: "Learn how to optimize your Facebook ads budget to get the most out of your advertising spend.",
-    date: "March 15, 2025",
-    readTime: "6 min read",
-    category: "Strategy",
-    image: "/placeholder.svg?key=b3d9f",
-    views: 1756,
-  },
-  {
-    id: "facebook-ads-copywriting-guide",
-    title: "The Ultimate Facebook Ads Copywriting Guide",
-    excerpt: "Master the art of writing compelling ad copy that converts for your Facebook campaigns.",
-    date: "March 8, 2025",
-    readTime: "8 min read",
-    category: "Creative",
-    image: "/placeholder.svg?key=p7r2s",
-    views: 2089,
-  },
-  {
-    id: "facebook-ads-for-ecommerce",
-    title: "Facebook Ads for E-commerce: Complete Strategy Guide",
-    excerpt: "A comprehensive guide to running successful Facebook ad campaigns for your e-commerce business.",
-    date: "March 1, 2025",
-    readTime: "12 min read",
-    category: "Strategy",
-    image: "/placeholder.svg?key=e5t8y",
-    views: 3267,
-  },
-  {
-    id: "facebook-ads-automation",
-    title: "Facebook Ads Automation: Save Time and Improve Results",
-    excerpt: "Discover how to automate your Facebook ads to save time and improve campaign performance.",
-    date: "February 22, 2025",
-    readTime: "9 min read",
-    category: "Automation",
-    image: "/placeholder.svg?key=a4s7d",
-    views: 1932,
-  },
-  {
-    id: "facebook-ads-retargeting",
-    title: "Advanced Facebook Retargeting Strategies That Convert",
-    excerpt: "Learn how to create effective retargeting campaigns that bring customers back and boost conversions.",
-    date: "February 15, 2025",
-    readTime: "7 min read",
-    category: "Strategy",
-    image: "/placeholder.svg?key=r3t4g",
-    views: 2567,
-  },
-  {
-    id: "facebook-ads-analytics",
-    title: "Mastering Facebook Ads Analytics: Metrics That Matter",
-    excerpt: "Focus on the right metrics to optimize your Facebook ad campaigns and improve ROI.",
-    date: "February 8, 2025",
-    readTime: "8 min read",
-    category: "Analytics",
-    image: "/placeholder.svg?key=a5n6l",
-    views: 1843,
-  },
-  {
-    id: "facebook-ads-creative-testing",
-    title: "Facebook Ads Creative Testing: A Scientific Approach",
-    excerpt: "Learn how to systematically test your ad creatives to find winners and scale your campaigns.",
-    date: "February 1, 2025",
-    readTime: "9 min read",
-    category: "Creative",
-    image: "/placeholder.svg?key=c7t8s",
-    views: 2134,
-  },
-  {
-    id: "facebook-ads-for-local-business",
-    title: "Facebook Ads for Local Businesses: Complete Guide",
-    excerpt: "A step-by-step guide to creating effective Facebook ad campaigns for local businesses.",
-    date: "January 25, 2025",
-    readTime: "10 min read",
-    category: "Local Business",
-    image: "/placeholder.svg?key=l9b0z",
-    views: 1987,
-  },
-  {
-    id: "facebook-ads-compliance",
-    title: "Facebook Ads Compliance: Avoiding Rejections and Restrictions",
-    excerpt: "Stay compliant with Facebook's advertising policies to avoid ad rejections and account restrictions.",
-    date: "January 18, 2025",
-    readTime: "8 min read",
-    category: "Compliance",
-    image: "/placeholder.svg?key=c1m2p",
-    views: 3421,
-  },
-  {
-    id: "facebook-ads-b2b-marketing",
-    title: "Facebook Ads for B2B Marketing: Strategies That Work",
-    excerpt: "Learn how to effectively use Facebook ads to generate B2B leads and drive business growth.",
-    date: "January 11, 2025",
-    readTime: "9 min read",
-    category: "B2B",
-    image: "/placeholder.svg?key=b3m4k",
-    views: 1765,
-  },
-]
+import { getAllCategories, getPostsByCategory, getMostViewedPosts } from "@/data/blog-posts"
 
 // Get unique categories from blog posts
-const categories = ["All", ...Array.from(new Set(blogPosts.map((post) => post.category)))].sort()
+const categories = getAllCategories()
 
 // Limit to 6 categories for the mockup (including "All")
 const limitedCategories = categories.slice(0, 6)
@@ -221,21 +29,16 @@ export default function BlogPage() {
   // Add this after the other state declarations
   const isMobile = useMediaQuery("(max-width: 768px)")
 
-  // Filter posts by selected category
-  const filteredPosts =
-    selectedCategory === "All" ? blogPosts : blogPosts.filter((post) => post.category === selectedCategory)
-
   // Get most viewed posts (top 4)
-  const mostViewedPosts = [...blogPosts].sort((a, b) => b.views - a.views).slice(0, 4)
-
-  // Get exactly 2 posts for the main grid (to match the height of most viewed)
-  const regularPosts = filteredPosts
-    .filter((post) => !mostViewedPosts.slice(0, 2).some((p) => p.id === post.id))
-    .slice(0, 2)
+  const mostViewedPosts = getMostViewedPosts(4)
 
   // Get posts for the "New Posts Every Day" section with pagination
-  const totalPages = Math.ceil(filteredPosts.length / postsPerPage)
-  const dailyPosts = filteredPosts.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
+  const { posts: dailyPosts, totalPages } = getPostsByCategory(selectedCategory, currentPage, postsPerPage)
+
+  // Get exactly 2 posts for the main grid (to match the height of most viewed)
+  const regularPosts = getPostsByCategory(selectedCategory, 1, 2).posts.filter(
+    (post) => !mostViewedPosts.slice(0, 2).some((p) => p.id === post.id),
+  )
 
   // Handle category change
   const handleCategoryChange = (category) => {
@@ -294,11 +97,11 @@ export default function BlogPage() {
                 </h2>
               </div>
 
-              <div className="space-y-6 flex-1">
+              <div className="space-y-6 flex-1 -ml-2">
                 {mostViewedPosts.map((post) => (
                   <div
                     key={post.id}
-                    className="group relative rounded-lg pl-0 p-2 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all"
+                    className="group relative rounded-lg p-2 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all"
                   >
                     <Link href={`/blog/${post.id}`} className="flex gap-4">
                       <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">

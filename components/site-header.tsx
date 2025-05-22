@@ -188,7 +188,7 @@ export function SiteHeader() {
                           : "text-gray-700 hover:bg-gray-100"
                       }`}
                     >
-                      <div className="h-2 w-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 transition-opacity group-hover:opacity-100"></div>
+                      <div className="h-2 w-2 mr-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 transition-opacity group-hover:opacity-100"></div>
                       <span className={isActive ? "relative" : ""}>
                         {item.label}
                         {isActive && (

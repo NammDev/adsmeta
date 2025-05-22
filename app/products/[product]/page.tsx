@@ -81,28 +81,28 @@ export default function ProductPage() {
     setProduct(productData || null)
   }, [productSlug])
 
-  if (!product) {
-    return (
-      <SupportingPageLayout
-        title="Product Not Found"
-        subtitle="The product you're looking for doesn't exist or has been removed."
-        breadcrumbs={[
-          { label: "Products", href: "/products" },
-          { label: "Not Found", href: "#" },
-        ]}
-      >
-        <div className="py-12 flex flex-col items-center justify-center">
-          <AlertCircle className="h-16 w-16 text-red-500 mb-4" />
-          <p className="text-gray-600 mb-6">
-            Please check the URL or browse our products to find what you're looking for.
-          </p>
-          <Button asChild className="bg-facebook hover:bg-facebook/90">
-            <a href="/products">Browse Products</a>
-          </Button>
-        </div>
-      </SupportingPageLayout>
-    )
-  }
+  // if (!product) {
+  //   return (
+  //     <SupportingPageLayout
+  //       title="Product Not Found"
+  //       subtitle="The product you're looking for doesn't exist or has been removed."
+  //       breadcrumbs={[
+  //         { label: "Products", href: "/products" },
+  //         { label: "Not Found", href: "#" },
+  //       ]}
+  //     >
+  //       <div className="py-12 flex flex-col items-center justify-center">
+  //         <AlertCircle className="h-16 w-16 text-red-500 mb-4" />
+  //         <p className="text-gray-600 mb-6">
+  //           Please check the URL or browse our products to find what you're looking for.
+  //         </p>
+  //         <Button asChild className="bg-facebook hover:bg-facebook/90">
+  //           <a href="/products">Browse Products</a>
+  //         </Button>
+  //       </div>
+  //     </SupportingPageLayout>
+  //   )
+  // }
 
   const handleAddToCart = () => {
     addToCart({

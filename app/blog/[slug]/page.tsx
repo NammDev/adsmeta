@@ -10,153 +10,7 @@ import PageSection from "@/components/page-section"
 import { TableOfContents } from "@/components/table-of-contents"
 import { BlogCarousel } from "@/components/blog-carousel"
 import { useEffect, useRef, useState } from "react"
-
-// This would typically come from a CMS or API based on the slug
-const blogPost = {
-  id: "facebook-ad-account-warm-up-checklist",
-  title: "Facebook Ad Account Warm-Up Checklist: The Essential Guide",
-  excerpt:
-    "Learn how to properly warm up your Facebook ad account to avoid restrictions and maximize performance with our step-by-step guide.",
-  date: "May 10, 2025",
-  readTime: "8 min read",
-  category: "Facebook Ads",
-  author: "Alex Johnson",
-  authorRole: "Facebook Ads Specialist",
-  authorImage: "/male-marketing-owner.png",
-  image: "/facebook-ads-dashboard.png",
-  content: `
-    <p class="lead">If you've ever had a Facebook ad account restricted or banned, you know the frustration it causes. One of the most effective ways to prevent this is by properly "warming up" your ad account before scaling your campaigns.</p>
-    
-    <p>In this comprehensive guide, we'll walk through the essential steps to warm up your Facebook ad account, ensuring it remains healthy and active for the long term.</p>
-    
-    <h2>Why Warming Up Your Facebook Ad Account Matters</h2>
-    
-    <p>Facebook's algorithm is designed to detect unusual activity and potential policy violations. When you create a new ad account and immediately start spending large amounts, it raises red flags in Facebook's system.</p>
-    
-    <p>By gradually increasing your activity and spending, you signal to Facebook that you're a legitimate advertiser who follows the rules, reducing the risk of restrictions.</p>
-    
-    <h2>The Complete Facebook Ad Account Warm-Up Checklist</h2>
-    
-    <h3>Week 1: Account Setup and Initial Campaigns</h3>
-    
-    <ul>
-      <li><strong>Day 1-2:</strong> Complete your business information and verify your account</li>
-      <li><strong>Day 3-4:</strong> Add your payment method and set up Facebook Pixel</li>
-      <li><strong>Day 5-7:</strong> Launch your first campaign with a daily budget of $5-10</li>
-    </ul>
-    
-    <p>During the first week, focus on creating a solid foundation. Use conservative targeting and stick to Facebook's recommended ad formats. Avoid making frequent changes to your campaigns during this period.</p>
-    
-    <div class="callout">
-      <p><strong>Pro Tip:</strong> Start with engagement campaigns rather than conversion campaigns. Facebook views these as lower-risk and they help establish account credibility.</p>
-    </div>
-    
-    <h3>Week 2: Gradual Scaling</h3>
-    
-    <ul>
-      <li><strong>Day 8-10:</strong> Increase daily budget to $15-20 if your initial campaign is performing well</li>
-      <li><strong>Day 11-12:</strong> Add a second campaign with similar targeting</li>
-      <li><strong>Day 13-14:</strong> Begin testing different ad creatives (but keep targeting consistent)</li>
-    </ul>
-    
-    <p>In the second week, you can start to expand cautiously. The key is to make incremental changes rather than dramatic ones. Monitor your account quality score in the Account Quality section of Business Manager.</p>
-    
-    <h3>Week 3: Expanding Your Strategy</h3>
-    
-    <ul>
-      <li><strong>Day 15-17:</strong> Increase budget to $30-50 per day across campaigns</li>
-      <li><strong>Day 18-19:</strong> Begin testing conversion campaigns if you've been focusing on engagement</li>
-      <li><strong>Day 20-21:</strong> Start exploring different audience targeting options</li>
-    </ul>
-    
-    <p>By week three, your account should have established some history with Facebook. You can now begin to diversify your strategy and test more campaign types.</p>
-    
-    <h3>Week 4 and Beyond: Scaling with Confidence</h3>
-    
-    <ul>
-      <li><strong>Day 22-25:</strong> Increase budget to $75-100 per day if performance remains strong</li>
-      <li><strong>Day 26-28:</strong> Expand to additional campaign objectives</li>
-      <li><strong>Day 29+:</strong> Continue scaling by 20-30% every 3-4 days</li>
-    </ul>
-    
-    <p>After a month of careful warming up, your account should be in good standing with Facebook. You can now scale more aggressively, but continue to monitor your account health and avoid making too many changes at once.</p>
-    
-    <h2>Common Mistakes to Avoid</h2>
-    
-    <ol>
-      <li><strong>Scaling too quickly:</strong> Increasing your budget by more than 30% in a single day</li>
-      <li><strong>Frequent campaign changes:</strong> Making multiple edits to campaigns in a short period</li>
-      <li><strong>Ignoring ad policies:</strong> Using prohibited content or making prohibited claims</li>
-      <li><strong>Neglecting account quality:</strong> Not monitoring your account health regularly</li>
-      <li><strong>Using a new payment method:</strong> Switching payment methods during the warm-up period</li>
-    </ol>
-    
-    <h2>Signs Your Account Is Properly Warmed Up</h2>
-    
-    <p>How do you know when your account is ready for more aggressive scaling? Look for these indicators:</p>
-    
-    <ul>
-      <li>Consistent ad delivery without interruptions</li>
-      <li>No warnings in your Account Quality section</li>
-      <li>Stable or improving ad performance</li>
-      <li>Ability to get ads approved quickly</li>
-      <li>Multiple successful campaigns running simultaneously</li>
-    </ul>
-    
-    <h2>Conclusion</h2>
-    
-    <p>Warming up your Facebook ad account is an investment in your long-term advertising success. By following this checklist and taking a patient, methodical approach, you'll build a healthy account that can scale to meet your business goals without triggering Facebook's restrictions.</p>
-    
-    <p>Remember that even with a properly warmed-up account, it's important to stay current with Facebook's advertising policies and continue monitoring your account health regularly.</p>
-    
-    <div class="author-note">
-      <p><strong>About the Author:</strong> Alex Johnson is a Facebook Ads Specialist with over 8 years of experience managing ad accounts for businesses of all sizes. He specializes in account health and scaling strategies.</p>
-    </div>
-  `,
-  tags: ["Facebook Ads", "Account Warm-up", "Ad Strategy", "Account Health"],
-  relatedPosts: [
-    {
-      id: "business-manager-verification-guide",
-      title: "Complete Guide to Facebook Business Manager Verification",
-      excerpt:
-        "Everything you need to know about verifying your Facebook Business Manager account to unlock higher spending limits and more features.",
-      image: "/placeholder.svg?key=k5f8w",
-      category: "Business Manager",
-    },
-    {
-      id: "facebook-ad-account-banned",
-      title: "What to Do When Your Facebook Ad Account Gets Banned",
-      excerpt:
-        "A step-by-step recovery plan for when your Facebook ad account gets restricted or banned, including prevention tips for the future.",
-      image: "/placeholder.svg?key=gykza",
-      category: "Troubleshooting",
-    },
-    {
-      id: "scaling-facebook-ads",
-      title: "Scaling Facebook Ads: From $10 to $10,000 Per Day",
-      excerpt:
-        "Learn the proven strategies for scaling your Facebook ad campaigns from small tests to major budget allocations without losing performance.",
-      image: "/placeholder.svg?key=v5ldp",
-      category: "Strategy",
-    },
-    {
-      id: "facebook-pixel-implementation",
-      title: "Advanced Facebook Pixel Implementation Guide",
-      excerpt:
-        "Learn how to properly set up and configure Facebook Pixel for maximum tracking accuracy and conversion optimization.",
-      image: "/placeholder.svg?key=p9j2m",
-      category: "Tracking",
-    },
-    {
-      id: "facebook-ads-creative-best-practices",
-      title: "Facebook Ads Creative Best Practices for 2025",
-      excerpt:
-        "Discover the latest creative strategies and formats that are driving the highest engagement and conversion rates on Facebook.",
-      image: "/placeholder.svg?key=r7t3n",
-      category: "Creative",
-    },
-  ],
-}
+import { getBlogPostBySlug, getRelatedPosts } from "@/data/blog-posts"
 
 // Add this function before the BlogPostPage component
 function extractHeadings(content: string) {
@@ -185,11 +39,6 @@ function processContent(content: string) {
 }
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  // In a real app, you would fetch the blog post data based on the slug
-  // For this example, we're using the hardcoded data above
-  const headings = extractHeadings(blogPost.content)
-  const processedContent = processContent(blogPost.content)
-
   // Refs for measuring elements
   const featuredImageRef = useRef<HTMLDivElement>(null)
   const articleEndRef = useRef<HTMLDivElement>(null)
@@ -205,52 +54,66 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     width: "100%",
   })
 
+  // Get the blog post data from our centralized data source
+  const blogPost = getBlogPostBySlug(params.slug)
+
+  // If blog post not found, we could handle this better in a production app
+  if (!blogPost) {
+    return <div>Blog post not found</div>
+  }
+
+  // Get related posts
+  const relatedPosts = getRelatedPosts(params.slug)
+
+  const headings = extractHeadings(blogPost.content)
+  const processedContent = processContent(blogPost.content)
+
+  // Function to update TOC position
+  const updateTocPosition = () => {
+    if (!featuredImageRef.current || !articleEndRef.current || !tocRef.current || !tocContainerRef.current) return
+
+    const featuredRect = featuredImageRef.current.getBoundingClientRect()
+    const articleEndRect = articleEndRef.current.getBoundingClientRect()
+    const tocRect = tocRef.current.getBoundingClientRect()
+    const tocContainerRect = tocContainerRef.current.getBoundingClientRect()
+
+    const headerOffset = 96 // 6rem, adjust as needed
+    const containerWidth = tocContainerRect.width
+
+    // If featured image is below viewport top + offset, position TOC at featured image
+    if (featuredRect.top > headerOffset) {
+      setTocStyle({
+        position: "absolute",
+        top: "0px",
+        bottom: "auto",
+        maxHeight: "calc(100vh - 8rem)",
+        width: "100%",
+      })
+    }
+    // If featured image is above viewport top + offset but article end is below viewport
+    else if (articleEndRect.top > headerOffset + tocRect.height) {
+      setTocStyle({
+        position: "fixed",
+        top: `${headerOffset}px`,
+        bottom: "auto",
+        maxHeight: "calc(100vh - 8rem)",
+        width: `${containerWidth}px`, // Set explicit width when fixed
+      })
+    }
+    // If article end is about to go above the bottom of the TOC
+    else {
+      setTocStyle({
+        position: "absolute",
+        top: "auto",
+        bottom: "0px",
+        maxHeight: "calc(100vh - 8rem)",
+        width: "100%",
+      })
+    }
+  }
+
   // Effect for handling TOC positioning
   useEffect(() => {
-    // Function to update TOC position
-    const updateTocPosition = () => {
-      if (!featuredImageRef.current || !articleEndRef.current || !tocRef.current || !tocContainerRef.current) return
-
-      const featuredRect = featuredImageRef.current.getBoundingClientRect()
-      const articleEndRect = articleEndRef.current.getBoundingClientRect()
-      const tocRect = tocRef.current.getBoundingClientRect()
-      const tocContainerRect = tocContainerRef.current.getBoundingClientRect()
-
-      const headerOffset = 96 // 6rem, adjust as needed
-      const containerWidth = tocContainerRect.width
-
-      // If featured image is below viewport top + offset, position TOC at featured image
-      if (featuredRect.top > headerOffset) {
-        setTocStyle({
-          position: "absolute",
-          top: "0px",
-          bottom: "auto",
-          maxHeight: "calc(100vh - 8rem)",
-          width: "100%",
-        })
-      }
-      // If featured image is above viewport top + offset but article end is below viewport
-      else if (articleEndRect.top > headerOffset + tocRect.height) {
-        setTocStyle({
-          position: "fixed",
-          top: `${headerOffset}px`,
-          bottom: "auto",
-          maxHeight: "calc(100vh - 8rem)",
-          width: `${containerWidth}px`, // Set explicit width when fixed
-        })
-      }
-      // If article end is about to go above the bottom of the TOC
-      else {
-        setTocStyle({
-          position: "absolute",
-          top: "auto",
-          bottom: "0px",
-          maxHeight: "calc(100vh - 8rem)",
-          width: "100%",
-        })
-      }
-    }
-
     // Initial update
     updateTocPosition()
 
@@ -276,7 +139,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     >
       {/* Title Section */}
       <PageSection className="pt-6 md:pt-8 pb-0">
-        <div className="max-w-5xl mx-auto px-4 mb-10">
+        <div className="max-w-6xl mx-auto px-4 mb-10">
           <div className="flex items-center justify-center gap-3 mb-3">
             <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium shadow-md">
               {blogPost.category}
@@ -295,7 +158,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         {/* Add decorative gradient circles */}
         <div className="absolute top-20 right-0 w-64 h-64 bg-gradient-to-br from-blue-200/20 to-purple-200/20 rounded-full blur-3xl -z-10"></div>
         <div className="absolute bottom-20 left-0 w-48 h-48 bg-gradient-to-br from-purple-200/20 to-pink-200/20 rounded-full blur-3xl -z-10"></div>
-        <div className="max-w-5xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4">
           {/* Main content area with sidebar */}
           <div className="lg:grid lg:grid-cols-3 lg:gap-8">
             {/* Left column - Main content (spans 2 columns) */}
@@ -404,7 +267,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
       {/* Related Posts Title Section */}
       <PageSection className="pt-6 md:pt-8 pb-0">
-        <div className="max-w-5xl mx-auto mb-10">
+        <div className="max-w-6xl mx-auto mb-10">
           <h2 className="text-2xl font-bold text-center relative inline-block mx-auto w-full">
             <span className="relative z-10">You Might Also Like</span>
             <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-3 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full w-48"></div>
@@ -415,21 +278,21 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       {/* Related Posts Content Section */}
       <PageSection className="pt-0 pb-12 relative overflow-hidden">
         <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-gradient-to-br from-purple-200/20 to-pink-200/20 rounded-full blur-3xl -z-10"></div>
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <BlogCarousel itemsPerView={3} mobileItemsPerView={2} className="px-4">
-            {blogPost.relatedPosts.map((post) => (
+            {relatedPosts.map((post) => (
               <div
                 key={post.id}
-                className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow h-full group"
+                className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow h-full group/card"
               >
                 <Link href={`/blog/${post.id}`} className="block">
                   <div className="relative h-36 md:h-48 w-full overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-500/0 group-hover:from-blue-500/10 group-hover:to-purple-500/10 transition-all duration-300 z-10"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-facebook/0 to-blue-600/0 group-hover/card:from-facebook/10 group-hover/card:to-blue-600/10 transition-all duration-300 z-10"></div>
                     <Image
                       src={post.image || "/placeholder.svg"}
                       alt={post.title}
                       fill
-                      className="object-cover transition-transform group-hover:scale-105 duration-300"
+                      className="object-cover transition-transform group-hover/card:scale-105 duration-300"
                     />
                   </div>
                 </Link>
@@ -440,7 +303,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                   </Badge>
 
                   <h3 className="text-base md:text-lg font-bold mb-1 md:mb-2 line-clamp-2">
-                    <Link href={`/blog/${post.id}`} className="hover:text-blue-600 transition-colors">
+                    <Link href={`/blog/${post.id}`} className="hover:text-facebook transition-colors">
                       {post.title}
                     </Link>
                   </h3>
@@ -453,11 +316,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                   {/* Simplified link for mobile */}
                   <Link
                     href={`/blog/${post.id}`}
-                    className="text-blue-600 hover:underline text-xs md:text-sm font-medium flex items-center group-hover:text-blue-700"
+                    className="text-facebook hover:underline text-xs md:text-sm font-medium flex items-center group/link"
                   >
                     <span className="md:block">Read</span>
                     <span className="hidden md:inline"> Article</span>
-                    <ArrowRight className="h-3 w-3 ml-1 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="h-3 w-3 ml-1 transition-transform group-hover/link:translate-x-1" />
                   </Link>
                 </div>
               </div>
