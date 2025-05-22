@@ -3,15 +3,15 @@
 import { Suspense } from 'react'
 import SiteFooter from '@/components/layout/site-footer'
 import NewsletterSection from '@/components/layout/newsletter-section'
-import ProductsSection from '@/components/products-section'
-import { LoadingSpinner } from '@/components/loading-spinner'
-import PackagesSection from './packages-section'
+import ProductsSection from '@/components/home/products-section'
+import { LoadingSpinner } from '@/components/loading/loading-spinner'
 import HeroSection from '@/components/home/hero-section'
 import TrustIndicatorsSection from '@/components/home/trust-indicators-section'
 import WhyChooseUsSection from '@/components/home/why-choose-us-section'
 import TestimonialsSection from '@/components/home/testimonials-section'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import BackgroundDecorations from '@/components/layout/background-decorations'
+import PackagesSection from '@/components/home/packages-section'
 
 export default function Home() {
   const isMobile = useMediaQuery('(max-width: 768px)')

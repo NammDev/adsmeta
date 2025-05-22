@@ -23,7 +23,7 @@ import {
 } from 'lucide-react'
 import SupportingPageLayout from '@/components/layout/supporting-page-layout'
 import { useCart } from '@/context/cart-context'
-import RelatedProducts from '@/components/related-products'
+import RelatedProducts from '@/components/products/related-products'
 import { getProductDetailData } from '@/data/products'
 
 // Product type definition

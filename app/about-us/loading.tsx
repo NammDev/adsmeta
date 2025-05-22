@@ -1,4 +1,4 @@
-import SkeletonSecondaryPage from "@/components/skeleton-secondary-page"
+import SkeletonSecondaryPage from '@/components/loading/skeleton-secondary-page'
 
 export default function AboutUsLoading() {
   return <SkeletonSecondaryPage />

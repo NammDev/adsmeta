@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, Facebook, Youtube, Instagram } from 'lucide-react'
 import { usePathname } from 'next/navigation'
-import { CartButton } from '../cart-button'
+import { CartButton } from '../cart/cart-button'
 
 export function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
