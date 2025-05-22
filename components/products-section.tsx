@@ -10,189 +10,21 @@ import { SuspenseWrapper } from "@/components/suspense-wrapper"
 import { ChevronLeft, ChevronRight, Star, ShoppingBag } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { useCart } from "@/context/cart-context"
+import {
+  getProductSectionItems,
+  filterProductSectionItems,
+  getProductSectionFilterOptions,
+  type ProductSectionItem,
+} from "@/data/products"
 
-// Define product type
-type Product = {
-  id: string
-  name: string
-  description: string
-  price: number
-  image: string
-  category: "verified-bm" | "unverified-bm" | "profile" | "page"
-  badge?: string
-  href?: string
-  rating?: number
-  purchases?: number
-  gradient?: string
-  bgGradient?: string
-}
+// Use the ProductSectionItem type from data/products.ts
+type Product = ProductSectionItem
 
-// All products data
-const allProducts: Product[] = [
-  // Verified BM
-  {
-    id: "verified-bm-1",
-    name: "Verified BM",
-    description: "Add your agency to BM and launch ads immediately.",
-    price: 80,
-    image: "/verified-facebook-business-manager-icon.png",
-    category: "verified-bm",
-    href: "/bm1-250-limit",
-    rating: 4.8,
-    purchases: 61,
-    gradient: "from-blue-500 to-cyan-500",
-    bgGradient: "from-blue-50 to-cyan-50",
-  },
-  {
-    id: "verified-bm-2",
-    name: "Verified BM1 $250 Limit",
-    description: "Verified Business Manager with $250 daily spending limit.",
-    price: 180,
-    image: "/verified-facebook-business-manager-icon.png",
-    category: "verified-bm",
-    badge: "Popular",
-    href: "/bm1-250-limit",
-    rating: 4.9,
-    purchases: 122,
-    gradient: "from-blue-600 to-indigo-600",
-    bgGradient: "from-blue-50 to-indigo-50",
-  },
-  {
-    id: "verified-bm-3",
-    name: "Verified BM5 $250 Limit",
-    description: "Verified BM5 with $250 limit and 5 ad accounts.",
-    price: 260,
-    image: "/abstract-facebook-verified-business-manager.png",
-    category: "verified-bm",
-    href: "/bm1-250-limit",
-    rating: 4.7,
-    purchases: 87,
-    gradient: "from-indigo-500 to-purple-500",
-    bgGradient: "from-indigo-50 to-purple-50",
-  },
-  {
-    id: "verified-bm-4",
-    name: "Unlimited Verified BM5",
-    description: "Unlimited verified BM5 with 5 ad accounts.",
-    price: 350,
-    image: "/abstract-facebook-verified-business-manager.png",
-    category: "verified-bm",
-    badge: "Premium",
-    href: "/bm1-250-limit",
-    rating: 4.8,
-    purchases: 45,
-    gradient: "from-purple-500 to-pink-500",
-    bgGradient: "from-purple-50 to-pink-50",
-  },
+// Get products data from centralized source
+const allProducts: Product[] = getProductSectionItems()
 
-  // Unverified BM
-  {
-    id: "unverified-bm-1",
-    name: "Unverified BM",
-    description: "Basic unverified Business Manager for testing.",
-    price: 10,
-    image: "/facebook-business-manager-icon.png",
-    category: "unverified-bm",
-    href: "/#products",
-    rating: 4.5,
-    purchases: 210,
-    gradient: "from-teal-500 to-green-500",
-    bgGradient: "from-teal-50 to-green-50",
-  },
-  {
-    id: "unverified-bm-2",
-    name: "Recovered Unverified BM",
-    description: "Recovered unverified Business Manager with history.",
-    price: 30,
-    image: "/facebook-business-manager-icon.png",
-    category: "unverified-bm",
-    href: "/#products",
-    rating: 4.6,
-    purchases: 98,
-    gradient: "from-green-500 to-emerald-500",
-    bgGradient: "from-green-50 to-emerald-50",
-  },
-
-  // Profile - FB accounts
-  {
-    id: "profile-1",
-    name: "Asia Reinstated 2 Green Line",
-    description: "Asia profile with 2 green line tick (verified 1 time).",
-    price: 25,
-    image: "/facebook-xmdt-usa.png",
-    category: "profile",
-    href: "/#products",
-    rating: 4.7,
-    purchases: 76,
-    gradient: "from-amber-500 to-orange-500",
-    bgGradient: "from-amber-50 to-orange-50",
-  },
-  {
-    id: "profile-2",
-    name: "Asia Reinstated 902 3 Green Line",
-    description: "Asia profile with 3 green line tick (verified 2 times).",
-    price: 35,
-    image: "/facebook-xmdt-usa.png",
-    category: "profile",
-    href: "/#products",
-    rating: 4.8,
-    purchases: 54,
-    gradient: "from-orange-500 to-red-500",
-    bgGradient: "from-orange-50 to-red-50",
-  },
-  {
-    id: "profile-3",
-    name: "USA Reinstated 2 Green Line",
-    description: "USA profile with 2 green line tick (verified 1 time).",
-    price: 40,
-    image: "/facebook-xmdt-usa.png",
-    category: "profile",
-    badge: "Premium",
-    href: "/#products",
-    rating: 4.9,
-    purchases: 32,
-    gradient: "from-red-500 to-rose-500",
-    bgGradient: "from-red-50 to-rose-50",
-  },
-  {
-    id: "profile-4",
-    name: "USA Reinstated 902 3 Green Line",
-    description: "USA profile with 3 green line tick (verified 2 times).",
-    price: 50,
-    image: "/facebook-xmdt-usa.png",
-    category: "profile",
-    badge: "Best Value",
-    href: "/#products",
-    rating: 4.8,
-    purchases: 28,
-    gradient: "from-rose-500 to-pink-500",
-    bgGradient: "from-rose-50 to-pink-50",
-  },
-
-  // Recovered page
-  {
-    id: "page-1",
-    name: "Aged Reinstated Page",
-    description: "Recovered Facebook page with established history.",
-    price: 30,
-    image: "/facebook-pixel-icon.png",
-    category: "page",
-    href: "/#products",
-    rating: 4.7,
-    purchases: 65,
-    gradient: "from-blue-500 to-indigo-500",
-    bgGradient: "from-blue-50 to-indigo-50",
-  },
-]
-
-// Filter options
-const filterOptions = [
-  { label: "All Products", value: "all" },
-  { label: "Business Manager", value: "verified-bm" },
-  { label: "Unverified BM", value: "unverified-bm" },
-  { label: "Profiles", value: "profile" },
-  { label: "Pages", value: "page" },
-]
+// Get filter options from centralized source
+const filterOptions = getProductSectionFilterOptions()
 
 // This component will be wrapped in Suspense
 function ProductsContent() {
@@ -220,8 +52,7 @@ function ProductsContent() {
   }, [currentFilter, currentPage])
 
   // Filter products based on selected category
-  const filteredProducts =
-    currentFilter === "all" ? allProducts : allProducts.filter((product) => product.category === currentFilter)
+  const filteredProducts = currentFilter === "all" ? allProducts : filterProductSectionItems(currentFilter)
 
   // Calculate pagination for desktop
   const indexOfLastProduct = currentPage * productsPerPage

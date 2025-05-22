@@ -37,6 +37,9 @@ export interface ProductSectionItem {
   href?: string
   rating?: number
   reviewCount?: number
+  purchases?: number
+  gradient?: string
+  bgGradient?: string
 }
 
 // This type matches the Product type in app/products/page.tsx
@@ -109,6 +112,8 @@ export interface Product {
   rating?: number // For products-section.tsx compatibility
   reviewCount?: number // For products-section.tsx compatibility
   purchases?: number // For products/page.tsx compatibility
+  gradient?: string
+  bgGradient?: string
 }
 
 // SINGLE SOURCE OF TRUTH - Main products data
@@ -136,6 +141,8 @@ export const products: Product[] = [
     rating: 4.8,
     reviewCount: 42,
     purchases: 124,
+    gradient: "from-blue-500 to-cyan-500",
+    bgGradient: "from-blue-50 to-cyan-50",
   },
   {
     id: "bm1-250-limit",
@@ -203,6 +210,8 @@ export const products: Product[] = [
     reviewCount: 78,
     purchases: 256,
     relatedProducts: ["verified-bm-3", "verified-bm-4", "unverified-bm-1"],
+    gradient: "from-blue-600 to-indigo-600",
+    bgGradient: "from-blue-50 to-indigo-50",
   },
   {
     id: "verified-bm-3",
@@ -227,6 +236,8 @@ export const products: Product[] = [
     rating: 4.7,
     reviewCount: 36,
     purchases: 89,
+    gradient: "from-indigo-500 to-purple-500",
+    bgGradient: "from-indigo-50 to-purple-50",
   },
   {
     id: "verified-bm-4",
@@ -259,6 +270,8 @@ export const products: Product[] = [
     rating: 4.9,
     reviewCount: 54,
     purchases: 312,
+    gradient: "from-purple-500 to-pink-500",
+    bgGradient: "from-purple-50 to-pink-50",
   },
 
   // UNVERIFIED BM PRODUCTS (2)
@@ -284,6 +297,8 @@ export const products: Product[] = [
     rating: 4.5,
     reviewCount: 28,
     purchases: 578,
+    gradient: "from-teal-500 to-green-500",
+    bgGradient: "from-teal-50 to-green-50",
   },
   {
     id: "unverified-bm-2",
@@ -307,6 +322,8 @@ export const products: Product[] = [
     rating: 4.6,
     reviewCount: 32,
     purchases: 198,
+    gradient: "from-green-500 to-emerald-500",
+    bgGradient: "from-green-50 to-emerald-50",
   },
 
   // PROFILE PRODUCTS (4)
@@ -332,6 +349,8 @@ export const products: Product[] = [
     rating: 4.7,
     reviewCount: 41,
     purchases: 45,
+    gradient: "from-amber-500 to-orange-500",
+    bgGradient: "from-amber-50 to-orange-50",
   },
   {
     id: "profile-2",
@@ -355,6 +374,8 @@ export const products: Product[] = [
     rating: 4.8,
     reviewCount: 47,
     purchases: 72,
+    gradient: "from-orange-500 to-red-500",
+    bgGradient: "from-orange-50 to-red-50",
   },
   {
     id: "profile-3",
@@ -379,6 +400,8 @@ export const products: Product[] = [
     rating: 4.9,
     reviewCount: 63,
     purchases: 102,
+    gradient: "from-red-500 to-rose-500",
+    bgGradient: "from-red-50 to-rose-50",
   },
   {
     id: "facebook-xmdt-usa",
@@ -444,6 +467,8 @@ export const products: Product[] = [
     reviewCount: 72,
     purchases: 155,
     relatedProducts: ["profile-3", "profile-2", "profile-1"],
+    gradient: "from-rose-500 to-pink-500",
+    bgGradient: "from-rose-50 to-pink-50",
   },
 
   // PAGE PRODUCTS (1)
@@ -469,6 +494,8 @@ export const products: Product[] = [
     rating: 4.6,
     reviewCount: 38,
     purchases: 210,
+    gradient: "from-blue-500 to-indigo-500",
+    bgGradient: "from-blue-50 to-indigo-50",
   },
 ]
 
@@ -527,6 +554,9 @@ export function getProductSectionItems(): ProductSectionItem[] {
     href: `/products/${product.slug}`,
     rating: product.rating,
     reviewCount: product.reviewCount,
+    purchases: product.purchases,
+    gradient: product.gradient,
+    bgGradient: product.bgGradient,
   }))
 }
 

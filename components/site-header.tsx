@@ -155,7 +155,7 @@ export function SiteHeader() {
 
           {/* Mobile Menu Panel */}
           <div
-            className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl shadow-xl z-[110] h-[65vh] mobile-menu-slide-up"
+            className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl shadow-xl z-[110] h-[60vh] mobile-menu-slide-up"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex h-full flex-col overflow-y-auto relative">
@@ -165,7 +165,7 @@ export function SiteHeader() {
               </div>
 
               {/* Navigation Links */}
-              <nav className="flex-1 space-y-1 px-3 py-4 pt-2">
+              <nav className="flex-1 space-y-1 px-4 py-4 pt-0">
                 {[
                   { href: "/", label: "Home" },
                   { href: "/products", label: "Products" },
@@ -188,7 +188,7 @@ export function SiteHeader() {
                           : "text-gray-700 hover:bg-gray-100"
                       }`}
                     >
-                      <div className="mr-3 h-2 w-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 transition-opacity group-hover:opacity-100"></div>
+                      <div className="h-2 w-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 transition-opacity group-hover:opacity-100"></div>
                       <span className={isActive ? "relative" : ""}>
                         {item.label}
                         {isActive && (
@@ -201,7 +201,7 @@ export function SiteHeader() {
               </nav>
 
               {/* Social Icons Footer */}
-              <div className="py-2">
+              {/* <div className="py-2">
                 <div className="flex justify-center space-x-8">
                   <a
                     href="#facebook"
@@ -221,7 +221,7 @@ export function SiteHeader() {
                     <Youtube className="h-7 w-7" />
                   </a>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </>
