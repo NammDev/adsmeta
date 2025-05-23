@@ -5,22 +5,21 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatCurrency(amount: number): string {
-  return `€${amount.toFixed(2)}`
-}
-
 /**
- * Opens a WhatsApp chat with the specified phone number and message
- * @param message - The message to pre-fill in the WhatsApp chat
- * @param phoneNumber - The phone number to chat with (default: +84865717497)
+ * Opens WhatsApp chat with the specified message
+ * @param message - The initial message to send
+ * @param phoneNumber - Optional phone number (with country code, no spaces or symbols)
  */
-export function openWhatsAppChat(message: string, phoneNumber = "84865717497") {
-  // Remove any + signs or spaces from the phone number
-  const formattedNumber = phoneNumber.replace(/[+\s]/g, "")
+export function openWhatsAppChat(message: string, phoneNumber?: string) {
+  // Default phone number if not provided
+  const phone = phoneNumber || "12345678901" // Replace with your actual default phone number
 
-  // Create the WhatsApp URL with the encoded message
-  const whatsappUrl = `https://wa.me/${formattedNumber}?text=${encodeURIComponent(message)}`
+  // Encode the message for URL
+  const encodedMessage = encodeURIComponent(message)
 
-  // Open WhatsApp in a new tab/window
+  // Create the WhatsApp URL
+  const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`
+
+  // Open in a new tab
   window.open(whatsappUrl, "_blank")
 }
