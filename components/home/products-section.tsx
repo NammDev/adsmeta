@@ -547,10 +547,6 @@ export default function ProductsSection() {
                             <ShoppingBag className="h-4 w-4 group-hover:text-blue-500 transition-colors duration-300" />
                             {product.purchases} purchased
                           </span>
-                          <span className="flex items-center gap-1">
-                            <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                            {product.rating?.toFixed(1) || "4.5"} rating
-                          </span>
                         </div>
                       </div>
 
@@ -618,10 +614,6 @@ export default function ProductsSection() {
                           <span className="flex items-center gap-1">
                             <ShoppingBag className="h-4 w-4 group-hover:text-purple-500 transition-colors duration-300" />
                             {product.purchases} purchased
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                            {product.rating?.toFixed(1) || "4.5"} rating
                           </span>
                         </div>
                       </div>
@@ -695,10 +687,6 @@ export default function ProductsSection() {
                           <span className="flex items-center gap-1">
                             <ShoppingBag className="h-4 w-4 group-hover:text-green-500 transition-colors duration-300" />
                             {product.purchases} purchased
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                            {product.rating?.toFixed(1) || "4.5"} rating
                           </span>
                         </div>
                       </div>
