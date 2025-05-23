@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect } from "react"
-import { ErrorBoundary } from "@/components/error-boundary"
 
 export default function Error({
   error,
@@ -12,23 +11,23 @@ export default function Error({
 }) {
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error(error)
+    console.error("Application error:", error)
   }, [error])
 
   return (
-    <ErrorBoundary>
-      <div className="flex flex-col items-center justify-center h-screen">
-        <h2 className="text-2xl font-bold mb-4">Something went wrong!</h2>
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={
-            // Attempt to recover by trying to re-render the segment
-            () => reset()
-          }
-        >
-          Try again
-        </button>
-      </div>
-    </ErrorBoundary>
+    <div className="flex flex-col items-center justify-center min-h-[50vh] p-4">
+      <h2 className="text-2xl font-bold mb-4">Something went wrong!</h2>
+      <p className="text-gray-600 mb-6">We're sorry for the inconvenience. Please try again.</p>
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={() => {
+          // Attempt to recover by trying to re-render the segment
+          console.log("Attempting to reset...")
+          reset()
+        }}
+      >
+        Try again
+      </button>
+    </div>
   )
 }
