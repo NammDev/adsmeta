@@ -417,8 +417,35 @@ function ProductsContent() {
 export default function ProductsSection() {
   const isMobile = useMediaQuery("(max-width: 768px)")
   const { addItem, openCart } = useCart()
+
+  // Get products data from centralized source
+  const allProducts = getProductSectionItems()
+
+  // Group products by category for the new UI
+  const businessManagerProducts = allProducts.filter(
+    (product) => product.category === "verified-bm" || product.category === "unverified-bm",
+  )
+
+  const profileProducts = allProducts.filter((product) => product.category === "profile")
+
+  const otherProducts = allProducts.filter(
+    (product) => !["verified-bm", "unverified-bm", "profile"].includes(product.category),
+  )
+
+  // Group other products by category
+  const groupedOtherProducts = otherProducts.reduce(
+    (acc, product) => {
+      if (!acc[product.category]) {
+        acc[product.category] = []
+      }
+      acc[product.category].push(product)
+      return acc
+    },
+    {} as Record<string, typeof otherProducts>,
+  )
+
   // Add this function to handle adding products to cart
-  const handleAddToCart = (product: any) => {
+  const handleAddToCart = (product: ProductSectionItem) => {
     if (!addItem) {
       console.error("Cart functionality not available")
       return
@@ -445,8 +472,21 @@ export default function ProductsSection() {
     }
   }
 
+  // Helper function to highlight keywords in product names
+  const highlightKeywords = (name: string) => {
+    const highlightWords = ["Verified", "Blue", "Tick", "Reinstated", "Super", "Strong", "Premium", "Setup"]
+    return name.split(" ").map((word, index) => {
+      const isHighlight = highlightWords.some((hw) => word.includes(hw))
+      return (
+        <span key={index} className={isHighlight ? "text-blue-600 font-bold" : ""}>
+          {word}{" "}
+        </span>
+      )
+    })
+  }
+
   return (
-    <section id="products" className="py-20 relative overflow-hidden bg-gradient-to-b from-white to-lightblue">
+    <section id="products" className="py-20 relative overflow-hidden bg-gradient-to-b from-white to-blue-50">
       {/* Background decorative elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-blue-100 opacity-40 blur-3xl"></div>
@@ -474,267 +514,217 @@ export default function ProductsSection() {
         {/* Category-based Product Listing */}
         <div className="space-y-8">
           {/* Business Manager Category */}
-          {(() => {
-            const businessManagerProducts = allProducts.filter(
-              (product) => product.category === "verified-bm" || product.category === "unverified-bm",
-            )
-
-            if (businessManagerProducts.length === 0) return null
-
-            return (
-              <div className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-[1.01]">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg transform hover:rotate-12 transition-transform duration-300">
-                    <span className="text-white font-bold text-xl">🏢</span>
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-900">Business Managers</h3>
-                  <Badge className="bg-blue-100 text-blue-700 border-0 animate-bounce">Premium Quality</Badge>
+          {businessManagerProducts.length > 0 && (
+            <div className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-[1.01]">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg transform hover:rotate-12 transition-transform duration-300">
+                  <span className="text-white font-bold text-xl">🏢</span>
                 </div>
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900">Business Managers</h3>
+                <Badge className="bg-blue-100 text-blue-700 border-0 animate-bounce">Premium Quality</Badge>
+              </div>
 
-                <div className="grid gap-6 md:grid-cols-2">
-                  {businessManagerProducts.map((product, index) => (
-                    <div
-                      key={product.id}
-                      className="bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1"
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                    >
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-0">
-                            <h4 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 mb-0">
-                              {product.name.split(" ").map((word, index) => {
-                                const highlightWords = ["Verified", "Blue", "Tick", "Reinstated", "Super", "Strong"]
-                                const isHighlight = highlightWords.some((hw) => word.includes(hw))
-                                return (
-                                  <span key={index} className={isHighlight ? "text-blue-600 font-bold" : ""}>
-                                    {word}{" "}
-                                  </span>
-                                )
-                              })}
-                            </h4>
-                            <span className="text-green-500 animate-pulse">✓</span>
-                          </div>
-                          <p className="text-gray-600 text-sm mb-2 group-hover:text-gray-700 transition-colors duration-300">
-                            {product.description}
-                          </p>
-                          <div className="flex items-center gap-2 text-sm text-gray-500">
-                            <span className="flex items-center gap-1">
-                              <ShoppingBag className="h-4 w-4 group-hover:text-blue-500 transition-colors duration-300" />
-                              {product.purchases} purchased
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                              4.9 rating
-                            </span>
-                          </div>
+              <div className="grid gap-6 md:grid-cols-2">
+                {businessManagerProducts.map((product, index) => (
+                  <div
+                    key={product.id}
+                    className="bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-0">
+                          <h4 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 mb-0">
+                            {highlightKeywords(product.name)}
+                          </h4>
+                          <span className="text-green-500 animate-pulse">✓</span>
                         </div>
+                        <p className="text-gray-600 text-sm mb-2 group-hover:text-gray-700 transition-colors duration-300">
+                          {product.description}
+                        </p>
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <span className="flex items-center gap-1">
+                            <ShoppingBag className="h-4 w-4 group-hover:text-blue-500 transition-colors duration-300" />
+                            {product.purchases} purchased
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
+                            {product.rating?.toFixed(1) || "4.5"} rating
+                          </span>
+                        </div>
+                      </div>
 
-                        <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-3">
-                          <div className="text-right">
-                            <div className="text-2xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors duration-300">
-                              €{product.price}
-                            </div>
-                            <div className="text-sm text-gray-500">per unit</div>
+                      <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-3">
+                        <div className="text-right">
+                          <div className="text-2xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors duration-300">
+                            €{product.price}
                           </div>
-                          <div className="flex gap-2">
-                            <Link href={`/products/${product.id}`}>
-                              <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-2 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg">
-                                <ShoppingCart className="h-4 w-4 mr-2 group-hover:animate-bounce" />
-                                Buy Now
-                              </Button>
-                            </Link>
-                          </div>
+                          <div className="text-sm text-gray-500">per unit</div>
+                        </div>
+                        <div className="flex gap-2">
+                          <Link href={`/products/${product.id}`}>
+                            <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-2 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg">
+                              <ShoppingCart className="h-4 w-4 mr-2 group-hover:animate-bounce" />
+                              Buy Now
+                            </Button>
+                          </Link>
                         </div>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
-            )
-          })()}
+            </div>
+          )}
 
           {/* Profile Account Category */}
-          {(() => {
-            const profileProducts = allProducts.filter((product) => product.category === "profile")
-
-            if (profileProducts.length === 0) return null
-
-            return (
-              <div className="bg-gradient-to-r from-purple-50 via-pink-50 to-rose-50 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-[1.01]">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg transform hover:rotate-12 transition-transform duration-300">
-                    <span className="text-white font-bold text-xl">👤</span>
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-900">Profile Accounts</h3>
-                  <Badge className="bg-purple-100 text-purple-700 border-0 animate-bounce">Enterprise Ready</Badge>
+          {profileProducts.length > 0 && (
+            <div className="bg-gradient-to-r from-purple-50 via-pink-50 to-rose-50 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-[1.01]">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg transform hover:rotate-12 transition-transform duration-300">
+                  <span className="text-white font-bold text-xl">👤</span>
                 </div>
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900">Profile Accounts</h3>
+                <Badge className="bg-purple-100 text-purple-700 border-0 animate-bounce">Enterprise Ready</Badge>
+              </div>
 
-                <div className="grid gap-6 md:grid-cols-2">
-                  {profileProducts.map((product, index) => (
-                    <div
-                      key={product.id}
-                      className="bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1"
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                    >
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-0">
-                            <h4 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors duration-300 mb-0">
-                              {product.name.split(" ").map((word, index) => {
-                                const highlightWords = ["Verified", "Blue", "Tick", "Premium", "Super", "Strong"]
-                                const isHighlight = highlightWords.some((hw) => word.includes(hw))
-                                return (
-                                  <span key={index} className={isHighlight ? "text-purple-600 font-bold" : ""}>
-                                    {word}{" "}
-                                  </span>
-                                )
-                              })}
-                            </h4>
-                            <span className="text-green-500 animate-pulse">✓</span>
-                          </div>
-                          <p className="text-gray-600 text-sm mb-2 group-hover:text-gray-700 transition-colors duration-300">
-                            {product.description}
-                          </p>
-                          <div className="flex items-center gap-2 text-sm text-gray-500">
-                            <span className="flex items-center gap-1">
-                              <ShoppingBag className="h-4 w-4 group-hover:text-purple-500 transition-colors duration-300" />
-                              {product.purchases} purchased
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                              4.8 rating
-                            </span>
-                          </div>
+              <div className="grid gap-6 md:grid-cols-2">
+                {profileProducts.map((product, index) => (
+                  <div
+                    key={product.id}
+                    className="bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-0">
+                          <h4 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors duration-300 mb-0">
+                            {product.name.split(" ").map((word, index) => {
+                              const highlightWords = ["Verified", "Blue", "Tick", "Premium", "Super", "Strong"]
+                              const isHighlight = highlightWords.some((hw) => word.includes(hw))
+                              return (
+                                <span key={index} className={isHighlight ? "text-purple-600 font-bold" : ""}>
+                                  {word}{" "}
+                                </span>
+                              )
+                            })}
+                          </h4>
+                          <span className="text-green-500 animate-pulse">✓</span>
                         </div>
+                        <p className="text-gray-600 text-sm mb-2 group-hover:text-gray-700 transition-colors duration-300">
+                          {product.description}
+                        </p>
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <span className="flex items-center gap-1">
+                            <ShoppingBag className="h-4 w-4 group-hover:text-purple-500 transition-colors duration-300" />
+                            {product.purchases} purchased
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
+                            {product.rating?.toFixed(1) || "4.5"} rating
+                          </span>
+                        </div>
+                      </div>
 
-                        <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-3">
-                          <div className="text-right">
-                            <div className="text-2xl font-bold text-purple-600 group-hover:text-purple-700 transition-colors duration-300">
-                              €{product.price}
-                            </div>
-                            <div className="text-sm text-gray-500">per unit</div>
+                      <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-3">
+                        <div className="text-right">
+                          <div className="text-2xl font-bold text-purple-600 group-hover:text-purple-700 transition-colors duration-300">
+                            €{product.price}
                           </div>
-                          <div className="flex gap-2">
-                            <Link href={`/products/${product.id}`}>
-                              <Button className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-6 py-2 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg">
-                                <ShoppingCart className="h-4 w-4 mr-2 group-hover:animate-bounce" />
-                                Buy Now
-                              </Button>
-                            </Link>
-                          </div>
+                          <div className="text-sm text-gray-500">per unit</div>
+                        </div>
+                        <div className="flex gap-2">
+                          <Link href={`/products/${product.id}`}>
+                            <Button className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-6 py-2 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg">
+                              <ShoppingCart className="h-4 w-4 mr-2 group-hover:animate-bounce" />
+                              Buy Now
+                            </Button>
+                          </Link>
                         </div>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
-            )
-          })()}
+            </div>
+          )}
 
           {/* Show other categories if they exist */}
-          {(() => {
-            const otherProducts = allProducts.filter(
-              (product) => !["verified-bm", "unverified-bm", "profile"].includes(product.category),
-            )
-
-            if (otherProducts.length === 0) return null
-
-            // Group other products by category
-            const groupedProducts = otherProducts.reduce(
-              (acc, product) => {
-                if (!acc[product.category]) {
-                  acc[product.category] = []
-                }
-                acc[product.category].push(product)
-                return acc
-              },
-              {} as Record<string, typeof otherProducts>,
-            )
-
-            return Object.entries(groupedProducts).map(([category, products]) => (
-              <div
-                key={category}
-                className="bg-gradient-to-r from-green-50 via-emerald-50 to-teal-50 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-[1.01]"
-              >
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg transform hover:rotate-12 transition-transform duration-300">
-                    <span className="text-white font-bold text-xl">📊</span>
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 capitalize">
-                    {category.replace("-", " ")} Products
-                  </h3>
-                  <Badge className="bg-green-100 text-green-700 border-0 animate-bounce">Professional</Badge>
+          {Object.entries(groupedOtherProducts).map(([category, products]) => (
+            <div
+              key={category}
+              className="bg-gradient-to-r from-green-50 via-emerald-50 to-teal-50 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-[1.01]"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg transform hover:rotate-12 transition-transform duration-300">
+                  <span className="text-white font-bold text-xl">📊</span>
                 </div>
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 capitalize">
+                  {category.replace("-", " ")} Products
+                </h3>
+                <Badge className="bg-green-100 text-green-700 border-0 animate-bounce">Professional</Badge>
+              </div>
 
-                <div className="grid gap-6 md:grid-cols-2">
-                  {products.map((product, index) => (
-                    <div
-                      key={product.id}
-                      className="bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1"
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                    >
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-0">
-                            <h4 className="text-lg font-semibold text-gray-900 group-hover:text-green-600 transition-colors duration-300 mb-0">
-                              {product.name.split(" ").map((word, index) => {
-                                const highlightWords = [
-                                  "Verified",
-                                  "Blue",
-                                  "Tick",
-                                  "Premium",
-                                  "Super",
-                                  "Strong",
-                                  "Setup",
-                                ]
-                                const isHighlight = highlightWords.some((hw) => word.includes(hw))
-                                return (
-                                  <span key={index} className={isHighlight ? "text-green-600 font-bold" : ""}>
-                                    {word}{" "}
-                                  </span>
-                                )
-                              })}
-                            </h4>
-                            <span className="text-green-500 animate-pulse">✓</span>
-                          </div>
-                          <p className="text-gray-600 text-sm mb-2 group-hover:text-gray-700 transition-colors duration-300">
-                            {product.description}
-                          </p>
-                          <div className="flex items-center gap-2 text-sm text-gray-500">
-                            <span className="flex items-center gap-1">
-                              <ShoppingBag className="h-4 w-4 group-hover:text-green-500 transition-colors duration-300" />
-                              {product.purchases} purchased
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                              4.7 rating
-                            </span>
-                          </div>
+              <div className="grid gap-6 md:grid-cols-2">
+                {products.map((product, index) => (
+                  <div
+                    key={product.id}
+                    className="bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-0">
+                          <h4 className="text-lg font-semibold text-gray-900 group-hover:text-green-600 transition-colors duration-300 mb-0">
+                            {product.name.split(" ").map((word, index) => {
+                              const highlightWords = ["Verified", "Blue", "Tick", "Premium", "Super", "Strong", "Setup"]
+                              const isHighlight = highlightWords.some((hw) => word.includes(hw))
+                              return (
+                                <span key={index} className={isHighlight ? "text-green-600 font-bold" : ""}>
+                                  {word}{" "}
+                                </span>
+                              )
+                            })}
+                          </h4>
+                          <span className="text-green-500 animate-pulse">✓</span>
                         </div>
+                        <p className="text-gray-600 text-sm mb-2 group-hover:text-gray-700 transition-colors duration-300">
+                          {product.description}
+                        </p>
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <span className="flex items-center gap-1">
+                            <ShoppingBag className="h-4 w-4 group-hover:text-green-500 transition-colors duration-300" />
+                            {product.purchases} purchased
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
+                            {product.rating?.toFixed(1) || "4.5"} rating
+                          </span>
+                        </div>
+                      </div>
 
-                        <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-3">
-                          <div className="text-right">
-                            <div className="text-2xl font-bold text-green-600 group-hover:text-green-700 transition-colors duration-300">
-                              €{product.price}
-                            </div>
-                            <div className="text-sm text-gray-500">per unit</div>
+                      <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-3">
+                        <div className="text-right">
+                          <div className="text-2xl font-bold text-green-600 group-hover:text-green-700 transition-colors duration-300">
+                            €{product.price}
                           </div>
-                          <div className="flex gap-2">
-                            <Link href={`/products/${product.id}`}>
-                              <Button className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-2 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg">
-                                <ShoppingCart className="h-4 w-4 mr-2 group-hover:animate-bounce" />
-                                Buy Now
-                              </Button>
-                            </Link>
-                          </div>
+                          <div className="text-sm text-gray-500">per unit</div>
+                        </div>
+                        <div className="flex gap-2">
+                          <Link href={`/products/${product.id}`}>
+                            <Button className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-2 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg">
+                              <ShoppingCart className="h-4 w-4 mr-2 group-hover:animate-bounce" />
+                              Buy Now
+                            </Button>
+                          </Link>
                         </div>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
-            ))
-          })()}
+            </div>
+          ))}
 
           {/* View All Products CTA */}
           <div className="text-center mt-12">
