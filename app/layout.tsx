@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     apple: { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
     other: [{ rel: 'manifest', url: '/site.webmanifest' }],
   },
+    generator: 'v0.dev'
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
