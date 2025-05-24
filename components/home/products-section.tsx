@@ -115,7 +115,7 @@ export default function ProductsSection() {
                   <span className='text-white font-bold text-xl'>🏢</span>
                 </div>
                 <h3 className='text-xl md:text-2xl font-bold text-gray-900'>Business Managers</h3>
-                <Badge className='bg-blue-100 text-blue-700 border-0 animate-bounce'>
+                <Badge className='bg-blue-100 text-blue-700 border-0 animate-bounce hover:bg-transparent'>
                   Premium Quality
                 </Badge>
               </div>
@@ -129,13 +129,12 @@ export default function ProductsSection() {
                   >
                     <div className='flex flex-col md:flex-row md:items-center justify-between gap-2'>
                       <div className='flex-1'>
-                        <div className='flex items-center gap-2 mb-0'>
+                        <div className='flex items-center gap-2 mb-1'>
                           <h4 className='text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 mb-0'>
                             {highlightKeywords(product.name)}
                           </h4>
-                          <span className='text-green-500 animate-pulse'>✓</span>
                         </div>
-                        <p className='text-gray-600 text-sm mb-2 group-hover:text-gray-700 transition-colors duration-300'>
+                        <p className='text-gray-600 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-300'>
                           {product.description}
                         </p>
                         <div className='flex items-center gap-2 text-sm text-gray-500'>
@@ -148,15 +147,18 @@ export default function ProductsSection() {
 
                       <div className='flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-3'>
                         <div className='text-right'>
-                          <div className='text-2xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors duration-300'>
+                          <div className='text-xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors duration-300'>
                             €{product.price}
                           </div>
-                          <div className='text-sm text-gray-500'>per unit</div>
+                          <div className='text-xs text-gray-500'>per unit</div>
                         </div>
                         <div className='flex gap-2'>
                           <Link href={`/products/${product.id}`}>
-                            <Button className='bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-2 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg'>
-                              <ShoppingCart className='h-4 w-4 mr-2 group-hover:animate-bounce' />
+                            <Button
+                              size='sm'
+                              className='bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
+                            >
+                              <ShoppingCart className='h-3 w-3 mr-1.5 group-hover:animate-bounce' />
                               Buy Now
                             </Button>
                           </Link>
@@ -177,7 +179,7 @@ export default function ProductsSection() {
                   <span className='text-white font-bold text-xl'>👤</span>
                 </div>
                 <h3 className='text-xl md:text-2xl font-bold text-gray-900'>Profile Accounts</h3>
-                <Badge className='bg-purple-100 text-purple-700 border-0 animate-bounce'>
+                <Badge className='bg-purple-100 text-purple-700 border-0 animate-bounce hover:bg-transparent'>
                   Enterprise Ready
                 </Badge>
               </div>
@@ -191,31 +193,12 @@ export default function ProductsSection() {
                   >
                     <div className='flex flex-col md:flex-row md:items-center justify-between gap-2'>
                       <div className='flex-1'>
-                        <div className='flex items-center gap-2 mb-0'>
+                        <div className='flex items-center gap-2 mb-1'>
                           <h4 className='text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors duration-300 mb-0'>
-                            {product.name.split(' ').map((word, index) => {
-                              const highlightWords = [
-                                'Verified',
-                                'Blue',
-                                'Tick',
-                                'Premium',
-                                'Super',
-                                'Strong',
-                              ]
-                              const isHighlight = highlightWords.some((hw) => word.includes(hw))
-                              return (
-                                <span
-                                  key={index}
-                                  className={isHighlight ? 'text-purple-600 font-bold' : ''}
-                                >
-                                  {word}{' '}
-                                </span>
-                              )
-                            })}
+                            {highlightKeywords(product.name)}
                           </h4>
-                          <span className='text-green-500 animate-pulse'>✓</span>
                         </div>
-                        <p className='text-gray-600 text-sm mb-2 group-hover:text-gray-700 transition-colors duration-300'>
+                        <p className='text-gray-600 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-300'>
                           {product.description}
                         </p>
                         <div className='flex items-center gap-2 text-sm text-gray-500'>
@@ -228,15 +211,18 @@ export default function ProductsSection() {
 
                       <div className='flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-3'>
                         <div className='text-right'>
-                          <div className='text-2xl font-bold text-purple-600 group-hover:text-purple-700 transition-colors duration-300'>
+                          <div className='text-xl font-bold text-purple-600 group-hover:text-purple-700 transition-colors duration-300'>
                             €{product.price}
                           </div>
-                          <div className='text-sm text-gray-500'>per unit</div>
+                          <div className='text-xs text-gray-500'>per unit</div>
                         </div>
                         <div className='flex gap-2'>
                           <Link href={`/products/${product.id}`}>
-                            <Button className='bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-6 py-2 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg'>
-                              <ShoppingCart className='h-4 w-4 mr-2 group-hover:animate-bounce' />
+                            <Button
+                              size='sm'
+                              className='bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
+                            >
+                              <ShoppingCart className='h-3 w-3 mr-1.5 group-hover:animate-bounce' />
                               Buy Now
                             </Button>
                           </Link>
@@ -262,7 +248,7 @@ export default function ProductsSection() {
                 <h3 className='text-xl md:text-2xl font-bold text-gray-900 capitalize'>
                   {category.replace('-', ' ')} Products
                 </h3>
-                <Badge className='bg-green-100 text-green-700 border-0 animate-bounce'>
+                <Badge className='bg-green-100 text-green-700 border-0 animate-bounce hover:bg-transparent'>
                   Professional
                 </Badge>
               </div>
@@ -276,32 +262,12 @@ export default function ProductsSection() {
                   >
                     <div className='flex flex-col md:flex-row md:items-center justify-between gap-2'>
                       <div className='flex-1'>
-                        <div className='flex items-center gap-2 mb-0'>
+                        <div className='flex items-center gap-2 mb-1'>
                           <h4 className='text-lg font-semibold text-gray-900 group-hover:text-green-600 transition-colors duration-300 mb-0'>
-                            {product.name.split(' ').map((word, index) => {
-                              const highlightWords = [
-                                'Verified',
-                                'Blue',
-                                'Tick',
-                                'Premium',
-                                'Super',
-                                'Strong',
-                                'Setup',
-                              ]
-                              const isHighlight = highlightWords.some((hw) => word.includes(hw))
-                              return (
-                                <span
-                                  key={index}
-                                  className={isHighlight ? 'text-green-600 font-bold' : ''}
-                                >
-                                  {word}{' '}
-                                </span>
-                              )
-                            })}
+                            {highlightKeywords(product.name)}
                           </h4>
-                          <span className='text-green-500 animate-pulse'>✓</span>
                         </div>
-                        <p className='text-gray-600 text-sm mb-2 group-hover:text-gray-700 transition-colors duration-300'>
+                        <p className='text-gray-600 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-300'>
                           {product.description}
                         </p>
                         <div className='flex items-center gap-2 text-sm text-gray-500'>
@@ -314,15 +280,18 @@ export default function ProductsSection() {
 
                       <div className='flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-3'>
                         <div className='text-right'>
-                          <div className='text-2xl font-bold text-green-600 group-hover:text-green-700 transition-colors duration-300'>
+                          <div className='text-xl font-bold text-green-600 group-hover:text-green-700 transition-colors duration-300'>
                             €{product.price}
                           </div>
-                          <div className='text-sm text-gray-500'>per unit</div>
+                          <div className='text-xs text-gray-500'>per unit</div>
                         </div>
                         <div className='flex gap-2'>
                           <Link href={`/products/${product.id}`}>
-                            <Button className='bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-2 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg'>
-                              <ShoppingCart className='h-4 w-4 mr-2 group-hover:animate-bounce' />
+                            <Button
+                              size='sm'
+                              className='bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
+                            >
+                              <ShoppingCart className='h-3 w-3 mr-1.5 group-hover:animate-bounce' />
                               Buy Now
                             </Button>
                           </Link>
