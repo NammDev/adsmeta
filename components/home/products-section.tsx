@@ -7,8 +7,17 @@ import { ChevronRight, ShoppingBag, ShoppingCart } from 'lucide-react'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { useCart } from '@/context/cart-context'
 import { getProductSectionItems, type ProductSectionItem } from '@/data/products'
+import SectionHeader from '../ui/section-header'
 
-export default function ProductsSection() {
+interface ProductsSectionProps {
+  showViewAllButton?: boolean
+  maxProductsPerCategory?: number
+}
+
+export default function ProductsSection({
+  showViewAllButton = true,
+  maxProductsPerCategory,
+}: ProductsSectionProps) {
   const isMobile = useMediaQuery('(max-width: 768px)')
   const { addItem, openCart } = useCart()
 
@@ -16,15 +25,22 @@ export default function ProductsSection() {
   const allProducts = getProductSectionItems()
 
   // Group products by category for the new UI
-  const businessManagerProducts = allProducts.filter(
+  let businessManagerProducts = allProducts.filter(
     (product) => product.category === 'verified-bm' || product.category === 'unverified-bm'
   )
 
-  const profileProducts = allProducts.filter((product) => product.category === 'profile')
+  let profileProducts = allProducts.filter((product) => product.category === 'profile')
 
-  const otherProducts = allProducts.filter(
+  let otherProducts = allProducts.filter(
     (product) => !['verified-bm', 'unverified-bm', 'profile'].includes(product.category)
   )
+
+  // Limit products per category if specified (for landing page)
+  if (maxProductsPerCategory) {
+    businessManagerProducts = businessManagerProducts.slice(0, maxProductsPerCategory)
+    profileProducts = profileProducts.slice(0, maxProductsPerCategory)
+    otherProducts = otherProducts.slice(0, maxProductsPerCategory)
+  }
 
   // Group other products by category
   const groupedOtherProducts = otherProducts.reduce((acc, product) => {
@@ -89,21 +105,11 @@ export default function ProductsSection() {
     <section id='products' className='py-16 relative overflow-hidden'>
       <div className='container mx-auto px-4 relative'>
         {/* Header Section */}
-        <div className='max-w-4xl mx-auto text-center mb-12'>
-          <Badge className='bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md px-4 py-1 text-sm animate-pulse'>
-            Our Products
-          </Badge>
-          <h2 className='text-2xl md:text-3xl lg:text-4xl font-bold mb-4 relative inline-block'>
-            <span className='relative z-10 bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent'>
-              Premium Solutions
-            </span>
-            <div className='absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 opacity-50 rounded-full animate-pulse'></div>
-          </h2>
-          <p className='text-lg text-gray-600 max-w-2xl mx-auto'>
-            Discover our carefully crafted solutions designed to elevate your marketing strategy and
-            drive results
-          </p>
-        </div>
+        <SectionHeader
+          badge='Our Products'
+          title='Premium Solutions'
+          subtitle='Discover our carefully crafted solutions designed to elevate your marketing strategy and drive results'
+        />
 
         {/* Category-based Product Listing */}
         <div className='space-y-8'>
@@ -127,7 +133,47 @@ export default function ProductsSection() {
                     className='bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1'
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className='flex flex-col md:flex-row md:items-center justify-between gap-2'>
+                    {/* Mobile Layout */}
+                    <div className='flex flex-col gap-3 md:hidden'>
+                      <div className='flex-1'>
+                        <div className='flex items-center gap-2 mb-2'>
+                          <h4 className='text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 mb-0'>
+                            {highlightKeywords(product.name)}
+                          </h4>
+                        </div>
+                        <p className='text-gray-600 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-300'>
+                          {product.description}
+                        </p>
+                        <div className='flex items-center gap-2 text-sm text-gray-500'>
+                          <span className='flex items-center gap-1'>
+                            <ShoppingBag className='h-4 w-4 group-hover:text-blue-500 transition-colors duration-300' />
+                            {product.purchases} purchased
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className='flex flex-row items-center justify-between gap-3'>
+                        <div className='text-left'>
+                          <div className='text-xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors duration-300'>
+                            €{product.price}
+                          </div>
+                          <div className='text-xs text-gray-500'>per unit</div>
+                        </div>
+                        <div className='flex gap-2'>
+                          <Link href={`/products/${product.id}`}>
+                            <Button
+                              size='sm'
+                              className='bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
+                            >
+                              Buy Now
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Desktop Layout */}
+                    <div className='hidden md:flex md:flex-row md:items-center justify-between gap-2'>
                       <div className='flex-1'>
                         <div className='flex items-center gap-2 mb-1'>
                           <h4 className='text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 mb-0'>
@@ -145,7 +191,7 @@ export default function ProductsSection() {
                         </div>
                       </div>
 
-                      <div className='flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-3'>
+                      <div className='flex flex-row items-center gap-3'>
                         <div className='text-right'>
                           <div className='text-xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors duration-300'>
                             €{product.price}
@@ -191,7 +237,47 @@ export default function ProductsSection() {
                     className='bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1'
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className='flex flex-col md:flex-row md:items-center justify-between gap-2'>
+                    {/* Mobile Layout */}
+                    <div className='flex flex-col gap-3 md:hidden'>
+                      <div className='flex-1'>
+                        <div className='flex items-center gap-2 mb-2'>
+                          <h4 className='text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors duration-300 mb-0'>
+                            {highlightKeywords(product.name)}
+                          </h4>
+                        </div>
+                        <p className='text-gray-600 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-300'>
+                          {product.description}
+                        </p>
+                        <div className='flex items-center gap-2 text-sm text-gray-500'>
+                          <span className='flex items-center gap-1'>
+                            <ShoppingBag className='h-4 w-4 group-hover:text-purple-500 transition-colors duration-300' />
+                            {product.purchases} purchased
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className='flex flex-row items-center justify-between gap-3'>
+                        <div className='text-left'>
+                          <div className='text-xl font-bold text-purple-600 group-hover:text-purple-700 transition-colors duration-300'>
+                            €{product.price}
+                          </div>
+                          <div className='text-xs text-gray-500'>per unit</div>
+                        </div>
+                        <div className='flex gap-2'>
+                          <Link href={`/products/${product.id}`}>
+                            <Button
+                              size='sm'
+                              className='bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
+                            >
+                              Buy Now
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Desktop Layout */}
+                    <div className='hidden md:flex md:flex-row md:items-center justify-between gap-2'>
                       <div className='flex-1'>
                         <div className='flex items-center gap-2 mb-1'>
                           <h4 className='text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors duration-300 mb-0'>
@@ -209,7 +295,7 @@ export default function ProductsSection() {
                         </div>
                       </div>
 
-                      <div className='flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-3'>
+                      <div className='flex flex-row items-center gap-3'>
                         <div className='text-right'>
                           <div className='text-xl font-bold text-purple-600 group-hover:text-purple-700 transition-colors duration-300'>
                             €{product.price}
@@ -260,7 +346,47 @@ export default function ProductsSection() {
                     className='bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1'
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className='flex flex-col md:flex-row md:items-center justify-between gap-2'>
+                    {/* Mobile Layout */}
+                    <div className='flex flex-col gap-3 md:hidden'>
+                      <div className='flex-1'>
+                        <div className='flex items-center gap-2 mb-2'>
+                          <h4 className='text-lg font-semibold text-gray-900 group-hover:text-green-600 transition-colors duration-300 mb-0'>
+                            {highlightKeywords(product.name)}
+                          </h4>
+                        </div>
+                        <p className='text-gray-600 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-300'>
+                          {product.description}
+                        </p>
+                        <div className='flex items-center gap-2 text-sm text-gray-500'>
+                          <span className='flex items-center gap-1'>
+                            <ShoppingBag className='h-4 w-4 group-hover:text-green-500 transition-colors duration-300' />
+                            {product.purchases} purchased
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className='flex flex-row items-center justify-between gap-3'>
+                        <div className='text-left'>
+                          <div className='text-xl font-bold text-green-600 group-hover:text-green-700 transition-colors duration-300'>
+                            €{product.price}
+                          </div>
+                          <div className='text-xs text-gray-500'>per unit</div>
+                        </div>
+                        <div className='flex gap-2'>
+                          <Link href={`/products/${product.id}`}>
+                            <Button
+                              size='sm'
+                              className='bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
+                            >
+                              Buy Now
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Desktop Layout */}
+                    <div className='hidden md:flex md:flex-row md:items-center justify-between gap-2'>
                       <div className='flex-1'>
                         <div className='flex items-center gap-2 mb-1'>
                           <h4 className='text-lg font-semibold text-gray-900 group-hover:text-green-600 transition-colors duration-300 mb-0'>
@@ -278,7 +404,7 @@ export default function ProductsSection() {
                         </div>
                       </div>
 
-                      <div className='flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-3'>
+                      <div className='flex flex-row items-center gap-3'>
                         <div className='text-right'>
                           <div className='text-xl font-bold text-green-600 group-hover:text-green-700 transition-colors duration-300'>
                             €{product.price}
@@ -305,14 +431,16 @@ export default function ProductsSection() {
           ))}
 
           {/* View All Products CTA */}
-          <div className='text-center mt-12'>
-            <Link href='/products'>
-              <Button className='bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 text-white px-8 py-3 rounded-full text-lg font-medium shadow-lg transition-all duration-500 hover:scale-110 hover:shadow-2xl transform hover:-translate-y-1 animate-pulse'>
-                View All Products
-                <ChevronRight className='h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform duration-300' />
-              </Button>
-            </Link>
-          </div>
+          {showViewAllButton && (
+            <div className='text-center mt-12'>
+              <Link href='/products'>
+                <Button className='bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 text-white px-8 py-3 rounded-full text-lg font-medium shadow-lg transition-all duration-500 hover:scale-110 hover:shadow-2xl transform hover:-translate-y-1 animate-pulse'>
+                  View All Products
+                  <ChevronRight className='h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform duration-300' />
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </section>

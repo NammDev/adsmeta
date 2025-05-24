@@ -2,6 +2,7 @@ import Image from 'next/image'
 import SupportingPageLayout from '@/components/layout/supporting-page-layout'
 import { Award, Users, Clock, Globe, Shield } from 'lucide-react'
 import PageSection from '@/components/page-section'
+import SectionHeader from '@/components/ui/section-header'
 
 export default function AboutUsPage() {
   return (
@@ -11,19 +12,11 @@ export default function AboutUsPage() {
     >
       {/* Company Background - Title Section */}
       <PageSection className='pt-6 md:pt-8 pb-0'>
-        <div className='text-center mb-10'>
-          <div className='flex items-center justify-center gap-3 mb-2'>
-            <div className='inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md'>
-              <Clock className='w-4 h-4 mr-1' />
-              <span>Our Journey Since 2016</span>
-            </div>
-            <h2 className='text-3xl md:text-4xl font-bold'>Our Story</h2>
-          </div>
-          <div className='h-1 w-20 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full'></div>
-          <p className='mt-4 text-gray-600 max-w-3xl mx-auto'>
-            From a small operation to a trusted provider of Facebook advertising solutions worldwide
-          </p>
-        </div>
+        <SectionHeader
+          badge='Our Journey Since 2016'
+          title='Our Story'
+          subtitle='From a small operation to a trusted provider of Facebook advertising solutions worldwide'
+        />
       </PageSection>
 
       {/* Company Background - Content Section */}
@@ -93,16 +86,11 @@ export default function AboutUsPage() {
 
       {/* Mission Statement - Title Section */}
       <PageSection className='pt-6 md:pt-8 pb-0'>
-        <div className='text-center mb-10'>
-          <div className='flex items-center justify-center gap-3 mb-2'>
-            <div className='inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-purple-500 to-pink-600 text-white shadow-md'>
-              <Award className='w-4 h-4 mr-1' />
-              <span>Our Purpose</span>
-            </div>
-            <h2 className='text-3xl md:text-4xl font-bold'>Our Mission</h2>
-          </div>
-          <div className='h-1 w-20 bg-gradient-to-r from-purple-500 to-pink-600 mx-auto rounded-full'></div>
-        </div>
+        <SectionHeader
+          badge='Our Purpose'
+          title='Our Mission'
+          subtitle='To empower businesses of all sizes with reliable, high-quality Facebook advertising assets that drive growth and success in the digital marketplace.'
+        />
       </PageSection>
 
       {/* Mission Statement - Content Section */}
@@ -168,19 +156,13 @@ export default function AboutUsPage() {
 
       {/* Team Introduction - Title Section */}
       <PageSection className='pt-6 md:pt-8 pb-0'>
-        <div className='text-center mb-10'>
-          <div className='flex items-center justify-center gap-3 mb-2'>
-            <div className='inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-green-500 to-teal-600 text-white shadow-md'>
-              <Users className='w-4 h-4 mr-1' />
-              <span>Meet Our Experts</span>
-            </div>
-            <h2 className='text-3xl md:text-4xl font-bold'>Team Members</h2>
-          </div>
-          <div className='h-1 w-20 bg-gradient-to-r from-green-500 to-teal-600 mx-auto rounded-full'></div>
-          <p className='mt-4 text-gray-600 max-w-2xl mx-auto'>
-            The experts behind EasyAdsPack committed to your success
-          </p>
-        </div>
+        <SectionHeader
+          badge='Meet Our Experts'
+          title='Team Members'
+          subtitle='The experts behind EasyAdsPack committed to your success'
+          badgeClassName='bg-gradient-to-r from-green-500 to-teal-600'
+          borderClassName='from-green-500 to-teal-600'
+        />
       </PageSection>
 
       {/* Team Introduction - Content Section */}
