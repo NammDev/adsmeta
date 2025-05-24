@@ -7,25 +7,11 @@ import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Star, ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useCart } from "@/context/cart-context"
 import { cn } from "@/lib/utils"
 import { useMediaQuery } from "@/hooks/use-media-query"
-import { getRelatedProducts } from "@/data/products"
-
-// Product type definition
-interface RelatedProduct {
-  id: string
-  slug: string
-  name: string
-  description: string
-  price: number
-  image: string
-  category: string
-  badge?: string
-  rating?: number
-  purchases?: number
-}
+import { getRelatedProducts, getAllProducts } from "@/data/products"
 
 interface RelatedProductsProps {
   currentProductId: string
@@ -46,8 +32,44 @@ export default function RelatedProducts({
   const [activeIndex, setActiveIndex] = useState(0)
   const [isHovering, setIsHovering] = useState(false)
 
-  // Get real related products from data
-  const relatedProducts = getRelatedProducts(currentProductId)
+  // Get products to display
+  const getProductsToShow = () => {
+    // First get related products
+    const products = getRelatedProducts(currentProductId)
+
+    // If we have less than 8, add more products
+    if (products.length < 8) {
+      const allProducts = getAllProducts()
+      const currentProductIds = new Set([currentProductId, ...products.map((p) => p.id)])
+
+      // First, add products from the same category
+      const sameCategoryProducts = allProducts.filter(
+        (product) => product.category === currentCategory && !currentProductIds.has(product.id),
+      )
+
+      for (const product of sameCategoryProducts) {
+        if (products.length >= 8) break
+        products.push(product)
+        currentProductIds.add(product.id)
+      }
+
+      // If still less than 8, add products from other categories
+      if (products.length < 8) {
+        const otherProducts = allProducts.filter(
+          (product) => product.category !== currentCategory && !currentProductIds.has(product.id),
+        )
+
+        for (const product of otherProducts) {
+          if (products.length >= 8) break
+          products.push(product)
+        }
+      }
+    }
+
+    return products.slice(0, 8)
+  }
+
+  const productsToShow = getProductsToShow()
 
   // Scroll carousel left
   const scrollLeft = () => {
@@ -55,7 +77,6 @@ export default function RelatedProducts({
       const scrollAmount = isMobile ? -180 : -320
       carouselRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" })
 
-      // Update active index
       const newIndex = Math.max(0, activeIndex - 1)
       setActiveIndex(newIndex)
     }
@@ -67,8 +88,7 @@ export default function RelatedProducts({
       const scrollAmount = isMobile ? 180 : 320
       carouselRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" })
 
-      // Update active index
-      const newIndex = Math.min(relatedProducts.length - (isMobile ? 2 : 4), activeIndex + 1)
+      const newIndex = Math.min(productsToShow.length - (isMobile ? 2 : 4), activeIndex + 1)
       setActiveIndex(newIndex)
     }
   }
@@ -78,10 +98,9 @@ export default function RelatedProducts({
     if (isHovering) return
 
     const interval = setInterval(() => {
-      if (activeIndex < relatedProducts.length - (isMobile ? 2 : 4)) {
+      if (activeIndex < productsToShow.length - (isMobile ? 2 : 4)) {
         scrollRight()
       } else {
-        // Reset to beginning
         if (carouselRef.current) {
           carouselRef.current.scrollTo({ left: 0, behavior: "smooth" })
           setActiveIndex(0)
@@ -90,17 +109,16 @@ export default function RelatedProducts({
     }, 5000)
 
     return () => clearInterval(interval)
-  }, [activeIndex, relatedProducts.length, isMobile, isHovering])
+  }, [activeIndex, productsToShow.length, isMobile, isHovering])
 
-  // Render product card with vibrant styling
+  // Render product card
   const renderProductCard = (product: any) => (
     <Card className="border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg h-full bg-white relative group hover:border-blue-300">
-      <CardContent className={`${isMobile ? "p-4" : "p-6"} relative z-10`}>
-        {/* Badge if any */}
-        {product.badge && (
-          <div className="mb-3">
-            <Badge
-              className={`
+      {/* Badge positioned absolutely */}
+      {product.badge && (
+        <div className="absolute top-3 right-3 z-10">
+          <Badge
+            className={`
             ${
               product.badge === "Popular"
                 ? "bg-gradient-to-r from-amber-400 to-orange-500"
@@ -111,12 +129,13 @@ export default function RelatedProducts({
                     : "bg-gradient-to-r from-blue-500 to-indigo-600"
             } 
             text-white border-0 shadow-sm px-2 py-1 text-xs`}
-            >
-              {product.badge}
-            </Badge>
-          </div>
-        )}
+          >
+            {product.badge}
+          </Badge>
+        </div>
+      )}
 
+      <CardContent className={`${isMobile ? "p-4" : "p-6"} relative z-10`}>
         {/* Product category */}
         <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">{product.category}</div>
 
@@ -130,21 +149,8 @@ export default function RelatedProducts({
         {/* Product description */}
         <p className="text-sm text-gray-600 mb-4 line-clamp-3">{product.shortDescription || product.description}</p>
 
-        {/* Rating and purchases */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-1">
-            <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-            <span className="text-sm font-medium">{(product.rating || 4.5).toFixed(1)}</span>
-            <span className="text-xs text-gray-500">({product.purchases || 0})</span>
-          </div>
-          <div className="flex items-center gap-1 text-gray-600">
-            <ShoppingBag className="h-3 w-3" />
-            <span className="text-xs">{product.purchases || 0} sold</span>
-          </div>
-        </div>
-
         {/* Price and action */}
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mt-auto">
           <div className="flex flex-col">
             <span
               className={`${isMobile ? "text-xl" : "text-2xl"} font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent`}
@@ -168,7 +174,7 @@ export default function RelatedProducts({
     </Card>
   )
 
-  if (relatedProducts.length === 0) return null
+  if (productsToShow.length === 0) return null
 
   return (
     <div className={cn("relative pt-8 pb-0", className)}>
@@ -221,7 +227,7 @@ export default function RelatedProducts({
             className="flex gap-4 overflow-x-auto pb-6 pt-1 scrollbar-hide snap-x"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            {relatedProducts.map((product) => (
+            {productsToShow.map((product) => (
               <div
                 key={product.id}
                 className={`${isMobile ? "min-w-[180px] w-[180px]" : "min-w-[280px] w-[280px]"} flex-none snap-start`}
@@ -243,7 +249,7 @@ export default function RelatedProducts({
 
         {/* Pagination Indicators */}
         <div className="flex justify-center mt-4 gap-1.5">
-          {Array.from({ length: Math.max(0, relatedProducts.length - (isMobile ? 1 : 3)) }).map((_, index) => (
+          {Array.from({ length: Math.max(0, productsToShow.length - (isMobile ? 1 : 3)) }).map((_, index) => (
             <button
               key={index}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
