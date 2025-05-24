@@ -10,14 +10,10 @@ import { getProductSectionItems, type ProductSectionItem } from '@/data/products
 import SectionHeader from '../ui/section-header'
 
 interface ProductsSectionProps {
-  showViewAllButton?: boolean
-  maxProductsPerCategory?: number
+  isProductsPage?: boolean
 }
 
-export default function ProductsSection({
-  showViewAllButton = true,
-  maxProductsPerCategory,
-}: ProductsSectionProps) {
+export default function ProductsSection({ isProductsPage = false }: ProductsSectionProps) {
   const isMobile = useMediaQuery('(max-width: 768px)')
   const { addItem, openCart } = useCart()
 
@@ -34,13 +30,6 @@ export default function ProductsSection({
   let otherProducts = allProducts.filter(
     (product) => !['verified-bm', 'unverified-bm', 'profile'].includes(product.category)
   )
-
-  // Limit products per category if specified (for landing page)
-  if (maxProductsPerCategory) {
-    businessManagerProducts = businessManagerProducts.slice(0, maxProductsPerCategory)
-    profileProducts = profileProducts.slice(0, maxProductsPerCategory)
-    otherProducts = otherProducts.slice(0, maxProductsPerCategory)
-  }
 
   // Group other products by category
   const groupedOtherProducts = otherProducts.reduce((acc, product) => {
@@ -102,7 +91,10 @@ export default function ProductsSection({
   }
 
   return (
-    <section id='products' className='py-16 relative overflow-hidden'>
+    <section
+      id='products'
+      className={`relative overflow-hidden ${isProductsPage ? 'pb-0 pt-8' : 'py-16'}`}
+    >
       <div className='container mx-auto px-4 relative'>
         {/* Header Section */}
         <SectionHeader
@@ -429,18 +421,6 @@ export default function ProductsSection({
               </div>
             </div>
           ))}
-
-          {/* View All Products CTA */}
-          {showViewAllButton && (
-            <div className='text-center mt-12'>
-              <Link href='/products'>
-                <Button className='bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 text-white px-8 py-3 rounded-full text-lg font-medium shadow-lg transition-all duration-500 hover:scale-110 hover:shadow-2xl transform hover:-translate-y-1 animate-pulse'>
-                  View All Products
-                  <ChevronRight className='h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform duration-300' />
-                </Button>
-              </Link>
-            </div>
-          )}
         </div>
       </div>
     </section>

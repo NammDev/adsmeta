@@ -15,7 +15,7 @@ export default function ProductsPage() {
     >
       {/* Content Section */}
       <PageSection className='pt-0 pb-12'>
-        <ProductsSection showViewAllButton={false} />
+        <ProductsSection isProductsPage={true} />
       </PageSection>
     </SupportingPageLayout>
   )
