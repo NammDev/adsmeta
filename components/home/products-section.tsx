@@ -8,7 +8,17 @@ import { useMediaQuery } from "@/hooks/use-media-query"
 import { useCart } from "@/context/cart-context"
 import { getProductSectionItems, type ProductSectionItem } from "@/data/products"
 
-export default function ProductsSection() {
+interface ProductsSectionProps {
+  showHeader?: boolean
+  showViewAllButton?: boolean
+  maxProductsPerCategory?: number
+}
+
+export default function ProductsSection({
+  showHeader = true,
+  showViewAllButton = true,
+  maxProductsPerCategory,
+}: ProductsSectionProps) {
   const isMobile = useMediaQuery("(max-width: 768px)")
   const { addItem, openCart } = useCart()
 
@@ -16,15 +26,22 @@ export default function ProductsSection() {
   const allProducts = getProductSectionItems()
 
   // Group products by category for the new UI
-  const businessManagerProducts = allProducts.filter(
+  let businessManagerProducts = allProducts.filter(
     (product) => product.category === "verified-bm" || product.category === "unverified-bm",
   )
 
-  const profileProducts = allProducts.filter((product) => product.category === "profile")
+  let profileProducts = allProducts.filter((product) => product.category === "profile")
 
-  const otherProducts = allProducts.filter(
+  let otherProducts = allProducts.filter(
     (product) => !["verified-bm", "unverified-bm", "profile"].includes(product.category),
   )
+
+  // Limit products per category if specified (for landing page)
+  if (maxProductsPerCategory) {
+    businessManagerProducts = businessManagerProducts.slice(0, maxProductsPerCategory)
+    profileProducts = profileProducts.slice(0, maxProductsPerCategory)
+    otherProducts = otherProducts.slice(0, maxProductsPerCategory)
+  }
 
   // Group other products by category
   const groupedOtherProducts = otherProducts.reduce(
@@ -83,20 +100,22 @@ export default function ProductsSection() {
     <section id="products" className="py-16 relative overflow-hidden">
       <div className="container mx-auto px-4 relative">
         {/* Header Section */}
-        <div className="max-w-4xl mx-auto text-center mb-12">
-          <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md px-4 py-1 text-sm animate-pulse">
-            Our Products
-          </Badge>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 relative inline-block">
-            <span className="relative z-10 bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent">
-              Premium Solutions
-            </span>
-            <div className="absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 opacity-50 rounded-full animate-pulse"></div>
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover our carefully crafted solutions designed to elevate your marketing strategy and drive results
-          </p>
-        </div>
+        {showHeader && (
+          <div className="max-w-4xl mx-auto text-center mb-12">
+            <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md px-4 py-1 text-sm animate-pulse">
+              Our Products
+            </Badge>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 relative inline-block">
+              <span className="relative z-10 bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent">
+                Premium Solutions
+              </span>
+              <div className="absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 opacity-50 rounded-full animate-pulse"></div>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Discover our carefully crafted solutions designed to elevate your marketing strategy and drive results
+            </p>
+          </div>
+        )}
 
         {/* Category-based Product Listing */}
         <div className="space-y-8">
@@ -418,14 +437,16 @@ export default function ProductsSection() {
           ))}
 
           {/* View All Products CTA */}
-          <div className="text-center mt-12">
-            <Link href="/products">
-              <Button className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 text-white px-8 py-3 rounded-full text-lg font-medium shadow-lg transition-all duration-500 hover:scale-110 hover:shadow-2xl transform hover:-translate-y-1 animate-pulse">
-                View All Products
-                <ChevronRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-              </Button>
-            </Link>
-          </div>
+          {showViewAllButton && (
+            <div className="text-center mt-12">
+              <Link href="/products">
+                <Button className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 text-white px-8 py-3 rounded-full text-lg font-medium shadow-lg transition-all duration-500 hover:scale-110 hover:shadow-2xl transform hover:-translate-y-1 animate-pulse">
+                  View All Products
+                  <ChevronRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </section>
