@@ -138,8 +138,10 @@ export default function PackagesSection() {
             Packages
           </Badge>
           <h2 className='text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 relative inline-block'>
-            <span className='relative z-10'>Choose Your Package</span>
-            <div className='absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full'></div>
+            <span className='relative z-10 bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent'>
+              Choose Your Package
+            </span>
+            <div className='absolute -bottom-2 left-0 right-0 h-2.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full'></div>
           </h2>
           <p className='text-lg text-gray-600'>
             Select the perfect solution for your advertising needs
