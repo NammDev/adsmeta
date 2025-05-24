@@ -14,6 +14,7 @@ import SupportingPageLayout from '@/components/layout/supporting-page-layout'
 import PageSection from '@/components/page-section'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import SectionHeader from '@/components/ui/section-header'
 
 export default function ContactPage() {
   return (
@@ -23,20 +24,12 @@ export default function ContactPage() {
     >
       {/* Title Section with proper spacing */}
       <PageSection className='pt-6 md:pt-8 pb-0'>
-        <div className='max-w-5xl mx-auto mb-10'>
-          <div className='flex items-center justify-center gap-3'>
-            <Badge className='bg-gradient-to-r from-pink-500 to-purple-600 text-white border-0 shadow-md px-4 py-1 text-sm'>
-              Fast Response Channels
-            </Badge>
-            <h2 className='text-2xl md:text-3xl font-bold relative inline-block'>
-              Connect With Us Instantly
-              <span className='absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full'></span>
-            </h2>
-          </div>
-          <p className='text-gray-600 max-w-2xl mx-auto text-center mt-4'>
-            Get the fastest support through our messaging channels
-          </p>
-        </div>
+        <SectionHeader
+          badge='Fast Response Channels'
+          title='Connect With Us Instantly'
+          subtitle='Get the fastest support through our messaging channels'
+          badgeClassName='bg-gradient-to-r from-pink-500 to-purple-600'
+        />
       </PageSection>
 
       {/* Messaging Channels Section - No top padding */}
@@ -135,21 +128,13 @@ export default function ContactPage() {
 
       {/* Additional Options Section */}
       <PageSection className='pt-6 md:pt-8 pb-0'>
-        <div className='max-w-4xl mx-auto mb-10'>
-          <div className='flex items-center justify-center gap-3'>
-            <Badge className='bg-gradient-to-r from-purple-500 to-indigo-600 text-white border-0 shadow-md px-4 py-1 text-sm'>
-              Additional Options
-            </Badge>
-            <h2 className='text-2xl md:text-3xl font-bold relative inline-block'>
-              Other Ways to Reach Us
-              <span className='absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-purple-400 to-indigo-500 rounded-full'></span>
-            </h2>
-          </div>
-          <p className='text-gray-600 max-w-2xl mx-auto text-center mt-4'>
-            While WhatsApp and Telegram offer the fastest response times, you can also reach us
-            through these channels
-          </p>
-        </div>
+        <SectionHeader
+          badge='Additional Options'
+          title='Other Ways to Reach Us'
+          subtitle='While WhatsApp and Telegram offer the fastest response times, you can also reach us through these channels'
+          badgeClassName='bg-gradient-to-r from-purple-500 to-indigo-600'
+          borderClassName='from-purple-400 to-indigo-500 h-2'
+        />
       </PageSection>
 
       {/* Contact Methods Section - No top padding */}
@@ -261,20 +246,13 @@ export default function ContactPage() {
 
       {/* FAQ Section */}
       <PageSection className='pt-6 md:pt-8 pb-0'>
-        <div className='max-w-4xl mx-auto mb-10'>
-          <div className='flex items-center justify-center gap-3'>
-            <Badge className='bg-gradient-to-r from-blue-500 to-cyan-600 text-white border-0 shadow-md px-4 py-1 text-sm'>
-              Quick Answers
-            </Badge>
-            <h2 className='text-2xl md:text-3xl font-bold relative inline-block'>
-              Frequently Asked Questions
-              <span className='absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full'></span>
-            </h2>
-          </div>
-          <p className='text-gray-600 max-w-2xl mx-auto text-center mt-4'>
-            Find quick answers to common questions
-          </p>
-        </div>
+        <SectionHeader
+          badge='Quick Answers'
+          title='Frequently Asked Questions'
+          subtitle='Find quick answers to common questions'
+          badgeClassName='bg-gradient-to-r from-blue-500 to-cyan-600'
+          borderClassName='from-blue-400 to-cyan-500 h-2'
+        />
       </PageSection>
 
       {/* FAQ Cards - No top padding */}

@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/badge"
+import { Badge } from '@/components/ui/badge'
 
 interface SectionHeaderProps {
   badge?: string
@@ -7,17 +7,17 @@ interface SectionHeaderProps {
   className?: string
   badgeClassName?: string
   titleClassName?: string
-  subtitleClassName?: string
+  borderClassName?: string
 }
 
 export default function SectionHeader({
   badge,
   title,
   subtitle,
-  className = "",
-  badgeClassName = "",
-  titleClassName = "",
-  subtitleClassName = "",
+  className = '',
+  badgeClassName = '',
+  titleClassName = '',
+  borderClassName = '',
 }: SectionHeaderProps) {
   return (
     <div className={`max-w-3xl mx-auto text-center mb-16 ${className}`}>
@@ -28,13 +28,17 @@ export default function SectionHeader({
           {badge}
         </Badge>
       )}
-      <h2 className={`text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 relative inline-block ${titleClassName}`}>
-        <span className="relative z-10 bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent">
+      <h2
+        className={`text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 relative inline-block ${titleClassName}`}
+      >
+        <span className='relative z-10 bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent'>
           {title}
         </span>
-        <div className="absolute -bottom-2 left-0 right-0 h-2.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
+        <div
+          className={`absolute -bottom-2 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full ${borderClassName}`}
+        ></div>
       </h2>
-      {subtitle && <p className={`text-lg text-gray-600 ${subtitleClassName}`}>{subtitle}</p>}
+      {subtitle && <p className='text-lg text-gray-600'>{subtitle}</p>}
     </div>
   )
 }

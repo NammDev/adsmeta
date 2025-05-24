@@ -12,6 +12,7 @@ import SupportingPageLayout from '@/components/layout/supporting-page-layout'
 import PageSection from '@/components/page-section'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { getAllCategories, getPostsByCategory, getMostViewedPosts } from '@/data/blog-posts'
+import SectionHeader from '@/components/ui/section-header'
 
 // Get unique categories from blog posts
 const categories = getAllCategories()
@@ -68,21 +69,11 @@ export default function BlogPage() {
     >
       {/* Title Section with proper spacing */}
       <PageSection className='pt-6 md:pt-8 pb-0'>
-        <div className='max-w-6xl mx-auto mb-10'>
-          {/* Colorful Badge and Section Title */}
-          <div className='flex items-center justify-center gap-3'>
-            <Badge className='bg-gradient-to-r from-blue-500 to-purple-600 text-white border-0 shadow-md px-4 py-1 text-sm'>
-              Facebook Ads Insights
-            </Badge>
-            <h2 className='text-2xl md:text-3xl font-bold relative inline-block'>
-              Expert Knowledge & Strategies
-              <span className='absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full'></span>
-            </h2>
-          </div>
-          <p className='text-gray-600 max-w-2xl mx-auto text-center mt-2'>
-            Stay updated with the latest Facebook advertising tips and techniques
-          </p>
-        </div>
+        <SectionHeader
+          badge='Facebook Ads Insights'
+          title='Expert Knowledge & Strategies'
+          subtitle='Stay updated with the latest Facebook advertising tips and techniques'
+        />
       </PageSection>
 
       {/* Content Section - with no top padding */}
@@ -304,22 +295,16 @@ export default function BlogPage() {
       </PageSection>
 
       {/* Daily New Posts Section Title */}
-      <PageSection bgColor='facebook-light' className='pt-6 md:pt-8 pb-0'>
-        <div className='max-w-6xl mx-auto mb-10'>
-          <div className='flex items-center justify-center gap-3'>
-            <Badge className='bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 border-0 shadow-md'>
-              Daily Updates
-            </Badge>
-            <h2 className='text-2xl md:text-3xl font-bold relative inline-block'>
-              <span className='relative z-10'>New Posts Every Day</span>
-              <div className='absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full'></div>
-            </h2>
-          </div>
-        </div>
+      <PageSection className='pt-6 md:pt-8 pb-0'>
+        <SectionHeader
+          badge='Daily Updates'
+          title='New Posts Every Day'
+          subtitle='Stay updated with the latest Facebook advertising tips and techniques'
+        />
       </PageSection>
 
       {/* Daily New Posts Section Content */}
-      <PageSection bgColor='facebook-light' className='pt-0 pb-12'>
+      <PageSection className='pt-0 pb-12'>
         <div className='max-w-6xl mx-auto'>
           {/* Category Filter - Limited to 6 categories */}
           <div className='mb-8'>

@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils"
-import type { ReactNode } from "react"
+import { cn } from '@/lib/utils'
+import type { ReactNode } from 'react'
 
 interface PageSectionProps {
   children: ReactNode
@@ -9,8 +9,8 @@ interface PageSectionProps {
 
 export default function PageSection({ children, className, id }: PageSectionProps) {
   return (
-    <section id={id} className={cn("py-16", className)}>
-      <div className="container px-4 md:px-6">{children}</div>
+    <section id={id} className={cn('py-16', className)}>
+      <div className='container px-4 md:px-6'>{children}</div>
     </section>
   )
 }

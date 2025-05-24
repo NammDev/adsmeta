@@ -12,6 +12,7 @@ import { Check, ArrowRight, ShoppingCart, ChevronLeft, ChevronRight } from 'luci
 import { useCart } from '@/context/cart-context'
 import { CartNotification } from '@/components/cart/cart-notification'
 import { getLandingPagePackages } from '@/data/packages'
+import SectionHeader from '../ui/section-header'
 
 export default function PackagesSection() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
@@ -133,20 +134,11 @@ export default function PackagesSection() {
   return (
     <section id='packages' className='pt-32 pb-16 relative overflow-hidden'>
       <div className='container mx-auto px-4 relative'>
-        <div className='max-w-3xl mx-auto text-center mb-16'>
-          <Badge className='bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md'>
-            Packages
-          </Badge>
-          <h2 className='text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 relative inline-block'>
-            <span className='relative z-10 bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent'>
-              Choose Your Package
-            </span>
-            <div className='absolute -bottom-2 left-0 right-0 h-2.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full'></div>
-          </h2>
-          <p className='text-lg text-gray-600'>
-            Select the perfect solution for your advertising needs
-          </p>
-        </div>
+        <SectionHeader
+          badge='Packages'
+          title='Choose Your Package'
+          subtitle='Select the perfect solution for your advertising needs'
+        />
 
         {/* Desktop Grid View */}
         {!isMobile && (

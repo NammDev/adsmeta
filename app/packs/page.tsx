@@ -11,6 +11,7 @@ import { Package2, Star, ChevronLeft, ChevronRight, Sparkles } from 'lucide-reac
 import { useMediaQuery } from '@/hooks/use-media-query'
 import PageSection from '@/components/page-section'
 import { getPacksPageData } from '@/data/packages'
+import SectionHeader from '@/components/ui/section-header'
 
 // Pack type definition
 interface Pack {
@@ -145,20 +146,11 @@ export default function PacksPage() {
     >
       {/* Title Section */}
       <PageSection className='pt-6 md:pt-8 pb-0'>
-        <div className='max-w-3xl mx-auto text-center mb-10'>
-          <div className='flex items-center justify-center gap-3'>
-            <Badge className='bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 border-0 shadow-md'>
-              Value Packs
-            </Badge>
-            <h1 className='text-3xl md:text-4xl font-bold relative inline-block'>
-              <span className='relative z-10'>Facebook Ads Solutions</span>
-              <div className='absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full'></div>
-            </h1>
-          </div>
-          <p className='text-lg text-gray-600 mt-2'>
-            Choose the perfect package for your advertising needs
-          </p>
-        </div>
+        <SectionHeader
+          badge='Value Packs'
+          title='Facebook Ads Solutions'
+          subtitle='Choose the perfect package for your advertising needs'
+        />
       </PageSection>
 
       {/* Content Section */}
@@ -443,17 +435,11 @@ export default function PacksPage() {
 
       {/* Additional Info Section */}
       <PageSection className='pt-6 md:pt-8 pb-0'>
-        <div className='mb-10'>
-          <div className='flex items-center justify-center gap-3'>
-            <div className='w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md flex-shrink-0'>
-              <Sparkles className='h-6 w-6 text-white' />
-            </div>
-            <h3 className='text-xl md:text-2xl font-bold relative'>
-              <span className='relative z-10'>Need a Custom Solution?</span>
-              <div className='absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full'></div>
-            </h3>
-          </div>
-        </div>
+        <SectionHeader
+          badge='Need a?'
+          title='Custom Solutions'
+          subtitle='We offer tailored packages for businesses with specific requirements. Contact our team to discuss your needs.'
+        />
       </PageSection>
 
       <PageSection className='pt-0 pb-12'>

@@ -7,15 +7,14 @@ import { ChevronRight, ShoppingBag, ShoppingCart } from 'lucide-react'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { useCart } from '@/context/cart-context'
 import { getProductSectionItems, type ProductSectionItem } from '@/data/products'
+import SectionHeader from '../ui/section-header'
 
 interface ProductsSectionProps {
-  showHeader?: boolean
   showViewAllButton?: boolean
   maxProductsPerCategory?: number
 }
 
 export default function ProductsSection({
-  showHeader = true,
   showViewAllButton = true,
   maxProductsPerCategory,
 }: ProductsSectionProps) {
@@ -106,23 +105,11 @@ export default function ProductsSection({
     <section id='products' className='py-16 relative overflow-hidden'>
       <div className='container mx-auto px-4 relative'>
         {/* Header Section */}
-        {showHeader && (
-          <div className='max-w-4xl mx-auto text-center mb-12'>
-            <Badge className='bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 mb-4 border-0 shadow-md px-4 py-1 text-sm animate-pulse'>
-              Our Products
-            </Badge>
-            <h2 className='text-2xl md:text-3xl lg:text-4xl font-bold mb-4 relative inline-block'>
-              <span className='relative z-10 bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent'>
-                Premium Solutions
-              </span>
-              <div className='absolute -bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 opacity-50 rounded-full animate-pulse'></div>
-            </h2>
-            <p className='text-lg text-gray-600 max-w-2xl mx-auto'>
-              Discover our carefully crafted solutions designed to elevate your marketing strategy
-              and drive results
-            </p>
-          </div>
-        )}
+        <SectionHeader
+          badge='Our Products'
+          title='Premium Solutions'
+          subtitle='Discover our carefully crafted solutions designed to elevate your marketing strategy and drive results'
+        />
 
         {/* Category-based Product Listing */}
         <div className='space-y-8'>

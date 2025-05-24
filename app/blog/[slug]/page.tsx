@@ -12,6 +12,7 @@ import { BlogCarousel } from '@/components/blog/blog-carousel'
 import { useEffect, useRef, useState } from 'react'
 import { getBlogPostBySlug, getRelatedPosts } from '@/data/blog-posts'
 import { use } from 'react'
+import SectionHeader from '@/components/ui/section-header'
 
 // Add this function before the BlogPostPage component
 function extractHeadings(content: string) {
@@ -149,18 +150,11 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
     >
       {/* Title Section */}
       <PageSection className='pt-6 md:pt-8 pb-0'>
-        <div className='max-w-6xl mx-auto px-4 mb-10'>
-          <div className='flex items-center justify-center gap-3 mb-3'>
-            <Badge className='bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium shadow-md'>
-              {blogPost.category}
-            </Badge>
-          </div>
-          <h1 className='text-2xl md:text-3xl lg:text-4xl font-bold text-center relative inline-block mx-auto w-full'>
-            <span className='relative z-10'>{blogPost.title}</span>
-            <div className='absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-3 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full w-48'></div>
-          </h1>
-          <p className='text-lg text-gray-600 text-center mt-2'>{blogPost.excerpt}</p>
-        </div>
+        <SectionHeader
+          badge={blogPost.category}
+          title={blogPost.title}
+          subtitle={blogPost.excerpt}
+        />
       </PageSection>
 
       {/* Content Section */}

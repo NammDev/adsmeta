@@ -16,6 +16,7 @@ import { cn } from '@/lib/utils'
 import PageSection from '@/components/page-section'
 import { Badge } from '@/components/ui/badge'
 import React from 'react'
+import SectionHeader from '@/components/ui/section-header'
 
 export default function FAQPage() {
   const isMobile = useMediaQuery('(max-width: 768px)')
@@ -27,25 +28,13 @@ export default function FAQPage() {
     >
       {/* Page Title Section - Adjusted spacing */}
       <PageSection className='pt-6 md:pt-8 pb-0'>
-        <div className='max-w-5xl mx-auto mb-10'>
-          {/* Colorful Badge and Section Title */}
-          <div className='text-center'>
-            <div className='inline-flex items-center gap-3'>
-              <Badge className='bg-gradient-to-r from-blue-500 to-indigo-600 text-white border-0 shadow-md px-4 py-1 text-sm'>
-                Help Center
-              </Badge>
-              <h2 className='text-2xl md:text-3xl font-bold mb-0 relative inline-block'>
-                Frequently Asked Questions
-              </h2>
-            </div>
-            <div className='mt-2'>
-              <span className='inline-block w-24 h-1 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full'></span>
-            </div>
-            <p className='text-gray-600 max-w-2xl mx-auto mt-2'>
-              Find answers to the most common questions about our products and services
-            </p>
-          </div>
-        </div>
+        <SectionHeader
+          badge='Help Center'
+          title='Frequently Asked Questions'
+          subtitle='Find answers to the most common questions about our products and services'
+          badgeClassName='bg-gradient-to-r from-blue-500 to-indigo-600'
+          borderClassName='from-blue-400 to-indigo-500 h-2'
+        />
       </PageSection>
 
       {/* FAQ Categories - Removed top padding */}
@@ -119,20 +108,14 @@ export default function FAQPage() {
       <div className='py-12 bg-transparent'>
         <div className='container px-4 md:px-6'>
           {/* Mobile view: centered title and badge */}
-          <div className='md:hidden text-center mb-8'>
-            <div className='inline-flex items-center gap-3 mb-2'>
-              <Badge className='bg-gradient-to-r from-blue-500 to-indigo-600 text-white border-0 shadow-md px-4 py-1 text-sm'>
-                FAQ
-              </Badge>
-              <h2 className='text-2xl font-bold text-gray-900 mb-0'>Product</h2>
-            </div>
-            <div className='mt-2 mb-4'>
-              <span className='inline-block w-20 h-1 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full'></span>
-            </div>
-            <p className='text-gray-600 max-w-2xl mx-auto'>
-              Everything you need to know about our Facebook Business Manager accounts and packages
-            </p>
-          </div>
+          <SectionHeader
+            className='md:hidden'
+            badge='Product'
+            title='Questions'
+            subtitle='Everything you need to know about our Facebook Business Manager accounts and packages'
+            badgeClassName='bg-gradient-to-r from-blue-500 to-indigo-600'
+            borderClassName='from-blue-400 to-indigo-500 h-2'
+          />
 
           {/* Desktop view: original layout */}
           <div className='flex flex-col md:flex-row gap-10'>
@@ -204,23 +187,13 @@ export default function FAQPage() {
       {/* Ordering FAQs - Adjusted padding */}
       <div className='py-12 bg-transparent'>
         <div className='container px-4 md:px-6'>
-          <div className='text-center mb-10'>
-            {/* Badge and title aligned on same line */}
-            <div className='inline-flex items-center gap-3 mb-2'>
-              <Badge className='bg-gradient-to-r from-purple-500 to-pink-600 text-white border-0 shadow-md px-4 py-1 text-sm'>
-                Payment
-              </Badge>
-              <h2 className='text-2xl md:text-3xl font-bold text-gray-900 mb-0'>
-                Ordering & Payment
-              </h2>
-            </div>
-            <div className='mt-2'>
-              <span className='inline-block w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full'></span>
-            </div>
-            <p className='text-gray-600 max-w-2xl mx-auto mt-2'>
-              Information about our ordering process and payment options
-            </p>
-          </div>
+          <SectionHeader
+            badge='Payment'
+            title='Ordering & Payment'
+            subtitle='Information about our ordering process and payment options'
+            badgeClassName='bg-gradient-to-r from-purple-500 to-pink-600'
+            borderClassName='from-red-400 to-pink-600 h-2'
+          />
 
           <div className='max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6'>
             {[
@@ -272,18 +245,13 @@ export default function FAQPage() {
       <div className='py-12 bg-transparent'>
         <div className='container px-4 md:px-6'>
           <div className='max-w-4xl mx-auto'>
-            {/* Badge like landing page */}
-            <div className='inline-flex items-center gap-3 mb-2'>
-              <Badge className='bg-gradient-to-r from-indigo-500 to-blue-600 text-white border-0 shadow-md px-4 py-1 text-sm'>
-                Common Questions
-              </Badge>
-              <h2 className='text-2xl md:text-3xl font-bold text-gray-900 mb-0'>
-                Other Frequently Asked Questions
-              </h2>
-            </div>
-            <div className='mt-2 mb-10'>
-              <span className='inline-block w-20 h-1 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-full'></span>
-            </div>
+            <SectionHeader
+              badge='Common Questions'
+              title='Other Frequently Asked Questions'
+              subtitle='Answers to common questions about our products and services'
+              badgeClassName='bg-gradient-to-r from-indigo-500 to-blue-600'
+              borderClassName='from-indigo-400 to-blue-600 h-2'
+            />
 
             <div className='space-y-4 mt-6'>
               {[
