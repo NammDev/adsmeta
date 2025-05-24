@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ChevronRight, ShoppingBag } from "lucide-react"
+import { ChevronRight, ShoppingBag, ShoppingCart } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { useCart } from "@/context/cart-context"
 import { getProductSectionItems, type ProductSectionItem } from "@/data/products"
@@ -120,7 +120,8 @@ export default function ProductsSection() {
                     className="bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="flex flex-col gap-3">
+                    {/* Mobile Layout */}
+                    <div className="flex flex-col gap-3 md:hidden">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
                           <h4 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 mb-0">
@@ -139,6 +140,45 @@ export default function ProductsSection() {
                       </div>
 
                       <div className="flex flex-row items-center justify-between gap-3">
+                        <div className="text-left">
+                          <div className="text-xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors duration-300">
+                            €{product.price}
+                          </div>
+                          <div className="text-xs text-gray-500">per unit</div>
+                        </div>
+                        <div className="flex gap-2">
+                          <Link href={`/products/${product.id}`}>
+                            <Button
+                              size="sm"
+                              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
+                            >
+                              Buy Now
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Desktop Layout */}
+                    <div className="hidden md:flex md:flex-row md:items-center justify-between gap-2">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h4 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 mb-0">
+                            {highlightKeywords(product.name)}
+                          </h4>
+                        </div>
+                        <p className="text-gray-600 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-300">
+                          {product.description}
+                        </p>
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <span className="flex items-center gap-1">
+                            <ShoppingBag className="h-4 w-4 group-hover:text-blue-500 transition-colors duration-300" />
+                            {product.purchases} purchased
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-row items-center gap-3">
                         <div className="text-right">
                           <div className="text-xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors duration-300">
                             €{product.price}
@@ -149,8 +189,9 @@ export default function ProductsSection() {
                           <Link href={`/products/${product.id}`}>
                             <Button
                               size="sm"
-                              className="w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
+                              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
                             >
+                              <ShoppingCart className="h-3 w-3 mr-1.5 group-hover:animate-bounce" />
                               Buy Now
                             </Button>
                           </Link>
@@ -183,7 +224,8 @@ export default function ProductsSection() {
                     className="bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="flex flex-col gap-3">
+                    {/* Mobile Layout */}
+                    <div className="flex flex-col gap-3 md:hidden">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
                           <h4 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors duration-300 mb-0">
@@ -202,6 +244,45 @@ export default function ProductsSection() {
                       </div>
 
                       <div className="flex flex-row items-center justify-between gap-3">
+                        <div className="text-left">
+                          <div className="text-xl font-bold text-purple-600 group-hover:text-purple-700 transition-colors duration-300">
+                            €{product.price}
+                          </div>
+                          <div className="text-xs text-gray-500">per unit</div>
+                        </div>
+                        <div className="flex gap-2">
+                          <Link href={`/products/${product.id}`}>
+                            <Button
+                              size="sm"
+                              className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
+                            >
+                              Buy Now
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Desktop Layout */}
+                    <div className="hidden md:flex md:flex-row md:items-center justify-between gap-2">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h4 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors duration-300 mb-0">
+                            {highlightKeywords(product.name)}
+                          </h4>
+                        </div>
+                        <p className="text-gray-600 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-300">
+                          {product.description}
+                        </p>
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <span className="flex items-center gap-1">
+                            <ShoppingBag className="h-4 w-4 group-hover:text-purple-500 transition-colors duration-300" />
+                            {product.purchases} purchased
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-row items-center gap-3">
                         <div className="text-right">
                           <div className="text-xl font-bold text-purple-600 group-hover:text-purple-700 transition-colors duration-300">
                             €{product.price}
@@ -212,8 +293,9 @@ export default function ProductsSection() {
                           <Link href={`/products/${product.id}`}>
                             <Button
                               size="sm"
-                              className="w-full md:w-auto bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
+                              className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
                             >
+                              <ShoppingCart className="h-3 w-3 mr-1.5 group-hover:animate-bounce" />
                               Buy Now
                             </Button>
                           </Link>
@@ -251,7 +333,8 @@ export default function ProductsSection() {
                     className="bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="flex flex-col gap-3">
+                    {/* Mobile Layout */}
+                    <div className="flex flex-col gap-3 md:hidden">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
                           <h4 className="text-lg font-semibold text-gray-900 group-hover:text-green-600 transition-colors duration-300 mb-0">
@@ -270,6 +353,45 @@ export default function ProductsSection() {
                       </div>
 
                       <div className="flex flex-row items-center justify-between gap-3">
+                        <div className="text-left">
+                          <div className="text-xl font-bold text-green-600 group-hover:text-green-700 transition-colors duration-300">
+                            €{product.price}
+                          </div>
+                          <div className="text-xs text-gray-500">per unit</div>
+                        </div>
+                        <div className="flex gap-2">
+                          <Link href={`/products/${product.id}`}>
+                            <Button
+                              size="sm"
+                              className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
+                            >
+                              Buy Now
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Desktop Layout */}
+                    <div className="hidden md:flex md:flex-row md:items-center justify-between gap-2">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h4 className="text-lg font-semibold text-gray-900 group-hover:text-green-600 transition-colors duration-300 mb-0">
+                            {highlightKeywords(product.name)}
+                          </h4>
+                        </div>
+                        <p className="text-gray-600 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-300">
+                          {product.description}
+                        </p>
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <span className="flex items-center gap-1">
+                            <ShoppingBag className="h-4 w-4 group-hover:text-green-500 transition-colors duration-300" />
+                            {product.purchases} purchased
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-row items-center gap-3">
                         <div className="text-right">
                           <div className="text-xl font-bold text-green-600 group-hover:text-green-700 transition-colors duration-300">
                             €{product.price}
@@ -280,8 +402,9 @@ export default function ProductsSection() {
                           <Link href={`/products/${product.id}`}>
                             <Button
                               size="sm"
-                              className="w-full md:w-auto bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
+                              className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
                             >
+                              <ShoppingCart className="h-3 w-3 mr-1.5 group-hover:animate-bounce" />
                               Buy Now
                             </Button>
                           </Link>
