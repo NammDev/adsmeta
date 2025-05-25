@@ -1,8 +1,8 @@
-import Image from "next/image"
+import Image from 'next/image'
 
 export default function TrustIndicatorsSection() {
   return (
-    <section className="py-8 pb-0 md:py-16 md:pb-0 relative overflow-hidden">
+    <section className="py-8 md:py-16 relative overflow-hidden">
       <div className="container mx-auto px-4 relative">
         <h3 className="text-center mb-10 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 text-sm uppercase tracking-wider font-bold">
           Trusted by leading marketing agencies worldwide
@@ -70,10 +70,10 @@ export default function TrustIndicatorsSection() {
         <div className="text-center mt-12 relative">
           <div className="inline-block">
             <p className="text-gray-600 text-sm max-w-xl mx-auto">
-              Join{" "}
+              Join{' '}
               <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
                 thousands of marketing professionals
-              </span>{" "}
+              </span>{' '}
               who trust our Facebook Ads solutions to scale their businesses
             </p>
             {/* Removed the colored line that was here */}

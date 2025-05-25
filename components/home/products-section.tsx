@@ -1,18 +1,18 @@
-"use client"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { ShoppingBag } from "lucide-react"
-import { useMediaQuery } from "@/hooks/use-media-query"
-import { useCart } from "@/context/cart-context"
-import { getProductSectionItems, type ProductSectionItem } from "@/data/products"
-import SectionHeader from "../ui/section-header"
+'use client'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { ShoppingBag } from 'lucide-react'
+import { useMediaQuery } from '@/hooks/use-media-query'
+import { useCart } from '@/context/cart-context'
+import { getProductSectionItems, type ProductSectionItem } from '@/data/products'
+import SectionHeader from '../ui/section-header'
 
 interface ProductsSectionProps {
   isProductsPage?: boolean
 }
 
 export default function ProductsSection({ isProductsPage = false }: ProductsSectionProps) {
-  const isMobile = useMediaQuery("(max-width: 768px)")
+  const isMobile = useMediaQuery('(max-width: 768px)')
   const { addItem, openCart } = useCart()
 
   // Get products data from centralized source
@@ -20,31 +20,28 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
 
   // Group products by category for the new UI
   const businessManagerProducts = allProducts.filter(
-    (product) => product.category === "verified-bm" || product.category === "unverified-bm",
+    (product) => product.category === 'verified-bm' || product.category === 'unverified-bm'
   )
 
-  const profileProducts = allProducts.filter((product) => product.category === "profile")
+  const profileProducts = allProducts.filter((product) => product.category === 'profile')
 
   const otherProducts = allProducts.filter(
-    (product) => !["verified-bm", "unverified-bm", "profile"].includes(product.category),
+    (product) => !['verified-bm', 'unverified-bm', 'profile'].includes(product.category)
   )
 
   // Group other products by category
-  const groupedOtherProducts = otherProducts.reduce(
-    (acc, product) => {
-      if (!acc[product.category]) {
-        acc[product.category] = []
-      }
-      acc[product.category].push(product)
-      return acc
-    },
-    {} as Record<string, typeof otherProducts>,
-  )
+  const groupedOtherProducts = otherProducts.reduce((acc, product) => {
+    if (!acc[product.category]) {
+      acc[product.category] = []
+    }
+    acc[product.category].push(product)
+    return acc
+  }, {} as Record<string, typeof otherProducts>)
 
   // Add this function to handle adding products to cart
   const handleAddToCart = (product: ProductSectionItem) => {
     if (!addItem) {
-      console.error("Cart functionality not available")
+      console.error('Cart functionality not available')
       return
     }
 
@@ -54,7 +51,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
         name: product.name,
         price: product.price,
         quantity: 1,
-        image: product.image || "/placeholder.svg",
+        image: product.image || '/placeholder.svg',
         category: product.category,
       }
 
@@ -65,25 +62,37 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
         openCart()
       }
     } catch (error) {
-      console.error("Error adding to cart:", error)
+      console.error('Error adding to cart:', error)
     }
   }
 
   // Helper function to highlight keywords in product names
   const highlightKeywords = (name: string) => {
-    const highlightWords = ["Verified", "Blue", "Tick", "Reinstated", "Super", "Strong", "Premium", "Setup"]
-    return name.split(" ").map((word, index) => {
+    const highlightWords = [
+      'Verified',
+      'Blue',
+      'Tick',
+      'Reinstated',
+      'Super',
+      'Strong',
+      'Premium',
+      'Setup',
+    ]
+    return name.split(' ').map((word, index) => {
       const isHighlight = highlightWords.some((hw) => word.includes(hw))
       return (
-        <span key={index} className={isHighlight ? "text-blue-600 font-bold" : ""}>
-          {word}{" "}
+        <span key={index} className={isHighlight ? 'text-blue-600 font-bold' : ''}>
+          {word}{' '}
         </span>
       )
     })
   }
 
   return (
-    <section id="products" className={`relative overflow-hidden ${isProductsPage ? "pb-0 pt-8" : "py-16"}`}>
+    <section
+      id="products"
+      className={`relative overflow-hidden ${isProductsPage ? 'pb-0 pt-8' : 'py-8 md:py-16'}`}
+    >
       <div className="container mx-auto px-4 relative">
         {/* Header Section */}
         <SectionHeader
@@ -307,7 +316,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                   <span className="text-white font-bold text-xl">📊</span>
                 </div>
                 <h3 className="text-xl md:text-2xl font-bold text-gray-900 capitalize">
-                  {category.replace("-", " ")} Products
+                  {category.replace('-', ' ')} Products
                 </h3>
                 <Badge className="bg-green-100 text-green-700 border-0 animate-bounce hover:bg-transparent">
                   Professional
