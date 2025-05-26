@@ -23,7 +23,12 @@ import {
 import SupportingPageLayout from "@/components/layout/supporting-page-layout"
 import { useCart } from "@/context/cart-context"
 import RelatedProducts from "@/components/products/related-products"
-import { getProductDetailData, getCategoryDisplayName } from "@/data/products"
+import {
+  getProductDetailData,
+  getCategoryDisplayName,
+  type ProductDescription,
+  type ProductReviewData,
+} from "@/data/products"
 
 // Update the Product interface to match our enhanced data structure
 interface Product {
@@ -40,14 +45,9 @@ interface Product {
   badge?: string
   stock: "in-stock" | "low-stock" | "out-of-stock"
   faq?: Array<{ question: string; answer: string }>
-  // Add the new fields
-  overview?: string[]
-  details?: string[]
-  status?: string[]
-  imageDescription?: string // Path to the product image
-  reviewComment?: string
-  reviewAuthor?: string
-  reviewAuthorTitle?: string
+  // Updated to use the new nested structures
+  description?: ProductDescription
+  review?: ProductReviewData
 }
 
 // Feature icons mapping
@@ -266,7 +266,7 @@ export default function ProductPage() {
                     <div className="relative aspect-square rounded-xl overflow-hidden border-0 bg-white shadow-lg hover:shadow-xl transition-all duration-300 group">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay group-hover:opacity-70 transition-opacity duration-300"></div>
                       <Image
-                        src={product.imageDescription || product.image || "/placeholder.svg"}
+                        src={product.description?.imageDescription || product.image || "/placeholder.svg"}
                         alt={product.name}
                         fill
                         className="object-cover transform transition-transform group-hover:scale-105 duration-500"
@@ -352,7 +352,7 @@ export default function ProductPage() {
                         ))}
                       </div>
                       <a href="#reviews" className="text-sm text-gray-500 hover:text-facebook transition-colors">
-                        120 reviews
+                        {product.review?.count || 0} reviews
                       </a>
                     </div>
                   </div>
@@ -372,10 +372,10 @@ export default function ProductPage() {
                 </h3>
 
                 <div className="prose max-w-none">
-                  {product.overview && product.overview.length > 0 && (
+                  {product.description?.overview && product.description.overview.length > 0 && (
                     <div className="mb-6">
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">Overview:</h4>
-                      {product.overview.map((item, index) => (
+                      {product.description.overview.map((item, index) => (
                         <p key={index} className="mb-3 text-gray-700">
                           {item}
                         </p>
@@ -383,10 +383,10 @@ export default function ProductPage() {
                     </div>
                   )}
 
-                  {product.details && product.details.length > 0 && (
+                  {product.description?.details && product.description.details.length > 0 && (
                     <div className="mb-6">
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">Details:</h4>
-                      {product.details.map((item, index) => (
+                      {product.description.details.map((item, index) => (
                         <p key={index} className="mb-3 text-gray-700">
                           {item}
                         </p>
@@ -394,10 +394,10 @@ export default function ProductPage() {
                     </div>
                   )}
 
-                  {product.status && product.status.length > 0 && (
+                  {product.description?.status && product.description.status.length > 0 && (
                     <div className="mb-6">
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">Status:</h4>
-                      {product.status.map((item, index) => (
+                      {product.description.status.map((item, index) => (
                         <p key={index} className="mb-4 text-gray-700">
                           {item}
                         </p>
@@ -408,8 +408,9 @@ export default function ProductPage() {
                   <div className="mt-6">
                     <Image
                       src={
-                        product.imageDescription ||
+                        product.description?.imageDescription ||
                         "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BM1250-bKJxFWR53R7t8C2X90KhNDoxJxqPQm.webp" ||
+                        "/placeholder.svg" ||
                         "/placeholder.svg"
                       }
                       alt={product.name}
@@ -565,7 +566,7 @@ export default function ProductPage() {
                 </div>
 
                 <p className="text-center mb-4 italic text-gray-700">
-                  {product.reviewComment ||
+                  {product.review?.comment ||
                     `"The ${product.name} completely transformed our Facebook advertising capabilities. Highly recommended!"`}
                 </p>
 
@@ -580,8 +581,8 @@ export default function ProductPage() {
                     />
                   </div>
                   <div className="text-left">
-                    <p className="font-bold text-sm text-gray-800">{product.reviewAuthor || "Michael Thompson"}</p>
-                    <p className="text-gray-600 text-xs">{product.reviewAuthorTitle || "Marketing Director"}</p>
+                    <p className="font-bold text-sm text-gray-800">{product.review?.author || "Michael Thompson"}</p>
+                    <p className="text-gray-600 text-xs">{product.review?.authorTitle || "Marketing Director"}</p>
                   </div>
                 </div>
               </CardContent>
@@ -600,9 +601,9 @@ export default function ProductPage() {
                 <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
               </h3>
               <div className="prose max-w-none text-sm">
-                {product.overview &&
-                  product.overview.length > 0 &&
-                  product.overview.map((item, index) => (
+                {product.description?.overview &&
+                  product.description.overview.length > 0 &&
+                  product.description.overview.map((item, index) => (
                     <p key={index} className="mb-3 text-gray-700">
                       {item}
                     </p>
