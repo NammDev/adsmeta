@@ -14,7 +14,6 @@ import {
   Info,
   CreditCard,
   Star,
-  Heart,
   Package2,
   Award,
   Zap,
@@ -155,7 +154,12 @@ export default function ProductPage() {
                 {/* Product Image */}
                 <div className="w-20 h-20 flex-shrink-0 relative rounded-md overflow-hidden border-2 border-gradient-to-r from-blue-300 to-purple-300 bg-white transform transition-transform hover:scale-105 duration-300">
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-purple-500/10 mix-blend-overlay"></div>
-                  <Image src="/images/verified-bm1-logo.png" alt={product.name} fill className="object-contain p-1" />
+                  <Image
+                    src={product.image || "/placeholder.svg"}
+                    alt={product.name}
+                    fill
+                    className="object-contain p-1"
+                  />
                 </div>
 
                 {/* Price and Stock Status */}
@@ -255,7 +259,7 @@ export default function ProductPage() {
                     <div className="relative aspect-square rounded-xl overflow-hidden border-0 bg-white shadow-lg hover:shadow-xl transition-all duration-300 group">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay group-hover:opacity-70 transition-opacity duration-300"></div>
                       <Image
-                        src="/images/verified-bm1-logo.png"
+                        src={product.image || "/placeholder.svg"}
                         alt={product.name}
                         fill
                         className="object-cover transform transition-transform group-hover:scale-105 duration-500"
@@ -305,35 +309,7 @@ export default function ProductPage() {
                       </Badge>
                     </div>
 
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="flex">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`h-5 w-5 ${i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
-                          />
-                        ))}
-                      </div>
-                      <a href="#reviews" className="text-sm text-gray-500 hover:text-facebook transition-colors">
-                        120 reviews
-                      </a>
-                    </div>
-
-                    <p className="text-gray-700 mb-4 text-lg">{product.description}</p>
-
-                    <div className="flex flex-wrap gap-3 mb-4">
-                      {product.features.slice(0, 4).map((feature, index) => (
-                        <Badge
-                          key={index}
-                          className="bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors duration-300 py-1.5 px-3 border-0"
-                        >
-                          <Check className="h-3.5 w-3.5 mr-1 text-green-500" />
-                          {feature.split(" ")[0]}
-                        </Badge>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center gap-4 mb-6">
+                    <div className="flex items-center gap-4 mb-4">
                       <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
                         <button
                           className="px-3 py-2 text-gray-600 hover:bg-gray-100 transition-colors"
@@ -349,26 +325,33 @@ export default function ProductPage() {
                           +
                         </button>
                       </div>
-                    </div>
-
-                    <div className="flex flex-col sm:flex-row gap-4 mt-6">
                       <Button
                         onClick={handleAddToCart}
-                        className="bg-gradient-to-r from-facebook to-blue-700 hover:from-facebook-dark hover:to-blue-800 text-white flex items-center gap-2 shadow-md hover:shadow-xl transition-all duration-300 py-6 px-8 text-lg"
+                        className="bg-gradient-to-r from-facebook to-blue-700 hover:from-facebook-dark hover:to-blue-800 text-white flex items-center gap-2 shadow-md hover:shadow-xl transition-all duration-300 py-3 px-6"
                         disabled={product.stock === "out-of-stock"}
                       >
                         <ShoppingCart className="h-5 w-5" />
                         Add to Cart
                       </Button>
-
-                      <Button
-                        variant="outline"
-                        className="border-gray-300 hover:border-facebook hover:text-facebook transition-colors duration-300 flex items-center gap-2"
-                      >
-                        <Heart className="h-5 w-5" />
-                        Add to Wishlist
-                      </Button>
                     </div>
+
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`h-5 w-5 ${i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
+                          />
+                        ))}
+                      </div>
+                      <a href="#reviews" className="text-sm text-gray-500 hover:text-facebook transition-colors">
+                        120 reviews
+                      </a>
+                    </div>
+
+                    <p className="text-gray-700 mb-4 text-lg">
+                      Premium Facebook Business Manager account ready for immediate use.
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -380,215 +363,340 @@ export default function ProductPage() {
               <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-pink-200/10 to-indigo-200/10 rounded-full translate-y-1/2 translate-x-1/2"></div>
 
               <CardContent className="p-6 relative z-10">
-                <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold mb-2 relative inline-block">
-                    <span className="relative z-10 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                      Product Description
-                    </span>
-                    <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
-                  </h3>
-                  <p className="text-gray-600">Everything you need to know about this Business Manager</p>
-                </div>
+                <h3 className="text-xl font-bold mb-4 relative inline-block">
+                  <span className="relative z-10">Product Description</span>
+                  <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
+                </h3>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                  {/* Overview Section */}
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100 relative overflow-hidden group hover:shadow-lg transition-all duration-300">
-                    <div className="absolute top-0 right-0 w-16 h-16 bg-blue-200/20 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-                    <div className="relative z-10">
-                      <div className="flex items-center mb-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center mr-3 shadow-md group-hover:scale-110 transition-transform duration-300">
-                          <Package2 className="h-5 w-5 text-white" />
-                        </div>
-                        <h4 className="text-lg font-bold text-blue-800">Overview</h4>
-                      </div>
-                      <div className="space-y-2">
-                        <div className="flex items-start">
-                          <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 mr-2 flex-shrink-0"></div>
-                          <p className="text-gray-700 text-sm">
-                            Fully verified Business Manager with official government ID attached.
-                          </p>
-                        </div>
-                        <div className="flex items-start">
-                          <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 mr-2 flex-shrink-0"></div>
-                          <p className="text-gray-700 text-sm">
-                            Comes with $250 ad spend limit and 1 active ad account.
-                          </p>
-                        </div>
-                        <div className="flex items-start">
-                          <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 mr-2 flex-shrink-0"></div>
-                          <p className="text-gray-700 text-sm">
-                            Stronger trust score than unverified BMs – ✅ More robust & stable.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Details Section */}
-                  <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-4 border border-purple-100 relative overflow-hidden group hover:shadow-lg transition-all duration-300">
-                    <div className="absolute top-0 right-0 w-16 h-16 bg-purple-200/20 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-                    <div className="relative z-10">
-                      <div className="flex items-center mb-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center mr-3 shadow-md group-hover:scale-110 transition-transform duration-300">
-                          <Info className="h-5 w-5 text-white" />
-                        </div>
-                        <h4 className="text-lg font-bold text-purple-800">Details</h4>
-                      </div>
-                      <div className="space-y-3">
-                        <div className="bg-white/60 rounded-lg p-2 border border-purple-200/50">
-                          <p className="text-xs font-semibold text-purple-700 mb-1">Billing Country</p>
-                          <p className="text-gray-700 text-sm">Set to random and cannot be changed.</p>
-                        </div>
-                        <div className="bg-white/60 rounded-lg p-2 border border-purple-200/50">
-                          <p className="text-xs font-semibold text-purple-700 mb-1">Currency & Timezone</p>
-                          <p className="text-gray-700 text-sm">Can be customized for each ad account.</p>
-                        </div>
-                        <div className="bg-white/60 rounded-lg p-2 border border-purple-200/50">
-                          <p className="text-xs font-semibold text-purple-700 mb-1">Pixel Sharing</p>
-                          <p className="text-gray-700 text-sm">Fully supported – no restrictions or errors.</p>
-                        </div>
-                        <div className="bg-white/60 rounded-lg p-2 border border-purple-200/50">
-                          <p className="text-xs font-semibold text-purple-700 mb-1">Upgrade Eligibility</p>
-                          <p className="text-gray-700 text-sm">
-                            Eligible for upgrade to BM3/BM5 after successful ad spend (up to 5 ad accounts allowed).
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Status Section */}
-                <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-xl p-4 border border-green-100 relative overflow-hidden group hover:shadow-lg transition-all duration-300 mb-6">
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-green-200/20 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-                  <div className="absolute bottom-0 left-0 w-16 h-16 bg-teal-200/20 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-                  <div className="relative z-10">
-                    <div className="flex items-center mb-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-teal-600 rounded-lg flex items-center justify-center mr-3 shadow-md group-hover:scale-110 transition-transform duration-300">
-                        <Check className="h-5 w-5 text-white" />
-                      </div>
-                      <h4 className="text-lg font-bold text-green-800">Status</h4>
-                    </div>
-                    <div className="bg-white/60 rounded-lg p-3 border border-green-200/50">
-                      <p className="text-gray-700 text-sm">
-                        Business Manager is active, clean, and ready for immediate use.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Bonus Section */}
-                <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-4 border border-amber-100 relative overflow-hidden group hover:shadow-lg transition-all duration-300 mb-6">
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-amber-200/20 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-                  <div className="absolute bottom-0 left-0 w-16 h-16 bg-orange-200/20 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-                  <div className="relative z-10">
-                    <div className="flex items-center mb-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center mr-3 shadow-md group-hover:scale-110 transition-transform duration-300">
-                        <Award className="h-5 w-5 text-white" />
-                      </div>
-                      <h4 className="text-lg font-bold text-amber-800">Bonus</h4>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      <div className="bg-white/60 rounded-lg p-3 border border-amber-200/50">
-                        <div className="flex items-center mb-2">
-                          <Star className="h-4 w-4 text-amber-500 mr-2" />
-                          <p className="font-semibold text-amber-700 text-sm">Exclusive Warm-up Guide</p>
-                        </div>
-                        <p className="text-gray-700 text-xs">
-                          Includes GoAds exclusive warm-up guide with video tutorials.
-                        </p>
-                      </div>
-                      <div className="bg-white/60 rounded-lg p-3 border border-amber-200/50">
-                        <div className="flex items-center mb-2">
-                          <Shield className="h-4 w-4 text-amber-500 mr-2" />
-                          <p className="font-semibold text-amber-700 text-sm">Risk Optimization</p>
-                        </div>
-                        <p className="text-gray-700 text-xs">
-                          Helps you start safely, scale confidently, and reduce risk of account issues.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Ideal For Section */}
-                <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 border border-emerald-100 relative overflow-hidden mb-6">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-200/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-                  <div className="absolute bottom-0 left-0 w-20 h-20 bg-teal-200/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-                  <div className="relative z-10 text-center">
-                    <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl mb-3 shadow-lg">
-                      <Users className="h-6 w-6 text-white" />
-                    </div>
-                    <h4 className="text-lg font-bold text-emerald-800 mb-2">Perfect For</h4>
-                    <p className="text-gray-700 font-medium">
-                      💼 Perfect for advertisers seeking higher trust and verified infrastructure from the start.
+                <div className="prose max-w-none">
+                  <div className="mb-6">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-3">Overview:</h4>
+                    <p className="mb-3 text-gray-700">
+                      Fully verified Business Manager with official government ID attached.
+                    </p>
+                    <p className="mb-3 text-gray-700">Comes with $250 ad spend limit and 1 active ad account.</p>
+                    <p className="mb-4 text-gray-700">
+                      Stronger trust score than unverified BMs – ✅ More robust & stable.
                     </p>
                   </div>
-                </div>
 
-                {/* Screenshot Section */}
-                <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-4 border border-gray-200 relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-16 h-16 bg-gray-200/20 rounded-full -translate-y-1/2 -translate-x-1/2"></div>
-                  <div className="relative z-10">
-                    <div className="text-center mb-4">
-                      <h4 className="text-lg font-bold text-gray-800 mb-1">Live Interface Preview</h4>
-                      <p className="text-gray-600 text-sm">See exactly what you'll get with your Business Manager</p>
-                    </div>
-                    <div className="relative group">
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <Image
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BM1250-bKJxFWR53R7t8C2X90KhNDoxJxqPQm.webp"
-                        alt="Facebook Ads Manager showing $250 daily spending limit"
-                        width={800}
-                        height={600}
-                        className="w-full rounded-lg border border-gray-300 shadow-lg group-hover:shadow-xl transition-all duration-300"
-                      />
-                      <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm rounded-lg px-2 py-1 border border-gray-200">
-                        <p className="text-xs font-medium text-gray-800">$250 Daily Limit Interface</p>
-                      </div>
-                    </div>
+                  <div className="mb-6">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-3">Details:</h4>
+                    <p className="mb-3 text-gray-700">
+                      Eligible for upgrade to BM3/BM5 after successful ad spend (up to 5 ad accounts allowed).
+                    </p>
+                    <p className="mb-3 text-gray-700">
+                      <strong>Billing Country:</strong> Set to random and cannot be changed.
+                    </p>
+                    <p className="mb-3 text-gray-700">
+                      <strong>Currency & Timezone:</strong> Can be customized for each ad account.
+                    </p>
+                    <p className="mb-4 text-gray-700">
+                      <strong>Pixel Sharing:</strong> Fully supported – no restrictions or errors.
+                    </p>
+                  </div>
+
+                  <div className="mb-6">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-3">Status:</h4>
+                    <p className="mb-4 text-gray-700">
+                      Business Manager is active, clean, and ready for immediate use.
+                    </p>
+                  </div>
+
+                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 border border-blue-100">
+                    <p className="text-gray-800 font-medium text-center">
+                      💼 Ideal for advertisers looking to start safely and scale responsibly.
+                    </p>
+                  </div>
+                  <div className="mt-6">
+                    <Image
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BM1250-bKJxFWR53R7t8C2X90KhNDoxJxqPQm.webp"
+                      alt="Facebook Ads Manager showing $250 daily spending limit"
+                      width={800}
+                      height={600}
+                      className="w-full rounded-lg border border-gray-200 shadow-sm"
+                    />
                   </div>
                 </div>
 
-                {/* Key Benefits Grid */}
+                {/* Key Benefits */}
                 <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-100 relative group overflow-hidden hover:shadow-lg transition-all duration-300">
+                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-100 relative group overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="relative z-10 text-center">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-                        <Zap className="h-6 w-6 text-white" />
-                      </div>
-                      <h4 className="text-base font-bold text-blue-800 mb-1">Quick Setup</h4>
-                      <p className="text-gray-700 text-sm">Get started with Facebook ads in minutes, not days.</p>
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                      <Zap className="h-6 w-6 text-white" />
                     </div>
+                    <h4 className="font-bold text-center mb-2 text-blue-800">Quick Setup</h4>
+                    <p className="text-sm text-center text-gray-700">
+                      Get started with Facebook ads in minutes, not days.
+                    </p>
                   </div>
 
-                  <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-xl border border-purple-100 relative group overflow-hidden hover:shadow-lg transition-all duration-300">
+                  <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-xl border border-purple-100 relative group overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="relative z-10 text-center">
-                      <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-                        <Shield className="h-6 w-6 text-white" />
-                      </div>
-                      <h4 className="text-base font-bold text-purple-800 mb-1">Verified Quality</h4>
-                      <p className="text-gray-700 text-sm">
-                        All accounts are fully verified and ready for advertising.
-                      </p>
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                      <Shield className="h-6 w-6 text-white" />
                     </div>
+                    <h4 className="font-bold text-center mb-2 text-purple-800">Verified Quality</h4>
+                    <p className="text-sm text-center text-gray-700">
+                      All accounts are fully verified and ready for advertising.
+                    </p>
                   </div>
 
-                  <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-4 rounded-xl border border-amber-100 relative group overflow-hidden hover:shadow-lg transition-all duration-300">
+                  <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-4 rounded-xl border border-amber-100 relative group overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="relative z-10 text-center">
-                      <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-                        <Users className="h-6 w-6 text-white" />
-                      </div>
-                      <h4 className="text-base font-bold text-amber-800 mb-1">Expert Support</h4>
-                      <p className="text-gray-700 text-sm">Get help from our team of Facebook ads specialists.</p>
+                    <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                      <Users className="h-6 w-6 text-white" />
                     </div>
+                    <h4 className="font-bold text-center mb-2 text-amber-800">Expert Support</h4>
+                    <p className="text-sm text-center text-gray-700">
+                      Get help from our team of Facebook ads specialists.
+                    </p>
                   </div>
                 </div>
               </CardContent>
             </Card>
+
+            {/* FAQ Section */}
+            {/* <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm mt-8">
+              <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-200/10 to-purple-200/10 rounded-full -translate-y-1/2 -translate-x-1/2"></div>
+              <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-pink-200/10 to-indigo-200/10 rounded-full translate-y-1/2 translate-x-1/2"></div>
+
+              <CardContent className="p-6 relative z-10">
+                <h3 className="text-xl font-bold mb-6 relative inline-block">
+                  <span className="relative z-10">Frequently Asked Questions</span>
+                  <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
+                </h3>
+
+                <div className="space-y-4">
+                  {product.faq.map((item, index) => (
+                    <div
+                      key={index}
+                      className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-5 border border-gray-100 shadow-md hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                      <h4 className="font-medium text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300 flex items-start">
+                        <span className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xs mr-3 flex-shrink-0 mt-0.5">
+                          Q
+                        </span>
+                        {item.question}
+                      </h4>
+
+                      <div className="pl-9">
+                        <p className="text-gray-700">{item.answer}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+             //  Additional Questions 
+                <div className="mt-8 bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-100">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-50"></div>
+
+                  <h4 className="text-lg font-bold mb-3 text-center relative z-10">
+                    Stillllllllll Have Questions?
+                  </h4>
+                  <p className="text-center text-gray-700 mb-4 relative z-10">
+                    Our team is ready to help you with any additional questions you might have.
+                  </p>
+
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center relative z-10">
+                    <Button
+                      asChild
+                      className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium rounded-xl"
+                    >
+                      <a href="/contact">Contact Support</a>
+                    </Button>
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="border-gray-300 hover:border-blue-500 hover:text-blue-600 font-medium rounded-xl"
+                    >
+                      <a href="/faq">View All FAQs</a>
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card> */}
+          </div>
+
+          {/* Right Column - Features & Purchase Info */}
+          <div className="space-y-6">
+            {/* Features Card */}
+            {/* <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-200/20 to-purple-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
+              <CardContent className="p-6 relative z-10">
+                <h3 className="text-xl font-bold mb-5 relative inline-block">
+                  <span className="relative z-10">Features</span>
+                  <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
+                </h3>
+
+                <div className="grid grid-cols-1 gap-3">
+                  {product.features.map((feature, index) => (
+                    <div
+                      key={index}
+                      className="flex items-start gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 group"
+                    >
+                      <div
+                        className={`w-8 h-8 rounded-lg bg-gradient-to-br ${
+                          gradients[index % gradients.length]
+                        } flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0`}
+                      >
+                        {featureIcons[index % featureIcons.length]}
+                      </div>
+                      <span className="text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
+                        {feature}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card> */}
+
+            {/* Purchase Info Card */}
+            <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2 z-0"></div>
+              <CardContent className="p-6 relative z-10">
+                <h3 className="text-xl font-bold mb-5 relative inline-block">
+                  <span className="relative z-10">Purchase Information</span>
+                  <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
+                </h3>
+
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0">
+                      <Clock className="h-4 w-4 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-300 text-sm">
+                        Delivery Time
+                      </h4>
+                      <p className="text-gray-700 text-sm">{product.deliveryTime}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0">
+                      <CreditCard className="h-4 w-4 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 group-hover:text-purple-600 transition-colors duration-300 text-sm">
+                        Payment Methods
+                      </h4>
+                      <p className="text-gray-700 text-sm">Credit Card, PayPal, Cryptocurrency</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0">
+                      <Users className="h-4 w-4 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 group-hover:text-amber-600 transition-colors duration-300 text-sm">
+                        Support
+                      </h4>
+                      <p className="text-gray-700 text-sm">Email, Live Chat (Business Hours)</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0">
+                      <Shield className="h-4 w-4 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 group-hover:text-emerald-600 transition-colors duration-300 text-sm">
+                        Warranty
+                      </h4>
+                      <p className="text-gray-700 text-sm">30-day replacement warranty</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-5 relative overflow-hidden border border-blue-100">
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-blue-200/20 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                  <div className="absolute bottom-0 left-0 w-16 h-16 bg-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+
+                  <h4 className="font-bold mb-2 text-center relative z-10 text-gray-800">Ready to get started?</h4>
+                  <p className="text-gray-600 text-sm mb-4 text-center relative z-10">
+                    Get your {product.name} now and start advertising!
+                  </p>
+
+                  <Button
+                    onClick={handleAddToCart}
+                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-300 relative z-10"
+                    disabled={product.stock === "out-of-stock"}
+                  >
+                    Add to Cart - €{product.price}
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Trust Indicators */}
+            {/* <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
+              <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-purple-200/20 to-blue-200/20 rounded-full -translate-y-1/2 -translate-x-1/2 z-0"></div>
+              <CardContent className="p-6 relative z-10">
+                <h3 className="text-xl font-bold mb-5 relative inline-block">
+                  <span className="relative z-10">Why Choose Us</span>
+                  <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-purple-200 to-blue-200 opacity-70 rounded-full"></div>
+                </h3>
+
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3 group">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-0.5">
+                      <Check className="h-4 w-4 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
+                        5+ years of experience
+                      </h4>
+                      <p className="text-sm text-gray-600">
+                        Trusted by thousands of advertisers worldwide
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 group">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-0.5">
+                      <Check className="h-4 w-4 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 group-hover:text-purple-600 transition-colors duration-300">
+                        10,000+ satisfied customers
+                      </h4>
+                      <p className="text-sm text-gray-600">With a 98% satisfaction rate</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 group">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-0.5">
+                      <Check className="h-4 w-4 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 group-hover:text-amber-600 transition-colors duration-300">
+                        Secure payment processing
+                      </h4>
+                      <p className="text-sm text-gray-600">Multiple payment options available</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 group">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-0.5">
+                      <Check className="h-4 w-4 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 group-hover:text-emerald-600 transition-colors duration-300">
+                        Dedicated customer support
+                      </h4>
+                      <p className="text-sm text-gray-600">
+                        Available to assist you every step of the way
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card> */}
 
             {/* Testimonial */}
             <Card className="overflow-hidden border-0 shadow-xl relative bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-100">
@@ -650,11 +758,11 @@ export default function ProductPage() {
               </h3>
               <div className="prose max-w-none text-sm">
                 <p className="mb-3 text-gray-700">
-                  Active, ready-to-use Business Manager (BM) with $250 ad spend limit.
+                  Fully verified Business Manager with official government ID attached.
                 </p>
-                <p className="mb-3 text-gray-700">Includes 1 ad account (default spend limit: $250/day).</p>
+                <p className="mb-3 text-gray-700">Comes with $250 ad spend limit and 1 active ad account.</p>
                 <p className="mb-3 text-gray-700">
-                  Unverified status – eligible for upgrade to BM3/BM5 after successful billing activity.
+                  Stronger trust score than unverified BMs – ✅ More robust & stable.
                 </p>
               </div>
             </CardContent>
