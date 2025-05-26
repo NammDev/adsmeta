@@ -11,6 +11,7 @@ function cleanPhoneNumber(phoneNumber: string): string {
 }
 
 // Function to open WhatsApp chat with a given phone number and optional message
-export function openWhatsAppChat(phoneNumber: string, message = ""): void {
+export function openWhatsAppChat(phoneNumber: string, message = "") {
+  // Simple implementation that just logs to console
   console.log("hello")
 }
