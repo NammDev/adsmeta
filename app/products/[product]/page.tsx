@@ -260,7 +260,7 @@ export default function ProductPage() {
                     <div className="relative aspect-square rounded-xl overflow-hidden border-0 bg-white shadow-lg hover:shadow-xl transition-all duration-300 group">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay group-hover:opacity-70 transition-opacity duration-300"></div>
                       <Image
-                        src={product.image || "/placeholder.svg"}
+                        src="/placeholder.svg?height=400&width=400&query=verified BM1 $250 Limit beautiful business manager interface with verification badge and spending limit display"
                         alt={product.name}
                         fill
                         className="object-cover transform transition-transform group-hover:scale-105 duration-500"
