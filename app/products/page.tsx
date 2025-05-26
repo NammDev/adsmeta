@@ -5,8 +5,7 @@ import ProductsSection from "@/components/home/products-section"
 import PageSection from "@/components/page-section"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { MessageCircle, Settings, Users, Zap } from "lucide-react"
+import { MessageCircle, Settings, Users, Zap, TrendingUp, Shield } from "lucide-react"
 
 export default function ProductsPage() {
   return (
@@ -22,82 +21,86 @@ export default function ProductsPage() {
       </PageSection>
 
       {/* Custom Solutions Section */}
-      <PageSection className="py-16 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50">
+      <PageSection className="py-16">
         <div className="text-center mb-12">
-          <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 mb-4">
+          <Badge variant="secondary" className="mb-4 text-sm font-medium">
             Custom Solutions
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Need Something Tailored?</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Can't find exactly what you're looking for? We create custom Facebook advertising solutions tailored to your
-            specific business needs and requirements.
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Built for every business</h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+            Empower your advertising strategy with tailored Facebook solutions.
           </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <Button size="lg" className="bg-gray-900 hover:bg-gray-800 text-white">
+              Get started
+            </Button>
+            <Button size="lg" variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50">
+              Schedule a demo →
+            </Button>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          <Card className="text-center p-6 hover:shadow-lg transition-all duration-300 border-0 bg-white/80 backdrop-blur-sm">
-            <CardContent className="p-0">
-              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <Settings className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Custom BM Setup</h3>
-              <p className="text-sm text-gray-600">Tailored Business Manager configurations for your agency</p>
-            </CardContent>
-          </Card>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="text-left">
+            <div className="flex items-center mb-4">
+              <TrendingUp className="h-6 w-6 text-gray-900 mr-3" />
+              <h3 className="text-xl font-semibold text-gray-900">Agencies</h3>
+            </div>
+            <p className="text-gray-600 leading-relaxed">
+              Scale your client campaigns with bulk Business Manager setups and priority support for agency growth.
+            </p>
+          </div>
 
-          <Card className="text-center p-6 hover:shadow-lg transition-all duration-300 border-0 bg-white/80 backdrop-blur-sm">
-            <CardContent className="p-0">
-              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <Users className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Bulk Orders</h3>
-              <p className="text-sm text-gray-600">Special pricing for large quantity purchases</p>
-            </CardContent>
-          </Card>
+          <div className="text-left">
+            <div className="flex items-center mb-4">
+              <Users className="h-6 w-6 text-gray-900 mr-3" />
+              <h3 className="text-xl font-semibold text-gray-900">Enterprise</h3>
+            </div>
+            <p className="text-gray-600 leading-relaxed">
+              Custom Business Manager configurations with dedicated account management and enterprise-level security.
+            </p>
+          </div>
 
-          <Card className="text-center p-6 hover:shadow-lg transition-all duration-300 border-0 bg-white/80 backdrop-blur-sm">
-            <CardContent className="p-0">
-              <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <Zap className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Priority Support</h3>
-              <p className="text-sm text-gray-600">Dedicated support for enterprise clients</p>
-            </CardContent>
-          </Card>
+          <div className="text-left">
+            <div className="flex items-center mb-4">
+              <Zap className="h-6 w-6 text-gray-900 mr-3" />
+              <h3 className="text-xl font-semibold text-gray-900">Startups</h3>
+            </div>
+            <p className="text-gray-600 leading-relaxed">
+              Accelerate your growth with cost-effective advertising solutions and streamlined account setup.
+            </p>
+          </div>
 
-          <Card className="text-center p-6 hover:shadow-lg transition-all duration-300 border-0 bg-white/80 backdrop-blur-sm">
-            <CardContent className="p-0">
-              <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <MessageCircle className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Consultation</h3>
-              <p className="text-sm text-gray-600">Expert advice on your advertising strategy</p>
-            </CardContent>
-          </Card>
-        </div>
+          <div className="text-left">
+            <div className="flex items-center mb-4">
+              <MessageCircle className="h-6 w-6 text-gray-900 mr-3" />
+              <h3 className="text-xl font-semibold text-gray-900">E-commerce</h3>
+            </div>
+            <p className="text-gray-600 leading-relaxed">
+              Optimize your product campaigns with specialized Business Manager setups for online stores.
+            </p>
+          </div>
 
-        <div className="text-center">
-          <Card className="max-w-2xl mx-auto p-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">
-            <CardContent className="p-0">
-              <h3 className="text-2xl font-bold mb-4">Ready to Get Started?</h3>
-              <p className="mb-6 opacity-90">
-                Contact our team to discuss your custom requirements. We'll create a solution that perfectly fits your
-                business needs and budget.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 font-semibold">
-                  Get Custom Quote
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-blue-600 font-semibold"
-                >
-                  Schedule Consultation
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="text-left">
+            <div className="flex items-center mb-4">
+              <Shield className="h-6 w-6 text-gray-900 mr-3" />
+              <h3 className="text-xl font-semibold text-gray-900">Consultants</h3>
+            </div>
+            <p className="text-gray-600 leading-relaxed">
+              Professional-grade tools and priority support to deliver exceptional results for your clients.
+            </p>
+          </div>
+
+          <div className="text-left">
+            <div className="flex items-center mb-4">
+              <Settings className="h-6 w-6 text-gray-900 mr-3" />
+              <h3 className="text-xl font-semibold text-gray-900">Custom needs</h3>
+            </div>
+            <p className="text-gray-600 leading-relaxed">
+              Tailored solutions for unique requirements with personalized setup and ongoing consultation.
+            </p>
+          </div>
         </div>
       </PageSection>
     </SupportingPageLayout>
