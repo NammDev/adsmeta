@@ -28,13 +28,6 @@ export default function TrustIndicatorsSection() {
             <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 text-sm uppercase tracking-wider font-bold mb-2">
               Trusted by leading marketing agencies worldwide
             </h3>
-            <p className="text-gray-600 text-sm max-w-sm mx-auto md:mx-0">
-              Join{" "}
-              <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-                thousands of marketing professionals
-              </span>{" "}
-              who trust our Facebook Ads solutions
-            </p>
           </div>
 
           {/* Right side scrolling logos */}
