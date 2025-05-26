@@ -1,11 +1,11 @@
-'use client'
+"use client"
 
-import { useEffect, useState } from 'react'
-import { useParams } from 'next/navigation'
-import Image from 'next/image'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { useEffect, useState } from "react"
+import { useParams } from "next/navigation"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import {
   Check,
   ShoppingCart,
@@ -20,11 +20,11 @@ import {
   Zap,
   Clock,
   Users,
-} from 'lucide-react'
-import SupportingPageLayout from '@/components/layout/supporting-page-layout'
-import { useCart } from '@/context/cart-context'
-import RelatedProducts from '@/components/products/related-products'
-import { getProductDetailData } from '@/data/products'
+} from "lucide-react"
+import SupportingPageLayout from "@/components/layout/supporting-page-layout"
+import { useCart } from "@/context/cart-context"
+import RelatedProducts from "@/components/products/related-products"
+import { getProductDetailData } from "@/data/products"
 
 // Product type definition
 interface Product {
@@ -39,7 +39,7 @@ interface Product {
   image: string
   category: string
   badge?: string
-  stock: 'in-stock' | 'low-stock' | 'out-of-stock'
+  stock: "in-stock" | "low-stock" | "out-of-stock"
   deliveryTime: string
   faq: Array<{ question: string; answer: string }>
 }
@@ -58,14 +58,14 @@ const featureIcons = [
 
 // Gradient backgrounds for features
 const gradients = [
-  'from-blue-500 to-indigo-600',
-  'from-purple-500 to-pink-600',
-  'from-amber-500 to-orange-600',
-  'from-emerald-500 to-teal-600',
-  'from-rose-500 to-red-600',
-  'from-cyan-500 to-blue-600',
-  'from-fuchsia-500 to-purple-600',
-  'from-lime-500 to-green-600',
+  "from-blue-500 to-indigo-600",
+  "from-purple-500 to-pink-600",
+  "from-amber-500 to-orange-600",
+  "from-emerald-500 to-teal-600",
+  "from-rose-500 to-red-600",
+  "from-cyan-500 to-blue-600",
+  "from-fuchsia-500 to-purple-600",
+  "from-lime-500 to-green-600",
 ]
 
 export default function ProductPage() {
@@ -87,8 +87,8 @@ export default function ProductPage() {
         title="Product Not Found"
         subtitle="The product you're looking for doesn't exist or has been removed."
         breadcrumbs={[
-          { label: 'Products', href: '/products' },
-          { label: 'Not Found', href: '#' },
+          { label: "Products", href: "/products" },
+          { label: "Not Found", href: "#" },
         ]}
       >
         <div className="py-12 flex flex-col items-center justify-center">
@@ -117,17 +117,17 @@ export default function ProductPage() {
 
   // Stock status indicator
   const stockStatus = {
-    'in-stock': {
-      label: 'In Stock',
-      color: 'bg-gradient-to-r from-green-400 to-emerald-500 text-white',
+    "in-stock": {
+      label: "In Stock",
+      color: "bg-gradient-to-r from-green-400 to-emerald-500 text-white",
     },
-    'low-stock': {
-      label: 'Low Stock',
-      color: 'bg-gradient-to-r from-amber-400 to-orange-500 text-white',
+    "low-stock": {
+      label: "Low Stock",
+      color: "bg-gradient-to-r from-amber-400 to-orange-500 text-white",
     },
-    'out-of-stock': {
-      label: 'Out of Stock',
-      color: 'bg-gradient-to-r from-red-400 to-rose-500 text-white',
+    "out-of-stock": {
+      label: "Out of Stock",
+      color: "bg-gradient-to-r from-red-400 to-rose-500 text-white",
     },
   }
 
@@ -136,10 +136,10 @@ export default function ProductPage() {
       title={product.name}
       subtitle={product.description}
       breadcrumbs={[
-        { label: 'Products', href: '/products' },
+        { label: "Products", href: "/products" },
         {
           label: product.category,
-          href: `/products?category=${product.category.toLowerCase().replace(/\s+/g, '-')}`,
+          href: `/products?category=${product.category.toLowerCase().replace(/\s+/g, "-")}`,
         },
         { label: product.name, href: `/products/${product.slug}` },
       ]}
@@ -156,7 +156,7 @@ export default function ProductPage() {
                 <div className="w-20 h-20 flex-shrink-0 relative rounded-md overflow-hidden border-2 border-gradient-to-r from-blue-300 to-purple-300 bg-white transform transition-transform hover:scale-105 duration-300">
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-purple-500/10 mix-blend-overlay"></div>
                   <Image
-                    src={product.image || '/placeholder.svg'}
+                    src={product.image || "/placeholder.svg"}
                     alt={product.name}
                     fill
                     className="object-contain p-1"
@@ -178,11 +178,11 @@ export default function ProductPage() {
 
                   <Badge
                     className={`${
-                      product.stock === 'in-stock'
-                        ? 'bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm'
-                        : product.stock === 'low-stock'
-                        ? 'bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm'
-                        : 'bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm'
+                      product.stock === "in-stock"
+                        ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm"
+                        : product.stock === "low-stock"
+                        ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
+                        : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
                     }`}
                   >
                     {stockStatus[product.stock].label}
@@ -216,12 +216,12 @@ export default function ProductPage() {
                   </button>
                 </div>
                 <div className="text-sm text-gray-500">
-                  {product.stock === 'in-stock' ? (
+                  {product.stock === "in-stock" ? (
                     <span className="text-green-600 flex items-center">
                       <Check className="h-4 w-4 mr-1" />
                       In Stock
                     </span>
-                  ) : product.stock === 'low-stock' ? (
+                  ) : product.stock === "low-stock" ? (
                     <span className="text-amber-600 flex items-center">
                       <Info className="h-4 w-4 mr-1" />
                       Low Stock
@@ -239,7 +239,7 @@ export default function ProductPage() {
               <Button
                 onClick={handleAddToCart}
                 className="w-full bg-gradient-to-r from-facebook to-blue-700 hover:from-facebook-dark hover:to-blue-800 text-white flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all duration-300"
-                disabled={product.stock === 'out-of-stock'}
+                disabled={product.stock === "out-of-stock"}
               >
                 <ShoppingCart className="h-5 w-5" />
                 Add to Cart
@@ -262,7 +262,7 @@ export default function ProductPage() {
                     <div className="relative aspect-square rounded-xl overflow-hidden border-0 bg-white shadow-lg hover:shadow-xl transition-all duration-300 group">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay group-hover:opacity-70 transition-opacity duration-300"></div>
                       <Image
-                        src={product.image || '/placeholder.svg'}
+                        src={product.image || "/placeholder.svg"}
                         alt={product.name}
                         fill
                         className="object-cover transform transition-transform group-hover:scale-105 duration-500"
@@ -303,11 +303,11 @@ export default function ProductPage() {
 
                       <Badge
                         className={`${
-                          product.stock === 'in-stock'
-                            ? 'bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm'
-                            : product.stock === 'low-stock'
-                            ? 'bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm'
-                            : 'bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm'
+                          product.stock === "in-stock"
+                            ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm"
+                            : product.stock === "low-stock"
+                            ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
+                            : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
                         }`}
                       >
                         {stockStatus[product.stock].label}
@@ -320,7 +320,7 @@ export default function ProductPage() {
                           <Star
                             key={i}
                             className={`h-5 w-5 ${
-                              i < 4.5 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
+                              i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
                             }`}
                           />
                         ))}
@@ -342,7 +342,7 @@ export default function ProductPage() {
                           className="bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors duration-300 py-1.5 px-3 border-0"
                         >
                           <Check className="h-3.5 w-3.5 mr-1 text-green-500" />
-                          {feature.split(' ')[0]}
+                          {feature.split(" ")[0]}
                         </Badge>
                       ))}
                     </div>
@@ -369,7 +369,7 @@ export default function ProductPage() {
                       <Button
                         onClick={handleAddToCart}
                         className="bg-gradient-to-r from-facebook to-blue-700 hover:from-facebook-dark hover:to-blue-800 text-white flex items-center gap-2 shadow-md hover:shadow-xl transition-all duration-300 py-6 px-8 text-lg"
-                        disabled={product.stock === 'out-of-stock'}
+                        disabled={product.stock === "out-of-stock"}
                       >
                         <ShoppingCart className="h-5 w-5" />
                         Add to Cart
@@ -400,7 +400,7 @@ export default function ProductPage() {
                 </h3>
 
                 <div className="prose max-w-none">
-                  {product.longDescription.split('\n\n').map((paragraph, index) => (
+                  {product.longDescription.split("\n\n").map((paragraph, index) => (
                     <p key={index} className="mb-4 text-gray-700">
                       {paragraph}
                     </p>
@@ -446,7 +446,7 @@ export default function ProductPage() {
             </Card>
 
             {/* FAQ Section */}
-            <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm mt-8">
+            {/* <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm mt-8">
               <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-200/10 to-purple-200/10 rounded-full -translate-y-1/2 -translate-x-1/2"></div>
               <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-pink-200/10 to-indigo-200/10 rounded-full translate-y-1/2 translate-x-1/2"></div>
 
@@ -478,7 +478,7 @@ export default function ProductPage() {
                   ))}
                 </div>
 
-                {/* Additional Questions */}
+             //  Additional Questions 
                 <div className="mt-8 bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-100 relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-50"></div>
 
@@ -506,13 +506,13 @@ export default function ProductPage() {
                   </div>
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
           </div>
 
           {/* Right Column - Features & Purchase Info */}
           <div className="space-y-6">
             {/* Features Card */}
-            <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
+            {/* <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-200/20 to-purple-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
               <CardContent className="p-6 relative z-10">
                 <h3 className="text-xl font-bold mb-5 relative inline-block">
@@ -540,7 +540,7 @@ export default function ProductPage() {
                   ))}
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
 
             {/* Purchase Info Card */}
             <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
@@ -615,7 +615,7 @@ export default function ProductPage() {
                   <Button
                     onClick={handleAddToCart}
                     className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-300 relative z-10"
-                    disabled={product.stock === 'out-of-stock'}
+                    disabled={product.stock === "out-of-stock"}
                   >
                     Add to Cart - €{product.price}
                   </Button>
@@ -624,7 +624,7 @@ export default function ProductPage() {
             </Card>
 
             {/* Trust Indicators */}
-            <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
+            {/* <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
               <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-purple-200/20 to-blue-200/20 rounded-full -translate-y-1/2 -translate-x-1/2 z-0"></div>
               <CardContent className="p-6 relative z-10">
                 <h3 className="text-xl font-bold mb-5 relative inline-block">
@@ -686,7 +686,7 @@ export default function ProductPage() {
                   </div>
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
 
             {/* Testimonial */}
             <Card className="overflow-hidden border-0 shadow-xl relative bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-100">
@@ -748,7 +748,7 @@ export default function ProductPage() {
                 <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
               </h3>
               <div className="prose max-w-none text-sm">
-                {product.longDescription.split('\n\n').map((paragraph, index) => (
+                {product.longDescription.split("\n\n").map((paragraph, index) => (
                   <p key={index} className="mb-3 text-gray-700">
                     {paragraph}
                   </p>
@@ -849,7 +849,7 @@ export default function ProductPage() {
                 <Button
                   onClick={handleAddToCart}
                   className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-300 text-sm relative z-10"
-                  disabled={product.stock === 'out-of-stock'}
+                  disabled={product.stock === "out-of-stock"}
                 >
                   Add to Cart - €{product.price}
                 </Button>
