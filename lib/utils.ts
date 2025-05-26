@@ -5,6 +5,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function openWhatsAppChat(message = "Hello! I'm interested in your products.") {
+export function openWhatsAppChat(phoneNumber: string, message = "") {
   console.log("hello")
 }
