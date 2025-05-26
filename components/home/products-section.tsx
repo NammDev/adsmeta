@@ -1,11 +1,14 @@
 "use client"
 import { Badge } from "@/components/ui/badge"
+import type React from "react"
+
 import { Button } from "@/components/ui/button"
 import { ShoppingBag } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { useCart } from "@/context/cart-context"
 import { getProductSectionItems, type ProductSectionItem } from "@/data/products"
 import SectionHeader from "../ui/section-header"
+import { useRouter } from "next/navigation"
 
 interface ProductsSectionProps {
   isProductsPage?: boolean
@@ -14,32 +17,38 @@ interface ProductsSectionProps {
 export default function ProductsSection({ isProductsPage = false }: ProductsSectionProps) {
   const isMobile = useMediaQuery("(max-width: 768px)")
   const { addItem, openCart } = useCart()
+  const router = useRouter()
 
   // Get products data from centralized source
   const allProducts = getProductSectionItems()
 
   // Group products by category for the new UI
   const businessManagerProducts = allProducts.filter(
-    (product) => product.category === "verified-bm" || product.category === "unverified-bm"
+    (product) => product.category === "verified-bm" || product.category === "unverified-bm",
   )
 
   const profileProducts = allProducts.filter((product) => product.category === "profile")
 
   const otherProducts = allProducts.filter(
-    (product) => !["verified-bm", "unverified-bm", "profile"].includes(product.category)
+    (product) => !["verified-bm", "unverified-bm", "profile"].includes(product.category),
   )
 
   // Group other products by category
-  const groupedOtherProducts = otherProducts.reduce((acc, product) => {
-    if (!acc[product.category]) {
-      acc[product.category] = []
-    }
-    acc[product.category].push(product)
-    return acc
-  }, {} as Record<string, typeof otherProducts>)
+  const groupedOtherProducts = otherProducts.reduce(
+    (acc, product) => {
+      if (!acc[product.category]) {
+        acc[product.category] = []
+      }
+      acc[product.category].push(product)
+      return acc
+    },
+    {} as Record<string, typeof otherProducts>,
+  )
 
   // Add this function to handle adding products to cart
-  const handleAddToCart = (product: ProductSectionItem) => {
+  const handleAddToCart = (product: ProductSectionItem, event: React.MouseEvent) => {
+    event.stopPropagation() // Prevent card click
+
     if (!addItem) {
       console.error("Cart functionality not available")
       return
@@ -66,18 +75,13 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
     }
   }
 
+  const handleCardClick = (productId: string) => {
+    router.push(`/products/${productId}`)
+  }
+
   // Helper function to highlight keywords in product names
   const highlightKeywords = (name: string) => {
-    const highlightWords = [
-      "Verified",
-      "Blue",
-      "Tick",
-      "Reinstated",
-      "Super",
-      "Strong",
-      "Premium",
-      "Setup",
-    ]
+    const highlightWords = ["Verified", "Blue", "Tick", "Reinstated", "Super", "Strong", "Premium", "Setup"]
     return name.split(" ").map((word, index) => {
       const isHighlight = highlightWords.some((hw) => word.includes(hw))
       return (
@@ -89,10 +93,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
   }
 
   return (
-    <section
-      id="products"
-      className={`relative overflow-hidden ${isProductsPage ? "pb-0 pt-8" : "py-8 md:py-16"}`}
-    >
+    <section id="products" className={`relative overflow-hidden ${isProductsPage ? "pb-0 pt-8" : "py-8 md:py-16"}`}>
       <div className="container mx-auto px-4 relative">
         {/* Header Section */}
         <SectionHeader
@@ -120,8 +121,9 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                 {businessManagerProducts.map((product, index) => (
                   <div
                     key={product.id}
-                    className="bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1"
+                    className="bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1 cursor-pointer"
                     style={{ animationDelay: `${index * 0.1}s` }}
+                    onClick={() => handleCardClick(product.id)}
                   >
                     {/* Mobile Layout */}
                     <div className="flex flex-col gap-3 md:hidden">
@@ -152,7 +154,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                         <div className="flex gap-2">
                           <Button
                             size="sm"
-                            onClick={() => handleAddToCart(product)}
+                            onClick={(e) => handleAddToCart(product, e)}
                             className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
                           >
                             Buy Now
@@ -190,7 +192,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                         <div className="flex gap-2">
                           <Button
                             size="sm"
-                            onClick={() => handleAddToCart(product)}
+                            onClick={(e) => handleAddToCart(product, e)}
                             className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
                           >
                             Buy Now
@@ -221,8 +223,9 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                 {profileProducts.map((product, index) => (
                   <div
                     key={product.id}
-                    className="bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1"
+                    className="bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1 cursor-pointer"
                     style={{ animationDelay: `${index * 0.1}s` }}
+                    onClick={() => handleCardClick(product.id)}
                   >
                     {/* Mobile Layout */}
                     <div className="flex flex-col gap-3 md:hidden">
@@ -253,7 +256,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                         <div className="flex gap-2">
                           <Button
                             size="sm"
-                            onClick={() => handleAddToCart(product)}
+                            onClick={(e) => handleAddToCart(product, e)}
                             className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
                           >
                             Buy Now
@@ -291,7 +294,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                         <div className="flex gap-2">
                           <Button
                             size="sm"
-                            onClick={() => handleAddToCart(product)}
+                            onClick={(e) => handleAddToCart(product, e)}
                             className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
                           >
                             Buy Now
@@ -327,8 +330,9 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                 {products.map((product, index) => (
                   <div
                     key={product.id}
-                    className="bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1"
+                    className="bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1 cursor-pointer"
                     style={{ animationDelay: `${index * 0.1}s` }}
+                    onClick={() => handleCardClick(product.id)}
                   >
                     {/* Mobile Layout */}
                     <div className="flex flex-col gap-3 md:hidden">
@@ -359,7 +363,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                         <div className="flex gap-2">
                           <Button
                             size="sm"
-                            onClick={() => handleAddToCart(product)}
+                            onClick={(e) => handleAddToCart(product, e)}
                             className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
                           >
                             Buy Now
@@ -397,7 +401,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                         <div className="flex gap-2">
                           <Button
                             size="sm"
-                            onClick={() => handleAddToCart(product)}
+                            onClick={(e) => handleAddToCart(product, e)}
                             className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
                           >
                             Buy Now
