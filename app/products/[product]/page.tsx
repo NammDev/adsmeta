@@ -430,6 +430,15 @@ export default function ProductPage() {
                       💼 Ideal for advertisers looking to start safely and scale responsibly.
                     </p>
                   </div>
+                  <div className="mt-6">
+                    <Image
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BM1250-bKJxFWR53R7t8C2X90KhNDoxJxqPQm.webp"
+                      alt="Facebook Ads Manager showing $250 daily spending limit"
+                      width={800}
+                      height={600}
+                      className="w-full rounded-lg border border-gray-200 shadow-sm"
+                    />
+                  </div>
                 </div>
 
                 {/* Key Benefits */}
