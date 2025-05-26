@@ -160,7 +160,7 @@ export const products: Product[] = [
     comparePrice: 249,
     category: "Business Manager",
     productCategory: "verified-bm",
-    image: "/verified-facebook-business-manager-icon.png",
+    image: "/bm1-250-limit-illustrator.png",
     features: [
       { id: "feature-1", name: "Fully verified Business Manager", included: true, highlight: true },
       { id: "feature-2", name: "$250 spending limit", included: true },
