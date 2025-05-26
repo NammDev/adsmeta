@@ -77,7 +77,7 @@ export default function AboutUsPage() {
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-600/20 group-hover:opacity-75 transition-opacity duration-300"></div>
               <div className="relative h-[400px]">
                 <Image
-                  src="/digital-marketing-team-illustration.png"
+                  src="about/digital-marketing-team-illustration.png"
                   alt="EasyAdsPack team"
                   fill
                   className="object-cover"
@@ -184,21 +184,21 @@ export default function AboutUsPage() {
                   name: "Alex Johnson",
                   role: "Founder",
                   email: "alex@gmail.com",
-                  image: "/team-alex-illustration.png",
+                  image: "/avatar/alex.png",
                   gradient: "from-blue-500 to-indigo-600",
                 },
                 {
                   name: "Sarah Williams",
                   role: "Operations",
                   email: "sarah@gmail.com",
-                  image: "/team-sarah-illustration.png",
+                  image: "/avatar/sarah.png",
                   gradient: "from-purple-500 to-pink-600",
                 },
                 {
                   name: "Michael Chen",
                   role: "Developer",
                   email: "michael@gmail.com",
-                  image: "/team-michael-illustration-new.png",
+                  image: "/avatar/michael.png",
                   gradient: "from-green-500 to-teal-600",
                 },
               ].map((member, index) => (

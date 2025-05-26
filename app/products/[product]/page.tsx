@@ -23,32 +23,7 @@ import {
 import SupportingPageLayout from "@/components/layout/supporting-page-layout"
 import { useCart } from "@/context/cart-context"
 import RelatedProducts from "@/components/products/related-products"
-import {
-  getProductDetailData,
-  getCategoryDisplayName,
-  type ProductDescription,
-  type ProductReviewData,
-} from "@/data/products"
-
-// Update the Product interface to match our enhanced data structure
-interface Product {
-  id: string
-  slug: string
-  name: string
-  description: string
-  longDescription: string
-  price: number
-  comparePrice?: number
-  features?: string[]
-  image: string
-  category: string
-  badge?: string
-  stock: "in-stock" | "low-stock" | "out-of-stock"
-  faq?: Array<{ question: string; answer: string }>
-  // Updated to use the new nested structures
-  description?: ProductDescription
-  review?: ProductReviewData
-}
+import { getProductDetailData, getCategoryDisplayName, Product } from "@/data/products"
 
 // Feature icons mapping
 const featureIcons = [
@@ -117,7 +92,7 @@ export default function ProductPage() {
       price: product.price,
       image: product.image,
       quantity: quantity,
-      category: getCategoryDisplayName(product.category),
+      category: getCategoryDisplayName(product.productCategory),
     })
   }
 
@@ -138,18 +113,7 @@ export default function ProductPage() {
   }
 
   return (
-    <SupportingPageLayout
-      title={product.name}
-      subtitle={product.description}
-      breadcrumbs={[
-        { label: "Products", href: "/products" },
-        {
-          label: getCategoryDisplayName(product.category),
-          href: `/products?category=${product.category}`,
-        },
-        { label: product.name, href: `/products/${product.slug}` },
-      ]}
-    >
+    <SupportingPageLayout title={product.name} subtitle={product.description}>
       <div className="container mx-auto px-4 pt-6 md:pt-8 pb-10 md:pb-12 relative z-10">
         {/* Mobile Product Overview */}
         <div className="md:hidden mb-6">
@@ -176,7 +140,9 @@ export default function ProductPage() {
                       €{product.price}
                     </span>
                     {product.comparePrice && (
-                      <span className="text-sm text-gray-500 line-through">€{product.comparePrice}</span>
+                      <span className="text-sm text-gray-500 line-through">
+                        €{product.comparePrice}
+                      </span>
                     )}
                   </div>
 
@@ -185,8 +151,8 @@ export default function ProductPage() {
                       product.stock === "in-stock"
                         ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm"
                         : product.stock === "low-stock"
-                          ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
-                          : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
+                        ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
+                        : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
                     }`}
                   >
                     {stockStatus[product.stock].label}
@@ -194,7 +160,7 @@ export default function ProductPage() {
 
                   <p className="text-xs text-gray-600 mt-1 flex items-center">
                     <Clock className="h-3 w-3 mr-1 text-blue-500" />
-                    Delivery: {product.deliveryTime}
+                    Delivery: 1 - 3 hours
                   </p>
                 </div>
               </div>
@@ -266,7 +232,7 @@ export default function ProductPage() {
                     <div className="relative aspect-square rounded-xl overflow-hidden border-0 bg-white shadow-lg hover:shadow-xl transition-all duration-300 group">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay group-hover:opacity-70 transition-opacity duration-300"></div>
                       <Image
-                        src={product.description?.imageDescription || product.image || "/placeholder.svg"}
+                        src={product.imageDescription || product.image || "/placeholder.svg"}
                         alt={product.name}
                         fill
                         className="object-cover transform transition-transform group-hover:scale-105 duration-500"
@@ -299,7 +265,9 @@ export default function ProductPage() {
                           €{product.price}
                         </span>
                         {product.comparePrice && (
-                          <span className="ml-2 text-gray-500 line-through">€{product.comparePrice}</span>
+                          <span className="ml-2 text-gray-500 line-through">
+                            €{product.comparePrice}
+                          </span>
                         )}
                       </div>
 
@@ -308,8 +276,8 @@ export default function ProductPage() {
                           product.stock === "in-stock"
                             ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm"
                             : product.stock === "low-stock"
-                              ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
-                              : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
+                            ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
+                            : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
                         }`}
                       >
                         {stockStatus[product.stock].label}
@@ -347,12 +315,17 @@ export default function ProductPage() {
                         {[...Array(5)].map((_, i) => (
                           <Star
                             key={i}
-                            className={`h-5 w-5 ${i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
+                            className={`h-5 w-5 ${
+                              i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+                            }`}
                           />
                         ))}
                       </div>
-                      <a href="#reviews" className="text-sm text-gray-500 hover:text-facebook transition-colors">
-                        {product.review?.count || 0} reviews
+                      <a
+                        href="#reviews"
+                        className="text-sm text-gray-500 hover:text-facebook transition-colors"
+                      >
+                        120 reviews
                       </a>
                     </div>
                   </div>
@@ -372,10 +345,10 @@ export default function ProductPage() {
                 </h3>
 
                 <div className="prose max-w-none">
-                  {product.description?.overview && product.description.overview.length > 0 && (
+                  {product.overview && product.overview.length > 0 && (
                     <div className="mb-6">
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">Overview:</h4>
-                      {product.description.overview.map((item, index) => (
+                      {product.overview.map((item, index) => (
                         <p key={index} className="mb-3 text-gray-700">
                           {item}
                         </p>
@@ -383,10 +356,10 @@ export default function ProductPage() {
                     </div>
                   )}
 
-                  {product.description?.details && product.description.details.length > 0 && (
+                  {product.details && product.details.length > 0 && (
                     <div className="mb-6">
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">Details:</h4>
-                      {product.description.details.map((item, index) => (
+                      {product.details.map((item, index) => (
                         <p key={index} className="mb-3 text-gray-700">
                           {item}
                         </p>
@@ -394,10 +367,10 @@ export default function ProductPage() {
                     </div>
                   )}
 
-                  {product.description?.status && product.description.status.length > 0 && (
+                  {product.status && product.status.length > 0 && (
                     <div className="mb-6">
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">Status:</h4>
-                      {product.description.status.map((item, index) => (
+                      {product.status.map((item, index) => (
                         <p key={index} className="mb-4 text-gray-700">
                           {item}
                         </p>
@@ -408,9 +381,8 @@ export default function ProductPage() {
                   <div className="mt-6">
                     <Image
                       src={
-                        product.description?.imageDescription ||
+                        product.imageDescription ||
                         "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BM1250-bKJxFWR53R7t8C2X90KhNDoxJxqPQm.webp" ||
-                        "/placeholder.svg" ||
                         "/placeholder.svg"
                       }
                       alt={product.name}
@@ -480,7 +452,7 @@ export default function ProductPage() {
                       <h4 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-300 text-sm">
                         Delivery Time
                       </h4>
-                      <p className="text-gray-700 text-sm">{product.deliveryTime}</p>
+                      <p className="text-gray-700 text-sm">1 - 3 hours</p>
                     </div>
                   </div>
 
@@ -525,7 +497,9 @@ export default function ProductPage() {
                   <div className="absolute top-0 right-0 w-20 h-20 bg-blue-200/20 rounded-full -translate-y-1/2 translate-x-1/2"></div>
                   <div className="absolute bottom-0 left-0 w-16 h-16 bg-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2"></div>
 
-                  <h4 className="font-bold mb-2 text-center relative z-10 text-gray-800">Ready to get started?</h4>
+                  <h4 className="font-bold mb-2 text-center relative z-10 text-gray-800">
+                    Ready to get started?
+                  </h4>
                   <p className="text-gray-600 text-sm mb-4 text-center relative z-10">
                     Get your {product.name} now and start advertising!
                   </p>
@@ -566,7 +540,7 @@ export default function ProductPage() {
                 </div>
 
                 <p className="text-center mb-4 italic text-gray-700">
-                  {product.review?.comment ||
+                  {product.reviewComment ||
                     `"The ${product.name} completely transformed our Facebook advertising capabilities. Highly recommended!"`}
                 </p>
 
@@ -581,8 +555,12 @@ export default function ProductPage() {
                     />
                   </div>
                   <div className="text-left">
-                    <p className="font-bold text-sm text-gray-800">{product.review?.author || "Michael Thompson"}</p>
-                    <p className="text-gray-600 text-xs">{product.review?.authorTitle || "Marketing Director"}</p>
+                    <p className="font-bold text-sm text-gray-800">
+                      {product.reviewAuthor || "Michael Thompson"}
+                    </p>
+                    <p className="text-gray-600 text-xs">
+                      {product.reviewAuthorTitle || "Marketing Director"}
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -601,9 +579,9 @@ export default function ProductPage() {
                 <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
               </h3>
               <div className="prose max-w-none text-sm">
-                {product.description?.overview &&
-                  product.description.overview.length > 0 &&
-                  product.description.overview.map((item, index) => (
+                {product.overview &&
+                  product.overview.length > 0 &&
+                  product.overview.map((item, index) => (
                     <p key={index} className="mb-3 text-gray-700">
                       {item}
                     </p>
@@ -626,7 +604,7 @@ export default function ProductPage() {
                   <Clock className="h-4 w-4 text-blue-500" />
                   <div>
                     <h4 className="font-medium text-gray-900 text-xs">Delivery Time</h4>
-                    <p className="text-gray-700 text-xs">{product.deliveryTime}</p>
+                    <p className="text-gray-700 text-xs">1 - 3 hours</p>
                   </div>
                 </div>
 
@@ -654,7 +632,9 @@ export default function ProductPage() {
                 <h4 className="font-bold mb-1 text-center text-sm relative z-10 text-gray-800">
                   Ready to get started?
                 </h4>
-                <p className="text-gray-600 text-xs mb-3 text-center relative z-10">Get your {product.name} now!</p>
+                <p className="text-gray-600 text-xs mb-3 text-center relative z-10">
+                  Get your {product.name} now!
+                </p>
 
                 <Button
                   onClick={handleAddToCart}
