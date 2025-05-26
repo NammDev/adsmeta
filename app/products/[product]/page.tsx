@@ -23,7 +23,7 @@ import {
 import SupportingPageLayout from "@/components/layout/supporting-page-layout"
 import { useCart } from "@/context/cart-context"
 import RelatedProducts from "@/components/products/related-products"
-import { getProductDetailData } from "@/data/products"
+import { getProductDetailData, getCategoryDisplayName } from "@/data/products"
 
 // Update the Product interface to match our enhanced data structure
 interface Product {
@@ -39,13 +39,12 @@ interface Product {
   category: string
   badge?: string
   stock: "in-stock" | "low-stock" | "out-of-stock"
-  deliveryTime: string
   faq?: Array<{ question: string; answer: string }>
   // Add the new fields
   overview?: string[]
   details?: string[]
   status?: string[]
-  imageDescription?: string
+  imageDescription?: string // Path to the product image
   reviewComment?: string
   reviewAuthor?: string
   reviewAuthorTitle?: string
@@ -118,7 +117,7 @@ export default function ProductPage() {
       price: product.price,
       image: product.image,
       quantity: quantity,
-      category: product.category,
+      category: getCategoryDisplayName(product.category),
     })
   }
 
@@ -145,8 +144,8 @@ export default function ProductPage() {
       breadcrumbs={[
         { label: "Products", href: "/products" },
         {
-          label: product.category,
-          href: `/products?category=${product.category.toLowerCase().replace(/\s+/g, "-")}`,
+          label: getCategoryDisplayName(product.category),
+          href: `/products?category=${product.category}`,
         },
         { label: product.name, href: `/products/${product.slug}` },
       ]}
@@ -267,7 +266,7 @@ export default function ProductPage() {
                     <div className="relative aspect-square rounded-xl overflow-hidden border-0 bg-white shadow-lg hover:shadow-xl transition-all duration-300 group">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay group-hover:opacity-70 transition-opacity duration-300"></div>
                       <Image
-                        src={product.image || "/placeholder.svg"}
+                        src={product.imageDescription || product.image || "/placeholder.svg"}
                         alt={product.name}
                         fill
                         className="object-cover transform transition-transform group-hover:scale-105 duration-500"
@@ -408,8 +407,12 @@ export default function ProductPage() {
 
                   <div className="mt-6">
                     <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BM1250-bKJxFWR53R7t8C2X90KhNDoxJxqPQm.webp"
-                      alt={product.imageDescription || "Product screenshot"}
+                      src={
+                        product.imageDescription ||
+                        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BM1250-bKJxFWR53R7t8C2X90KhNDoxJxqPQm.webp" ||
+                        "/placeholder.svg"
+                      }
+                      alt={product.name}
                       width={800}
                       height={600}
                       className="w-full rounded-lg border border-gray-200 shadow-sm"

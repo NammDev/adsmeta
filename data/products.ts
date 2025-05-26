@@ -24,6 +24,31 @@ export interface ProductReview {
   verified?: boolean
 }
 
+// Category type for type safety
+export type ProductCategory = "verified-bm" | "unverified-bm" | "profile" | "page"
+
+// Helper function to get display name from category
+export function getCategoryDisplayName(category: ProductCategory): string {
+  const categoryMap: Record<ProductCategory, string> = {
+    "verified-bm": "Business Manager",
+    "unverified-bm": "Unverified BM",
+    profile: "Profiles",
+    page: "Pages",
+  }
+  return categoryMap[category] || category
+}
+
+// Helper function to get category from display name
+export function getCategoryFromDisplayName(displayName: string): ProductCategory | null {
+  const reverseMap: Record<string, ProductCategory> = {
+    "Business Manager": "verified-bm",
+    "Unverified BM": "unverified-bm",
+    Profiles: "profile",
+    Pages: "page",
+  }
+  return reverseMap[displayName] || null
+}
+
 // This type matches the Product type in app/products-section.tsx
 export interface ProductSectionItem {
   id: string
@@ -31,7 +56,7 @@ export interface ProductSectionItem {
   description: string
   price: number
   image: string
-  category: "verified-bm" | "unverified-bm" | "profile" | "page"
+  category: ProductCategory
   badge?: string
   href?: string
   reviewCount?: number
@@ -63,7 +88,7 @@ export interface ProductDetailItem {
   price: number
   comparePrice?: number
   image: string
-  category: string
+  category: ProductCategory
   badge?: string
   stock: "in-stock" | "low-stock" | "out-of-stock"
   deliveryTime: string
@@ -88,7 +113,7 @@ export interface Product {
   overview?: string[]
   details?: string[]
   status?: string[]
-  imageDescription?: string
+  imageDescription?: string // Path to the product image
   reviewComment?: string
   reviewAuthor?: string
   reviewAuthorTitle?: string
@@ -98,8 +123,7 @@ export interface Product {
   comparePrice?: number
   discount?: number
   popular?: boolean
-  category: string
-  productCategory: "verified-bm" | "unverified-bm" | "profile" | "page" // For products-section.tsx compatibility
+  category: ProductCategory // Single category field with machine-readable values
   image: string
   images?: string[]
   reviews?: ProductReview[]
@@ -107,11 +131,10 @@ export interface Product {
   badge?: string
   tags?: string[]
   relatedProducts?: string[] // Array of product IDs
-  reviewCount?: number // For products-section.tsx compatibility
-  purchases?: number // For products/page.tsx compatibility
+  reviewCount?: number
+  purchases?: number
   gradient?: string
   bgGradient?: string
-  deliveryTime?: string
 }
 
 // SINGLE SOURCE OF TRUTH - Main products data
@@ -133,23 +156,20 @@ export const products: Product[] = [
       "Currency & timezone can be customized for each ad account.",
     ],
     status: ["Business Manager is active, clean, and ready for immediate use."],
-    imageDescription:
-      "Screenshot of verified Business Manager dashboard showing account status and verification badge.",
+    imageDescription: "/images/verified-bm-dashboard.png",
     reviewComment:
       "This verified BM saved us so much time. We were able to start running ads within hours of purchase.",
     reviewAuthor: "David Miller",
     reviewAuthorTitle: "Digital Marketing Specialist",
     price: 80,
     priceString: "€80",
-    category: "Business Manager",
-    productCategory: "verified-bm",
+    category: "verified-bm",
     image: "/verified-facebook-business-manager-icon.png",
     stock: "in-stock",
     reviewCount: 42,
     purchases: 124,
     gradient: "from-blue-500 to-cyan-500",
     bgGradient: "from-blue-50 to-cyan-50",
-    deliveryTime: "1-2 hours",
   },
   {
     id: "bm1-250-limit",
@@ -168,7 +188,7 @@ export const products: Product[] = [
       "Pixel sharing fully supported – no restrictions or errors.",
     ],
     status: ["Business Manager is active, clean, and ready for immediate use."],
-    imageDescription: "Facebook Ads Manager showing $250 daily spending limit",
+    imageDescription: "/images/bm1-250-limit-dashboard.png",
     reviewComment:
       "The BM1 with $250 limit completely transformed our Facebook advertising capabilities. Highly recommended!",
     reviewAuthor: "Michael Thompson",
@@ -176,8 +196,7 @@ export const products: Product[] = [
     price: 180,
     priceString: "€180",
     comparePrice: 249,
-    category: "Business Manager",
-    productCategory: "verified-bm",
+    category: "verified-bm",
     image: "/bm1-250-limit.png",
     badge: "Popular",
     stock: "in-stock",
@@ -186,7 +205,6 @@ export const products: Product[] = [
     relatedProducts: ["verified-bm-3", "verified-bm-4", "unverified-bm-1"],
     gradient: "from-blue-600 to-indigo-600",
     bgGradient: "from-blue-50 to-indigo-50",
-    deliveryTime: "2-4 hours",
   },
   {
     id: "verified-bm-3",
@@ -205,22 +223,20 @@ export const products: Product[] = [
       "Eligible for spending limit increases after successful ad campaigns.",
     ],
     status: ["All accounts are active and in perfect standing.", "No previous policy violations or restrictions."],
-    imageDescription: "Dashboard view of BM5 account showing 5 active ad accounts and spending limit",
+    imageDescription: "/images/bm5-dashboard.png",
     reviewComment:
       "The BM5 package exceeded our expectations. Having 5 pre-verified accounts saved us weeks of setup time.",
     reviewAuthor: "Jennifer Adams",
     reviewAuthorTitle: "Agency Owner",
     price: 260,
     priceString: "€260",
-    category: "Business Manager",
-    productCategory: "verified-bm",
+    category: "verified-bm",
     image: "/abstract-facebook-verified-business-manager.png",
     stock: "in-stock",
     reviewCount: 36,
     purchases: 89,
     gradient: "from-indigo-500 to-purple-500",
     bgGradient: "from-indigo-50 to-purple-50",
-    deliveryTime: "4-6 hours",
   },
   {
     id: "verified-bm-4",
@@ -242,15 +258,14 @@ export const products: Product[] = [
       "All accounts are active and in perfect standing with premium status.",
       "Verified with multiple security layers for maximum account stability.",
     ],
-    imageDescription: "Dashboard view showing unlimited spending capability and 5 active ad accounts",
+    imageDescription: "/images/unlimited-bm5-dashboard.png",
     reviewComment:
       "The unlimited BM5 has been a game-changer for our agency. We can now scale campaigns without any spending restrictions.",
     reviewAuthor: "Robert Chen",
     reviewAuthorTitle: "Performance Marketing Lead",
     price: 350,
     priceString: "€350",
-    category: "Business Manager",
-    productCategory: "verified-bm",
+    category: "verified-bm",
     image: "/abstract-facebook-verified-business-manager.png",
     badge: "Premium",
     stock: "in-stock",
@@ -258,10 +273,8 @@ export const products: Product[] = [
     purchases: 312,
     gradient: "from-purple-500 to-pink-500",
     bgGradient: "from-purple-50 to-pink-50",
-    deliveryTime: "6-12 hours",
   },
 
-  // Keep the rest of the products array as is
   // UNVERIFIED BM PRODUCTS (2)
   {
     id: "unverified-bm-1",
@@ -270,10 +283,8 @@ export const products: Product[] = [
     description: "Basic unverified Business Manager for testing.",
     price: 10,
     priceString: "€10",
-    category: "Unverified BM",
-    productCategory: "unverified-bm",
+    category: "unverified-bm",
     image: "/facebook-business-manager-icon.png",
-
     stock: "in-stock",
     reviewCount: 28,
     purchases: 578,
@@ -287,10 +298,8 @@ export const products: Product[] = [
     description: "Recovered unverified Business Manager with history.",
     price: 30,
     priceString: "€30",
-    category: "Unverified BM",
-    productCategory: "unverified-bm",
+    category: "unverified-bm",
     image: "/facebook-business-manager-icon.png",
-
     stock: "in-stock",
     reviewCount: 32,
     purchases: 198,
@@ -304,13 +313,10 @@ export const products: Product[] = [
     slug: "asia-reinstated-2gl",
     name: "Asia Reinstated 2 Green Line",
     description: "Asia profile with 2 green line tick (verified 1 time).",
-
     price: 25,
     priceString: "€25",
-    category: "Profiles",
-    productCategory: "profile",
+    category: "profile",
     image: "/facebook-xmdt-usa.png",
-
     stock: "in-stock",
     reviewCount: 41,
     purchases: 45,
@@ -324,10 +330,8 @@ export const products: Product[] = [
     description: "Asia profile with 3 green line tick (verified 2 times).",
     price: 35,
     priceString: "€35",
-    category: "Profiles",
-    productCategory: "profile",
+    category: "profile",
     image: "/facebook-xmdt-usa.png",
-
     stock: "in-stock",
     reviewCount: 47,
     purchases: 72,
@@ -341,13 +345,10 @@ export const products: Product[] = [
     description: "USA profile with 2 green line tick (verified 1 time).",
     price: 40,
     priceString: "€40",
-    category: "Profiles",
-    productCategory: "profile",
+    category: "profile",
     image: "/facebook-xmdt-usa.png",
-
     badge: "Premium",
     stock: "in-stock",
-
     reviewCount: 63,
     purchases: 102,
     gradient: "from-red-500 to-rose-500",
@@ -365,13 +366,10 @@ export const products: Product[] = [
     These accounts are perfect for agencies and professional marketers who need reliable advertising assets for their clients or campaigns.`,
     price: 50,
     priceString: "€50",
-    category: "Profiles",
-    productCategory: "profile",
+    category: "profile",
     image: "/facebook-xmdt-usa.png",
-
     badge: "Best Value",
     stock: "low-stock",
-
     reviewCount: 72,
     purchases: 155,
     relatedProducts: ["profile-3", "profile-2", "profile-1"],
@@ -387,10 +385,8 @@ export const products: Product[] = [
     description: "Recovered Facebook page with established history.",
     price: 30,
     priceString: "€30",
-    category: "Pages",
-    productCategory: "page",
+    category: "page",
     image: "/facebook-pixel-icon.png",
-
     stock: "in-stock",
     reviewCount: 38,
     purchases: 210,
@@ -412,8 +408,8 @@ export function getProductById(id: string): Product | undefined {
   return products.find((product) => product.id === id)
 }
 
-export function getProductsByCategory(category: string): Product[] {
-  return products.filter((product) => product.category.toLowerCase() === category.toLowerCase())
+export function getProductsByCategory(category: ProductCategory): Product[] {
+  return products.filter((product) => product.category === category)
 }
 
 export function getFeaturedProducts(): Product[] {
@@ -434,7 +430,7 @@ export function getRelatedProducts(productId: string): Product[] {
   const product = getProductById(productId)
   if (!product || !product.relatedProducts || product.relatedProducts.length === 0) {
     // If no related products specified, return other products in the same category
-    const category = product?.category || ""
+    const category = product?.category || "verified-bm"
     return products.filter((p) => p.id !== productId && p.category === category).slice(0, 3)
   }
 
@@ -449,7 +445,7 @@ export function getProductSectionItems(): ProductSectionItem[] {
     description: product.description,
     price: product.price,
     image: product.image,
-    category: product.productCategory,
+    category: product.category,
     badge: product.badge,
     href: `/products/${product.slug}`,
     reviewCount: product.reviewCount,
@@ -484,7 +480,7 @@ export function getProductsPageData(): ProductPageItem[] {
     name: product.name,
     description: product.shortDescription || product.description,
     price: product.priceString || `€${product.price}`,
-    category: product.category.toLowerCase().replace(/\s+/g, "-"),
+    category: product.category,
     image: product.image,
     badge: product.badge,
     url: `/products/${product.slug}`,
@@ -502,12 +498,12 @@ export function getProductPageCategories() {
   ]
 
   // Get unique categories and their counts
-  const uniqueCategories = [...new Set(products.map((product) => product.category))]
+  const uniqueCategories: ProductCategory[] = [...new Set(products.map((product) => product.category))]
   uniqueCategories.forEach((category) => {
     const count = products.filter((product) => product.category === category).length
     categories.push({
-      id: category.toLowerCase().replace(/\s+/g, "-"),
-      name: category,
+      id: category,
+      name: getCategoryDisplayName(category),
       count,
     })
   })
@@ -609,7 +605,7 @@ export function getProductDetailData(slug: string): ProductDetailItem | null {
     category: product.category,
     badge: product.badge,
     stock: product.stock || "in-stock",
-    deliveryTime: product.deliveryTime || "24 hours",
+    deliveryTime: "24 hours", // Default delivery time
     // Add the new fields
     overview: product.overview,
     details: product.details,
@@ -684,7 +680,7 @@ export function searchProducts(query: string): Product[] {
       product.shortDescription,
       product.longDescription,
       ...(product.tags || []),
-      product.category,
+      getCategoryDisplayName(product.category),
     ]
       .join(" ")
       .toLowerCase()
