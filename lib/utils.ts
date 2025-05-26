@@ -5,14 +5,15 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+// Add the missing openWhatsAppChat function
 export function openWhatsAppChat() {
-  // Replace with your actual WhatsApp number (include country code without + sign)
-  const phoneNumber = "1234567890" // Example: "1234567890" for +1-234-567-890
-  const message = "Hello! I'm interested in learning more about your products."
+  // Replace with your actual WhatsApp number and message
+  const phoneNumber = "1234567890" // Replace with your actual WhatsApp number
+  const message = "Hello! I'm interested in your products."
 
-  // Create WhatsApp URL
+  // Create the WhatsApp URL
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
 
-  // Open WhatsApp in a new tab/window
+  // Open in a new tab
   window.open(whatsappUrl, "_blank")
 }
