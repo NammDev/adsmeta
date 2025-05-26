@@ -169,7 +169,9 @@ export default function ProductPage() {
                       €{product.price}
                     </span>
                     {product.comparePrice && (
-                      <span className="text-sm text-gray-500 line-through">€{product.comparePrice}</span>
+                      <span className="text-sm text-gray-500 line-through">
+                        €{product.comparePrice}
+                      </span>
                     )}
                   </div>
 
@@ -178,8 +180,8 @@ export default function ProductPage() {
                       product.stock === "in-stock"
                         ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm"
                         : product.stock === "low-stock"
-                          ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
-                          : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
+                        ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
+                        : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
                     }`}
                   >
                     {stockStatus[product.stock].label}
@@ -292,7 +294,9 @@ export default function ProductPage() {
                           €{product.price}
                         </span>
                         {product.comparePrice && (
-                          <span className="ml-2 text-gray-500 line-through">€{product.comparePrice}</span>
+                          <span className="ml-2 text-gray-500 line-through">
+                            €{product.comparePrice}
+                          </span>
                         )}
                       </div>
 
@@ -301,8 +305,8 @@ export default function ProductPage() {
                           product.stock === "in-stock"
                             ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm"
                             : product.stock === "low-stock"
-                              ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
-                              : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
+                            ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
+                            : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
                         }`}
                       >
                         {stockStatus[product.stock].label}
@@ -340,18 +344,19 @@ export default function ProductPage() {
                         {[...Array(5)].map((_, i) => (
                           <Star
                             key={i}
-                            className={`h-5 w-5 ${i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
+                            className={`h-5 w-5 ${
+                              i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+                            }`}
                           />
                         ))}
                       </div>
-                      <a href="#reviews" className="text-sm text-gray-500 hover:text-facebook transition-colors">
+                      <a
+                        href="#reviews"
+                        className="text-sm text-gray-500 hover:text-facebook transition-colors"
+                      >
                         120 reviews
                       </a>
                     </div>
-
-                    <p className="text-gray-700 mb-4 text-lg">
-                      Premium Facebook Business Manager account ready for immediate use.
-                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -374,7 +379,9 @@ export default function ProductPage() {
                     <p className="mb-3 text-gray-700">
                       Fully verified Business Manager with official government ID attached.
                     </p>
-                    <p className="mb-3 text-gray-700">Comes with $250 ad spend limit and 1 active ad account.</p>
+                    <p className="mb-3 text-gray-700">
+                      Comes with $250 ad spend limit and 1 active ad account.
+                    </p>
                     <p className="mb-4 text-gray-700">
                       Stronger trust score than unverified BMs – ✅ More robust & stable.
                     </p>
@@ -383,7 +390,8 @@ export default function ProductPage() {
                   <div className="mb-6">
                     <h4 className="text-lg font-semibold text-gray-900 mb-3">Details:</h4>
                     <p className="mb-3 text-gray-700">
-                      Eligible for upgrade to BM3/BM5 after successful ad spend (up to 5 ad accounts allowed).
+                      Eligible for upgrade to BM3/BM5 after successful ad spend (up to 5 ad accounts
+                      allowed).
                     </p>
                     <p className="mb-3 text-gray-700">
                       <strong>Billing Country:</strong> Set to random and cannot be changed.
@@ -403,11 +411,6 @@ export default function ProductPage() {
                     </p>
                   </div>
 
-                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 border border-blue-100">
-                    <p className="text-gray-800 font-medium text-center">
-                      💼 Ideal for advertisers looking to start safely and scale responsibly.
-                    </p>
-                  </div>
                   <div className="mt-6">
                     <Image
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BM1250-bKJxFWR53R7t8C2X90KhNDoxJxqPQm.webp"
@@ -456,104 +459,10 @@ export default function ProductPage() {
                 </div>
               </CardContent>
             </Card>
-
-            {/* FAQ Section */}
-            {/* <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm mt-8">
-              <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-200/10 to-purple-200/10 rounded-full -translate-y-1/2 -translate-x-1/2"></div>
-              <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-pink-200/10 to-indigo-200/10 rounded-full translate-y-1/2 translate-x-1/2"></div>
-
-              <CardContent className="p-6 relative z-10">
-                <h3 className="text-xl font-bold mb-6 relative inline-block">
-                  <span className="relative z-10">Frequently Asked Questions</span>
-                  <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
-                </h3>
-
-                <div className="space-y-4">
-                  {product.faq.map((item, index) => (
-                    <div
-                      key={index}
-                      className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-5 border border-gray-100 shadow-md hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                      <h4 className="font-medium text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300 flex items-start">
-                        <span className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xs mr-3 flex-shrink-0 mt-0.5">
-                          Q
-                        </span>
-                        {item.question}
-                      </h4>
-
-                      <div className="pl-9">
-                        <p className="text-gray-700">{item.answer}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-             //  Additional Questions 
-                <div className="mt-8 bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-100">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-50"></div>
-
-                  <h4 className="text-lg font-bold mb-3 text-center relative z-10">
-                    Stillllllllll Have Questions?
-                  </h4>
-                  <p className="text-center text-gray-700 mb-4 relative z-10">
-                    Our team is ready to help you with any additional questions you might have.
-                  </p>
-
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center relative z-10">
-                    <Button
-                      asChild
-                      className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium rounded-xl"
-                    >
-                      <a href="/contact">Contact Support</a>
-                    </Button>
-                    <Button
-                      asChild
-                      variant="outline"
-                      className="border-gray-300 hover:border-blue-500 hover:text-blue-600 font-medium rounded-xl"
-                    >
-                      <a href="/faq">View All FAQs</a>
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card> */}
           </div>
 
           {/* Right Column - Features & Purchase Info */}
           <div className="space-y-6">
-            {/* Features Card */}
-            {/* <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-200/20 to-purple-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
-              <CardContent className="p-6 relative z-10">
-                <h3 className="text-xl font-bold mb-5 relative inline-block">
-                  <span className="relative z-10">Features</span>
-                  <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
-                </h3>
-
-                <div className="grid grid-cols-1 gap-3">
-                  {product.features.map((feature, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 group"
-                    >
-                      <div
-                        className={`w-8 h-8 rounded-lg bg-gradient-to-br ${
-                          gradients[index % gradients.length]
-                        } flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0`}
-                      >
-                        {featureIcons[index % featureIcons.length]}
-                      </div>
-                      <span className="text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
-                        {feature}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card> */}
-
             {/* Purchase Info Card */}
             <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2 z-0"></div>
@@ -617,7 +526,9 @@ export default function ProductPage() {
                   <div className="absolute top-0 right-0 w-20 h-20 bg-blue-200/20 rounded-full -translate-y-1/2 translate-x-1/2"></div>
                   <div className="absolute bottom-0 left-0 w-16 h-16 bg-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2"></div>
 
-                  <h4 className="font-bold mb-2 text-center relative z-10 text-gray-800">Ready to get started?</h4>
+                  <h4 className="font-bold mb-2 text-center relative z-10 text-gray-800">
+                    Ready to get started?
+                  </h4>
                   <p className="text-gray-600 text-sm mb-4 text-center relative z-10">
                     Get your {product.name} now and start advertising!
                   </p>
@@ -632,71 +543,6 @@ export default function ProductPage() {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Trust Indicators */}
-            {/* <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
-              <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-purple-200/20 to-blue-200/20 rounded-full -translate-y-1/2 -translate-x-1/2 z-0"></div>
-              <CardContent className="p-6 relative z-10">
-                <h3 className="text-xl font-bold mb-5 relative inline-block">
-                  <span className="relative z-10">Why Choose Us</span>
-                  <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-purple-200 to-blue-200 opacity-70 rounded-full"></div>
-                </h3>
-
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3 group">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-0.5">
-                      <Check className="h-4 w-4 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
-                        5+ years of experience
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Trusted by thousands of advertisers worldwide
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3 group">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-0.5">
-                      <Check className="h-4 w-4 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-gray-900 group-hover:text-purple-600 transition-colors duration-300">
-                        10,000+ satisfied customers
-                      </h4>
-                      <p className="text-sm text-gray-600">With a 98% satisfaction rate</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3 group">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-0.5">
-                      <Check className="h-4 w-4 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-gray-900 group-hover:text-amber-600 transition-colors duration-300">
-                        Secure payment processing
-                      </h4>
-                      <p className="text-sm text-gray-600">Multiple payment options available</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3 group">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0 mt-0.5">
-                      <Check className="h-4 w-4 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-gray-900 group-hover:text-emerald-600 transition-colors duration-300">
-                        Dedicated customer support
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Available to assist you every step of the way
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card> */}
 
             {/* Testimonial */}
             <Card className="overflow-hidden border-0 shadow-xl relative bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-100">
@@ -723,7 +569,8 @@ export default function ProductPage() {
                 </div>
 
                 <p className="text-center mb-4 italic text-gray-700">
-                  "The {product.name} completely transformed our Facebook advertising capabilities. Highly recommended!"
+                  "The {product.name} completely transformed our Facebook advertising capabilities.
+                  Highly recommended!"
                 </p>
 
                 <div className="flex items-center justify-center">
@@ -760,50 +607,12 @@ export default function ProductPage() {
                 <p className="mb-3 text-gray-700">
                   Fully verified Business Manager with official government ID attached.
                 </p>
-                <p className="mb-3 text-gray-700">Comes with $250 ad spend limit and 1 active ad account.</p>
+                <p className="mb-3 text-gray-700">
+                  Comes with $250 ad spend limit and 1 active ad account.
+                </p>
                 <p className="mb-3 text-gray-700">
                   Stronger trust score than unverified BMs – ✅ More robust & stable.
                 </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Features */}
-          <Card className="overflow-hidden border-0 shadow-md relative bg-white/80 backdrop-blur-sm">
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2 z-0"></div>
-            <CardContent className="p-4 relative z-10">
-              <h3 className="text-lg font-bold mb-3 relative inline-block">
-                <span className="relative z-10">Features</span>
-                <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
-              </h3>
-              <ul className="space-y-2">
-                {product.features.map((feature, index) => (
-                  <li key={index} className="flex items-start group">
-                    <div className="mr-2 flex-shrink-0 mt-0.5 w-4 h-4 rounded-full bg-gradient-to-br from-green-400 to-green-500 flex items-center justify-center shadow-sm">
-                      <Check className="h-2.5 w-2.5 text-white" />
-                    </div>
-                    <span className="text-sm text-gray-700">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-
-          {/* FAQ */}
-          <Card className="overflow-hidden border-0 shadow-md relative bg-white/80 backdrop-blur-sm">
-            <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-blue-200/20 to-purple-200/20 rounded-full translate-y-1/2 translate-x-1/2 z-0"></div>
-            <CardContent className="p-4 relative z-10">
-              <h3 className="text-lg font-bold mb-3 relative inline-block">
-                <span className="relative z-10">Frequently Asked Questions</span>
-                <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
-              </h3>
-              <div className="space-y-3">
-                {product.faq.map((item, index) => (
-                  <div key={index} className="border-b border-gray-100 pb-3 last:border-0 last:pb-0">
-                    <h4 className="font-medium text-gray-900 mb-1 text-sm">{item.question}</h4>
-                    <p className="text-gray-700 text-sm">{item.answer}</p>
-                  </div>
-                ))}
               </div>
             </CardContent>
           </Card>
@@ -850,7 +659,9 @@ export default function ProductPage() {
                 <h4 className="font-bold mb-1 text-center text-sm relative z-10 text-gray-800">
                   Ready to get started?
                 </h4>
-                <p className="text-gray-600 text-xs mb-3 text-center relative z-10">Get your {product.name} now!</p>
+                <p className="text-gray-600 text-xs mb-3 text-center relative z-10">
+                  Get your {product.name} now!
+                </p>
 
                 <Button
                   onClick={handleAddToCart}
