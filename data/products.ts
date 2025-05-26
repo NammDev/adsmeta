@@ -160,7 +160,7 @@ export const products: Product[] = [
     comparePrice: 249,
     category: "Business Manager",
     productCategory: "verified-bm",
-    image: "/bm1-250-limit-illustrator.png",
+    image: "/bm1-250-limit.png",
     features: [
       { id: "feature-1", name: "Fully verified Business Manager", included: true, highlight: true },
       { id: "feature-2", name: "$250 spending limit", included: true },
@@ -450,7 +450,8 @@ export const products: Product[] = [
       },
       {
         question: "Can I connect this account to my existing Business Manager?",
-        answer: "Yes, you can connect this account to your existing Business Manager as an admin or advertiser.",
+        answer:
+          "Yes, you can connect this account to your existing Business Manager as an admin or advertiser.",
       },
       {
         question: "Why are USA accounts better for advertising?",
@@ -538,7 +539,9 @@ export function getRelatedProducts(productId: string): Product[] {
     return products.filter((p) => p.id !== productId && p.category === category).slice(0, 3)
   }
 
-  return product.relatedProducts.map((id) => getProductById(id)).filter((p): p is Product => p !== undefined)
+  return product.relatedProducts
+    .map((id) => getProductById(id))
+    .filter((p): p is Product => p !== undefined)
 }
 
 // PRODUCTS SECTION SPECIFIC HELPERS (for landing page)
@@ -628,7 +631,7 @@ export function filterProductPageItems(category: string): ProductPageItem[] {
 export function paginateProductPageItems(
   items: ProductPageItem[],
   currentPage: number,
-  itemsPerPage: number,
+  itemsPerPage: number
 ): ProductPageItem[] {
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
@@ -644,7 +647,7 @@ export function calculateTotalPages(items: ProductPageItem[], itemsPerPage: numb
 export function generatePageNumbers(
   currentPage: number,
   totalPages: number,
-  maxPageNumbersToShow = 5,
+  maxPageNumbersToShow = 5
 ): (number | string)[] {
   const pageNumbers = []
 
@@ -719,9 +722,18 @@ export function getProductDetailData(slug: string): ProductDetailItem | null {
 // Get stock status for product detail page
 export function getStockStatusInfo(status: string) {
   const stockStatus = {
-    "in-stock": { label: "In Stock", color: "bg-gradient-to-r from-green-400 to-emerald-500 text-white" },
-    "low-stock": { label: "Low Stock", color: "bg-gradient-to-r from-amber-400 to-orange-500 text-white" },
-    "out-of-stock": { label: "Out of Stock", color: "bg-gradient-to-r from-red-400 to-rose-500 text-white" },
+    "in-stock": {
+      label: "In Stock",
+      color: "bg-gradient-to-r from-green-400 to-emerald-500 text-white",
+    },
+    "low-stock": {
+      label: "Low Stock",
+      color: "bg-gradient-to-r from-amber-400 to-orange-500 text-white",
+    },
+    "out-of-stock": {
+      label: "Out of Stock",
+      color: "bg-gradient-to-r from-red-400 to-rose-500 text-white",
+    },
   }
   return stockStatus[status as keyof typeof stockStatus] || stockStatus["in-stock"]
 }
@@ -754,7 +766,9 @@ export function getLandingPageProducts(): Product[] {
   }
 
   // If not enough featured products, include popular ones
-  const popularProducts = getPopularProducts().filter((p) => !featuredProducts.some((fp) => fp.id === p.id))
+  const popularProducts = getPopularProducts().filter(
+    (p) => !featuredProducts.some((fp) => fp.id === p.id)
+  )
 
   return [...featuredProducts, ...popularProducts].slice(0, 3)
 }
@@ -798,7 +812,9 @@ export function filterProducts({
 
   // Filter by category
   if (categories.length > 0) {
-    filtered = filtered.filter((p) => categories.includes(p.category.toLowerCase().replace(/\s+/g, "-")))
+    filtered = filtered.filter((p) =>
+      categories.includes(p.category.toLowerCase().replace(/\s+/g, "-"))
+    )
   }
 
   // Filter by price range

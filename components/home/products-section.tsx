@@ -1,18 +1,18 @@
-'use client'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { ShoppingBag } from 'lucide-react'
-import { useMediaQuery } from '@/hooks/use-media-query'
-import { useCart } from '@/context/cart-context'
-import { getProductSectionItems, type ProductSectionItem } from '@/data/products'
-import SectionHeader from '../ui/section-header'
+"use client"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { ShoppingBag } from "lucide-react"
+import { useMediaQuery } from "@/hooks/use-media-query"
+import { useCart } from "@/context/cart-context"
+import { getProductSectionItems, type ProductSectionItem } from "@/data/products"
+import SectionHeader from "../ui/section-header"
 
 interface ProductsSectionProps {
   isProductsPage?: boolean
 }
 
 export default function ProductsSection({ isProductsPage = false }: ProductsSectionProps) {
-  const isMobile = useMediaQuery('(max-width: 768px)')
+  const isMobile = useMediaQuery("(max-width: 768px)")
   const { addItem, openCart } = useCart()
 
   // Get products data from centralized source
@@ -20,13 +20,13 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
 
   // Group products by category for the new UI
   const businessManagerProducts = allProducts.filter(
-    (product) => product.category === 'verified-bm' || product.category === 'unverified-bm'
+    (product) => product.category === "verified-bm" || product.category === "unverified-bm"
   )
 
-  const profileProducts = allProducts.filter((product) => product.category === 'profile')
+  const profileProducts = allProducts.filter((product) => product.category === "profile")
 
   const otherProducts = allProducts.filter(
-    (product) => !['verified-bm', 'unverified-bm', 'profile'].includes(product.category)
+    (product) => !["verified-bm", "unverified-bm", "profile"].includes(product.category)
   )
 
   // Group other products by category
@@ -41,7 +41,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
   // Add this function to handle adding products to cart
   const handleAddToCart = (product: ProductSectionItem) => {
     if (!addItem) {
-      console.error('Cart functionality not available')
+      console.error("Cart functionality not available")
       return
     }
 
@@ -51,7 +51,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
         name: product.name,
         price: product.price,
         quantity: 1,
-        image: product.image || '/placeholder.svg',
+        image: product.image || "/placeholder.svg",
         category: product.category,
       }
 
@@ -62,27 +62,27 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
         openCart()
       }
     } catch (error) {
-      console.error('Error adding to cart:', error)
+      console.error("Error adding to cart:", error)
     }
   }
 
   // Helper function to highlight keywords in product names
   const highlightKeywords = (name: string) => {
     const highlightWords = [
-      'Verified',
-      'Blue',
-      'Tick',
-      'Reinstated',
-      'Super',
-      'Strong',
-      'Premium',
-      'Setup',
+      "Verified",
+      "Blue",
+      "Tick",
+      "Reinstated",
+      "Super",
+      "Strong",
+      "Premium",
+      "Setup",
     ]
-    return name.split(' ').map((word, index) => {
+    return name.split(" ").map((word, index) => {
       const isHighlight = highlightWords.some((hw) => word.includes(hw))
       return (
-        <span key={index} className={isHighlight ? 'text-blue-600 font-bold' : ''}>
-          {word}{' '}
+        <span key={index} className={isHighlight ? "text-blue-600 font-bold" : ""}>
+          {word}{" "}
         </span>
       )
     })
@@ -91,7 +91,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
   return (
     <section
       id="products"
-      className={`relative overflow-hidden ${isProductsPage ? 'pb-0 pt-8' : 'py-8 md:py-16'}`}
+      className={`relative overflow-hidden ${isProductsPage ? "pb-0 pt-8" : "py-8 md:py-16"}`}
     >
       <div className="container mx-auto px-4 relative">
         {/* Header Section */}
@@ -127,7 +127,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                     <div className="flex flex-col gap-3 md:hidden">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
-                          <h4 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 mb-0">
+                          <h4 className="text-lg font-semibold text-gray-900 transition-colors duration-300 mb-0">
                             {highlightKeywords(product.name)}
                           </h4>
                         </div>
@@ -165,7 +165,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                     <div className="hidden md:flex md:flex-row md:items-center justify-between gap-2">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <h4 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 mb-0">
+                          <h4 className="text-lg font-semibold text-gray-900 transition-colors duration-300 mb-0">
                             {highlightKeywords(product.name)}
                           </h4>
                         </div>
@@ -228,7 +228,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                     <div className="flex flex-col gap-3 md:hidden">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
-                          <h4 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors duration-300 mb-0">
+                          <h4 className="text-lg font-semibold text-gray-900 transition-colors duration-300 mb-0">
                             {highlightKeywords(product.name)}
                           </h4>
                         </div>
@@ -266,7 +266,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                     <div className="hidden md:flex md:flex-row md:items-center justify-between gap-2">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <h4 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors duration-300 mb-0">
+                          <h4 className="text-lg font-semibold text-gray-900 transition-colors duration-300 mb-0">
                             {highlightKeywords(product.name)}
                           </h4>
                         </div>
@@ -316,7 +316,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                   <span className="text-white font-bold text-xl">📊</span>
                 </div>
                 <h3 className="text-xl md:text-2xl font-bold text-gray-900 capitalize">
-                  {category.replace('-', ' ')} Products
+                  {category.replace("-", " ")} Products
                 </h3>
                 <Badge className="bg-green-100 text-green-700 border-0 animate-bounce hover:bg-transparent">
                   Professional
@@ -334,7 +334,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                     <div className="flex flex-col gap-3 md:hidden">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
-                          <h4 className="text-lg font-semibold text-gray-900 group-hover:text-green-600 transition-colors duration-300 mb-0">
+                          <h4 className="text-lg font-semibold text-gray-900 transition-colors duration-300 mb-0">
                             {highlightKeywords(product.name)}
                           </h4>
                         </div>
@@ -372,7 +372,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                     <div className="hidden md:flex md:flex-row md:items-center justify-between gap-2">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <h4 className="text-lg font-semibold text-gray-900 group-hover:text-green-600 transition-colors duration-300 mb-0">
+                          <h4 className="text-lg font-semibold text-gray-900 transition-colors duration-300 mb-0">
                             {highlightKeywords(product.name)}
                           </h4>
                         </div>

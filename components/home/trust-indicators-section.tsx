@@ -7,7 +7,7 @@ const companies = [
   { name: "Vercel", logo: "/logos/vercel.svg" },
   { name: "Supabase", logo: "/logos/supabase.svg" },
   { name: "Raycast", logo: "/logos/raycast.svg" },
-  { name: "Agency Partner", logo: "/agency-partner-logo.svg" },
+  { name: "Agency Partner", logo: "/logos/agency-partner-logo.svg" },
 ]
 
 export default function TrustIndicatorsSection() {
@@ -68,11 +68,11 @@ export default function TrustIndicatorsSection() {
             transform: translateX(-33.33%);
           }
         }
-        
+
         .animate-marquee {
           animation: marquee 35s linear infinite;
         }
-        
+
         .animate-marquee:hover {
           animation-play-state: paused;
         }
