@@ -1407,3 +1407,57 @@ export const blogPosts: BlogPost[] = [
     tags: ["Targeting", "Privacy", "AI", "Strategy", "2025 Updates"],
   },
 ]
+
+// Get all unique categories from blog posts
+export function getAllCategories() {
+  const categories = blogPosts.map((post) => post.category)
+  return ["All", ...Array.from(new Set(categories))].sort()
+}
+
+// Get all blog posts
+export function getAllBlogPosts() {
+  return blogPosts
+}
+
+// Get blog post by slug
+export function getBlogPostBySlug(slug: string) {
+  return blogPosts.find((post) => post.slug === slug)
+}
+
+// Get related posts (excluding current post)
+export function getRelatedPosts(currentSlug: string, limit = 5) {
+  const currentPost = getBlogPostBySlug(currentSlug)
+  if (!currentPost?.relatedPosts) {
+    // If no related posts are defined, return posts in the same category
+    const category = currentPost?.category
+    return blogPosts
+      .filter((post) => post.slug !== currentSlug && post.category === category)
+      .slice(0, limit)
+  }
+  return currentPost.relatedPosts.slice(0, limit)
+}
+
+// Get most viewed posts
+export function getMostViewedPosts(limit = 4) {
+  return [...blogPosts].sort((a, b) => b.views - a.views).slice(0, limit)
+}
+
+// Get trending posts
+export function getTrendingPosts(limit = 3) {
+  return blogPosts.filter((post) => post.trending).slice(0, limit)
+}
+
+// Get posts by category
+export function getPostsByCategory(category: string, page = 1, postsPerPage = 6) {
+  const filteredPosts =
+    category === "All" ? blogPosts : blogPosts.filter((post) => post.category === category)
+
+  const startIndex = (page - 1) * postsPerPage
+  const endIndex = startIndex + postsPerPage
+
+  return {
+    posts: filteredPosts.slice(startIndex, endIndex),
+    totalPages: Math.ceil(filteredPosts.length / postsPerPage),
+    totalPosts: filteredPosts.length,
+  }
+}
