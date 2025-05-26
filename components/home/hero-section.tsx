@@ -1,5 +1,5 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 import {
   Shield,
   Zap,
@@ -10,16 +10,16 @@ import {
   ArrowRight,
   Facebook,
   Phone,
-} from "lucide-react"
-import { useMediaQuery } from "@/hooks/use-media-query"
+} from 'lucide-react'
+import { useMediaQuery } from '@/hooks/use-media-query'
 
 export default function HeroSection() {
-  const isMobile = useMediaQuery("(max-width: 768px)")
+  const isMobile = useMediaQuery('(max-width: 768px)')
 
   // Mobile-specific hero section
   if (isMobile) {
     return (
-      <section className="py-16 pt-8 relative overflow-hidden">
+      <section className="py-8 relative overflow-hidden">
         {/* Colorful background elements */}
         {/* Mobile-specific hero section */}
 
@@ -57,16 +57,17 @@ export default function HeroSection() {
             </div>
 
             <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-4">
-              Your Shortcut to Stable{" "}
+              Your Shortcut to Stable{' '}
               <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
                 BM & VIA
-              </span>{" "}
+              </span>{' '}
               Facebook Accounts
             </h1>
 
             <p className="text-base text-gray-600 mb-6 max-w-md mx-auto">
-              <span className="text-red-500 font-semibold">Tired of ad bans?</span> Losing revenue from checkpoints?
-              Getting nowhere with Facebook support? GoAds delivers verified accounts with 24/7 expert assistance.
+              <span className="text-red-500 font-semibold">Tired of ad bans?</span> Losing revenue
+              from checkpoints? Getting nowhere with Facebook support? GoAds delivers verified
+              accounts with 24/7 expert assistance.
             </p>
 
             {/* "Why advertisers choose GoAds" section for mobile */}
@@ -83,7 +84,9 @@ export default function HeroSection() {
                     <AlertTriangle className="h-4 w-4 text-red-500" />
                   </div>
                   <p className="text-sm text-left text-gray-600">
-                    <span className="font-semibold text-gray-900">No more unexpected account bans</span>
+                    <span className="font-semibold text-gray-900">
+                      No more unexpected account bans
+                    </span>
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
@@ -91,8 +94,8 @@ export default function HeroSection() {
                     <DollarSign className="h-4 w-4 text-orange-500" />
                   </div>
                   <p className="text-sm text-left text-gray-600">
-                    <span className="font-semibold text-gray-900">Stop losing revenue</span> while waiting for new
-                    accounts
+                    <span className="font-semibold text-gray-900">Stop losing revenue</span> while
+                    waiting for new accounts
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
@@ -100,8 +103,8 @@ export default function HeroSection() {
                     <HeadphonesOff className="h-4 w-4 text-purple-500" />
                   </div>
                   <p className="text-sm text-left text-gray-600">
-                    <span className="font-semibold text-gray-900">Get expert support</span> when Facebook leaves you
-                    stranded
+                    <span className="font-semibold text-gray-900">Get expert support</span> when
+                    Facebook leaves you stranded
                   </p>
                 </div>
               </div>
@@ -133,7 +136,7 @@ export default function HeroSection() {
 
   // Desktop hero section - original two-column layout with repositioned Facebook logo
   return (
-    <section className="py-10 md:py-16 relative overflow-hidden">
+    <section className="md:py-16 relative overflow-hidden">
       {/* Colorful background elements */}
 
       <div className="container mx-auto px-4 relative">
@@ -166,16 +169,17 @@ export default function HeroSection() {
             </div>
 
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-              Your Shortcut to Stable{" "}
+              Your Shortcut to Stable{' '}
               <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
                 BM & VIA
-              </span>{" "}
+              </span>{' '}
               Facebook Accounts
             </h1>
 
             <p className="text-base md:text-lg text-gray-600">
-              <span className="text-red-500 font-semibold">Tired of ad bans?</span> Losing revenue from checkpoints?
-              Getting nowhere with Facebook support? GoAds delivers verified accounts with 24/7 expert assistance.
+              <span className="text-red-500 font-semibold">Tired of ad bans?</span> Losing revenue
+              from checkpoints? Getting nowhere with Facebook support? GoAds delivers verified
+              accounts with 24/7 expert assistance.
             </p>
 
             {/* "Why advertisers choose GoAds" section */}
@@ -200,14 +204,18 @@ export default function HeroSection() {
                   <div className="bg-orange-100 p-2 rounded-full shadow-sm flex-shrink-0">
                     <DollarSign className="h-4 w-4 text-orange-500" />
                   </div>
-                  <span className="text-gray-700 text-sm">Stop losing revenue while waiting for new accounts</span>
+                  <span className="text-gray-700 text-sm">
+                    Stop losing revenue while waiting for new accounts
+                  </span>
                 </div>
 
                 <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
                   <div className="bg-purple-100 p-2 rounded-full shadow-sm flex-shrink-0">
                     <HeadphonesOff className="h-4 w-4 text-purple-500" />
                   </div>
-                  <span className="text-gray-700 text-sm">Get expert support when Facebook leaves you stranded</span>
+                  <span className="text-gray-700 text-sm">
+                    Get expert support when Facebook leaves you stranded
+                  </span>
                 </div>
               </div>
             </div>
@@ -257,7 +265,8 @@ export default function HeroSection() {
                 <div className="text-center">
                   <h3 className="text-lg font-bold text-gray-900 mb-2">Account Restricted</h3>
                   <p className="text-sm text-gray-600">
-                    Your ad account has been disabled for not complying with our Advertising Policies
+                    Your ad account has been disabled for not complying with our Advertising
+                    Policies
                   </p>
                 </div>
                 <div className="mt-4 w-full">
@@ -291,7 +300,9 @@ export default function HeroSection() {
                 </div>
                 <div className="text-center">
                   <h3 className="text-lg font-bold text-gray-900 mb-2">GoAds Account</h3>
-                  <p className="text-sm text-gray-600">Verified Business Manager with active ad campaigns</p>
+                  <p className="text-sm text-gray-600">
+                    Verified Business Manager with active ad campaigns
+                  </p>
                 </div>
                 <div className="mt-4 w-full">
                   <div className="w-full h-3 bg-white rounded-full overflow-hidden shadow-inner">

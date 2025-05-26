@@ -64,8 +64,8 @@ export function CartDrawer() {
               ? "fadeIn 0.3s ease-out"
               : "slideIn 0.4s ease-out"
             : isMobile
-              ? "fadeOut 0.3s ease-in forwards"
-              : "slideOut 0.3s ease-in forwards",
+            ? "fadeOut 0.3s ease-in forwards"
+            : "slideOut 0.3s ease-in forwards",
           boxShadow: "0 10px 50px rgba(0, 0, 0, 0.15), 0 0 20px rgba(0, 102, 255, 0.1)",
         }}
         onAnimationEnd={() => {
@@ -74,44 +74,84 @@ export function CartDrawer() {
       >
         <style jsx global>{`
           @keyframes slideIn {
-            0% { transform: translate(105%, -50%); }
-            70% { transform: translate(-5px, -50%); }
-            100% { transform: translate(0, -50%); }
+            0% {
+              transform: translate(105%, -50%);
+            }
+            70% {
+              transform: translate(-5px, -50%);
+            }
+            100% {
+              transform: translate(0, -50%);
+            }
           }
-          
+
           @keyframes slideOut {
-            0% { transform: translate(0, -50%); }
-            100% { transform: translate(105%, -50%); }
+            0% {
+              transform: translate(0, -50%);
+            }
+            100% {
+              transform: translate(105%, -50%);
+            }
           }
-          
+
           @keyframes fadeIn {
-            0% { opacity: 0; transform: translate(-50%, -40%); }
-            100% { opacity: 1; transform: translate(-50%, -50%); }
+            0% {
+              opacity: 0;
+              transform: translate(-50%, -40%);
+            }
+            100% {
+              opacity: 1;
+              transform: translate(-50%, -50%);
+            }
           }
-          
+
           @keyframes fadeOut {
-            0% { opacity: 1; transform: translate(-50%, -50%); }
-            100% { opacity: 0; transform: translate(-50%, -40%); }
+            0% {
+              opacity: 1;
+              transform: translate(-50%, -50%);
+            }
+            100% {
+              opacity: 0;
+              transform: translate(-50%, -40%);
+            }
           }
-          
+
           @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            0%,
+            100% {
+              transform: translateY(0);
+            }
+            50% {
+              transform: translateY(-10px);
+            }
           }
-          
+
           @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
+            0%,
+            100% {
+              opacity: 0.6;
+            }
+            50% {
+              opacity: 1;
+            }
           }
-          
+
           @keyframes spin-slow {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+              transform: rotate(0deg);
+            }
+            100% {
+              transform: rotate(360deg);
+            }
           }
-          
+
           .cart-pattern {
-            background-image: radial-gradient(circle at 10px 10px, rgba(0, 102, 255, 0.05) 2px, transparent 0),
-                              radial-gradient(circle at 25px 25px, rgba(138, 75, 175, 0.05) 2px, transparent 0);
+            background-image: radial-gradient(
+                circle at 10px 10px,
+                rgba(0, 102, 255, 0.05) 2px,
+                transparent 0
+              ),
+              radial-gradient(circle at 25px 25px, rgba(138, 75, 175, 0.05) 2px, transparent 0);
             background-size: 30px 30px;
           }
         `}</style>
@@ -161,11 +201,14 @@ export function CartDrawer() {
               </ScrollArea>
 
               {/* Cart Footer - Creative design */}
-              <div className="relative p-4 md:p-6 space-y-4 bg-white border-t border-blue-100/50">
+              <div className="relative p-4 md:p-6 md:pt-2 pt-2 space-y-4 bg-white border-t border-blue-100/50">
                 {/* Decorative wave pattern */}
                 <div className="absolute top-0 left-0 right-0 h-1 overflow-hidden">
                   <svg className="w-full h-6" viewBox="0 0 1200 12" preserveAspectRatio="none">
-                    <path d="M0,0 C300,12 600,4 900,8 L1200,0 L1200,12 L0,12 Z" fill="url(#wave-gradient)"></path>
+                    <path
+                      d="M0,0 C300,12 600,4 900,8 L1200,0 L1200,12 L0,12 Z"
+                      fill="url(#wave-gradient)"
+                    ></path>
                     <defs>
                       <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                         <stop offset="0%" stopColor="#0066FF" stopOpacity="0.1" />
@@ -228,7 +271,9 @@ export function CartDrawer() {
 
               <Button onClick={closeCart} className="mt-2 relative overflow-hidden group">
                 <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:from-blue-600 group-hover:to-purple-600 transition-colors"></span>
-                <span className="relative flex items-center justify-center text-white">Continue Shopping</span>
+                <span className="relative flex items-center justify-center text-white">
+                  Continue Shopping
+                </span>
               </Button>
             </div>
           )}
@@ -271,9 +316,6 @@ function CartItemCard({ item, isLast }: { item: CartItem; isLast: boolean }) {
             <h4 className="font-medium text-sm md:text-base line-clamp-1 text-gray-900 group-hover:text-blue-600 transition-colors">
               {item.name}
             </h4>
-            <p className="text-xs md:text-sm text-gray-500 capitalize">
-              {item.category?.replace("-", " ") || "Product"}
-            </p>
           </div>
 
           <div className="flex items-center justify-between mt-2">
@@ -288,7 +330,9 @@ function CartItemCard({ item, isLast }: { item: CartItem; isLast: boolean }) {
                 <Minus className="h-3 w-3" />
                 <span className="sr-only">Decrease quantity</span>
               </Button>
-              <span className="w-6 md:w-8 text-center text-xs md:text-sm font-medium">{item.quantity}</span>
+              <span className="w-6 md:w-8 text-center text-xs md:text-sm font-medium">
+                {item.quantity}
+              </span>
               <Button
                 variant="ghost"
                 size="icon"

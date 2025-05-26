@@ -132,27 +132,27 @@ export default function PackagesSection() {
   }
 
   return (
-    <section id='packages' className='pt-32 pb-16 relative overflow-hidden'>
-      <div className='container mx-auto px-4 relative'>
+    <section id="packages" className="py-8 md:py-16 relative overflow-hidden">
+      <div className="container mx-auto px-4 relative">
         <SectionHeader
-          badge='Packages'
-          title='Choose Your Package'
-          subtitle='Select the perfect solution for your advertising needs'
+          badge="Packages"
+          title="Choose Your Package"
+          subtitle="Select the perfect solution for your advertising needs"
         />
 
         {/* Desktop Grid View */}
         {!isMobile && (
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto'>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {packages.map((pkg, index) => (
               <div
                 key={pkg.id}
-                className='relative'
+                className="relative"
                 onMouseEnter={() => setHoveredCard(index)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
                 {pkg.popular && (
-                  <div className='absolute -top-4 left-0 right-0 flex justify-center z-10'>
-                    <span className='bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-medium px-4 py-1 rounded-full shadow-md'>
+                  <div className="absolute -top-4 left-0 right-0 flex justify-center z-10">
+                    <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-medium px-4 py-1 rounded-full shadow-md">
                       Most Popular
                     </span>
                   </div>
@@ -164,47 +164,47 @@ export default function PackagesSection() {
                     hoveredCard === index ? 'scale-105' : 'scale-100'
                   }`}
                 >
-                  <div className='p-6 pb-0'>
-                    <div className='flex justify-between items-start mb-4'>
+                  <div className="p-6 pb-0">
+                    <div className="flex justify-between items-start mb-4">
                       <div>
-                        <h3 className='text-xl font-bold text-gray-900 mb-1'>{pkg.name}</h3>
-                        <p className='text-sm text-gray-600'>{pkg.description}</p>
+                        <h3 className="text-xl font-bold text-gray-900 mb-1">{pkg.name}</h3>
+                        <p className="text-sm text-gray-600">{pkg.description}</p>
                       </div>
-                      <div className='relative w-16 h-16 bg-white rounded-lg shadow-sm overflow-hidden'>
+                      <div className="relative w-16 h-16 bg-white rounded-lg shadow-sm overflow-hidden">
                         <Image
                           src={pkg.image || '/placeholder.svg'}
                           alt={pkg.name}
                           fill
-                          className='object-contain p-2'
+                          className="object-contain p-2"
                         />
                       </div>
                     </div>
 
-                    <div className='mb-6'>
+                    <div className="mb-6">
                       <span
                         className={`text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${pkg.gradient}`}
                       >
                         €{pkg.price}
                       </span>
-                      <span className='text-gray-600 ml-1'>one-time</span>
+                      <span className="text-gray-600 ml-1">one-time</span>
                     </div>
                   </div>
 
-                  <CardContent className='p-6 pt-0'>
-                    <ul className='space-y-3 mb-6'>
+                  <CardContent className="p-6 pt-0">
+                    <ul className="space-y-3 mb-6">
                       {pkg.features.map((feature, i) => (
-                        <li key={i} className='flex items-start'>
+                        <li key={i} className="flex items-start">
                           <div
                             className={`w-5 h-5 rounded-full bg-gradient-to-r ${pkg.gradient} flex-shrink-0 flex items-center justify-center mt-0.5 mr-3`}
                           >
-                            <Check className='h-3 w-3 text-white' />
+                            <Check className="h-3 w-3 text-white" />
                           </div>
-                          <span className='text-gray-700'>{feature}</span>
+                          <span className="text-gray-700">{feature}</span>
                         </li>
                       ))}
                     </ul>
 
-                    <div className='flex gap-2'>
+                    <div className="flex gap-2">
                       <Button
                         className={`flex-1 bg-gradient-to-r ${pkg.gradient} hover:${pkg.hoverGradient} text-white border-0 shadow-md group`}
                         onClick={() => handleAddToCart(pkg)}
@@ -214,20 +214,20 @@ export default function PackagesSection() {
                           'Adding...'
                         ) : (
                           <>
-                            <ShoppingCart className='mr-2 h-4 w-4' />
+                            <ShoppingCart className="mr-2 h-4 w-4" />
                             <span>Add to Cart</span>
                           </>
                         )}
                       </Button>
                       <Link
                         href={`/packs/${pkg.name.toLowerCase().replace(' ', '-')}`}
-                        className='flex-1'
+                        className="flex-1"
                       >
                         <Button
                           className={`w-full bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 group`}
                         >
                           <span>Details</span>
-                          <ArrowRight className='ml-2 h-4 w-4 transition-transform group-hover:translate-x-1' />
+                          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                         </Button>
                       </Link>
                     </div>
@@ -240,24 +240,24 @@ export default function PackagesSection() {
 
         {/* Mobile Carousel View */}
         {isMobile && (
-          <div className='relative max-w-sm mx-auto'>
+          <div className="relative max-w-sm mx-auto">
             <div
               ref={carouselRef}
-              className='overflow-hidden'
+              className="overflow-hidden"
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
               onTouchEnd={onTouchEnd}
             >
               <div
-                className='flex transition-transform duration-300 ease-in-out'
+                className="flex transition-transform duration-300 ease-in-out"
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
               >
                 {packages.map((pkg, index) => (
-                  <div key={pkg.id} className='w-full flex-shrink-0 px-2'>
-                    <div className='relative'>
+                  <div key={pkg.id} className="w-full flex-shrink-0 px-2">
+                    <div className="relative">
                       {pkg.popular && (
-                        <div className='absolute -top-4 left-0 right-0 flex justify-center z-20'>
-                          <span className='bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-medium px-4 py-1 rounded-full shadow-md'>
+                        <div className="absolute -top-4 left-0 right-0 flex justify-center z-20">
+                          <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-medium px-4 py-1 rounded-full shadow-md">
                             Most Popular
                           </span>
                         </div>
@@ -269,52 +269,52 @@ export default function PackagesSection() {
                           pkg.popular ? 'mt-4' : ''
                         }`}
                       >
-                        <div className='p-6 pb-0'>
-                          <div className='flex justify-between items-start mb-4'>
+                        <div className="p-6 pb-0">
+                          <div className="flex justify-between items-start mb-4">
                             <div>
-                              <h3 className='text-xl font-bold text-gray-900 mb-1'>{pkg.name}</h3>
-                              <p className='text-sm text-gray-600'>{pkg.description}</p>
+                              <h3 className="text-xl font-bold text-gray-900 mb-1">{pkg.name}</h3>
+                              <p className="text-sm text-gray-600">{pkg.description}</p>
                             </div>
-                            <div className='relative w-16 h-16 bg-white rounded-lg shadow-sm overflow-hidden'>
+                            <div className="relative w-16 h-16 bg-white rounded-lg shadow-sm overflow-hidden">
                               <Image
                                 src={pkg.image || '/placeholder.svg'}
                                 alt={pkg.name}
                                 fill
-                                className='object-contain p-2'
+                                className="object-contain p-2"
                               />
                             </div>
                           </div>
 
-                          <div className='mb-6'>
+                          <div className="mb-6">
                             <span
                               className={`text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${pkg.gradient}`}
                             >
                               €{pkg.price}
                             </span>
-                            <span className='text-gray-600 ml-1'>one-time</span>
+                            <span className="text-gray-600 ml-1">one-time</span>
                           </div>
                         </div>
 
-                        <CardContent className='p-6 pt-0'>
-                          <ul className='space-y-3 mb-6'>
+                        <CardContent className="p-6 pt-0">
+                          <ul className="space-y-3 mb-6">
                             {pkg.features.slice(0, 4).map((feature, i) => (
-                              <li key={i} className='flex items-start'>
+                              <li key={i} className="flex items-start">
                                 <div
                                   className={`w-5 h-5 rounded-full bg-gradient-to-r ${pkg.gradient} flex-shrink-0 flex items-center justify-center mt-0.5 mr-3`}
                                 >
-                                  <Check className='h-3 w-3 text-white' />
+                                  <Check className="h-3 w-3 text-white" />
                                 </div>
-                                <span className='text-gray-700'>{feature}</span>
+                                <span className="text-gray-700">{feature}</span>
                               </li>
                             ))}
                             {pkg.features.length > 4 && (
-                              <li className='text-sm text-gray-500 italic'>
+                              <li className="text-sm text-gray-500 italic">
                                 +{pkg.features.length - 4} more features
                               </li>
                             )}
                           </ul>
 
-                          <div className='flex gap-2'>
+                          <div className="flex gap-2">
                             <Button
                               className={`flex-1 bg-gradient-to-r ${pkg.gradient} hover:${pkg.hoverGradient} text-white border-0 shadow-md`}
                               onClick={() => handleAddToCart(pkg)}
@@ -324,14 +324,14 @@ export default function PackagesSection() {
                                 'Adding...'
                               ) : (
                                 <>
-                                  <ShoppingCart className='mr-2 h-4 w-4' />
+                                  <ShoppingCart className="mr-2 h-4 w-4" />
                                   <span>Add to Cart</span>
                                 </>
                               )}
                             </Button>
                             <Link
                               href={`/packs/${pkg.name.toLowerCase().replace(' ', '-')}`}
-                              className='flex-1'
+                              className="flex-1"
                             >
                               <Button
                                 className={`w-full bg-white border border-gray-200 text-gray-700 hover:bg-gray-50`}
@@ -350,23 +350,23 @@ export default function PackagesSection() {
 
             {/* Carousel Controls */}
             <Button
-              className='absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-full shadow-md border-0 z-10 w-10 h-10 p-0'
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-full shadow-md border-0 z-10 w-10 h-10 p-0"
               onClick={prevSlide}
-              aria-label='Previous package'
+              aria-label="Previous package"
             >
-              <ChevronLeft className='h-5 w-5' />
+              <ChevronLeft className="h-5 w-5" />
             </Button>
 
             <Button
-              className='absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-full shadow-md border-0 z-10 w-10 h-10 p-0'
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-full shadow-md border-0 z-10 w-10 h-10 p-0"
               onClick={nextSlide}
-              aria-label='Next package'
+              aria-label="Next package"
             >
-              <ChevronRight className='h-5 w-5' />
+              <ChevronRight className="h-5 w-5" />
             </Button>
 
             {/* Dots Navigation */}
-            <div className='flex justify-center mt-6 gap-2'>
+            <div className="flex justify-center mt-6 gap-2">
               {packages.map((_, index) => (
                 <button
                   key={index}
