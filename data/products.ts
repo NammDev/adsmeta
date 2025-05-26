@@ -483,7 +483,7 @@ export function getProductsPageData(): ProductPageItem[] {
   return products.map((product) => ({
     id: product.id,
     name: product.name,
-    description: product.shortDescription || product.description,
+    description: product.description,
     price: product.priceString || `€${product.price}`,
     category: product.category,
     image: product.image,
