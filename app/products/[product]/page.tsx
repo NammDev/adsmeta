@@ -155,7 +155,7 @@ export default function ProductPage() {
                 {/* Product Image */}
                 <div className="w-20 h-20 flex-shrink-0 relative rounded-md overflow-hidden border-2 border-gradient-to-r from-blue-300 to-purple-300 bg-white transform transition-transform hover:scale-105 duration-300">
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-purple-500/10 mix-blend-overlay"></div>
-                  <Image src="/placeholder-bn2cx.png" alt={product.name} fill className="object-contain p-1" />
+                  <Image src="/images/verified-bm1-logo.png" alt={product.name} fill className="object-contain p-1" />
                 </div>
 
                 {/* Price and Stock Status */}
@@ -255,7 +255,7 @@ export default function ProductPage() {
                     <div className="relative aspect-square rounded-xl overflow-hidden border-0 bg-white shadow-lg hover:shadow-xl transition-all duration-300 group">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay group-hover:opacity-70 transition-opacity duration-300"></div>
                       <Image
-                        src="/placeholder-bn2cx.png"
+                        src="/images/verified-bm1-logo.png"
                         alt={product.name}
                         fill
                         className="object-cover transform transition-transform group-hover:scale-105 duration-500"
