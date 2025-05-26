@@ -67,6 +67,14 @@ export interface ProductDetailItem {
   badge?: string
   stock: "in-stock" | "low-stock" | "out-of-stock"
   deliveryTime: string
+  // Add the new fields
+  overview?: string[]
+  details?: string[]
+  status?: string[]
+  imageDescription?: string
+  reviewComment?: string
+  reviewAuthor?: string
+  reviewAuthorTitle?: string
 }
 
 // Unified product interface that can support all use cases
@@ -76,6 +84,14 @@ export interface Product {
   name: string
   description: string
   longDescription?: string
+  // Add new fields for more detailed product information
+  overview?: string[]
+  details?: string[]
+  status?: string[]
+  imageDescription?: string
+  reviewComment?: string
+  reviewAuthor?: string
+  reviewAuthorTitle?: string
   price: number
   priceString?: string
   originalPrice?: number
@@ -95,6 +111,7 @@ export interface Product {
   purchases?: number // For products/page.tsx compatibility
   gradient?: string
   bgGradient?: string
+  deliveryTime?: string
 }
 
 // SINGLE SOURCE OF TRUTH - Main products data
@@ -105,6 +122,23 @@ export const products: Product[] = [
     slug: "verified-bm",
     name: "Verified BM",
     description: "Add your agency to BM and launch ads immediately.",
+    overview: [
+      "Fully verified Business Manager with official government ID attached.",
+      "Ready to use immediately after purchase.",
+      "Perfect for agencies and marketers needing quick ad setup.",
+    ],
+    details: [
+      "Comes with 1 active ad account.",
+      "Billing country set to random (cannot be changed).",
+      "Currency & timezone can be customized for each ad account.",
+    ],
+    status: ["Business Manager is active, clean, and ready for immediate use."],
+    imageDescription:
+      "Screenshot of verified Business Manager dashboard showing account status and verification badge.",
+    reviewComment:
+      "This verified BM saved us so much time. We were able to start running ads within hours of purchase.",
+    reviewAuthor: "David Miller",
+    reviewAuthorTitle: "Digital Marketing Specialist",
     price: 80,
     priceString: "€80",
     category: "Business Manager",
@@ -115,12 +149,30 @@ export const products: Product[] = [
     purchases: 124,
     gradient: "from-blue-500 to-cyan-500",
     bgGradient: "from-blue-50 to-cyan-50",
+    deliveryTime: "1-2 hours",
   },
   {
     id: "bm1-250-limit",
     slug: "bm1-250-limit",
     name: "Verified BM1 $250 Limit",
     description: "Verified Business Manager with $250 daily spending limit.",
+    overview: [
+      "Fully verified Business Manager with official government ID attached.",
+      "Comes with $250 daily ad spend limit and 1 active ad account.",
+      "Stronger trust score than unverified BMs – More robust & stable.",
+    ],
+    details: [
+      "Eligible for upgrade to BM3/BM5 after successful ad spend (up to 5 ad accounts allowed).",
+      "Billing country set to random and cannot be changed.",
+      "Currency & timezone can be customized for each ad account.",
+      "Pixel sharing fully supported – no restrictions or errors.",
+    ],
+    status: ["Business Manager is active, clean, and ready for immediate use."],
+    imageDescription: "Facebook Ads Manager showing $250 daily spending limit",
+    reviewComment:
+      "The BM1 with $250 limit completely transformed our Facebook advertising capabilities. Highly recommended!",
+    reviewAuthor: "Michael Thompson",
+    reviewAuthorTitle: "Marketing Director",
     price: 180,
     priceString: "€180",
     comparePrice: 249,
@@ -134,43 +186,82 @@ export const products: Product[] = [
     relatedProducts: ["verified-bm-3", "verified-bm-4", "unverified-bm-1"],
     gradient: "from-blue-600 to-indigo-600",
     bgGradient: "from-blue-50 to-indigo-50",
+    deliveryTime: "2-4 hours",
   },
   {
     id: "verified-bm-3",
     slug: "verified-bm5-limited",
     name: "Verified BM5 $250 Limit",
     description: "Verified BM5 with $250 limit and 5 ad accounts.",
+    overview: [
+      "Premium verified BM5 with $250 daily spending limit.",
+      "Includes 5 active ad accounts ready for immediate use.",
+      "Higher trust score for improved ad delivery and performance.",
+    ],
+    details: [
+      "All 5 ad accounts come pre-verified and ready to use.",
+      "Customizable currency and timezone settings for each ad account.",
+      "Full pixel sharing capabilities across all accounts.",
+      "Eligible for spending limit increases after successful ad campaigns.",
+    ],
+    status: ["All accounts are active and in perfect standing.", "No previous policy violations or restrictions."],
+    imageDescription: "Dashboard view of BM5 account showing 5 active ad accounts and spending limit",
+    reviewComment:
+      "The BM5 package exceeded our expectations. Having 5 pre-verified accounts saved us weeks of setup time.",
+    reviewAuthor: "Jennifer Adams",
+    reviewAuthorTitle: "Agency Owner",
     price: 260,
     priceString: "€260",
     category: "Business Manager",
     productCategory: "verified-bm",
     image: "/abstract-facebook-verified-business-manager.png",
-
     stock: "in-stock",
     reviewCount: 36,
     purchases: 89,
     gradient: "from-indigo-500 to-purple-500",
     bgGradient: "from-indigo-50 to-purple-50",
+    deliveryTime: "4-6 hours",
   },
   {
     id: "verified-bm-4",
     slug: "unlimited-verified-bm5",
     name: "Unlimited Verified BM5",
     description: "Unlimited verified BM5 with 5 ad accounts.",
+    overview: [
+      "Premium unlimited verified BM5 with no daily spending restrictions.",
+      "Includes 5 active ad accounts with unlimited potential.",
+      "Highest possible trust score for maximum ad delivery performance.",
+    ],
+    details: [
+      "No daily spending limits - scale your campaigns without restrictions.",
+      "All 5 ad accounts come pre-verified with high trust scores.",
+      "Full access to all Facebook advertising features and placements.",
+      "Seamless pixel sharing and custom audience creation across accounts.",
+    ],
+    status: [
+      "All accounts are active and in perfect standing with premium status.",
+      "Verified with multiple security layers for maximum account stability.",
+    ],
+    imageDescription: "Dashboard view showing unlimited spending capability and 5 active ad accounts",
+    reviewComment:
+      "The unlimited BM5 has been a game-changer for our agency. We can now scale campaigns without any spending restrictions.",
+    reviewAuthor: "Robert Chen",
+    reviewAuthorTitle: "Performance Marketing Lead",
     price: 350,
     priceString: "€350",
     category: "Business Manager",
     productCategory: "verified-bm",
     image: "/abstract-facebook-verified-business-manager.png",
-
     badge: "Premium",
     stock: "in-stock",
     reviewCount: 54,
     purchases: 312,
     gradient: "from-purple-500 to-pink-500",
     bgGradient: "from-purple-50 to-pink-50",
+    deliveryTime: "6-12 hours",
   },
 
+  // Keep the rest of the products array as is
   // UNVERIFIED BM PRODUCTS (2)
   {
     id: "unverified-bm-1",
@@ -347,9 +438,7 @@ export function getRelatedProducts(productId: string): Product[] {
     return products.filter((p) => p.id !== productId && p.category === category).slice(0, 3)
   }
 
-  return product.relatedProducts
-    .map((id) => getProductById(id))
-    .filter((p): p is Product => p !== undefined)
+  return product.relatedProducts.map((id) => getProductById(id)).filter((p): p is Product => p !== undefined)
 }
 
 // PRODUCTS SECTION SPECIFIC HELPERS (for landing page)
@@ -438,7 +527,7 @@ export function filterProductPageItems(category: string): ProductPageItem[] {
 export function paginateProductPageItems(
   items: ProductPageItem[],
   currentPage: number,
-  itemsPerPage: number
+  itemsPerPage: number,
 ): ProductPageItem[] {
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
@@ -454,7 +543,7 @@ export function calculateTotalPages(items: ProductPageItem[], itemsPerPage: numb
 export function generatePageNumbers(
   currentPage: number,
   totalPages: number,
-  maxPageNumbersToShow = 5
+  maxPageNumbersToShow = 5,
 ): (number | string)[] {
   const pageNumbers = []
 
@@ -520,6 +609,15 @@ export function getProductDetailData(slug: string): ProductDetailItem | null {
     category: product.category,
     badge: product.badge,
     stock: product.stock || "in-stock",
+    deliveryTime: product.deliveryTime || "24 hours",
+    // Add the new fields
+    overview: product.overview,
+    details: product.details,
+    status: product.status,
+    imageDescription: product.imageDescription,
+    reviewComment: product.reviewComment,
+    reviewAuthor: product.reviewAuthor,
+    reviewAuthorTitle: product.reviewAuthorTitle,
   }
 }
 
@@ -570,9 +668,7 @@ export function getLandingPageProducts(): Product[] {
   }
 
   // If not enough featured products, include popular ones
-  const popularProducts = getPopularProducts().filter(
-    (p) => !featuredProducts.some((fp) => fp.id === p.id)
-  )
+  const popularProducts = getPopularProducts().filter((p) => !featuredProducts.some((fp) => fp.id === p.id))
 
   return [...featuredProducts, ...popularProducts].slice(0, 3)
 }

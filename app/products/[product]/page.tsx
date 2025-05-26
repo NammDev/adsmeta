@@ -25,7 +25,7 @@ import { useCart } from "@/context/cart-context"
 import RelatedProducts from "@/components/products/related-products"
 import { getProductDetailData } from "@/data/products"
 
-// Product type definition
+// Update the Product interface to match our enhanced data structure
 interface Product {
   id: string
   slug: string
@@ -34,13 +34,21 @@ interface Product {
   longDescription: string
   price: number
   comparePrice?: number
-  features: string[]
+  features?: string[]
   image: string
   category: string
   badge?: string
   stock: "in-stock" | "low-stock" | "out-of-stock"
   deliveryTime: string
-  faq: Array<{ question: string; answer: string }>
+  faq?: Array<{ question: string; answer: string }>
+  // Add the new fields
+  overview?: string[]
+  details?: string[]
+  status?: string[]
+  imageDescription?: string
+  reviewComment?: string
+  reviewAuthor?: string
+  reviewAuthorTitle?: string
 }
 
 // Feature icons mapping
@@ -169,9 +177,7 @@ export default function ProductPage() {
                       €{product.price}
                     </span>
                     {product.comparePrice && (
-                      <span className="text-sm text-gray-500 line-through">
-                        €{product.comparePrice}
-                      </span>
+                      <span className="text-sm text-gray-500 line-through">€{product.comparePrice}</span>
                     )}
                   </div>
 
@@ -180,8 +186,8 @@ export default function ProductPage() {
                       product.stock === "in-stock"
                         ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm"
                         : product.stock === "low-stock"
-                        ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
-                        : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
+                          ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
+                          : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
                     }`}
                   >
                     {stockStatus[product.stock].label}
@@ -294,9 +300,7 @@ export default function ProductPage() {
                           €{product.price}
                         </span>
                         {product.comparePrice && (
-                          <span className="ml-2 text-gray-500 line-through">
-                            €{product.comparePrice}
-                          </span>
+                          <span className="ml-2 text-gray-500 line-through">€{product.comparePrice}</span>
                         )}
                       </div>
 
@@ -305,8 +309,8 @@ export default function ProductPage() {
                           product.stock === "in-stock"
                             ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm"
                             : product.stock === "low-stock"
-                            ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
-                            : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
+                              ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
+                              : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
                         }`}
                       >
                         {stockStatus[product.stock].label}
@@ -344,16 +348,11 @@ export default function ProductPage() {
                         {[...Array(5)].map((_, i) => (
                           <Star
                             key={i}
-                            className={`h-5 w-5 ${
-                              i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
-                            }`}
+                            className={`h-5 w-5 ${i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
                           />
                         ))}
                       </div>
-                      <a
-                        href="#reviews"
-                        className="text-sm text-gray-500 hover:text-facebook transition-colors"
-                      >
+                      <a href="#reviews" className="text-sm text-gray-500 hover:text-facebook transition-colors">
                         120 reviews
                       </a>
                     </div>
@@ -374,47 +373,43 @@ export default function ProductPage() {
                 </h3>
 
                 <div className="prose max-w-none">
-                  <div className="mb-6">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-3">Overview:</h4>
-                    <p className="mb-3 text-gray-700">
-                      Fully verified Business Manager with official government ID attached.
-                    </p>
-                    <p className="mb-3 text-gray-700">
-                      Comes with $250 ad spend limit and 1 active ad account.
-                    </p>
-                    <p className="mb-4 text-gray-700">
-                      Stronger trust score than unverified BMs – ✅ More robust & stable.
-                    </p>
-                  </div>
+                  {product.overview && product.overview.length > 0 && (
+                    <div className="mb-6">
+                      <h4 className="text-lg font-semibold text-gray-900 mb-3">Overview:</h4>
+                      {product.overview.map((item, index) => (
+                        <p key={index} className="mb-3 text-gray-700">
+                          {item}
+                        </p>
+                      ))}
+                    </div>
+                  )}
 
-                  <div className="mb-6">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-3">Details:</h4>
-                    <p className="mb-3 text-gray-700">
-                      Eligible for upgrade to BM3/BM5 after successful ad spend (up to 5 ad accounts
-                      allowed).
-                    </p>
-                    <p className="mb-3 text-gray-700">
-                      <strong>Billing Country:</strong> Set to random and cannot be changed.
-                    </p>
-                    <p className="mb-3 text-gray-700">
-                      <strong>Currency & Timezone:</strong> Can be customized for each ad account.
-                    </p>
-                    <p className="mb-4 text-gray-700">
-                      <strong>Pixel Sharing:</strong> Fully supported – no restrictions or errors.
-                    </p>
-                  </div>
+                  {product.details && product.details.length > 0 && (
+                    <div className="mb-6">
+                      <h4 className="text-lg font-semibold text-gray-900 mb-3">Details:</h4>
+                      {product.details.map((item, index) => (
+                        <p key={index} className="mb-3 text-gray-700">
+                          {item}
+                        </p>
+                      ))}
+                    </div>
+                  )}
 
-                  <div className="mb-6">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-3">Status:</h4>
-                    <p className="mb-4 text-gray-700">
-                      Business Manager is active, clean, and ready for immediate use.
-                    </p>
-                  </div>
+                  {product.status && product.status.length > 0 && (
+                    <div className="mb-6">
+                      <h4 className="text-lg font-semibold text-gray-900 mb-3">Status:</h4>
+                      {product.status.map((item, index) => (
+                        <p key={index} className="mb-4 text-gray-700">
+                          {item}
+                        </p>
+                      ))}
+                    </div>
+                  )}
 
                   <div className="mt-6">
                     <Image
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BM1250-bKJxFWR53R7t8C2X90KhNDoxJxqPQm.webp"
-                      alt="Facebook Ads Manager showing $250 daily spending limit"
+                      alt={product.imageDescription || "Product screenshot"}
                       width={800}
                       height={600}
                       className="w-full rounded-lg border border-gray-200 shadow-sm"
@@ -526,9 +521,7 @@ export default function ProductPage() {
                   <div className="absolute top-0 right-0 w-20 h-20 bg-blue-200/20 rounded-full -translate-y-1/2 translate-x-1/2"></div>
                   <div className="absolute bottom-0 left-0 w-16 h-16 bg-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2"></div>
 
-                  <h4 className="font-bold mb-2 text-center relative z-10 text-gray-800">
-                    Ready to get started?
-                  </h4>
+                  <h4 className="font-bold mb-2 text-center relative z-10 text-gray-800">Ready to get started?</h4>
                   <p className="text-gray-600 text-sm mb-4 text-center relative z-10">
                     Get your {product.name} now and start advertising!
                   </p>
@@ -569,8 +562,8 @@ export default function ProductPage() {
                 </div>
 
                 <p className="text-center mb-4 italic text-gray-700">
-                  "The {product.name} completely transformed our Facebook advertising capabilities.
-                  Highly recommended!"
+                  {product.reviewComment ||
+                    `"The ${product.name} completely transformed our Facebook advertising capabilities. Highly recommended!"`}
                 </p>
 
                 <div className="flex items-center justify-center">
@@ -584,8 +577,8 @@ export default function ProductPage() {
                     />
                   </div>
                   <div className="text-left">
-                    <p className="font-bold text-sm text-gray-800">Michael Thompson</p>
-                    <p className="text-gray-600 text-xs">Marketing Director</p>
+                    <p className="font-bold text-sm text-gray-800">{product.reviewAuthor || "Michael Thompson"}</p>
+                    <p className="text-gray-600 text-xs">{product.reviewAuthorTitle || "Marketing Director"}</p>
                   </div>
                 </div>
               </CardContent>
@@ -604,15 +597,13 @@ export default function ProductPage() {
                 <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
               </h3>
               <div className="prose max-w-none text-sm">
-                <p className="mb-3 text-gray-700">
-                  Fully verified Business Manager with official government ID attached.
-                </p>
-                <p className="mb-3 text-gray-700">
-                  Comes with $250 ad spend limit and 1 active ad account.
-                </p>
-                <p className="mb-3 text-gray-700">
-                  Stronger trust score than unverified BMs – ✅ More robust & stable.
-                </p>
+                {product.overview &&
+                  product.overview.length > 0 &&
+                  product.overview.map((item, index) => (
+                    <p key={index} className="mb-3 text-gray-700">
+                      {item}
+                    </p>
+                  ))}
               </div>
             </CardContent>
           </Card>
@@ -659,9 +650,7 @@ export default function ProductPage() {
                 <h4 className="font-bold mb-1 text-center text-sm relative z-10 text-gray-800">
                   Ready to get started?
                 </h4>
-                <p className="text-gray-600 text-xs mb-3 text-center relative z-10">
-                  Get your {product.name} now!
-                </p>
+                <p className="text-gray-600 text-xs mb-3 text-center relative z-10">Get your {product.name} now!</p>
 
                 <Button
                   onClick={handleAddToCart}
