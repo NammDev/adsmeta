@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Send, Mail, X } from "lucide-react"
 import { ChatBubbleIcon } from "./chat-bubble-icon"
-import { cn, openWhatsAppChat } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 
 interface SocialButtonsProps {
   threshold?: number
@@ -42,7 +42,11 @@ export default function SocialButtons({ threshold = 300, className }: SocialButt
 
   // Open WhatsApp function
   const openWhatsApp = () => {
-    openWhatsAppChat()
+    // Direct implementation without using the utility function
+    const phoneNumber = "1234567890" // Replace with your actual phone number
+    const message = "Hello! I'm interested in your products."
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+    window.open(url, "_blank")
   }
 
   // Open Telegram function
@@ -58,10 +62,7 @@ export default function SocialButtons({ threshold = 300, className }: SocialButt
     const email = "your-email@gmail.com"
     const subject = "Inquiry about your products"
     const body = "Hello! I'm interested in learning more about your products."
-    window.open(
-      `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
-      "_blank"
-    )
+    window.open(`mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, "_blank")
   }
 
   const buttonStyle = {
@@ -74,7 +75,7 @@ export default function SocialButtons({ threshold = 300, className }: SocialButt
       className={cn(
         "fixed bottom-6 right-6 z-40 transition-all duration-300",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none",
-        className
+        className,
       )}
     >
       {/* Main Button */}
@@ -85,7 +86,7 @@ export default function SocialButtons({ threshold = 300, className }: SocialButt
           className={cn(
             "rounded-full shadow-lg bg-blue-600 hover:bg-blue-700 text-white p-0 flex items-center justify-center z-50",
             "transition-all duration-500 ease-in-out",
-            isOpen ? "shadow-xl" : ""
+            isOpen ? "shadow-xl" : "",
           )}
           aria-label={isOpen ? "Close contact options" : "Open contact options"}
           aria-expanded={isOpen}
@@ -93,7 +94,7 @@ export default function SocialButtons({ threshold = 300, className }: SocialButt
           <div
             className={cn(
               "transition-all duration-500 ease-in-out",
-              isOpen ? "rotate-[360deg] scale-110" : "rotate-0 scale-100"
+              isOpen ? "rotate-[360deg] scale-110" : "rotate-0 scale-100",
             )}
             style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
           >
@@ -110,9 +111,7 @@ export default function SocialButtons({ threshold = 300, className }: SocialButt
       <div
         className={cn(
           "absolute right-0 transition-all duration-500 ease-in-out",
-          isOpen
-            ? "bottom-[220px] opacity-100 scale-100"
-            : "bottom-0 opacity-0 scale-0 pointer-events-none"
+          isOpen ? "bottom-[220px] opacity-100 scale-100" : "bottom-0 opacity-0 scale-0 pointer-events-none",
         )}
       >
         <Button
@@ -136,9 +135,7 @@ export default function SocialButtons({ threshold = 300, className }: SocialButt
       <div
         className={cn(
           "absolute right-0 transition-all duration-500 ease-in-out",
-          isOpen
-            ? "bottom-[150px] opacity-100 scale-100"
-            : "bottom-0 opacity-0 scale-0 pointer-events-none"
+          isOpen ? "bottom-[150px] opacity-100 scale-100" : "bottom-0 opacity-0 scale-0 pointer-events-none",
         )}
       >
         <Button
@@ -155,9 +152,7 @@ export default function SocialButtons({ threshold = 300, className }: SocialButt
       <div
         className={cn(
           "absolute right-0 transition-all duration-500 ease-in-out",
-          isOpen
-            ? "bottom-[80px] opacity-100 scale-100"
-            : "bottom-0 opacity-0 scale-0 pointer-events-none"
+          isOpen ? "bottom-[80px] opacity-100 scale-100" : "bottom-0 opacity-0 scale-0 pointer-events-none",
         )}
       >
         <Button
