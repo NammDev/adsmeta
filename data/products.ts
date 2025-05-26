@@ -19,10 +19,49 @@ export interface ProductInclude {
 export interface ProductReview {
   id: string
   author: string
-  rating: number
   text: string
   date: string
   verified?: boolean
+}
+
+// New interfaces for the restructured data
+export interface ProductDescription {
+  overview?: string[]
+  details?: string[]
+  status?: string[]
+  imageDescription?: string // Path to the product image
+}
+
+export interface ProductReviewData {
+  comment?: string
+  author?: string
+  authorTitle?: string
+  count?: number
+}
+
+// Category type for type safety
+export type ProductCategory = "verified-bm" | "unverified-bm" | "profile" | "page"
+
+// Helper function to get display name from category
+export function getCategoryDisplayName(category: ProductCategory): string {
+  const categoryMap: Record<ProductCategory, string> = {
+    "verified-bm": "Business Manager",
+    "unverified-bm": "Unverified BM",
+    profile: "Profiles",
+    page: "Pages",
+  }
+  return categoryMap[category] || category
+}
+
+// Helper function to get category from display name
+export function getCategoryFromDisplayName(displayName: string): ProductCategory | null {
+  const reverseMap: Record<string, ProductCategory> = {
+    "Business Manager": "verified-bm",
+    "Unverified BM": "unverified-bm",
+    Profiles: "profile",
+    Pages: "page",
+  }
+  return reverseMap[displayName] || null
 }
 
 // This type matches the Product type in app/products-section.tsx
@@ -32,10 +71,9 @@ export interface ProductSectionItem {
   description: string
   price: number
   image: string
-  category: "verified-bm" | "unverified-bm" | "profile" | "page"
+  category: ProductCategory
   badge?: string
   href?: string
-  rating?: number
   reviewCount?: number
   purchases?: number
   gradient?: string
@@ -64,13 +102,14 @@ export interface ProductDetailItem {
   longDescription: string
   price: number
   comparePrice?: number
-  features: string[]
   image: string
-  category: string
+  category: ProductCategory
   badge?: string
   stock: "in-stock" | "low-stock" | "out-of-stock"
   deliveryTime: string
-  faq: Array<{ question: string; answer: string }>
+  // Updated to use the new nested structures
+  description?: ProductDescription
+  review?: ProductReviewData
 }
 
 // Unified product interface that can support all use cases
@@ -79,39 +118,25 @@ export interface Product {
   slug: string
   name: string
   description: string
-  shortDescription?: string
   longDescription?: string
+  // Restructured fields
+  description?: ProductDescription
+  review?: ProductReviewData
   price: number
   priceString?: string
   originalPrice?: number
   comparePrice?: number
   discount?: number
   popular?: boolean
-  featured?: boolean
-  category: string
-  productCategory: "verified-bm" | "unverified-bm" | "profile" | "page" // For products-section.tsx compatibility
+  category: ProductCategory // Single category field with machine-readable values
   image: string
   images?: string[]
-  features: ProductFeature[]
-  simpleFeatures?: string[]
-  benefits?: string[]
-  idealFor?: string[]
-  faqs?: Array<{
-    question: string
-    answer: string
-  }>
-  includes?: ProductInclude[]
   reviews?: ProductReview[]
   stock?: "in-stock" | "low-stock" | "out-of-stock"
-  deliveryTime?: string
-  callToAction?: string
-  secondaryCallToAction?: string
   badge?: string
   tags?: string[]
   relatedProducts?: string[] // Array of product IDs
-  rating?: number // For products-section.tsx compatibility
-  reviewCount?: number // For products-section.tsx compatibility
-  purchases?: number // For products/page.tsx compatibility
+  purchases?: number
   gradient?: string
   bgGradient?: string
 }
@@ -124,22 +149,31 @@ export const products: Product[] = [
     slug: "verified-bm",
     name: "Verified BM",
     description: "Add your agency to BM and launch ads immediately.",
-    shortDescription: "Add your agency to BM and launch ads",
+    description: {
+      overview: [
+        "Fully verified Business Manager with official government ID attached.",
+        "Ready to use immediately after purchase.",
+        "Perfect for agencies and marketers needing quick ad setup.",
+      ],
+      details: [
+        "Comes with 1 active ad account.",
+        "Billing country set to random (cannot be changed).",
+        "Currency & timezone can be customized for each ad account.",
+      ],
+      status: ["Business Manager is active, clean, and ready for immediate use."],
+      imageDescription: "/images/verified-bm-dashboard.png",
+    },
+    review: {
+      comment: "This verified BM saved us so much time. We were able to start running ads within hours of purchase.",
+      author: "David Miller",
+      authorTitle: "Digital Marketing Specialist",
+      count: 42,
+    },
     price: 80,
     priceString: "€80",
-    category: "Business Manager",
-    productCategory: "verified-bm",
+    category: "verified-bm",
     image: "/verified-facebook-business-manager-icon.png",
-    features: [
-      { id: "feature-1", name: "Verified Business Manager", included: true, highlight: true },
-      { id: "feature-2", name: "Ready to use immediately", included: true },
-      { id: "feature-3", name: "Basic support", included: true },
-    ],
-    simpleFeatures: ["Verified Business Manager", "Ready to use immediately", "Basic support"],
     stock: "in-stock",
-    deliveryTime: "24 hours",
-    rating: 4.8,
-    reviewCount: 42,
     purchases: 124,
     gradient: "from-blue-500 to-cyan-500",
     bgGradient: "from-blue-50 to-cyan-50",
@@ -149,65 +183,35 @@ export const products: Product[] = [
     slug: "bm1-250-limit",
     name: "Verified BM1 $250 Limit",
     description: "Verified Business Manager with $250 daily spending limit.",
-    shortDescription: "Verified BM1 with $250 limit",
-    longDescription: `Our Business Manager BM1 with $250 Limit is perfect for advertisers looking to start or scale their Facebook advertising campaigns. This fully verified account comes with a $250 spending limit and is ready to use immediately after purchase.
-
-    The Business Manager is the central hub for managing your Facebook advertising assets, including ad accounts, pages, and pixels. With this BM1, you'll have a solid foundation to build your advertising strategy.
-
-    All our Business Managers are created with legitimate business information and are fully verified to ensure long-term stability and compliance with Facebook's policies.`,
+    description: {
+      overview: [
+        "Fully verified Business Manager with official government ID attached.",
+        "Comes with $250 daily ad spend limit and 1 active ad account.",
+        "Stronger trust score than unverified BMs – More robust & stable.",
+      ],
+      details: [
+        "Eligible for upgrade to BM3/BM5 after successful ad spend (up to 5 ad accounts allowed).",
+        "Billing country set to random and cannot be changed.",
+        "Currency & timezone can be customized for each ad account.",
+        "Pixel sharing fully supported – no restrictions or errors.",
+      ],
+      status: ["Business Manager is active, clean, and ready for immediate use."],
+      imageDescription: "/images/bm1-250-limit-dashboard.png",
+    },
+    review: {
+      comment:
+        "The BM1 with $250 limit completely transformed our Facebook advertising capabilities. Highly recommended!",
+      author: "Michael Thompson",
+      authorTitle: "Marketing Director",
+      count: 78,
+    },
     price: 180,
     priceString: "€180",
     comparePrice: 249,
-    category: "Business Manager",
-    productCategory: "verified-bm",
+    category: "verified-bm",
     image: "/bm1-250-limit.png",
-    features: [
-      { id: "feature-1", name: "Fully verified Business Manager", included: true, highlight: true },
-      { id: "feature-2", name: "$250 spending limit", included: true },
-      { id: "feature-3", name: "Ready to use immediately", included: true },
-      { id: "feature-4", name: "Compliant with Facebook policies", included: true },
-      { id: "feature-5", name: "Secure payment methods added", included: true },
-      { id: "feature-6", name: "30-day warranty", included: true, highlight: true },
-      { id: "feature-7", name: "Setup assistance included", included: true },
-      { id: "feature-8", name: "Email support", included: true },
-    ],
-    simpleFeatures: [
-      "Fully verified Business Manager",
-      "$250 spending limit",
-      "Ready to use immediately",
-      "Compliant with Facebook policies",
-      "Secure payment methods added",
-      "30-day warranty",
-      "Setup assistance included",
-      "Email support",
-    ],
     badge: "Popular",
     stock: "in-stock",
-    deliveryTime: "24 hours",
-    faqs: [
-      {
-        question: "How soon can I start using the Business Manager after purchase?",
-        answer:
-          "You can start using the Business Manager immediately after purchase. We'll provide you with all the necessary login details and setup instructions.",
-      },
-      {
-        question: "Can I increase the spending limit later?",
-        answer:
-          "Yes, you can request a spending limit increase directly through Facebook after establishing a good payment history.",
-      },
-      {
-        question: "Is this compliant with Facebook's policies?",
-        answer:
-          "Yes, all our Business Managers are created with legitimate business information and are fully verified to ensure compliance with Facebook's policies.",
-      },
-      {
-        question: "What happens if my account gets restricted?",
-        answer:
-          "We offer a 30-day warranty on all our Business Managers. If your account gets restricted within this period, we'll provide a replacement at no additional cost.",
-      },
-    ],
-    rating: 4.9,
-    reviewCount: 78,
     purchases: 256,
     relatedProducts: ["verified-bm-3", "verified-bm-4", "unverified-bm-1"],
     gradient: "from-blue-600 to-indigo-600",
@@ -218,23 +222,33 @@ export const products: Product[] = [
     slug: "verified-bm5-limited",
     name: "Verified BM5 $250 Limit",
     description: "Verified BM5 with $250 limit and 5 ad accounts.",
-    shortDescription: "Verified BM5 with $250 limit and 5 ad accounts",
+    description: {
+      overview: [
+        "Premium verified BM5 with $250 daily spending limit.",
+        "Includes 5 active ad accounts ready for immediate use.",
+        "Higher trust score for improved ad delivery and performance.",
+      ],
+      details: [
+        "All 5 ad accounts come pre-verified and ready to use.",
+        "Customizable currency and timezone settings for each ad account.",
+        "Full pixel sharing capabilities across all accounts.",
+        "Eligible for spending limit increases after successful ad campaigns.",
+      ],
+      status: ["All accounts are active and in perfect standing.", "No previous policy violations or restrictions."],
+      imageDescription: "/images/bm5-dashboard.png",
+    },
+    review: {
+      comment:
+        "The BM5 package exceeded our expectations. Having 5 pre-verified accounts saved us weeks of setup time.",
+      author: "Jennifer Adams",
+      authorTitle: "Agency Owner",
+      count: 36,
+    },
     price: 260,
     priceString: "€260",
-    category: "Business Manager",
-    productCategory: "verified-bm",
+    category: "verified-bm",
     image: "/abstract-facebook-verified-business-manager.png",
-    features: [
-      { id: "feature-1", name: "Verified BM5", included: true, highlight: true },
-      { id: "feature-2", name: "$250 spending limit", included: true },
-      { id: "feature-3", name: "5 ad accounts", included: true },
-      { id: "feature-4", name: "30-day warranty", included: true },
-    ],
-    simpleFeatures: ["Verified BM5", "$250 spending limit", "5 ad accounts", "30-day warranty"],
     stock: "in-stock",
-    deliveryTime: "24 hours",
-    rating: 4.7,
-    reviewCount: 36,
     purchases: 89,
     gradient: "from-indigo-500 to-purple-500",
     bgGradient: "from-indigo-50 to-purple-50",
@@ -244,31 +258,37 @@ export const products: Product[] = [
     slug: "unlimited-verified-bm5",
     name: "Unlimited Verified BM5",
     description: "Unlimited verified BM5 with 5 ad accounts.",
-    shortDescription: "Unlimited verified BM5 with 5 ad accounts",
+    description: {
+      overview: [
+        "Premium unlimited verified BM5 with no daily spending restrictions.",
+        "Includes 5 active ad accounts with unlimited potential.",
+        "Highest possible trust score for maximum ad delivery performance.",
+      ],
+      details: [
+        "No daily spending limits - scale your campaigns without restrictions.",
+        "All 5 ad accounts come pre-verified with high trust scores.",
+        "Full access to all Facebook advertising features and placements.",
+        "Seamless pixel sharing and custom audience creation across accounts.",
+      ],
+      status: [
+        "All accounts are active and in perfect standing with premium status.",
+        "Verified with multiple security layers for maximum account stability.",
+      ],
+      imageDescription: "/images/unlimited-bm5-dashboard.png",
+    },
+    review: {
+      comment:
+        "The unlimited BM5 has been a game-changer for our agency. We can now scale campaigns without any spending restrictions.",
+      author: "Robert Chen",
+      authorTitle: "Performance Marketing Lead",
+      count: 54,
+    },
     price: 350,
     priceString: "€350",
-    category: "Business Manager",
-    productCategory: "verified-bm",
+    category: "verified-bm",
     image: "/abstract-facebook-verified-business-manager.png",
-    features: [
-      { id: "feature-1", name: "Unlimited verified BM5", included: true, highlight: true },
-      { id: "feature-2", name: "No spending limit", included: true },
-      { id: "feature-3", name: "5 ad accounts", included: true },
-      { id: "feature-4", name: "Premium support", included: true },
-      { id: "feature-5", name: "30-day warranty", included: true },
-    ],
-    simpleFeatures: [
-      "Unlimited verified BM5",
-      "No spending limit",
-      "5 ad accounts",
-      "Premium support",
-      "30-day warranty",
-    ],
     badge: "Premium",
     stock: "in-stock",
-    deliveryTime: "24 hours",
-    rating: 4.9,
-    reviewCount: 54,
     purchases: 312,
     gradient: "from-purple-500 to-pink-500",
     bgGradient: "from-purple-50 to-pink-50",
@@ -280,22 +300,14 @@ export const products: Product[] = [
     slug: "unverified-bm",
     name: "Unverified BM",
     description: "Basic unverified Business Manager for testing.",
-    shortDescription: "Unverified BM for ad account",
+    review: {
+      count: 28,
+    },
     price: 10,
     priceString: "€10",
-    category: "Unverified BM",
-    productCategory: "unverified-bm",
+    category: "unverified-bm",
     image: "/facebook-business-manager-icon.png",
-    features: [
-      { id: "feature-1", name: "Unverified Business Manager", included: true },
-      { id: "feature-2", name: "Testing purposes", included: true },
-      { id: "feature-3", name: "Basic support", included: true },
-    ],
-    simpleFeatures: ["Unverified Business Manager", "Testing purposes", "Basic support"],
     stock: "in-stock",
-    deliveryTime: "12 hours",
-    rating: 4.5,
-    reviewCount: 28,
     purchases: 578,
     gradient: "from-teal-500 to-green-500",
     bgGradient: "from-teal-50 to-green-50",
@@ -305,22 +317,14 @@ export const products: Product[] = [
     slug: "unverified-recovered-bm",
     name: "Recovered Unverified BM",
     description: "Recovered unverified Business Manager with history.",
-    shortDescription: "Unverified recovered BM for ad account",
+    review: {
+      count: 32,
+    },
     price: 30,
     priceString: "€30",
-    category: "Unverified BM",
-    productCategory: "unverified-bm",
+    category: "unverified-bm",
     image: "/facebook-business-manager-icon.png",
-    features: [
-      { id: "feature-1", name: "Recovered unverified BM", included: true },
-      { id: "feature-2", name: "Account history", included: true },
-      { id: "feature-3", name: "Basic support", included: true },
-    ],
-    simpleFeatures: ["Recovered unverified BM", "Account history", "Basic support"],
     stock: "in-stock",
-    deliveryTime: "24 hours",
-    rating: 4.6,
-    reviewCount: 32,
     purchases: 198,
     gradient: "from-green-500 to-emerald-500",
     bgGradient: "from-green-50 to-emerald-50",
@@ -332,22 +336,14 @@ export const products: Product[] = [
     slug: "asia-reinstated-2gl",
     name: "Asia Reinstated 2 Green Line",
     description: "Asia profile with 2 green line tick (verified 1 time).",
-    shortDescription: "Asia reinstated profile with 2 green line tick (verified 1 time)",
+    review: {
+      count: 41,
+    },
     price: 25,
     priceString: "€25",
-    category: "Profiles",
-    productCategory: "profile",
+    category: "profile",
     image: "/facebook-xmdt-usa.png",
-    features: [
-      { id: "feature-1", name: "Asia profile", included: true },
-      { id: "feature-2", name: "2 green line tick", included: true },
-      { id: "feature-3", name: "Verified 1 time", included: true },
-    ],
-    simpleFeatures: ["Asia profile", "2 green line tick", "Verified 1 time"],
     stock: "in-stock",
-    deliveryTime: "24 hours",
-    rating: 4.7,
-    reviewCount: 41,
     purchases: 45,
     gradient: "from-amber-500 to-orange-500",
     bgGradient: "from-amber-50 to-orange-50",
@@ -357,22 +353,14 @@ export const products: Product[] = [
     slug: "asia-reinstated-3gl",
     name: "Asia Reinstated 902 3 Green Line",
     description: "Asia profile with 3 green line tick (verified 2 times).",
-    shortDescription: "Asia reinstated 902 profile with 3 green line tick (verified 2 times)",
+    review: {
+      count: 47,
+    },
     price: 35,
     priceString: "€35",
-    category: "Profiles",
-    productCategory: "profile",
+    category: "profile",
     image: "/facebook-xmdt-usa.png",
-    features: [
-      { id: "feature-1", name: "Asia 902 profile", included: true },
-      { id: "feature-2", name: "3 green line tick", included: true },
-      { id: "feature-3", name: "Verified 2 times", included: true },
-    ],
-    simpleFeatures: ["Asia 902 profile", "3 green line tick", "Verified 2 times"],
     stock: "in-stock",
-    deliveryTime: "24 hours",
-    rating: 4.8,
-    reviewCount: 47,
     purchases: 72,
     gradient: "from-orange-500 to-red-500",
     bgGradient: "from-orange-50 to-red-50",
@@ -382,23 +370,15 @@ export const products: Product[] = [
     slug: "usa-reinstated-2gl",
     name: "USA Reinstated 2 Green Line",
     description: "USA profile with 2 green line tick (verified 1 time).",
-    shortDescription: "USA reinstated profile with 2 green line tick (verified 1 time)",
+    review: {
+      count: 63,
+    },
     price: 40,
     priceString: "€40",
-    category: "Profiles",
-    productCategory: "profile",
+    category: "profile",
     image: "/facebook-xmdt-usa.png",
-    features: [
-      { id: "feature-1", name: "USA profile", included: true },
-      { id: "feature-2", name: "2 green line tick", included: true },
-      { id: "feature-3", name: "Verified 1 time", included: true },
-    ],
-    simpleFeatures: ["USA profile", "2 green line tick", "Verified 1 time"],
     badge: "Premium",
     stock: "in-stock",
-    deliveryTime: "24 hours",
-    rating: 4.9,
-    reviewCount: 63,
     purchases: 102,
     gradient: "from-red-500 to-rose-500",
     bgGradient: "from-red-50 to-rose-50",
@@ -408,64 +388,20 @@ export const products: Product[] = [
     slug: "facebook-xmdt-usa",
     name: "USA Reinstated 902 3 Green Line",
     description: "USA profile with 3 green line tick (verified 2 times).",
-    shortDescription: "USA reinstated 902 profile with 3 green line tick (verified 2 times)",
     longDescription: `Our Facebook XMDT USA Account is a premium solution for advertisers who need reliable, high-quality accounts for their marketing campaigns. These accounts are created with authentic USA profiles and come with full XMDT verification.
 
     XMDT verification provides an additional layer of account security and stability, making these accounts ideal for advertisers who need dependable advertising solutions. Each account is carefully created and verified to ensure maximum longevity and performance.
 
     These accounts are perfect for agencies and professional marketers who need reliable advertising assets for their clients or campaigns.`,
+    review: {
+      count: 72,
+    },
     price: 50,
     priceString: "€50",
-    category: "Profiles",
-    productCategory: "profile",
+    category: "profile",
     image: "/facebook-xmdt-usa.png",
-    features: [
-      { id: "feature-1", name: "Authentic USA-based profile", included: true, highlight: true },
-      { id: "feature-2", name: "Full XMDT verification", included: true },
-      { id: "feature-3", name: "High-quality account with history", included: true },
-      { id: "feature-4", name: "Ready for advertising", included: true },
-      { id: "feature-5", name: "Compatible with Business Manager", included: true },
-      { id: "feature-6", name: "30-day warranty", included: true, highlight: true },
-      { id: "feature-7", name: "Setup assistance included", included: true },
-      { id: "feature-8", name: "Priority support", included: true },
-    ],
-    simpleFeatures: [
-      "Authentic USA-based profile",
-      "Full XMDT verification",
-      "High-quality account with history",
-      "Ready for advertising",
-      "Compatible with Business Manager",
-      "30-day warranty",
-      "Setup assistance included",
-      "Priority support",
-    ],
     badge: "Best Value",
     stock: "low-stock",
-    deliveryTime: "48 hours",
-    faqs: [
-      {
-        question: "What is XMDT verification?",
-        answer:
-          "XMDT verification is an advanced security feature that adds an extra layer of protection to Facebook accounts, making them more stable and less likely to be flagged by Facebook's security systems.",
-      },
-      {
-        question: "Can I connect this account to my existing Business Manager?",
-        answer:
-          "Yes, you can connect this account to your existing Business Manager as an admin or advertiser.",
-      },
-      {
-        question: "Why are USA accounts better for advertising?",
-        answer:
-          "USA accounts typically have better performance for advertising due to the market's high value and Facebook's prioritization of the region. They also face fewer restrictions compared to accounts from other regions.",
-      },
-      {
-        question: "Do you provide the email access for this account?",
-        answer:
-          "Yes, we provide full email access for all our XMDT USA accounts, giving you complete control over the account.",
-      },
-    ],
-    rating: 5.0,
-    reviewCount: 72,
     purchases: 155,
     relatedProducts: ["profile-3", "profile-2", "profile-1"],
     gradient: "from-rose-500 to-pink-500",
@@ -478,22 +414,14 @@ export const products: Product[] = [
     slug: "aged-reinstated-page",
     name: "Aged Reinstated Page",
     description: "Recovered Facebook page with established history.",
-    shortDescription: "Aged reinstated Facebook page",
+    review: {
+      count: 38,
+    },
     price: 30,
     priceString: "€30",
-    category: "Pages",
-    productCategory: "page",
+    category: "page",
     image: "/facebook-pixel-icon.png",
-    features: [
-      { id: "feature-1", name: "Aged Facebook page", included: true },
-      { id: "feature-2", name: "Reinstated", included: true },
-      { id: "feature-3", name: "Established history", included: true },
-    ],
-    simpleFeatures: ["Aged Facebook page", "Reinstated", "Established history"],
     stock: "in-stock",
-    deliveryTime: "24 hours",
-    rating: 4.6,
-    reviewCount: 38,
     purchases: 210,
     gradient: "from-blue-500 to-indigo-500",
     bgGradient: "from-blue-50 to-indigo-50",
@@ -513,8 +441,8 @@ export function getProductById(id: string): Product | undefined {
   return products.find((product) => product.id === id)
 }
 
-export function getProductsByCategory(category: string): Product[] {
-  return products.filter((product) => product.category.toLowerCase() === category.toLowerCase())
+export function getProductsByCategory(category: ProductCategory): Product[] {
+  return products.filter((product) => product.category === category)
 }
 
 export function getFeaturedProducts(): Product[] {
@@ -535,13 +463,11 @@ export function getRelatedProducts(productId: string): Product[] {
   const product = getProductById(productId)
   if (!product || !product.relatedProducts || product.relatedProducts.length === 0) {
     // If no related products specified, return other products in the same category
-    const category = product?.category || ""
+    const category = product?.category || "verified-bm"
     return products.filter((p) => p.id !== productId && p.category === category).slice(0, 3)
   }
 
-  return product.relatedProducts
-    .map((id) => getProductById(id))
-    .filter((p): p is Product => p !== undefined)
+  return product.relatedProducts.map((id) => getProductById(id)).filter((p): p is Product => p !== undefined)
 }
 
 // PRODUCTS SECTION SPECIFIC HELPERS (for landing page)
@@ -552,11 +478,10 @@ export function getProductSectionItems(): ProductSectionItem[] {
     description: product.description,
     price: product.price,
     image: product.image,
-    category: product.productCategory,
+    category: product.category,
     badge: product.badge,
     href: `/products/${product.slug}`,
-    rating: product.rating,
-    reviewCount: product.reviewCount,
+    reviewCount: product.review?.count,
     purchases: product.purchases,
     gradient: product.gradient,
     bgGradient: product.bgGradient,
@@ -588,7 +513,7 @@ export function getProductsPageData(): ProductPageItem[] {
     name: product.name,
     description: product.shortDescription || product.description,
     price: product.priceString || `€${product.price}`,
-    category: product.category.toLowerCase().replace(/\s+/g, "-"),
+    category: product.category,
     image: product.image,
     badge: product.badge,
     url: `/products/${product.slug}`,
@@ -606,12 +531,12 @@ export function getProductPageCategories() {
   ]
 
   // Get unique categories and their counts
-  const uniqueCategories = [...new Set(products.map((product) => product.category))]
+  const uniqueCategories: ProductCategory[] = [...new Set(products.map((product) => product.category))]
   uniqueCategories.forEach((category) => {
     const count = products.filter((product) => product.category === category).length
     categories.push({
-      id: category.toLowerCase().replace(/\s+/g, "-"),
-      name: category,
+      id: category,
+      name: getCategoryDisplayName(category),
       count,
     })
   })
@@ -631,7 +556,7 @@ export function filterProductPageItems(category: string): ProductPageItem[] {
 export function paginateProductPageItems(
   items: ProductPageItem[],
   currentPage: number,
-  itemsPerPage: number
+  itemsPerPage: number,
 ): ProductPageItem[] {
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
@@ -647,7 +572,7 @@ export function calculateTotalPages(items: ProductPageItem[], itemsPerPage: numb
 export function generatePageNumbers(
   currentPage: number,
   totalPages: number,
-  maxPageNumbersToShow = 5
+  maxPageNumbersToShow = 5,
 ): (number | string)[] {
   const pageNumbers = []
 
@@ -709,13 +634,14 @@ export function getProductDetailData(slug: string): ProductDetailItem | null {
     longDescription: product.longDescription || product.description,
     price: product.price,
     comparePrice: product.comparePrice,
-    features: product.simpleFeatures || product.features.map((f) => f.name),
     image: product.image,
     category: product.category,
     badge: product.badge,
     stock: product.stock || "in-stock",
-    deliveryTime: product.deliveryTime || "24 hours",
-    faq: product.faqs || [],
+    deliveryTime: "24 hours", // Default delivery time
+    // Add the new nested structures
+    description: product.description,
+    review: product.review,
   }
 }
 
@@ -766,9 +692,7 @@ export function getLandingPageProducts(): Product[] {
   }
 
   // If not enough featured products, include popular ones
-  const popularProducts = getPopularProducts().filter(
-    (p) => !featuredProducts.some((fp) => fp.id === p.id)
-  )
+  const popularProducts = getPopularProducts().filter((p) => !featuredProducts.some((fp) => fp.id === p.id))
 
   return [...featuredProducts, ...popularProducts].slice(0, 3)
 }
@@ -784,77 +708,11 @@ export function searchProducts(query: string): Product[] {
       product.shortDescription,
       product.longDescription,
       ...(product.tags || []),
-      product.category,
-      ...(product.simpleFeatures || []),
+      getCategoryDisplayName(product.category),
     ]
       .join(" ")
       .toLowerCase()
 
     return searchTerms.every((term) => searchableText.includes(term))
   })
-}
-
-// Filter and sort products
-export function filterProducts({
-  categories = [],
-  minPrice,
-  maxPrice,
-  tags = [],
-  sortBy = "featured",
-}: {
-  categories?: string[]
-  minPrice?: number
-  maxPrice?: number
-  tags?: string[]
-  sortBy?: "featured" | "price-asc" | "price-desc" | "name" | "newest"
-}): Product[] {
-  let filtered = [...products]
-
-  // Filter by category
-  if (categories.length > 0) {
-    filtered = filtered.filter((p) =>
-      categories.includes(p.category.toLowerCase().replace(/\s+/g, "-"))
-    )
-  }
-
-  // Filter by price range
-  if (minPrice !== undefined) {
-    filtered = filtered.filter((p) => p.price >= minPrice)
-  }
-
-  if (maxPrice !== undefined) {
-    filtered = filtered.filter((p) => p.price <= maxPrice)
-  }
-
-  // Filter by tags
-  if (tags.length > 0) {
-    filtered = filtered.filter((p) => p.tags && tags.some((tag) => p.tags?.includes(tag)))
-  }
-
-  // Sort products
-  switch (sortBy) {
-    case "price-asc":
-      filtered.sort((a, b) => a.price - b.price)
-      break
-    case "price-desc":
-      filtered.sort((a, b) => b.price - a.price)
-      break
-    case "name":
-      filtered.sort((a, b) => a.name.localeCompare(b.name))
-      break
-    case "newest":
-      // Sort by purchases as a proxy for "newest"
-      filtered.sort((a, b) => (b.purchases || 0) - (a.purchases || 0))
-      break
-    case "featured":
-    default:
-      // Put featured products (with badges) first, then sort by rating
-      filtered.sort((a, b) => {
-        if (a.badge && !b.badge) return -1
-        if (!a.badge && b.badge) return 1
-        return (b.rating || 0) - (a.rating || 0)
-      })
-  }
-
-  return filtered
 }
