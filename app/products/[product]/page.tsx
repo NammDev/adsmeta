@@ -391,13 +391,45 @@ export default function ProductPage() {
                 </h3>
 
                 <div className="prose max-w-none">
-                  <p className="mb-4 text-gray-700">
-                    Active, ready-to-use Business Manager (BM) with $250 ad spend limit.
-                  </p>
-                  <p className="mb-4 text-gray-700">Includes 1 ad account (default spend limit: $250/day).</p>
-                  <p className="mb-4 text-gray-700">
-                    Unverified status – eligible for upgrade to BM3/BM5 after successful billing activity.
-                  </p>
+                  <div className="mb-6">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-3">Overview:</h4>
+                    <p className="mb-3 text-gray-700">
+                      Active, ready-to-use Business Manager (BM) with $250 ad spend limit.
+                    </p>
+                    <p className="mb-3 text-gray-700">Includes 1 ad account (default spend limit: $250/day).</p>
+                    <p className="mb-4 text-gray-700">
+                      Unverified status – eligible for upgrade to BM3/BM5 after successful billing activity.
+                    </p>
+                  </div>
+
+                  <div className="mb-6">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-3">Details:</h4>
+                    <p className="mb-3 text-gray-700">
+                      <strong>Billing Country:</strong> Set randomly and cannot be changed.
+                    </p>
+                    <p className="mb-3 text-gray-700">
+                      <strong>Currency & Timezone:</strong> Fully customizable per ad account.
+                    </p>
+                    <p className="mb-4 text-gray-700">
+                      <strong>Pixel Sharing:</strong> 100% functional – no errors or restrictions.
+                    </p>
+                  </div>
+
+                  <div className="mb-6">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-3">Bonus:</h4>
+                    <p className="mb-3 text-gray-700">
+                      Includes our exclusive warm-up guide with step-by-step video tutorials.
+                    </p>
+                    <p className="mb-4 text-gray-700">
+                      Designed to help you minimize risks and optimize performance from day one.
+                    </p>
+                  </div>
+
+                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 border border-blue-100">
+                    <p className="text-gray-800 font-medium text-center">
+                      💼 Ideal for advertisers looking to start safely and scale responsibly.
+                    </p>
+                  </div>
                 </div>
 
                 {/* Key Benefits */}
