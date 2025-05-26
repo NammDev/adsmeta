@@ -182,7 +182,7 @@ export default function AboutUsPage() {
                   name: "Michael Chen",
                   role: "Developer",
                   email: "michael@gmail.com",
-                  image: "/team-michael-illustration.png",
+                  image: "/team-michael-illustration-new.png",
                   gradient: "from-green-500 to-teal-600",
                 },
               ].map((member, index) => (
