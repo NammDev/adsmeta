@@ -170,9 +170,7 @@ export default function ProductPage() {
                       €{product.price}
                     </span>
                     {product.comparePrice && (
-                      <span className="text-sm text-gray-500 line-through">
-                        €{product.comparePrice}
-                      </span>
+                      <span className="text-sm text-gray-500 line-through">€{product.comparePrice}</span>
                     )}
                   </div>
 
@@ -181,8 +179,8 @@ export default function ProductPage() {
                       product.stock === "in-stock"
                         ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm"
                         : product.stock === "low-stock"
-                        ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
-                        : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
+                          ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
+                          : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
                     }`}
                   >
                     {stockStatus[product.stock].label}
@@ -295,9 +293,7 @@ export default function ProductPage() {
                           €{product.price}
                         </span>
                         {product.comparePrice && (
-                          <span className="ml-2 text-gray-500 line-through">
-                            €{product.comparePrice}
-                          </span>
+                          <span className="ml-2 text-gray-500 line-through">€{product.comparePrice}</span>
                         )}
                       </div>
 
@@ -306,8 +302,8 @@ export default function ProductPage() {
                           product.stock === "in-stock"
                             ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm"
                             : product.stock === "low-stock"
-                            ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
-                            : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
+                              ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
+                              : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
                         }`}
                       >
                         {stockStatus[product.stock].label}
@@ -319,16 +315,11 @@ export default function ProductPage() {
                         {[...Array(5)].map((_, i) => (
                           <Star
                             key={i}
-                            className={`h-5 w-5 ${
-                              i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
-                            }`}
+                            className={`h-5 w-5 ${i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
                           />
                         ))}
                       </div>
-                      <a
-                        href="#reviews"
-                        className="text-sm text-gray-500 hover:text-facebook transition-colors"
-                      >
+                      <a href="#reviews" className="text-sm text-gray-500 hover:text-facebook transition-colors">
                         120 reviews
                       </a>
                     </div>
@@ -400,11 +391,13 @@ export default function ProductPage() {
                 </h3>
 
                 <div className="prose max-w-none">
-                  {product.longDescription.split("\n\n").map((paragraph, index) => (
-                    <p key={index} className="mb-4 text-gray-700">
-                      {paragraph}
-                    </p>
-                  ))}
+                  <p className="mb-4 text-gray-700">
+                    Active, ready-to-use Business Manager (BM) with $250 ad spend limit.
+                  </p>
+                  <p className="mb-4 text-gray-700">Includes 1 ad account (default spend limit: $250/day).</p>
+                  <p className="mb-4 text-gray-700">
+                    Unverified status – eligible for upgrade to BM3/BM5 after successful billing activity.
+                  </p>
                 </div>
 
                 {/* Key Benefits */}
@@ -605,9 +598,7 @@ export default function ProductPage() {
                   <div className="absolute top-0 right-0 w-20 h-20 bg-blue-200/20 rounded-full -translate-y-1/2 translate-x-1/2"></div>
                   <div className="absolute bottom-0 left-0 w-16 h-16 bg-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2"></div>
 
-                  <h4 className="font-bold mb-2 text-center relative z-10 text-gray-800">
-                    Ready to get started?
-                  </h4>
+                  <h4 className="font-bold mb-2 text-center relative z-10 text-gray-800">Ready to get started?</h4>
                   <p className="text-gray-600 text-sm mb-4 text-center relative z-10">
                     Get your {product.name} now and start advertising!
                   </p>
@@ -713,8 +704,7 @@ export default function ProductPage() {
                 </div>
 
                 <p className="text-center mb-4 italic text-gray-700">
-                  "The {product.name} completely transformed our Facebook advertising capabilities.
-                  Highly recommended!"
+                  "The {product.name} completely transformed our Facebook advertising capabilities. Highly recommended!"
                 </p>
 
                 <div className="flex items-center justify-center">
@@ -748,11 +738,13 @@ export default function ProductPage() {
                 <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
               </h3>
               <div className="prose max-w-none text-sm">
-                {product.longDescription.split("\n\n").map((paragraph, index) => (
-                  <p key={index} className="mb-3 text-gray-700">
-                    {paragraph}
-                  </p>
-                ))}
+                <p className="mb-3 text-gray-700">
+                  Active, ready-to-use Business Manager (BM) with $250 ad spend limit.
+                </p>
+                <p className="mb-3 text-gray-700">Includes 1 ad account (default spend limit: $250/day).</p>
+                <p className="mb-3 text-gray-700">
+                  Unverified status – eligible for upgrade to BM3/BM5 after successful billing activity.
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -788,10 +780,7 @@ export default function ProductPage() {
               </h3>
               <div className="space-y-3">
                 {product.faq.map((item, index) => (
-                  <div
-                    key={index}
-                    className="border-b border-gray-100 pb-3 last:border-0 last:pb-0"
-                  >
+                  <div key={index} className="border-b border-gray-100 pb-3 last:border-0 last:pb-0">
                     <h4 className="font-medium text-gray-900 mb-1 text-sm">{item.question}</h4>
                     <p className="text-gray-700 text-sm">{item.answer}</p>
                   </div>
@@ -842,9 +831,7 @@ export default function ProductPage() {
                 <h4 className="font-bold mb-1 text-center text-sm relative z-10 text-gray-800">
                   Ready to get started?
                 </h4>
-                <p className="text-gray-600 text-xs mb-3 text-center relative z-10">
-                  Get your {product.name} now!
-                </p>
+                <p className="text-gray-600 text-xs mb-3 text-center relative z-10">Get your {product.name} now!</p>
 
                 <Button
                   onClick={handleAddToCart}
