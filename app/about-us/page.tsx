@@ -25,18 +25,29 @@ export default function AboutUsPage() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
               <p className="text-gray-600 mb-4 leading-relaxed">
-                Founded in 2016, EasyAdsPack emerged from a simple observation: businesses were struggling to navigate
-                Facebook's complex advertising ecosystem. Our founders, experienced digital marketers themselves,
-                recognized the need for reliable, ready-to-use Facebook business assets.
+                GoAds was founded in response to a growing challenge faced by digital marketers. As
+                Facebook’s advertising environment became increasingly unstable and complex,
+                advertisers began struggling with account bans, constant checkpoints, and the stress
+                of campaigns being disrupted without warning.
               </p>
               <p className="text-gray-600 mb-4 leading-relaxed">
-                What began as a small operation helping local businesses has grown into a trusted provider of Facebook
-                advertising solutions for clients worldwide. We've been in the game for over 7 years, working with top
-                advertisers, eCommerce owners, and agencies.
+                We understand these challenges because we experienced them ourselves. Before GoAds,
+                we were advertisers too. We spent countless hours building campaigns, only to lose
+                everything in a moment. Through those hard lessons, we realized the market needed
+                more than just another account provider. It needed a partner that could offer
+                stability, honesty, and long-term value.
               </p>
               <p className="text-gray-600 leading-relaxed">
-                Through trial and error, we've mastered the secret formula for navigating Facebook and have the
-                expertise to provide you with the most stable accounts and assets available.
+                What started as a small operation supporting a few close teams has grown into a
+                trusted service for hundreds of clients each month. Our growth has been driven by a
+                strong belief in doing things the right way. We focus on quality, consistency, and a
+                commitment to helping our clients succeed.
+              </p>
+              <p className="text-gray-600 leading-relaxed">
+                In a crowded and often uncertain industry, we do not take your trust for granted.
+                Every client who chooses GoAds plays a part in our journey. Your support is the
+                reason we continue to grow and improve every day. Thank you for choosing GoAds. We
+                are here to support you, today and always.
               </p>
 
               {/* Stats with Gradient */}
@@ -73,7 +84,9 @@ export default function AboutUsPage() {
                 />
               </div>
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                <p className="text-white font-medium">Our dedicated team of Facebook advertising experts</p>
+                <p className="text-white font-medium">
+                  Our dedicated team of Facebook advertising experts
+                </p>
               </div>
             </div>
           </div>
@@ -96,8 +109,8 @@ export default function AboutUsPage() {
             <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 mb-10 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-purple-500 to-pink-600"></div>
               <p className="text-xl text-gray-700 italic leading-relaxed relative z-10">
-                "To empower businesses of all sizes with reliable, high-quality Facebook advertising assets that drive
-                growth and success in the digital marketplace."
+                "To empower businesses of all sizes with reliable, high-quality Facebook advertising
+                assets that drive growth and success in the digital marketplace."
               </p>
               <div className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-purple-500/10 to-pink-600/10 rounded-tl-full"></div>
             </div>
@@ -112,7 +125,8 @@ export default function AboutUsPage() {
                 },
                 {
                   title: "Expertise",
-                  description: "Our team brings years of specialized knowledge in Facebook advertising.",
+                  description:
+                    "Our team brings years of specialized knowledge in Facebook advertising.",
                   icon: Award,
                   gradient: "from-purple-500 to-pink-600",
                 },
@@ -128,7 +142,9 @@ export default function AboutUsPage() {
                   className="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-xl transition-all duration-300 group"
                 >
                   <div className="flex items-center mb-4">
-                    <div className={`p-3 rounded-full bg-gradient-to-r ${value.gradient} text-white mr-3`}>
+                    <div
+                      className={`p-3 rounded-full bg-gradient-to-r ${value.gradient} text-white mr-3`}
+                    >
                       <value.icon className="w-5 h-5" />
                     </div>
                     <h3
