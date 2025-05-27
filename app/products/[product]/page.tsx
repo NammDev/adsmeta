@@ -21,6 +21,8 @@ import SupportingPageLayout from "@/components/layout/supporting-page-layout"
 import { useCart } from "@/context/cart-context"
 import RelatedProducts from "@/components/products/related-products"
 import { getProductDetailData, getCategoryDisplayName, type Product } from "@/data/products"
+import { getRandomAvatar } from "@/config/avatars"
+import { processContent } from "@/lib/utils"
 
 export default function ProductPage() {
   const params = useParams()
@@ -100,7 +102,7 @@ export default function ProductPage() {
                   <div className="relative w-full h-full rounded-lg overflow-hidden border-0 bg-white shadow-md">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay"></div>
                     <Image
-                      src={product.imageDescription || product.image || "/placeholder.svg"}
+                      src={product.image || "/placeholder.svg"}
                       alt={product.name}
                       fill
                       className="object-cover"
@@ -206,20 +208,14 @@ export default function ProductPage() {
               </h3>
 
               {product.detail && (
-                <div className="mb-4">
-                  <p className="text-gray-700 text-sm whitespace-pre-line">{product.detail}</p>
+                <div className="prose prose-lg max-w-none mb-4">
+                  <div dangerouslySetInnerHTML={{ __html: processContent(product.detail) }} />
                 </div>
               )}
 
               <div className="mt-4">
                 <Image
-                  src={
-                    product.imageDescription ||
-                    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BM1250-bKJxFWR53R7t8C2X90KhNDoxJxqPQm.webp" ||
-                    "/placeholder.svg" ||
-                    "/placeholder.svg" ||
-                    "/placeholder.svg"
-                  }
+                  src={product.imageDescription || "/placeholder.svg"}
                   alt={product.name}
                   width={400}
                   height={300}
@@ -304,7 +300,7 @@ export default function ProductPage() {
                     <div className="relative aspect-square rounded-xl overflow-hidden border-0 bg-white shadow-lg hover:shadow-xl transition-all duration-300 group">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay group-hover:opacity-70 transition-opacity duration-300"></div>
                       <Image
-                        src={product.imageDescription || product.image || "/placeholder.svg"}
+                        src={product.image || "/placeholder.svg"}
                         alt={product.name}
                         fill
                         className="object-cover transform transition-transform group-hover:scale-105 duration-500"
@@ -419,19 +415,15 @@ export default function ProductPage() {
                 <div className="prose max-w-none">
                   {product.detail && (
                     <div className="mb-6">
-                      <p className="text-gray-700 whitespace-pre-line">{product.detail}</p>
+                      <div className="prose prose-lg max-w-none mb-4">
+                        <div dangerouslySetInnerHTML={{ __html: processContent(product.detail) }} />
+                      </div>
                     </div>
                   )}
 
                   <div className="mt-6">
                     <Image
-                      src={
-                        product.imageDescription ||
-                        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BM1250-bKJxFWR53R7t8C2X90KhNDoxJxqPQm.webp" ||
-                        "/placeholder.svg" ||
-                        "/placeholder.svg" ||
-                        "/placeholder.svg"
-                      }
+                      src={product.imageDescription || "/placeholder.svg"}
                       alt={product.name}
                       width={800}
                       height={600}
@@ -618,7 +610,7 @@ export default function ProductPage() {
                 <div className="flex items-center justify-center">
                   <div className="w-10 h-10 rounded-full bg-white overflow-hidden mr-3 border border-gray-200">
                     <Image
-                      src="/male-marketing-owner.png"
+                      src={getRandomAvatar()}
                       alt="Customer"
                       width={40}
                       height={40}
@@ -626,7 +618,7 @@ export default function ProductPage() {
                     />
                   </div>
                   <div className="text-left">
-                    <p className="font-bold text-sm text-gray-800">
+                    <p className="font-bold text-sm text-gray-800 mb-0">
                       {product.reviewAuthor || "Michael Thompson"}
                     </p>
                     <p className="text-gray-600 text-xs">

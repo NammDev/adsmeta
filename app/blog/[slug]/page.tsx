@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from "react"
 import { getBlogPostBySlug, getRelatedPosts } from "@/data/blog-posts"
 import { use } from "react"
 import SectionHeader from "@/components/ui/section-header"
+import { processContent } from "@/lib/utils"
 
 // Add this function before the BlogPostPage component
 function extractHeadings(content: string) {
@@ -29,15 +30,6 @@ function extractHeadings(content: string) {
   }
 
   return headings
-}
-
-// Now, modify the content rendering to add IDs to headings
-// Add this function before the BlogPostPage component
-function processContent(content: string) {
-  return content.replace(/<h([2-3])>(.*?)<\/h[2-3]>/g, (match, level, text) => {
-    const id = text.toLowerCase().replace(/[^\w]+/g, "-")
-    return `<h${level} id="${id}">${text}</h${level}>`
-  })
 }
 
 export default function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
