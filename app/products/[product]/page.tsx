@@ -177,7 +177,7 @@ export default function ProductPage() {
                             : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
                         }`}
                       >
-                        {stockStatus[product.stock]?.label}
+                        {stockStatus[product.stock].label}
                       </Badge>
                     </div>
 
