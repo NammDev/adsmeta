@@ -92,7 +92,7 @@ export default function ProductPage() {
       price: product.price,
       image: product.image,
       quantity: quantity,
-      category: getCategoryDisplayName(product.productCategory),
+      category: getCategoryDisplayName(product.category),
     })
   }
 
@@ -115,109 +115,6 @@ export default function ProductPage() {
   return (
     <SupportingPageLayout title={product.name} subtitle={product.description}>
       <div className="container mx-auto px-4 pt-6 md:pt-8 pb-10 md:pb-12 relative z-10">
-        {/* Mobile Product Overview */}
-        <div className="md:hidden mb-6">
-          <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
-            <div className="p-4 relative z-10">
-              {/* Product Image and Details in a more balanced layout */}
-              <div className="flex items-center rounded-lg p-3 bg-gradient-to-br from-gray-50 to-white mb-3 border border-gray-100 shadow-sm">
-                {/* Product Image */}
-                <div className="w-20 h-20 flex-shrink-0 relative rounded-md overflow-hidden border-2 border-gradient-to-r from-blue-300 to-purple-300 bg-white transform transition-transform hover:scale-105 duration-300">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-purple-500/10 mix-blend-overlay"></div>
-                  <Image
-                    src={product.image || "/placeholder.svg"}
-                    alt={product.name}
-                    fill
-                    className="object-contain p-1"
-                  />
-                </div>
-
-                {/* Price and Stock Status */}
-                <div className="flex-1 ml-4">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xl font-bold bg-gradient-to-r from-facebook to-blue-700 bg-clip-text text-transparent">
-                      €{product.price}
-                    </span>
-                    {product.comparePrice && (
-                      <span className="text-sm text-gray-500 line-through">
-                        €{product.comparePrice}
-                      </span>
-                    )}
-                  </div>
-
-                  <Badge
-                    className={`${
-                      product.stock === "in-stock"
-                        ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm"
-                        : product.stock === "low-stock"
-                        ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
-                        : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
-                    }`}
-                  >
-                    {stockStatus[product.stock].label}
-                  </Badge>
-
-                  <p className="text-xs text-gray-600 mt-1 flex items-center">
-                    <Clock className="h-3 w-3 mr-1 text-blue-500" />
-                    Delivery: 1 - 3 hours
-                  </p>
-                </div>
-              </div>
-
-              {/* Short Description */}
-              <p className="text-sm text-gray-700 mb-4">{product.description}</p>
-
-              {/* Quantity Selector */}
-              <div className="flex items-center gap-4 mb-4">
-                <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
-                  <button
-                    className="px-3 py-2 text-gray-600 hover:bg-gray-100 transition-colors"
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  >
-                    -
-                  </button>
-                  <span className="px-3 py-2 text-gray-900 bg-white">{quantity}</span>
-                  <button
-                    className="px-3 py-2 text-gray-600 hover:bg-gray-100 transition-colors"
-                    onClick={() => setQuantity(quantity + 1)}
-                  >
-                    +
-                  </button>
-                </div>
-                <div className="text-sm text-gray-500">
-                  {product.stock === "in-stock" ? (
-                    <span className="text-green-600 flex items-center">
-                      <Check className="h-4 w-4 mr-1" />
-                      In Stock
-                    </span>
-                  ) : product.stock === "low-stock" ? (
-                    <span className="text-amber-600 flex items-center">
-                      <Info className="h-4 w-4 mr-1" />
-                      Low Stock
-                    </span>
-                  ) : (
-                    <span className="text-red-600 flex items-center">
-                      <AlertCircle className="h-4 w-4 mr-1" />
-                      Out of Stock
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              {/* Add to Cart Button */}
-              <Button
-                onClick={handleAddToCart}
-                className="w-full bg-gradient-to-r from-facebook to-blue-700 hover:from-facebook-dark hover:to-blue-800 text-white flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all duration-300"
-                disabled={product.stock === "out-of-stock"}
-              >
-                <ShoppingCart className="h-5 w-5" />
-                Add to Cart
-              </Button>
-            </div>
-          </Card>
-        </div>
-
         {/* Desktop Layout */}
         <div className="hidden md:grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Product Info */}
@@ -566,86 +463,6 @@ export default function ProductPage() {
               </CardContent>
             </Card>
           </div>
-        </div>
-
-        {/* Mobile Product Description and Features */}
-        <div className="md:hidden space-y-6 mt-4">
-          {/* Description */}
-          <Card className="overflow-hidden border-0 shadow-md relative bg-white/80 backdrop-blur-sm">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-blue-200/20 to-purple-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
-            <CardContent className="p-4 relative z-10">
-              <h3 className="text-lg font-bold mb-3 relative inline-block">
-                <span className="relative z-10">Description</span>
-                <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
-              </h3>
-              <div className="prose max-w-none text-sm">
-                {product.overview &&
-                  product.overview.length > 0 &&
-                  product.overview.map((item, index) => (
-                    <p key={index} className="mb-3 text-gray-700">
-                      {item}
-                    </p>
-                  ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Purchase Info */}
-          <Card className="overflow-hidden border-0 shadow-lg relative bg-white/80 backdrop-blur-sm">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-purple-200/20 to-blue-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
-            <CardContent className="p-4 relative z-10">
-              <h3 className="text-lg font-bold mb-3 relative inline-block">
-                <span className="relative z-10">Purchase Information</span>
-                <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-purple-200 to-blue-200 opacity-70 rounded-full"></div>
-              </h3>
-
-              <div className="space-y-3 text-sm">
-                <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm">
-                  <Clock className="h-4 w-4 text-blue-500" />
-                  <div>
-                    <h4 className="font-medium text-gray-900 text-xs">Delivery Time</h4>
-                    <p className="text-gray-700 text-xs">1 - 3 hours</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm">
-                  <CreditCard className="h-4 w-4 text-purple-500" />
-                  <div>
-                    <h4 className="font-medium text-gray-900 text-xs">Payment Methods</h4>
-                    <p className="text-gray-700 text-xs">Credit Card, PayPal, Cryptocurrency</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm">
-                  <Users className="h-4 w-4 text-amber-500" />
-                  <div>
-                    <h4 className="font-medium text-gray-900 text-xs">Support</h4>
-                    <p className="text-gray-700 text-xs">Email, Live Chat (Business Hours)</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 relative overflow-hidden border border-blue-100">
-                <div className="absolute top-0 right-0 w-16 h-16 bg-blue-200/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-                <div className="absolute bottom-0 left-0 w-12 h-12 bg-purple-200/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-
-                <h4 className="font-bold mb-1 text-center text-sm relative z-10 text-gray-800">
-                  Ready to get started?
-                </h4>
-                <p className="text-gray-600 text-xs mb-3 text-center relative z-10">
-                  Get your {product.name} now!
-                </p>
-
-                <Button
-                  onClick={handleAddToCart}
-                  className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-300 text-sm relative z-10"
-                  disabled={product.stock === "out-of-stock"}
-                >
-                  Add to Cart - €{product.price}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
         </div>
 
         {/* Related Products Section */}
