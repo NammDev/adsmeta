@@ -412,24 +412,22 @@ export default function ProductPage() {
                   <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
                 </h3>
 
-                <div className="product-detail prose max-w-none">
-                  {product.detail && (
-                    <div className="mb-6">
-                      <div className="prose prose-lg max-w-none mb-4">
-                        <div dangerouslySetInnerHTML={{ __html: processContent(product.detail) }} />
-                      </div>
+                {product.detail && (
+                  <div className="mb-6">
+                    <div className="product-detail prose prose-lg max-w-none mb-4">
+                      <div dangerouslySetInnerHTML={{ __html: processContent(product.detail) }} />
                     </div>
-                  )}
-
-                  <div className="mt-6">
-                    <Image
-                      src={product.imageDescription || '/placeholder.svg'}
-                      alt={product.name}
-                      width={800}
-                      height={600}
-                      className="w-full rounded-lg border border-gray-200 shadow-sm"
-                    />
                   </div>
+                )}
+
+                <div className="mt-6 flex justify-center">
+                  <Image
+                    src={product.imageDescription || '/placeholder.svg'}
+                    alt={product.name}
+                    width={800}
+                    height={600}
+                    className="rounded-lg border border-gray-200 shadow-sm"
+                  />
                 </div>
               </CardContent>
             </Card>
@@ -579,7 +577,7 @@ export default function ProductPage() {
             </Card>
 
             {/* Testimonial - Hidden on Mobile */}
-            <Card className="overflow-hidden border-0 shadow-xl relative bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-100">
+            <Card className="overflow-hidden border-0 shadow-xl relative bg-gradient-to-r from-blue-50 to-purple-50 border-blue-100">
               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-200/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-purple-200/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
 
