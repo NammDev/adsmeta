@@ -51,7 +51,7 @@ export function getCategoryFromDisplayName(displayName: string): ProductCategory
 
 // This type matches the Product type in app/products-section.tsx
 export interface ProductSectionItem {
-  id: string
+  slug: string
   name: string
   description: string
   price: number
@@ -139,21 +139,21 @@ export interface Product {
 
 // SINGLE SOURCE OF TRUTH - Main products data
 export const products: Product[] = [
-  // VERIFIED BM PRODUCTS (4)
   {
     id: "verified-bm-1",
     slug: "verified-bm",
     name: "Verified BM",
-    description: "Add your agency to BM and launch ads immediately.",
+    description:
+      "Verified Business Manager with 1 ad account and growing spend limit – ready for immediate use.",
     overview: [
-      "Fully verified Business Manager with official government ID attached.",
-      "Ready to use immediately after purchase.",
-      "Perfect for agencies and marketers needing quick ad setup.",
+      "Verified with valid government-issued ID, trusted by Facebook.",
+      "Currently includes 1 ad account with $50 daily spend limit (auto-upgrading to $250).",
+      "Eligible for upgrade to BM3/BM5 after first successful ad payments.",
     ],
     details: [
-      "Comes with 1 active ad account.",
-      "Billing country set to random (cannot be changed).",
-      "Currency & timezone can be customized for each ad account.",
+      "Pixel sharing is fully enabled without any errors.",
+      "Billing country is set randomly and cannot be changed.",
+      "Currency and timezone can be customized per ad account.",
     ],
     status: ["Business Manager is active, clean, and ready for immediate use."],
     imageDescription: "/images/verified-bm-dashboard.png",
@@ -161,8 +161,8 @@ export const products: Product[] = [
       "This verified BM saved us so much time. We were able to start running ads within hours of purchase.",
     reviewAuthor: "David Miller",
     reviewAuthorTitle: "Digital Marketing Specialist",
-    price: 80,
-    priceString: "€80",
+    price: 70,
+    priceString: "€70",
     category: "verified-bm",
     image: "/verified-facebook-business-manager-icon.png",
     stock: "in-stock",
@@ -175,17 +175,17 @@ export const products: Product[] = [
     id: "bm1-250-limit",
     slug: "bm1-250-limit",
     name: "Verified BM1 $250 Limit",
-    description: "Verified Business Manager with $250 daily spending limit.",
+    description: "Verified Business Manager with $250 daily spending limit – trusted and stable.",
     overview: [
-      "Fully verified Business Manager with official government ID attached.",
-      "Comes with $250 daily ad spend limit and 1 active ad account.",
-      "Stronger trust score than unverified BMs – More robust & stable.",
+      "Fully verified Business Manager with valid government-issued ID.",
+      "Includes 1 active ad account with $250 daily spend limit.",
+      "More robust and trustworthy than unverified BMs.",
     ],
     details: [
-      "Eligible for upgrade to BM3/BM5 after successful ad spend (up to 5 ad accounts allowed).",
-      "Billing country set to random and cannot be changed.",
-      "Currency & timezone can be customized for each ad account.",
-      "Pixel sharing fully supported – no restrictions or errors.",
+      "Eligible for upgrade to BM3/BM5 after initial ad spend – up to 5 ad accounts allowed.",
+      "Billing country is randomly assigned and cannot be changed.",
+      "Currency and timezone can be customized for each ad account.",
+      "Pixel sharing is fully supported with no errors or restrictions.",
     ],
     status: ["Business Manager is active, clean, and ready for immediate use."],
     imageDescription: "/images/bm1-250-limit-dashboard.png",
@@ -193,8 +193,8 @@ export const products: Product[] = [
       "The BM1 with $250 limit completely transformed our Facebook advertising capabilities. Highly recommended!",
     reviewAuthor: "Michael Thompson",
     reviewAuthorTitle: "Marketing Director",
-    price: 180,
-    priceString: "€180",
+    price: 170,
+    priceString: "€170",
     comparePrice: 249,
     category: "verified-bm",
     image: "/bm1-250-limit.png",
@@ -210,16 +210,17 @@ export const products: Product[] = [
     id: "verified-bm-3",
     slug: "verified-bm5-limited",
     name: "Verified BM5 $250 Limit",
-    description: "Verified BM5 with $250 limit and 5 ad accounts.",
+    description:
+      "Verified Business Manager with 5 ad accounts – each with a $250 daily spend limit.",
     overview: [
-      "Premium verified BM5 with $250 daily spending limit.",
-      "Includes 5 active ad accounts ready for immediate use.",
-      "Higher trust score for improved ad delivery and performance.",
+      "Verified with government-issued ID – more robust than unverified BMs.",
+      "Includes 5 active ad accounts, each with a $250 daily limit.",
+      "Ideal for agencies needing multiple ad accounts and fast setup.",
     ],
     details: [
-      "All 5 ad accounts come pre-verified and ready to use.",
-      "Customizable currency and timezone settings for each ad account.",
-      "Full pixel sharing capabilities across all accounts.",
+      "First ad account has fixed billing country, currency, and timezone (cannot be changed).",
+      "The remaining 4 ad accounts support full customization of billing details.",
+      "Pixel sharing is fully supported – no errors or restrictions.",
       "Eligible for spending limit increases after successful ad campaigns.",
     ],
     status: [
@@ -245,21 +246,22 @@ export const products: Product[] = [
     id: "verified-bm-4",
     slug: "unlimited-verified-bm5",
     name: "Unlimited Verified BM5",
-    description: "Unlimited verified BM5 with 5 ad accounts.",
+    description:
+      "Unlimited verified Business Manager with 5 ad accounts – no daily spending limits.",
     overview: [
-      "Premium unlimited verified BM5 with no daily spending restrictions.",
-      "Includes 5 active ad accounts with unlimited potential.",
-      "Highest possible trust score for maximum ad delivery performance.",
+      "Verified with government-issued ID – highly trusted and stable.",
+      "Includes 5 active ad accounts with no daily spending cap.",
+      "Perfect for scaling high-budget campaigns without restrictions.",
     ],
     details: [
-      "No daily spending limits - scale your campaigns without restrictions.",
-      "All 5 ad accounts come pre-verified with high trust scores.",
-      "Full access to all Facebook advertising features and placements.",
-      "Seamless pixel sharing and custom audience creation across accounts.",
+      "First ad account has fixed billing country, currency, and timezone (cannot be changed).",
+      "Remaining 4 ad accounts support full customization of billing information.",
+      "Unlimited daily spending limits across all 5 accounts.",
+      "Pixel sharing is fully supported with no errors or restrictions.",
     ],
     status: [
-      "All accounts are active and in perfect standing with premium status.",
-      "Verified with multiple security layers for maximum account stability.",
+      "All accounts are active and in excellent standing.",
+      "Verified with multiple security layers for maximum stability.",
     ],
     imageDescription: "/images/unlimited-bm5-dashboard.png",
     reviewComment:
@@ -277,8 +279,6 @@ export const products: Product[] = [
     gradient: "from-purple-500 to-pink-500",
     bgGradient: "from-purple-50 to-pink-50",
   },
-
-  // UNVERIFIED BM PRODUCTS (2)
   {
     id: "unverified-bm-1",
     slug: "unverified-bm",
@@ -309,8 +309,6 @@ export const products: Product[] = [
     gradient: "from-green-500 to-emerald-500",
     bgGradient: "from-green-50 to-emerald-50",
   },
-
-  // PROFILE PRODUCTS (4)
   {
     id: "profile-1",
     slug: "asia-reinstated-2gl",
@@ -346,6 +344,9 @@ export const products: Product[] = [
     slug: "usa-reinstated-2gl",
     name: "USA Reinstated 2 Green Line",
     description: "USA profile with 2 green line tick (verified 1 time).",
+    details: [
+      "Fully verified USA advertising profiles with real activity, ad-ready status, and lifetime support — farmed in-house for maximum trust.",
+    ],
     price: 40,
     priceString: "€40",
     category: "profile",
@@ -362,11 +363,9 @@ export const products: Product[] = [
     slug: "facebook-xmdt-usa",
     name: "USA Reinstated 902 3 Green Line",
     description: "USA profile with 3 green line tick (verified 2 times).",
-    longDescription: `Our Facebook XMDT USA Account is a premium solution for advertisers who need reliable, high-quality accounts for their marketing campaigns. These accounts are created with authentic USA profiles and come with full XMDT verification.
-
-    XMDT verification provides an additional layer of account security and stability, making these accounts ideal for advertisers who need dependable advertising solutions. Each account is carefully created and verified to ensure maximum longevity and performance.
-
-    These accounts are perfect for agencies and professional marketers who need reliable advertising assets for their clients or campaigns.`,
+    details: [
+      "Account verified twice for stronger ad stability, low checkpoint risk, and ready to run ads after 24h warm-up.",
+    ],
     price: 50,
     priceString: "€50",
     category: "profile",
@@ -379,13 +378,14 @@ export const products: Product[] = [
     gradient: "from-rose-500 to-pink-500",
     bgGradient: "from-rose-50 to-pink-50",
   },
-
-  // PAGE PRODUCTS (1)
   {
     id: "page-1",
     slug: "aged-reinstated-page",
     name: "Aged Reinstated Page",
     description: "Recovered Facebook page with established history.",
+    details: [
+      "Reinstated and ad-approved page with green quality, instant BM access, and customizable name — perfect for launching campaigns.",
+    ],
     price: 30,
     priceString: "€30",
     category: "page",
@@ -445,7 +445,7 @@ export function getRelatedProducts(productId: string): Product[] {
 // PRODUCTS SECTION SPECIFIC HELPERS (for landing page)
 export function getProductSectionItems(): ProductSectionItem[] {
   return products.map((product) => ({
-    id: product.id,
+    slug: product.slug,
     name: product.name,
     description: product.description,
     price: product.price,
