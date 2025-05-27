@@ -5,14 +5,10 @@ import "./blog-post.css"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "EasyAdsPack Blog - Facebook Advertising Insights",
-  description: "Expert insights, guides, and tips for Facebook advertising success",
+  title: "GoAds - Buy Facebook Profiles, Verified BMs, Pages",
+  description: "Premium Facebook Ads solutions for businesses and marketers",
 }
 
-export default function BlogLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function BlogLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }

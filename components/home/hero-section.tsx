@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+"use client"
+import { Button } from "@/components/ui/button"
 import {
   Shield,
   Zap,
@@ -10,11 +10,12 @@ import {
   ArrowRight,
   Facebook,
   Phone,
-} from 'lucide-react'
-import { useMediaQuery } from '@/hooks/use-media-query'
+} from "lucide-react"
+import { useMediaQuery } from "@/hooks/use-media-query"
+import { scrollToElement } from "@/lib/scroll-utils"
 
 export default function HeroSection() {
-  const isMobile = useMediaQuery('(max-width: 768px)')
+  const isMobile = useMediaQuery("(max-width: 768px)")
 
   // Mobile-specific hero section
   if (isMobile) {
@@ -57,10 +58,10 @@ export default function HeroSection() {
             </div>
 
             <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-4">
-              Your Shortcut to Stable{' '}
+              Your Shortcut to Stable{" "}
               <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
                 BM & VIA
-              </span>{' '}
+              </span>{" "}
               Facebook Accounts
             </h1>
 
@@ -112,11 +113,14 @@ export default function HeroSection() {
 
             {/* Mobile buttons - simplified to two buttons */}
             <div className="grid grid-cols-2 gap-3 w-full max-w-xs mb-8">
-              <Button className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium py-4 rounded-md shadow-md">
-                <Link href="#packages" className="flex items-center justify-center gap-2">
+              <Button
+                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium py-4 rounded-md shadow-md"
+                onClick={() => scrollToElement("products")}
+              >
+                <span className="flex items-center justify-center gap-2">
                   Get Account
                   <ArrowRight className="h-4 w-4" />
-                </Link>
+                </span>
               </Button>
               <Button
                 variant="outline"
@@ -169,10 +173,10 @@ export default function HeroSection() {
             </div>
 
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-              Your Shortcut to Stable{' '}
+              Your Shortcut to Stable{" "}
               <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
                 BM & VIA
-              </span>{' '}
+              </span>{" "}
               Facebook Accounts
             </h1>
 
@@ -223,11 +227,14 @@ export default function HeroSection() {
             {/* SIMPLIFIED: Just two buttons in one line */}
             <div className="grid grid-cols-2 gap-4">
               {/* Main CTA button */}
-              <Button className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium py-5 rounded-md shadow-md transition-all hover:shadow-lg">
-                <Link href="#packages" className="flex items-center justify-center gap-2">
+              <Button
+                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium py-5 rounded-md shadow-md transition-all hover:shadow-lg"
+                onClick={() => scrollToElement("products")}
+              >
+                <span className="flex items-center justify-center gap-2">
                   Get Your Account
                   <ArrowRight className="h-4 w-4" />
-                </Link>
+                </span>
               </Button>
 
               {/* WhatsApp support button */}

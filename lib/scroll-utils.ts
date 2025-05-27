@@ -11,9 +11,12 @@ export function scrollToTop() {
 export function scrollToElement(elementId: string) {
   const element = document.getElementById(elementId)
   if (element) {
-    element.scrollIntoView({
+    const elementPosition = element.getBoundingClientRect().top
+    const offsetPosition = elementPosition + window.pageYOffset - 24 // 20px offset
+
+    window.scrollTo({
+      top: offsetPosition,
       behavior: "smooth",
-      block: "start",
     })
   }
 }
