@@ -51,7 +51,7 @@ export function getCategoryFromDisplayName(displayName: string): ProductCategory
 
 // This type matches the Product type in app/products-section.tsx
 export interface ProductSectionItem {
-  id: string
+  slug: string
   name: string
   description: string
   price: number
@@ -445,7 +445,7 @@ export function getRelatedProducts(productId: string): Product[] {
 // PRODUCTS SECTION SPECIFIC HELPERS (for landing page)
 export function getProductSectionItems(): ProductSectionItem[] {
   return products.map((product) => ({
-    id: product.id,
+    slug: product.slug,
     name: product.name,
     description: product.description,
     price: product.price,
