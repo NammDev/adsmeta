@@ -242,36 +242,9 @@ export default function ProductPage() {
                 </h3>
 
                 <div className="prose max-w-none">
-                  {product.overview && product.overview.length > 0 && (
+                  {product.detail && (
                     <div className="mb-6">
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">Overview:</h4>
-                      {product.overview.map((item, index) => (
-                        <p key={index} className="mb-3 text-gray-700">
-                          {item}
-                        </p>
-                      ))}
-                    </div>
-                  )}
-
-                  {product.details && product.details.length > 0 && (
-                    <div className="mb-6">
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">Details:</h4>
-                      {product.details.map((item, index) => (
-                        <p key={index} className="mb-3 text-gray-700">
-                          {item}
-                        </p>
-                      ))}
-                    </div>
-                  )}
-
-                  {product.status && product.status.length > 0 && (
-                    <div className="mb-6">
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">Status:</h4>
-                      {product.status.map((item, index) => (
-                        <p key={index} className="mb-4 text-gray-700">
-                          {item}
-                        </p>
-                      ))}
+                      <p className="text-gray-700 whitespace-pre-line">{product.detail}</p>
                     </div>
                   )}
 
