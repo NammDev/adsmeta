@@ -154,3 +154,19 @@
   margin-bottom: 1.6em;
   padding-left: 1em;
 }
+
+/* Product detail styles */
+.product-detail.prose p,
+.product-detail.prose ul {
+  margin-bottom: 8px;
+  margin-top: 8px;
+  line-height: 1.7;
+}
+
+.product-detail.prose strong {
+  background-image: linear-gradient(to right, #22c55e, #10b981);
+  background-clip: text;
+  font-weight: 600;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

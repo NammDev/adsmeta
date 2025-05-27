@@ -412,7 +412,7 @@ export default function ProductPage() {
                   <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
                 </h3>
 
-                <div className="prose max-w-none">
+                <div className="product-detail prose max-w-none">
                   {product.detail && (
                     <div className="mb-6">
                       <div className="prose prose-lg max-w-none mb-4">
