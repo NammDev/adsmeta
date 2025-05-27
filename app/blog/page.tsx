@@ -38,9 +38,9 @@ export default function BlogPage() {
   )
 
   // Get exactly 2 posts for the main grid (to match the height of most viewed)
-  const regularPosts = getPostsByCategory(selectedCategory, 1, 2).posts.filter(
-    (post) => !mostViewedPosts.slice(0, 2).some((p) => p.id === post.id)
-  )
+  const regularPosts = getPostsByCategory(selectedCategory, 1, 4)
+    .posts.filter((post) => !mostViewedPosts.slice(0, 2).some((p) => p.id === post.id))
+    .slice(0, 2)
 
   // Handle category change
   const handleCategoryChange = (category) => {
@@ -56,6 +56,8 @@ export default function BlogPage() {
   const prevSlide = () => {
     setActiveSlide((prev) => (prev === 0 ? regularPosts.length - 1 : prev - 1))
   }
+
+  console.log(regularPosts)
 
   return (
     <SupportingPageLayout
