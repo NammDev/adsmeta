@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import { useEffect, useState } from "react"
-import { useParams } from "next/navigation"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
+import Image from 'next/image'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 import {
   ShoppingCart,
   AlertCircle,
@@ -16,13 +16,13 @@ import {
   Zap,
   Clock,
   Users,
-} from "lucide-react"
-import SupportingPageLayout from "@/components/layout/supporting-page-layout"
-import { useCart } from "@/context/cart-context"
-import RelatedProducts from "@/components/products/related-products"
-import { getProductDetailData, getCategoryDisplayName, type Product } from "@/data/products"
-import { getRandomAvatar } from "@/config/avatars"
-import { processContent } from "@/lib/utils"
+} from 'lucide-react'
+import SupportingPageLayout from '@/components/layout/supporting-page-layout'
+import { useCart } from '@/context/cart-context'
+import RelatedProducts from '@/components/products/related-products'
+import { getProductDetailData, getCategoryDisplayName, type Product } from '@/data/products'
+import { getRandomAvatar } from '@/config/avatars'
+import { processContent } from '@/lib/utils'
 
 export default function ProductPage() {
   const params = useParams()
@@ -43,8 +43,8 @@ export default function ProductPage() {
         title="Product Not Found"
         subtitle="The product you're looking for doesn't exist or has been removed."
         breadcrumbs={[
-          { label: "Products", href: "/products" },
-          { label: "Not Found", href: "#" },
+          { label: 'Products', href: '/products' },
+          { label: 'Not Found', href: '#' },
         ]}
       >
         <div className="py-12 flex flex-col items-center justify-center">
@@ -73,17 +73,17 @@ export default function ProductPage() {
 
   // Stock status indicator
   const stockStatus = {
-    "in-stock": {
-      label: "In Stock",
-      color: "bg-gradient-to-r from-green-400 to-emerald-500 text-white",
+    'in-stock': {
+      label: 'In Stock',
+      color: 'bg-gradient-to-r from-green-400 to-emerald-500 text-white',
     },
-    "low-stock": {
-      label: "Low Stock",
-      color: "bg-gradient-to-r from-amber-400 to-orange-500 text-white",
+    'low-stock': {
+      label: 'Low Stock',
+      color: 'bg-gradient-to-r from-amber-400 to-orange-500 text-white',
     },
-    "out-of-stock": {
-      label: "Out of Stock",
-      color: "bg-gradient-to-r from-red-400 to-rose-500 text-white",
+    'out-of-stock': {
+      label: 'Out of Stock',
+      color: 'bg-gradient-to-r from-red-400 to-rose-500 text-white',
     },
   }
 
@@ -102,7 +102,7 @@ export default function ProductPage() {
                   <div className="relative w-full h-full rounded-lg overflow-hidden border-0 bg-white shadow-md">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay"></div>
                     <Image
-                      src={product.image || "/placeholder.svg"}
+                      src={product.image || '/placeholder.svg'}
                       alt={product.name}
                       fill
                       className="object-cover"
@@ -140,11 +140,11 @@ export default function ProductPage() {
                     )}
                     <Badge
                       className={`text-xs ${
-                        product.stock === "in-stock"
-                          ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm"
-                          : product.stock === "low-stock"
-                          ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
-                          : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
+                        product.stock === 'in-stock'
+                          ? 'bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm'
+                          : product.stock === 'low-stock'
+                          ? 'bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm'
+                          : 'bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm'
                       }`}
                     >
                       {stockStatus[product.stock]?.label}
@@ -157,7 +157,7 @@ export default function ProductPage() {
                         <Star
                           key={i}
                           className={`h-3.5 w-3.5 ${
-                            i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+                            i < 4.5 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
                           }`}
                         />
                       ))}
@@ -188,7 +188,7 @@ export default function ProductPage() {
                   <Button
                     onClick={handleAddToCart}
                     className="bg-gradient-to-r from-facebook to-blue-700 hover:from-facebook-dark hover:to-blue-800 text-white flex items-center gap-2 shadow-md hover:shadow-xl transition-all duration-300 px-4 py-2 text-sm flex-1"
-                    disabled={product.stock === "out-of-stock"}
+                    disabled={product.stock === 'out-of-stock'}
                   >
                     <ShoppingCart className="h-4 w-4" />
                     Add to Cart
@@ -215,7 +215,7 @@ export default function ProductPage() {
 
               <div className="mt-4">
                 <Image
-                  src={product.imageDescription || "/placeholder.svg"}
+                  src={product.imageDescription || '/placeholder.svg'}
                   alt={product.name}
                   width={400}
                   height={300}
@@ -277,7 +277,7 @@ export default function ProductPage() {
                 <Button
                   onClick={handleAddToCart}
                   className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-300 relative z-10"
-                  disabled={product.stock === "out-of-stock"}
+                  disabled={product.stock === 'out-of-stock'}
                 >
                   Add to Cart - €{product.price}
                 </Button>
@@ -300,7 +300,7 @@ export default function ProductPage() {
                     <div className="relative aspect-square rounded-xl overflow-hidden border-0 bg-white shadow-lg hover:shadow-xl transition-all duration-300 group">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay group-hover:opacity-70 transition-opacity duration-300"></div>
                       <Image
-                        src={product.image || "/placeholder.svg"}
+                        src={product.image || '/placeholder.svg'}
                         alt={product.name}
                         fill
                         className="object-cover transform transition-transform group-hover:scale-105 duration-500"
@@ -341,11 +341,11 @@ export default function ProductPage() {
 
                       <Badge
                         className={`${
-                          product.stock === "in-stock"
-                            ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm"
-                            : product.stock === "low-stock"
-                            ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
-                            : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
+                          product.stock === 'in-stock'
+                            ? 'bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm'
+                            : product.stock === 'low-stock'
+                            ? 'bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm'
+                            : 'bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm'
                         }`}
                       >
                         {stockStatus[product.stock]?.label}
@@ -371,7 +371,7 @@ export default function ProductPage() {
                       <Button
                         onClick={handleAddToCart}
                         className="bg-gradient-to-r from-facebook to-blue-700 hover:from-facebook-dark hover:to-blue-800 text-white flex items-center gap-2 shadow-md hover:shadow-xl transition-all duration-300 py-3 px-6"
-                        disabled={product.stock === "out-of-stock"}
+                        disabled={product.stock === 'out-of-stock'}
                       >
                         <ShoppingCart className="h-5 w-5" />
                         Add to Cart
@@ -384,7 +384,7 @@ export default function ProductPage() {
                           <Star
                             key={i}
                             className={`h-5 w-5 ${
-                              i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+                              i < 4.5 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
                             }`}
                           />
                         ))}
@@ -423,7 +423,7 @@ export default function ProductPage() {
 
                   <div className="mt-6">
                     <Image
-                      src={product.imageDescription || "/placeholder.svg"}
+                      src={product.imageDescription || '/placeholder.svg'}
                       alt={product.name}
                       width={800}
                       height={600}
@@ -510,7 +510,7 @@ export default function ProductPage() {
                   <Button
                     onClick={handleAddToCart}
                     className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-300 relative z-10"
-                    disabled={product.stock === "out-of-stock"}
+                    disabled={product.stock === 'out-of-stock'}
                   >
                     Add to Cart - €{product.price}
                   </Button>
@@ -619,10 +619,10 @@ export default function ProductPage() {
                   </div>
                   <div className="text-left">
                     <p className="font-bold text-sm text-gray-800 mb-0">
-                      {product.reviewAuthor || "Michael Thompson"}
+                      {product.reviewAuthor || 'Michael Thompson'}
                     </p>
                     <p className="text-gray-600 text-xs">
-                      {product.reviewAuthorTitle || "Marketing Director"}
+                      {product.reviewAuthorTitle || 'Marketing Director'}
                     </p>
                   </div>
                 </div>
