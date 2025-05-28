@@ -57,8 +57,6 @@ export default function BlogPage() {
     setActiveSlide((prev) => (prev === 0 ? regularPosts.length - 1 : prev - 1))
   }
 
-  console.log(regularPosts)
-
   return (
     <SupportingPageLayout
       title="Blog"
