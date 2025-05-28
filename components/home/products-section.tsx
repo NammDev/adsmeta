@@ -1,5 +1,7 @@
 "use client"
 import { Badge } from "@/components/ui/badge"
+import type React from "react"
+
 import { Button } from "@/components/ui/button"
 import { ShoppingBag } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
@@ -7,6 +9,8 @@ import { useCart } from "@/context/cart-context"
 import { getProductSectionItems, type ProductSectionItem } from "@/data/products"
 import SectionHeader from "../ui/section-header"
 import { useRouter } from "next/navigation"
+import { CartNotification } from "@/components/cart/cart-notification"
+import { useState } from "react"
 
 interface ProductsSectionProps {
   isProductsPage?: boolean
@@ -16,6 +20,10 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
   const isMobile = useMediaQuery("(max-width: 768px)")
   const { addItem, openCart } = useCart()
   const router = useRouter()
+
+  const [showNotification, setShowNotification] = useState(false)
+  const [addedItem, setAddedItem] = useState<any>(null)
+  const [isAdding, setIsAdding] = useState<string | null>(null)
 
   // Get products data from centralized source
   const allProducts = getProductSectionItems()
@@ -49,9 +57,11 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
       return
     }
 
+    setIsAdding(product.slug)
+
     try {
       const item = {
-        slug: product.slug,
+        id: product.slug,
         name: product.name,
         price: product.price,
         quantity: 1,
@@ -61,12 +71,17 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
 
       addItem(item)
 
-      // Open cart on desktop, or just show feedback on mobile
-      if (!isMobile && openCart) {
+      // Show notification on mobile, open cart on desktop
+      if (isMobile) {
+        setAddedItem(item)
+        setShowNotification(true)
+      } else if (!isMobile && openCart) {
         openCart()
       }
     } catch (error) {
       console.error("Error adding to cart:", error)
+    } finally {
+      setTimeout(() => setIsAdding(null), 500)
     }
   }
 
@@ -96,10 +111,16 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
     })
   }
 
+  const handleCloseNotification = () => {
+    setShowNotification(false)
+  }
+
   return (
     <section
       id="products"
-      className={`relative overflow-hidden ${isProductsPage ? "pb-0 pt-8" : "py-8 md:py-16"}`}
+      className={`relative overflow-hidden ${
+        isProductsPage ? "pb-0 pt-6 md:pt-8" : "py-8 md:py-16"
+      }`}
     >
       <div className="container mx-auto px-4 relative">
         {/* Header Section */}
@@ -163,8 +184,9 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                             size="sm"
                             onClick={(e) => handleAddToCart(product, e)}
                             className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
+                            disabled={isAdding === product.slug}
                           >
-                            Buy Now
+                            {isAdding === product.slug ? "Adding..." : "Buy Now"}
                           </Button>
                         </div>
                       </div>
@@ -201,8 +223,9 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                             size="sm"
                             onClick={(e) => handleAddToCart(product, e)}
                             className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
+                            disabled={isAdding === product.slug}
                           >
-                            Buy Now
+                            {isAdding === product.slug ? "Adding..." : "Buy Now"}
                           </Button>
                         </div>
                       </div>
@@ -265,8 +288,9 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                             size="sm"
                             onClick={(e) => handleAddToCart(product, e)}
                             className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
+                            disabled={isAdding === product.slug}
                           >
-                            Buy Now
+                            {isAdding === product.slug ? "Adding..." : "Buy Now"}
                           </Button>
                         </div>
                       </div>
@@ -303,8 +327,9 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                             size="sm"
                             onClick={(e) => handleAddToCart(product, e)}
                             className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
+                            disabled={isAdding === product.slug}
                           >
-                            Buy Now
+                            {isAdding === product.slug ? "Adding..." : "Buy Now"}
                           </Button>
                         </div>
                       </div>
@@ -372,8 +397,9 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                             size="sm"
                             onClick={(e) => handleAddToCart(product, e)}
                             className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
+                            disabled={isAdding === product.slug}
                           >
-                            Buy Now
+                            {isAdding === product.slug ? "Adding..." : "Buy Now"}
                           </Button>
                         </div>
                       </div>
@@ -410,8 +436,9 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                             size="sm"
                             onClick={(e) => handleAddToCart(product, e)}
                             className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm"
+                            disabled={isAdding === product.slug}
                           >
-                            Buy Now
+                            {isAdding === product.slug ? "Adding..." : "Buy Now"}
                           </Button>
                         </div>
                       </div>
@@ -423,6 +450,14 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
           ))}
         </div>
       </div>
+      {/* Cart notification for mobile */}
+      {isMobile && (
+        <CartNotification
+          show={showNotification}
+          item={addedItem}
+          onClose={handleCloseNotification}
+        />
+      )}
     </section>
   )
 }

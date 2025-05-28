@@ -6,6 +6,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useCart } from "@/context/cart-context"
 import { X, ShoppingBag, ArrowRight } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 interface CartNotificationProps {
   show: boolean
@@ -25,6 +26,7 @@ export function CartNotification({ show, item, onClose }: CartNotificationProps)
   const [isVisible, setIsVisible] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const router = useRouter()
 
   // Mount check for client-side portal rendering
   useEffect(() => {
@@ -46,7 +48,7 @@ export function CartNotification({ show, item, onClose }: CartNotificationProps)
       const timer = setTimeout(() => {
         setIsVisible(false)
         onClose()
-      }, 2000)
+      }, 3000)
       return () => clearTimeout(timer)
     }
   }, [show, onClose])
@@ -60,6 +62,10 @@ export function CartNotification({ show, item, onClose }: CartNotificationProps)
 
   const handleContinueShopping = () => {
     onClose()
+  }
+
+  const handleProductClick = () => {
+    router.push(`/products/${item.id}`)
   }
 
   // The actual notification content
@@ -104,14 +110,23 @@ export function CartNotification({ show, item, onClose }: CartNotificationProps)
           </div>
 
           <div className="p-3">
-            <div className="flex gap-3">
+            <div
+              className="flex gap-3 cursor-pointer hover:bg-gray-50/50 rounded-lg transition-colors"
+              onClick={handleProductClick}
+            >
               <div className="w-16 h-16 relative flex-shrink-0 rounded-md overflow-hidden border border-blue-100 bg-gradient-to-br from-blue-50 to-white">
-                <Image src={item.image || "/placeholder.svg"} alt={item.name} fill className="object-cover p-1.5" />
+                <Image
+                  src={item.image || "/placeholder.svg"}
+                  alt={item.name}
+                  fill
+                  className="object-cover p-1.5"
+                />
               </div>
 
               <div className="flex-1 min-w-0">
-                <h4 className="font-medium text-sm mb-1 truncate text-gray-900">{item.name}</h4>
-                <p className="text-xs text-gray-600 mb-1 capitalize">{item.category?.replace("-", " ") || "Product"}</p>
+                <h4 className="font-medium text-sm mb-1 truncate text-gray-900 group-hover:text-blue-600 transition-colors">
+                  {item.name}
+                </h4>
                 <div className="flex justify-between items-center">
                   <p className="text-xs text-gray-600">Qty: {item.quantity}</p>
                   <p className="font-bold text-sm bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -158,6 +173,6 @@ export function CartNotification({ show, item, onClose }: CartNotificationProps)
     >
       {notificationContent}
     </div>,
-    document.body,
+    document.body
   )
 }

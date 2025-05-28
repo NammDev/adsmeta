@@ -12,7 +12,9 @@ export function scrollToElement(elementId: string) {
   const element = document.getElementById(elementId)
   if (element) {
     const elementPosition = element.getBoundingClientRect().top
-    const offsetPosition = elementPosition + window.pageYOffset - 24 // 20px offset
+    const isMobile = window.innerWidth < 768 // Check if mobile view
+    const offset = isMobile ? 48 : 24 // 30px for mobile, 24px for desktop
+    const offsetPosition = elementPosition + window.pageYOffset - offset
 
     window.scrollTo({
       top: offsetPosition,

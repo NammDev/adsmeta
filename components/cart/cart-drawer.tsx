@@ -9,6 +9,7 @@ import { useEffect, useState } from "react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { Badge } from "@/components/ui/badge"
 import { openTelegram, openWhatsApp } from "@/lib/utils"
+import { useRouter } from "next/navigation"
 
 export function CartDrawer() {
   const { items, isOpen, closeCart, removeItem, updateQuantity, subtotal, itemCount } = useCart()
@@ -195,8 +196,10 @@ export function CartDrawer() {
                 }}
               >
                 <div className="p-4 md:p-6 space-y-4">
-                  {items.map((item, index) => (
-                    <CartItemCard key={item.id} item={item} isLast={index === items.length - 1} />
+                  {items.map((item) => (
+                    <div key={`cart-item-${item.id}`} className="relative group">
+                      <CartItemCard key={`cart-item-card-${item.id}`} item={item} />
+                    </div>
                   ))}
                 </div>
               </ScrollArea>
@@ -222,6 +225,7 @@ export function CartDrawer() {
                   {/* Support Channel Buttons */}
                   <div className="flex gap-2 mb-4">
                     <Button
+                      key="telegram"
                       onClick={() => openTelegram()}
                       className="flex-1 h-10 relative overflow-hidden group"
                     >
@@ -235,6 +239,7 @@ export function CartDrawer() {
                     </Button>
 
                     <Button
+                      key="whatsapp"
                       onClick={() => openWhatsApp()}
                       className="flex-1 h-10 relative overflow-hidden group"
                     >
@@ -294,11 +299,17 @@ export function CartDrawer() {
   )
 }
 
-function CartItemCard({ item, isLast }: { item: CartItem; isLast: boolean }) {
-  const { removeItem, updateQuantity } = useCart()
+function CartItemCard({ item }: { item: CartItem }) {
+  const { removeItem, updateQuantity, closeCart } = useCart()
+  const router = useRouter()
+
+  const handleProductClick = () => {
+    closeCart()
+    router.push(`/products/${item.productId}`)
+  }
 
   return (
-    <div className="relative group">
+    <>
       {/* Card background with hover effect */}
       <div className="absolute inset-0 bg-white rounded-xl transition-all duration-300 group-hover:shadow-md"></div>
 
@@ -307,12 +318,12 @@ function CartItemCard({ item, isLast }: { item: CartItem; isLast: boolean }) {
 
       {/* Card content */}
       <div className="relative p-3 flex gap-3 md:gap-4">
-        <div className="relative h-16 w-16 md:h-20 md:w-20 overflow-hidden rounded-lg flex-shrink-0">
+        <div className="relative h-12 w-12 md:h-20 md:w-20 overflow-hidden rounded-lg flex-shrink-0">
           {/* Image background */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50"></div>
 
           {/* Product image with hover effect */}
-          <div className="relative h-full w-full p-2">
+          <div className="relative h-full w-full">
             <Image
               src={item.image || "/placeholder.svg"}
               alt={item.name}
@@ -324,12 +335,15 @@ function CartItemCard({ item, isLast }: { item: CartItem; isLast: boolean }) {
 
         <div className="flex flex-1 flex-col justify-between">
           <div>
-            <h4 className="font-medium text-sm md:text-base line-clamp-1 text-gray-900 group-hover:text-blue-600 transition-colors">
+            <h4
+              onClick={handleProductClick}
+              className="font-medium text-sm md:text-base line-clamp-1 text-gray-900 group-hover:text-blue-600 transition-colors cursor-pointer"
+            >
               {item.name}
             </h4>
           </div>
 
-          <div className="flex items-center justify-between mt-2">
+          <div className="flex items-center justify-between">
             <div className="flex items-center rounded-md overflow-hidden border border-blue-100 bg-white">
               <Button
                 variant="ghost"
@@ -372,6 +386,6 @@ function CartItemCard({ item, isLast }: { item: CartItem; isLast: boolean }) {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
