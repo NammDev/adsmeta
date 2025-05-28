@@ -25,7 +25,6 @@ export interface Package {
   shortDescription?: string
   longDescription?: string // For pack detail page
   price: number
-  priceString?: string // For packs page (includes currency symbol)
   originalPrice?: number
   comparePrice?: number // Alias for originalPrice used in pack detail page
   discount?: number
@@ -77,7 +76,6 @@ export const packages: Package[] = [
 
     This is the ideal solution for those who want to start advertising on Facebook without the complexity and high costs often associated with advanced advertising solutions.`,
     price: 50,
-    priceString: "€50",
     originalPrice: 99,
     comparePrice: 99,
     discount: 50,
@@ -90,7 +88,12 @@ export const packages: Package[] = [
       { id: "feature-3", name: "1 Facebook Pixel", included: true },
       { id: "feature-4", name: "Basic Support", included: true },
     ],
-    simpleFeatures: ["1 Verified Business Manager", "1 Payment Method", "1 Facebook Pixel", "Basic Support"],
+    simpleFeatures: [
+      "1 Verified Business Manager",
+      "1 Payment Method",
+      "1 Facebook Pixel",
+      "Basic Support",
+    ],
     includes: [
       {
         name: "Verified Business Manager",
@@ -108,7 +111,11 @@ export const packages: Package[] = [
         icon: "/facebook-pixel-icon.png",
       },
     ],
-    benefits: ["Start advertising immediately", "No account restrictions", "Reliable setup for beginners"],
+    benefits: [
+      "Start advertising immediately",
+      "No account restrictions",
+      "Reliable setup for beginners",
+    ],
     idealFor: [
       "Small businesses just starting with Facebook ads",
       "Freelancers managing a single client",
@@ -149,7 +156,6 @@ export const packages: Package[] = [
 
     With the Pro Pack, you'll have all the tools and resources needed to take your Facebook advertising to the next level and achieve better results for your business or clients.`,
     price: 150,
-    priceString: "€150",
     originalPrice: 249,
     comparePrice: 249,
     discount: 40,
@@ -233,7 +239,6 @@ export const packages: Package[] = [
 
     With the Agency Pack, you'll have all the tools and resources needed to manage multiple clients efficiently and deliver exceptional results for your agency.`,
     price: 400,
-    priceString: "€400",
     originalPrice: 599,
     comparePrice: 599,
     discount: 33,
@@ -321,7 +326,6 @@ export const packages: Package[] = [
 
     With the Business Complete Pack, you'll have everything you need to run sophisticated advertising campaigns and achieve your business goals.`,
     price: 499,
-    priceString: "€499",
     originalPrice: 699,
     comparePrice: 699,
     discount: 28,
@@ -440,7 +444,7 @@ export function getPacksPageData(): any[] {
     id: pack.id,
     name: pack.name,
     description: pack.description,
-    price: pack.priceString || `€${pack.price}`,
+    price: `€${pack.price}`,
     features: pack.simpleFeatures || [],
     image: typeof pack.image === "string" ? pack.image : pack.image.src,
     badge: pack.badge,

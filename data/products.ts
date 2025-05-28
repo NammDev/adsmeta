@@ -111,7 +111,6 @@ export interface Product {
   reviewAuthor?: string
   reviewAuthorTitle?: string
   price: number
-  priceString?: string
   originalPrice?: number
   comparePrice?: number
   discount?: number
@@ -146,7 +145,6 @@ export const products: Product[] = [
     reviewAuthor: "David Miller",
     reviewAuthorTitle: "Digital Marketing Specialist",
     price: 70,
-    priceString: "€70",
     category: "verified-bm",
     image: "/products/bm_verified.png",
     stock: "in-stock",
@@ -168,7 +166,6 @@ export const products: Product[] = [
     reviewAuthor: "Michael Thompson",
     reviewAuthorTitle: "Marketing Director",
     price: 170,
-    priceString: "€170",
     comparePrice: 249,
     category: "verified-bm",
     image: "/products/bm_verified.png",
@@ -194,7 +191,6 @@ export const products: Product[] = [
     reviewAuthor: "Jennifer Adams",
     reviewAuthorTitle: "Agency Owner",
     price: 260,
-    priceString: "€260",
     category: "verified-bm",
     image: "/products/bm_verified.png",
     stock: "in-stock",
@@ -217,7 +213,6 @@ export const products: Product[] = [
     reviewAuthor: "Robert Chen",
     reviewAuthorTitle: "Performance Marketing Lead",
     price: 350,
-    priceString: "€350",
     category: "verified-bm",
     image: "/products/bm_verified.png",
     badge: "Premium",
@@ -236,7 +231,6 @@ export const products: Product[] = [
     detail:
       "<p>Basic <strong>Unverified Business Manager</strong> — ideal for testing or creating your own setup.</p><ul><li><strong>No ad accounts included</strong> — clean slate for custom setup.</li><li><strong>Billing is customizable</strong> once you add accounts.</li><li>Lower trust score, but <strong>no restrictions on usage</strong>.</li><li>Pixel sharing may be limited versus verified BMs.</li><li><strong>Instantly ready</strong> for configuration and launch.</li></ul>",
     price: 10,
-    priceString: "€10",
     category: "unverified-bm",
     image: "/products/bm_unverified.png",
     imageDescription: "/product-detail/unverified-bm.png",
@@ -254,7 +248,6 @@ export const products: Product[] = [
     detail:
       "<p><strong>Recovered Unverified BM</strong> — functional and active post-ban recovery.</p><ul><li><strong>Recovered but not verified</strong> — best for users with experience managing risk.</li><li>No ad accounts included — <strong>add your own easily</strong>.</li><li>Billing info is fully customizable when you create accounts.</li><li>Trust score is moderate — <strong>limited pixel support</strong> may apply.</li><li>Active and <strong>ready for use upon delivery</strong>.</li></ul>",
     price: 30,
-    priceString: "€30",
     imageDescription: "/product-detail/unverified-bm.png",
     category: "unverified-bm",
     image: "/products/bm_unverified.png",
@@ -273,7 +266,6 @@ export const products: Product[] = [
     detail:
       "<p><strong>Asia Reinstated Profile – 2 Green Line</strong></p><ul><li>Verified once with full government ID — <strong>great trust and approval rate</strong>.</li><li>Farmed and warmed in-house — <strong>never purchased externally</strong>.</li><li><strong>Real friends and activity</strong> — improves credibility.</li><li>Ad-ready with <strong>no setup required</strong>.</li><li><strong>Lifetime support</strong> included for long-term stability.</li></ul>",
     price: 25,
-    priceString: "€25",
     category: "profile",
     image: "/products/fb_via.png",
     imageDescription: "/product-detail/asia-reinstated-2gl.png",
@@ -291,7 +283,6 @@ export const products: Product[] = [
     detail:
       "<p><strong>Asia Reinstated 902 – 3 Green Line</strong></p><ul><li><strong>Double verified</strong> via ID (SARI) for exceptional trust.</li><li>3x trust level compared to single-tick profiles.</li><li>Excellent for <strong>scalable ad campaigns</strong> with minimal review issues.</li><li>Includes <strong>email recovery</strong> to reduce lock risk.</li><li><strong>Ready to advertise after 24h warm-up</strong>.</li></ul>",
     price: 35,
-    priceString: "€35",
     category: "profile",
     image: "/products/fb_via.png",
     imageDescription: "/product-detail/asia-reinstated-3gl.png",
@@ -309,7 +300,6 @@ export const products: Product[] = [
     detail:
       "<p><strong>USA Reinstated – 2 Green Line</strong></p><ul><li>Full ID verification with government credentials.</li><li>Created and farmed in-house — <strong>no third-party sourcing</strong>.</li><li>Active with <strong>real engagement and credibility</strong>.</li><li><strong>Fully ready for ad use</strong> with lifetime support included.</li></ul>",
     price: 40,
-    priceString: "€40",
     category: "profile",
     image: "/products/fb_via.png",
     badge: "Premium",
@@ -328,7 +318,6 @@ export const products: Product[] = [
     detail:
       "<p><strong>USA Reinstated 902 – 3 Green Line</strong></p><ul><li>Verified twice (SARI) — <strong>maximized trust and ad delivery success</strong>.</li><li>Low risk of checkpoints — email recovery provided.</li><li>Warm up for <strong>24 hours before full use</strong>.</li><li>Perfect for <strong>premium campaigns and long-term stability</strong>.</li></ul>",
     price: 50,
-    priceString: "€50",
     category: "profile",
     image: "/products/fb_via.png",
     badge: "Best Value",
@@ -348,7 +337,6 @@ export const products: Product[] = [
     detail:
       "<p><strong>Aged Reinstated Page</strong> — pre-approved and trusted for ad use.</p><ul><li><strong>Recovered and fully approved</strong> for Facebook advertising.</li><li><strong>Customizable page name</strong> before delivery.</li><li>Green quality status — <strong>perfect for launching ad campaigns</strong>.</li><li>Instantly addable to any Business Manager — <strong>zero delay</strong>.</li></ul>",
     price: 30,
-    priceString: "€30",
     category: "page",
     image: "/products/fb_fanpage.png",
     stock: "in-stock",
@@ -447,7 +435,7 @@ export function getProductsPageData(): ProductPageItem[] {
     id: product.id,
     name: product.name,
     description: product.description,
-    price: product.priceString || `€${product.price}`,
+    price: `€${product.price}`,
     category: product.category,
     image: product.image,
     badge: product.badge,
@@ -615,7 +603,7 @@ export function getRelatedProductsForDetail(productId: string): any[] {
     id: p.id,
     name: p.name,
     description: p.description,
-    price: p.priceString || `€${p.price}`,
+    price: `€${p.price}`,
     image: p.image,
     url: `/products/${p.slug}`,
   }))
