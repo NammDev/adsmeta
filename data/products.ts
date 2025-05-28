@@ -1,9 +1,9 @@
 export interface ProductReview {
   id: string
-  author: string
-  authorTitle: string
+  author?: string
+  authorTitle?: string
   comment: string
-  count: number
+  count?: number
 }
 
 // Category type for type safety
@@ -42,9 +42,7 @@ export interface ProductDetailItem extends Product {
   detail?: string
   imageDescription?: string
 
-  reviewComment?: string
-  reviewAuthor?: string
-  reviewAuthorTitle?: string
+  review?: ProductReview
 }
 
 // Unified product interface that can support all use cases
@@ -64,11 +62,7 @@ export interface Product {
   detail?: string
   imageDescription?: string // Path to the product image
 
-  reviewComment?: string
-  reviewAuthor?: string
-  reviewAuthorTitle?: string
-  reviewCount?: number
-  reviews?: ProductReview[]
+  review?: ProductReview
 
   gradient?: string
   bgGradient?: string
@@ -85,15 +79,18 @@ export const products: Product[] = [
     detail:
       "<p><strong>Verified with a government-issued ID</strong> to ensure higher trust and account stability from day one.</p><ul><li>Includes <strong>1 ad account</strong> with a starting daily limit of <strong>$50</strong>, automatically scaling up to <strong>$250</strong>.</li><li>Ready for <strong>upgrade to BM3/BM5</strong> after successful ad spend.</li><li>Pixel sharing is <strong>fully supported</strong> with no errors or limitations.</li><li>Instantly active — <strong>run ads immediately</strong> with higher trust score.</li></ul>",
     imageDescription: "/product-detail/verified-bm.png",
-    reviewComment:
-      "This verified BM saved us so much time. We were able to start running ads within hours of purchase.",
-    reviewAuthor: "David Miller",
-    reviewAuthorTitle: "Digital Marketing Specialist",
+    review: {
+      id: "review-1",
+      author: "David Miller",
+      authorTitle: "Digital Marketing Specialist",
+      comment:
+        "This verified BM saved us so much time. We were able to start running ads within hours of purchase.",
+      count: 42,
+    },
     price: 70,
     category: "verified-bm",
     image: "/products/bm_verified.png",
     stock: "in-stock",
-    reviewCount: 42,
     purchases: 124,
     gradient: "from-blue-500 to-cyan-500",
     bgGradient: "from-blue-50 to-cyan-50",
@@ -106,16 +103,20 @@ export const products: Product[] = [
     detail:
       "<p><strong>Verified BM1</strong> with $250 daily spend — ideal for consistent and scalable advertising.</p><ul><li>Comes with <strong>1 ad account</strong> preloaded with a <strong>$250/day limit</strong>.</li><li>Verified by government-issued ID — <strong>higher stability and trust</strong> than unverified options.</li><li>Supports <strong>BM3/BM5 upgrades</strong> once ad activity is confirmed.</li><li>Billing country is fixed randomly, but <strong>currency and timezone are customizable</strong>.</li><li>Pixel sharing is <strong>error-free and unrestricted</strong>.</li><li>Plug-and-play — <strong>active and ready to use now</strong>.</li></ul>",
     imageDescription: "/product-detail/bm1-250-limit.webp",
-    reviewComment:
-      "The BM1 with $250 limit completely transformed our Facebook advertising capabilities. Highly recommended!",
-    reviewAuthor: "Michael Thompson",
-    reviewAuthorTitle: "Marketing Director",
+    review: {
+      id: "review-2",
+      author: "Michael Thompson",
+      authorTitle: "Marketing Director",
+      comment:
+        "The BM1 with $250 limit completely transformed our Facebook advertising capabilities. Highly recommended!",
+      count: 78,
+    },
     price: 170,
     comparePrice: 249,
     category: "verified-bm",
     image: "/products/bm_verified.png",
     stock: "in-stock",
-    reviewCount: 78,
+
     purchases: 256,
     gradient: "from-blue-600 to-indigo-600",
     bgGradient: "from-blue-50 to-indigo-50",
@@ -129,15 +130,18 @@ export const products: Product[] = [
     detail:
       "<p><strong>High-trust Verified BM5</strong> account with massive ad capacity for advanced advertisers.</p><ul><li><strong>5 verified ad accounts</strong>, each with a <strong>$250 daily limit</strong>.</li><li>Verified via government ID — <strong>robust and Facebook-trusted</strong>.</li><li>Billing info is random for the first account, but <strong>fully customizable for the rest</strong>.</li><li><strong>Pixel integration is seamless</strong> with no policy issues.</li><li>Perfect for scaling — <strong>launch campaigns instantly</strong>.</li></ul>",
     imageDescription: "/product-detail/verified-bm5-limited.jpg",
-    reviewComment:
-      "The BM5 package exceeded our expectations. Having 5 pre-verified accounts saved us weeks of setup time.",
-    reviewAuthor: "Jennifer Adams",
-    reviewAuthorTitle: "Agency Owner",
+    review: {
+      id: "review-3",
+      author: "Jennifer Adams",
+      authorTitle: "Agency Owner",
+      comment:
+        "The BM5 package exceeded our expectations. Having 5 pre-verified accounts saved us weeks of setup time.",
+      count: 36,
+    },
     price: 260,
     category: "verified-bm",
     image: "/products/bm_verified.png",
     stock: "in-stock",
-    reviewCount: 36,
     purchases: 89,
     gradient: "from-indigo-500 to-purple-500",
     bgGradient: "from-indigo-50 to-purple-50",
@@ -151,16 +155,21 @@ export const products: Product[] = [
     detail:
       "<p><strong>Unlimited BM5</strong> — the ultimate choice for agencies and performance marketers.</p><ul><li><strong>Reinstated, verified, and stable</strong> — trusted after successful appeal.</li><li><strong>5 ad accounts</strong> included with <strong>no daily spending limits</strong>.</li><li>First account has fixed billing details, others are <strong>fully customizable</strong>.</li><li>Ideal for <strong>high-budget scaling</strong> and ad testing.</li><li><strong>Fully active</strong> with flawless pixel sharing support.</li></ul>",
     imageDescription: "/product-detail/unlimited-verified-bm5.jpg",
-    reviewComment:
-      "The unlimited BM5 has been a game-changer for our agency. We can now scale campaigns without any spending restrictions.",
-    reviewAuthor: "Robert Chen",
-    reviewAuthorTitle: "Performance Marketing Lead",
+
+    review: {
+      id: "review-4",
+      author: "Robert Chen",
+      authorTitle: "Performance Marketing Lead",
+      comment:
+        "The unlimited BM5 has been a game-changer for our agency. We can now scale campaigns without any spending restrictions.",
+      count: 54,
+    },
+
     price: 350,
     category: "verified-bm",
     image: "/products/bm_verified.png",
     badge: "Premium",
     stock: "in-stock",
-    reviewCount: 54,
     purchases: 312,
     gradient: "from-purple-500 to-pink-500",
     bgGradient: "from-purple-50 to-pink-50",
@@ -178,7 +187,15 @@ export const products: Product[] = [
     image: "/products/bm_unverified.png",
     imageDescription: "/product-detail/unverified-bm.png",
     stock: "in-stock",
-    reviewCount: 28,
+
+    review: {
+      id: "review-5",
+      author: "John Smith",
+      authorTitle: "Marketing Manager",
+      comment:
+        "The unverified BM is a great option for those who want to test the waters before committing to a verified setup.",
+    },
+
     purchases: 578,
     gradient: "from-teal-500 to-green-500",
     bgGradient: "from-teal-50 to-green-50",
@@ -195,7 +212,13 @@ export const products: Product[] = [
     category: "unverified-bm",
     image: "/products/bm_unverified.png",
     stock: "in-stock",
-    reviewCount: 32,
+    review: {
+      id: "review-6",
+      author: "Jane Doe",
+      authorTitle: "Business Owner",
+      comment:
+        "The recovered unverified BM is a great option for those who want to test the waters before committing to a verified setup.",
+    },
     purchases: 198,
     gradient: "from-green-500 to-emerald-500",
     bgGradient: "from-green-50 to-emerald-50",
@@ -213,7 +236,13 @@ export const products: Product[] = [
     image: "/products/fb_via.png",
     imageDescription: "/product-detail/asia-reinstated-2gl.png",
     stock: "in-stock",
-    reviewCount: 41,
+    review: {
+      id: "review-7",
+      author: "John Doe",
+      authorTitle: "Marketing Manager",
+      comment:
+        "The Asia reinstated profile is a great option for those who want to test the waters before committing to a verified setup.",
+    },
     purchases: 45,
     gradient: "from-amber-500 to-orange-500",
     bgGradient: "from-amber-50 to-orange-50",
@@ -230,7 +259,13 @@ export const products: Product[] = [
     image: "/products/fb_via.png",
     imageDescription: "/product-detail/asia-reinstated-3gl.png",
     stock: "in-stock",
-    reviewCount: 47,
+    review: {
+      id: "review-8",
+      author: "Jane Doe",
+      authorTitle: "Business Owner",
+      comment:
+        "The Asia reinstated profile is a great option for those who want to test the waters before committing to a verified setup.",
+    },
     purchases: 72,
     gradient: "from-orange-500 to-red-500",
     bgGradient: "from-orange-50 to-red-50",
@@ -247,7 +282,13 @@ export const products: Product[] = [
     image: "/products/fb_via.png",
     badge: "Premium",
     stock: "in-stock",
-    reviewCount: 63,
+    review: {
+      id: "review-9",
+      author: "John Doe",
+      authorTitle: "Marketing Manager",
+      comment:
+        "The USA reinstated profile is a great option for those who want to test the waters before committing to a verified setup.",
+    },
     imageDescription: "/product-detail/usa-reinstated-2gl.png",
     purchases: 102,
     gradient: "from-red-500 to-rose-500",
@@ -266,7 +307,13 @@ export const products: Product[] = [
     badge: "Best Value",
     stock: "low-stock",
     imageDescription: "/product-detail/usa-reinstated-3gl.png",
-    reviewCount: 72,
+    review: {
+      id: "review-10",
+      author: "Jane Doe",
+      authorTitle: "Business Owner",
+      comment:
+        "The USA reinstated profile is a great option for those who want to test the waters before committing to a verified setup.",
+    },
     purchases: 155,
     gradient: "from-rose-500 to-pink-500",
     bgGradient: "from-rose-50 to-pink-50",
@@ -282,7 +329,13 @@ export const products: Product[] = [
     category: "page",
     image: "/products/fb_fanpage.png",
     stock: "in-stock",
-    reviewCount: 38,
+    review: {
+      id: "review-11",
+      author: "John Doe",
+      authorTitle: "Marketing Manager",
+      comment:
+        "The aged reinstated page is a great option for those who want to test the waters before committing to a verified setup.",
+    },
     purchases: 210,
     imageDescription: "/product-detail/aged-reinstated-page.webp",
     gradient: "from-blue-500 to-indigo-500",
@@ -301,17 +354,6 @@ export function getCategoryDisplayName(category: ProductCategory): string {
   return categoryMap[category] || category
 }
 
-// Helper function to get category from display name
-export function getCategoryFromDisplayName(displayName: string): ProductCategory | null {
-  const reverseMap: Record<string, ProductCategory> = {
-    "Business Manager": "verified-bm",
-    "Unverified BM": "unverified-bm",
-    Profiles: "profile",
-    Pages: "page",
-  }
-  return reverseMap[displayName] || null
-}
-
 // Helper functions
 export function getAllProducts(): Product[] {
   return products
@@ -323,20 +365,6 @@ export function getProductBySlug(slug: string): Product | undefined {
 
 export function getProductById(id: string): Product | undefined {
   return products.find((product) => product.id === id)
-}
-
-export function getProductsByCategory(category: ProductCategory): Product[] {
-  return products.filter((product) => product.category === category)
-}
-
-export function getFeaturedProducts(): Product[] {
-  // Products with badges are considered featured
-  return products.filter((product) => product.badge)
-}
-
-export function getPopularProducts(): Product[] {
-  // Products with high purchase counts are considered popular
-  return [...products].sort((a, b) => (b.purchases || 0) - (a.purchases || 0)).slice(0, 5)
 }
 
 export function getRelatedProducts(productId: string): Product[] {
@@ -380,10 +408,15 @@ export function getProductDetailData(slug: string): ProductDetailItem | null {
     category: product.category,
     badge: product.badge,
     stock: product.stock || "in-stock",
-    deliveryTime: "24 hours", // Default delivery time
     imageDescription: product.imageDescription,
-    reviewComment: product.reviewComment,
-    reviewAuthor: product.reviewAuthor,
-    reviewAuthorTitle: product.reviewAuthorTitle,
+    review: product.review
+      ? {
+          id: product.review.id,
+          comment: product.review.comment,
+          author: product.review.author,
+          authorTitle: product.review.authorTitle,
+          count: product.review.count,
+        }
+      : undefined,
   }
 }

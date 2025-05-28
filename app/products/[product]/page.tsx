@@ -180,7 +180,9 @@ export default function ProductPage() {
                         />
                       ))}
                     </div>
-                    <span className="text-xs text-gray-500 ml-1">120 reviews</span>
+                    <span className="text-xs text-gray-500 ml-1">
+                      {product.review?.count} reviews
+                    </span>
                   </div>
                 </div>
               </div>
@@ -619,7 +621,7 @@ export default function ProductPage() {
                 </div>
 
                 <p className="text-center mb-4 italic text-gray-700">
-                  {product.reviewComment ||
+                  {product.review?.comment ||
                     `"The ${product.name} completely transformed our Facebook advertising capabilities. Highly recommended!"`}
                 </p>
 
@@ -635,10 +637,10 @@ export default function ProductPage() {
                   </div>
                   <div className="text-left">
                     <p className="font-bold text-sm text-gray-800 mb-0">
-                      {product.reviewAuthor || "Michael Thompson"}
+                      {product.review?.author || "Michael Thompson"}
                     </p>
                     <p className="text-gray-600 text-xs">
-                      {product.reviewAuthorTitle || "Marketing Director"}
+                      {product.review?.authorTitle || "Marketing Director"}
                     </p>
                   </div>
                 </div>
