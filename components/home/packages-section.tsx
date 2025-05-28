@@ -1,18 +1,18 @@
-'use client'
+"use client"
 
-import type React from 'react'
+import type React from "react"
 
-import { useState, useRef, useEffect } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Check, ArrowRight, ShoppingCart, ChevronLeft, ChevronRight } from 'lucide-react'
-import { useCart } from '@/context/cart-context'
-import { CartNotification } from '@/components/cart/cart-notification'
-import { getLandingPagePackages } from '@/data/packages'
-import SectionHeader from '../ui/section-header'
+import { useState, useRef, useEffect } from "react"
+import Link from "next/link"
+import Image from "next/image"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Check, ArrowRight, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react"
+import { useCart } from "@/context/cart-context"
+import { CartNotification } from "@/components/cart/cart-notification"
+import { getLandingPagePackages } from "@/data/packages"
+import SectionHeader from "../ui/section-header"
 
 export default function PackagesSection() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
@@ -31,21 +31,22 @@ export default function PackagesSection() {
     }
 
     checkMobile()
-    window.addEventListener('resize', checkMobile)
+    window.addEventListener("resize", checkMobile)
 
     return () => {
-      window.removeEventListener('resize', checkMobile)
+      window.removeEventListener("resize", checkMobile)
     }
   }, [])
 
   // Get packages from centralized data source
   const packages = getLandingPagePackages().map((pack) => ({
     id: pack.numericId,
+    slug: pack.slug,
     name: pack.name,
     description: pack.description,
     price: pack.price,
     features: pack.simpleFeatures || [],
-    image: typeof pack.image === 'string' ? pack.image : pack.image.src,
+    image: typeof pack.image === "string" ? pack.image : pack.image.src,
     gradient: pack.gradient,
     bgGradient: pack.bgGradient,
     borderColor: pack.borderColor,
@@ -55,7 +56,7 @@ export default function PackagesSection() {
 
   const handleAddToCart = (pkg: any) => {
     if (!addItem) {
-      console.error('Cart functionality not available')
+      console.error("Cart functionality not available")
       return
     }
 
@@ -63,12 +64,13 @@ export default function PackagesSection() {
 
     try {
       const item = {
-        id: `pack-${pkg.id}`,
+        id: pkg.id,
+        slug: `packs/${pkg.slug}`,
         name: pkg.name,
         price: pkg.price,
         quantity: 1,
         image: pkg.image,
-        category: 'pack',
+        category: pkg.category,
       }
 
       addItem(item)
@@ -81,7 +83,7 @@ export default function PackagesSection() {
         openCart()
       }
     } catch (error) {
-      console.error('Error adding to cart:', error)
+      console.error("Error adding to cart:", error)
     } finally {
       setTimeout(() => setIsAdding(null), 500)
     }
@@ -161,7 +163,7 @@ export default function PackagesSection() {
                   className={`border ${
                     pkg.borderColor
                   } rounded-xl overflow-hidden bg-white/90 backdrop-blur-sm shadow-md hover:shadow-xl transition-all duration-300 h-full transform ${
-                    hoveredCard === index ? 'scale-105' : 'scale-100'
+                    hoveredCard === index ? "scale-105" : "scale-100"
                   }`}
                 >
                   <div className="p-6 pb-0">
@@ -172,7 +174,7 @@ export default function PackagesSection() {
                       </div>
                       <div className="relative w-16 h-16 bg-white rounded-lg shadow-sm overflow-hidden">
                         <Image
-                          src={pkg.image || '/placeholder.svg'}
+                          src={pkg.image || "/placeholder.svg"}
                           alt={pkg.name}
                           fill
                           className="object-contain p-2"
@@ -211,7 +213,7 @@ export default function PackagesSection() {
                         disabled={isAdding === pkg.id}
                       >
                         {isAdding === pkg.id ? (
-                          'Adding...'
+                          "Adding..."
                         ) : (
                           <>
                             <ShoppingCart className="mr-2 h-4 w-4" />
@@ -220,7 +222,7 @@ export default function PackagesSection() {
                         )}
                       </Button>
                       <Link
-                        href={`/packs/${pkg.name.toLowerCase().replace(' ', '-')}`}
+                        href={`/packs/${pkg.name.toLowerCase().replace(" ", "-")}`}
                         className="flex-1"
                       >
                         <Button
@@ -266,7 +268,7 @@ export default function PackagesSection() {
                         className={`border ${
                           pkg.borderColor
                         } rounded-xl overflow-hidden bg-white/90 backdrop-blur-sm shadow-md h-full ${
-                          pkg.popular ? 'mt-4' : ''
+                          pkg.popular ? "mt-4" : ""
                         }`}
                       >
                         <div className="p-6 pb-0">
@@ -277,7 +279,7 @@ export default function PackagesSection() {
                             </div>
                             <div className="relative w-16 h-16 bg-white rounded-lg shadow-sm overflow-hidden">
                               <Image
-                                src={pkg.image || '/placeholder.svg'}
+                                src={pkg.image || "/placeholder.svg"}
                                 alt={pkg.name}
                                 fill
                                 className="object-contain p-2"
@@ -321,7 +323,7 @@ export default function PackagesSection() {
                               disabled={isAdding === pkg.id}
                             >
                               {isAdding === pkg.id ? (
-                                'Adding...'
+                                "Adding..."
                               ) : (
                                 <>
                                   <ShoppingCart className="mr-2 h-4 w-4" />
@@ -330,7 +332,7 @@ export default function PackagesSection() {
                               )}
                             </Button>
                             <Link
-                              href={`/packs/${pkg.name.toLowerCase().replace(' ', '-')}`}
+                              href={`/packs/${pkg.name.toLowerCase().replace(" ", "-")}`}
                               className="flex-1"
                             >
                               <Button
@@ -372,8 +374,8 @@ export default function PackagesSection() {
                   key={index}
                   className={`w-2 h-2 rounded-full transition-all ${
                     index === currentSlide
-                      ? 'bg-gradient-to-r from-blue-500 to-purple-500 w-6'
-                      : 'bg-gray-300'
+                      ? "bg-gradient-to-r from-blue-500 to-purple-500 w-6"
+                      : "bg-gray-300"
                   }`}
                   onClick={() => goToSlide(index)}
                   aria-label={`Go to package ${index + 1}`}

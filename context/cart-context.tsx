@@ -4,6 +4,7 @@ import { createContext, useContext, useState, useEffect, type ReactNode, useRef 
 
 export interface CartItem {
   id: string
+  slug: string
   name: string
   price: number
   quantity: number
@@ -86,8 +87,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
         }
         return updatedItems
       } else {
-        // Item doesn't exist, add it
-        return [...prevItems, newItem]
+        // Item doesn't exist, add it with a unique ID
+        const uniqueId = `cart-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+        return [...prevItems, { ...newItem, id: uniqueId }]
       }
     })
   }
@@ -104,7 +106,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
       return
     }
 
-    setItems((prevItems) => prevItems.map((item) => (item.id === id ? { ...item, quantity } : item)))
+    setItems((prevItems) =>
+      prevItems.map((item) => (item.id === id ? { ...item, quantity } : item))
+    )
   }
 
   // Clear cart

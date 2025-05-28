@@ -14,6 +14,7 @@ import { getBlogPostBySlug, getRelatedPosts } from "@/data/blog-posts"
 import { use } from "react"
 import SectionHeader from "@/components/ui/section-header"
 import { processContent } from "@/lib/utils"
+import { useMediaQuery } from "@/hooks/use-media-query"
 
 // Add this function before the BlogPostPage component
 function extractHeadings(content: string) {
@@ -33,6 +34,8 @@ function extractHeadings(content: string) {
 }
 
 export default function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const isMobile = useMediaQuery("(max-width: 768px)")
+
   // Unwrap params using React.use()
   const { slug } = use(params)
 
@@ -164,7 +167,11 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                 <div className="relative h-[250px] w-full rounded-lg overflow-hidden shadow-md border border-transparent bg-gradient-to-r from-blue-100 to-purple-100 p-[1px]">
                   <div className="absolute inset-0 rounded-lg overflow-hidden">
                     <Image
-                      src={blogPost.image || "/placeholder.svg"}
+                      src={
+                        isMobile
+                          ? blogPost.image.detailMobile || "/placeholder.svg"
+                          : blogPost.image.detail || "/placeholder.svg"
+                      }
                       alt={blogPost.title}
                       fill
                       className="object-cover"
@@ -288,7 +295,11 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                   <div className="relative h-36 md:h-48 w-full overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-facebook/0 to-blue-600/0 group-hover/card:from-facebook/10 group-hover/card:to-blue-600/10 transition-all duration-300 z-10"></div>
                     <Image
-                      src={post.image || "/placeholder.svg"}
+                      src={
+                        isMobile
+                          ? post.image.thumbnail || "/placeholder.svg"
+                          : post.image.feature || "/placeholder.svg"
+                      }
                       alt={post.title}
                       fill
                       className="object-cover transition-transform group-hover/card:scale-105 duration-300"

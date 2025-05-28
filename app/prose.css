@@ -15,7 +15,7 @@
 }
 
 .prose h2::after {
-  content: '';
+  content: "";
   display: block;
   height: 3px;
   width: 100%;
@@ -70,7 +70,7 @@
 }
 
 .prose ul > li::before {
-  content: '';
+  content: "";
   position: absolute;
   background-color: #d1d5db;
   border-radius: 50%;
@@ -149,7 +149,7 @@
   color: #111827;
   border-left-width: 0.25rem;
   border-left-color: #e5e7eb;
-  quotes: '\201C''\201D''\2018''\2019';
+  quotes: "\201C""\201D""\2018""\2019";
   margin-top: 1.6em;
   margin-bottom: 1.6em;
   padding-left: 1em;
@@ -157,10 +157,21 @@
 
 /* Product detail styles */
 .product-detail.prose p,
-.product-detail.prose ul {
+.product-detail.prose ul,
+.product-detail.prose li {
   margin-bottom: 8px;
   margin-top: 8px;
-  line-height: 1.7;
+  line-height: 24px;
+  font-size: 14px; /* Default size for mobile */
+}
+
+/* Increase font size for larger screens */
+@media (min-width: 768px) {
+  .product-detail.prose p,
+  .product-detail.prose ul,
+  .product-detail.prose li {
+    font-size: 16px;
+  }
 }
 
 .product-detail.prose strong {
