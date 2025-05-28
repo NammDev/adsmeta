@@ -99,8 +99,9 @@ export default function BlogPage() {
                   >
                     <Link href={`/blog/${post.id}`} className="flex gap-4">
                       <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
+                        {/* Most Viewed Desktop - Thumbnail */}
                         <Image
-                          src={post.image || "/placeholder.svg"}
+                          src={post.image.thumbnail || "/placeholder.svg"}
                           alt={post.title}
                           fill
                           className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -167,8 +168,9 @@ export default function BlogPage() {
                           <Card className="border border-gray-100 rounded-xl overflow-hidden hover:shadow-md transition-shadow group h-full">
                             <Link href={`/blog/${post.id}`} className="block">
                               <div className="relative h-48 w-full">
+                                {/* Latest Article - Mobile */}
                                 <Image
-                                  src={post.image || "/placeholder.svg"}
+                                  src={post.image.feature || "/placeholder.svg"}
                                   alt={post.title}
                                   fill
                                   className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -243,14 +245,17 @@ export default function BlogPage() {
                       className="border border-gray-100 rounded-xl overflow-hidden hover:shadow-md transition-shadow group"
                     >
                       <Link href={`/blog/${post.id}`} className="block">
-                        <div className="relative h-48 w-full">
-                          <Image
-                            src={post.image || "/placeholder.svg"}
-                            alt={post.title}
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div className="relative h-48 w-full overflow-hidden shadow-md border border-transparent bg-gradient-to-r from-blue-100 to-purple-100 p-[1px">
+                          <div className="absolute inset-0 rounded-lg overflow-hidden">
+                            {/* Latest Article - Desktop */}
+                            <Image
+                              src={post.image.feature || "/placeholder.svg"}
+                              alt={post.title}
+                              fill
+                              className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                          </div>
                         </div>
                       </Link>
                       <CardContent className="p-5">
@@ -335,13 +340,17 @@ export default function BlogPage() {
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-500/0 opacity-0 group-hover:opacity-10 transition-opacity rounded-xl"></div>
                     <Link href={`/blog/${post.id}`} className="block relative">
-                      <div className="relative h-48 w-full">
-                        <Image
-                          src={post.image || "/placeholder.svg"}
-                          alt={post.title}
-                          fill
-                          className="object-cover hover:scale-105 transition-transform duration-300"
-                        />
+                      <div className="relative h-48 w-full overflow-hidden shadow-md border border-transparent bg-gradient-to-r from-blue-50 to-purple-50 p-[1px">
+                        <div className="absolute inset-0 rounded-lg overflow-hidden">
+                          {/* Daily Post Desktop */}
+                          <Image
+                            src={post.image.feature || "/placeholder.svg"}
+                            alt={post.title}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        </div>
                       </div>
                       {post.trending && (
                         <Badge className="absolute top-3 left-3 bg-orange-500 text-white">
@@ -387,10 +396,10 @@ export default function BlogPage() {
                   <Link key={post.id} href={`/blog/${post.id}`} className="block group">
                     <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all border border-gray-100">
                       <div className="flex h-[140px]">
-                        {/* Left side - Image with hover effect */}
+                        {/* Left side - Image with hover effect - Mobile Daily Post */}
                         <div className="relative w-[140px] h-full flex-shrink-0 overflow-hidden">
                           <Image
-                            src={post.image || "/placeholder.svg"}
+                            src={post.image.thumbnail || "/placeholder.svg"}
                             alt={post.title}
                             fill
                             className="object-cover group-hover:scale-110 transition-transform duration-300"

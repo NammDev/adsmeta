@@ -6,7 +6,13 @@ export interface BlogPost {
   date: string
   readTime: string
   category: string
-  image: string
+  image: {
+    feature: string // 2-1
+    detail: string // 3-1
+    detailMobile: string // 4-3
+    thumbnail: string // 1-1
+  }
+  imageDetail?: string
   views: number
   trending?: boolean
   author: {
@@ -16,20 +22,6 @@ export interface BlogPost {
   }
   content: string // HTML content as a string
   tags: string[]
-  relatedPosts?: BlogPostSummary[]
-}
-
-// Simplified version for related posts and listings
-export interface BlogPostSummary {
-  id: string
-  slug: string
-  title: string
-  excerpt: string
-  image: string
-  category: string
-  date?: string
-  readTime?: string
-  views?: number
 }
 
 export const blogPosts: BlogPost[] = [
@@ -42,7 +34,12 @@ export const blogPosts: BlogPost[] = [
     date: "June 12, 2022",
     readTime: "6 min read",
     category: "Facebook Ads",
-    image: "/stable-business-manager.png",
+    image: {
+      feature: "/blog/stable-business-manager-facebook-21.png",
+      detail: "/blog/stable-business-manager-facebook-31.png",
+      detailMobile: "/blog/stable-business-manager-facebook-43.png",
+      thumbnail: "/blog/stable-business-manager-facebook-11.png",
+    },
     views: 0,
     author: {
       name: "Alex Johnson",
@@ -62,7 +59,12 @@ export const blogPosts: BlogPost[] = [
     date: "May 17, 2023",
     readTime: "7 min read",
     category: "BM Ads",
-    image: "/facebook-ban-warning.png",
+    image: {
+      feature: "/blog/top-5-reasons-facebook-ads-get-banned-21.png",
+      detail: "/blog/top-5-reasons-facebook-ads-get-banned-31.png",
+      detailMobile: "/blog/top-5-reasons-facebook-ads-get-banned-43.png",
+      thumbnail: "/blog/top-5-reasons-facebook-ads-get-banned-11.png",
+    },
     views: 1742,
     author: {
       name: "Simon Carter",
@@ -82,7 +84,12 @@ export const blogPosts: BlogPost[] = [
     date: "August 17, 2022",
     readTime: "6 min read",
     category: "Facebook Ads",
-    image: "/green-tick-profile-facebook.png",
+    image: {
+      feature: "/blog/what-is-a-green-tick-facebook-profile-21.png",
+      detail: "/blog/what-is-a-green-tick-facebook-profile-31.png",
+      detailMobile: "/blog/what-is-a-green-tick-facebook-profile-43.png",
+      thumbnail: "/blog/what-is-a-green-tick-facebook-profile-11.png",
+    },
     views: 1130,
     author: {
       name: "Jason Hangi",
@@ -102,7 +109,12 @@ export const blogPosts: BlogPost[] = [
     date: "May 22, 2024",
     readTime: "6 min read",
     category: "Facebook Ads",
-    image: "/scale-facebook-ads-after-ban.png",
+    image: {
+      feature: "/blog/how-to-scale-facebook-ads-after-ban-21.png",
+      detail: "/blog/how-to-scale-facebook-ads-after-ban-31.png",
+      detailMobile: "/blog/how-to-scale-facebook-ads-after-ban-43.png",
+      thumbnail: "/blog/how-to-scale-facebook-ads-after-ban-11.png",
+    },
     views: 980,
     author: {
       name: "Ryan chulish",
@@ -122,7 +134,12 @@ export const blogPosts: BlogPost[] = [
     date: "July 28, 2023",
     readTime: "6 min read",
     category: "Facebook Ads",
-    image: "/guide-verified-business-managers.png",
+    image: {
+      feature: "/blog/verified-business-managers-facebook-ads-21.png",
+      detail: "/blog/verified-business-managers-facebook-ads-31.png",
+      detailMobile: "/blog/verified-business-managers-facebook-ads-43.png",
+      thumbnail: "/blog/verified-business-managers-facebook-ads-11.png",
+    },
     views: 980,
     author: {
       name: "Hazad Kim",
@@ -142,8 +159,13 @@ export const blogPosts: BlogPost[] = [
     date: "May 05, 2021",
     readTime: "7 min read",
     category: "Facebook Ads",
-    image: "/facebook-ad-objectives.png",
-    views: "1_120",
+    image: {
+      feature: "/blog/facebook-ad-objectives-guide-21.png",
+      detail: "/blog/facebook-ad-objectives-guide-31.png",
+      detailMobile: "/blog/facebook-ad-objectives-guide-43.png",
+      thumbnail: "/blog/facebook-ad-objectives-guide-11.png",
+    },
+    views: 1120,
     author: {
       name: "Jasmine Lee",
       role: "Performance Marketing Strategist",
@@ -162,7 +184,12 @@ export const blogPosts: BlogPost[] = [
     date: "June 01, 2023",
     readTime: "6 min read",
     category: "Facebook Ads",
-    image: "/facebook-pixel.png",
+    image: {
+      feature: "/blog/facebook-pixel-performance-guide-21.png",
+      detail: "/blog/facebook-pixel-performance-guide-31.png",
+      detailMobile: "/blog/facebook-pixel-performance-guide-43.png",
+      thumbnail: "/blog/facebook-pixel-performance-guide-11.png",
+    },
     views: 960,
     author: {
       name: "Michel Smith",
@@ -188,7 +215,12 @@ export const blogPosts: BlogPost[] = [
     date: "May 14, 2023",
     readTime: "7 min read",
     category: "Facebook Ads",
-    image: "/facebook-ad-creatives.png",
+    image: {
+      feature: "/blog/high-converting-facebook-ad-creatives-21.png",
+      detail: "/blog/high-converting-facebook-ad-creatives-31.png",
+      detailMobile: "/blog/high-converting-facebook-ad-creatives-43.png",
+      thumbnail: "/blog/high-converting-facebook-ad-creatives-11.png",
+    },
     views: 1075,
     author: {
       name: "Sophia Taylor",
@@ -214,7 +246,12 @@ export const blogPosts: BlogPost[] = [
     date: "June 12, 2021",
     readTime: "6 min read",
     category: "Facebook Ads",
-    image: "/scale-facebook-ads.png",
+    image: {
+      feature: "/blog/scale-facebook-ads-account-stability-21.png",
+      detail: "/blog/scale-facebook-ads-account-stability-31.png",
+      detailMobile: "/blog/scale-facebook-ads-account-stability-43.png",
+      thumbnail: "/blog/scale-facebook-ads-account-stability-11.png",
+    },
     views: 948,
     author: {
       name: "Matthew Moore",
@@ -240,7 +277,12 @@ export const blogPosts: BlogPost[] = [
     date: "May 08, 2022",
     readTime: "7 min read",
     category: "Facebook Ads",
-    image: "/facebook-ads-account-security.png",
+    image: {
+      feature: "/blog/facebook-ads-account-security-recovery-21.png",
+      detail: "/blog/facebook-ads-account-security-recovery-31.png",
+      detailMobile: "/blog/facebook-ads-account-security-recovery-43.png",
+      thumbnail: "/blog/facebook-ads-account-security-recovery-11.png",
+    },
     views: 1023,
     author: {
       name: "James Miller",
@@ -278,14 +320,10 @@ export function getBlogPostBySlug(slug: string) {
 // Get related posts (excluding current post)
 export function getRelatedPosts(currentSlug: string, limit = 5) {
   const currentPost = getBlogPostBySlug(currentSlug)
-  if (!currentPost?.relatedPosts) {
-    // If no related posts are defined, return posts in the same category
-    const category = currentPost?.category
-    return blogPosts
-      .filter((post) => post.slug !== currentSlug && post.category === category)
-      .slice(0, limit)
-  }
-  return currentPost.relatedPosts.slice(0, limit)
+  const category = currentPost?.category
+  return blogPosts
+    .filter((post) => post.slug !== currentSlug && post.category === category)
+    .slice(0, limit)
 }
 
 // Get most viewed posts
