@@ -1,53 +1,13 @@
-export interface ProductFeature {
-  id: string
-  name: string
-  included: boolean
-  highlight?: boolean
-}
-
-export interface ProductImage {
-  src: string
-  alt: string
-}
-
-export interface ProductInclude {
-  name: string
-  description: string
-  icon?: string
-}
-
 export interface ProductReview {
   id: string
   author: string
-  text: string
-  date: string
-  verified?: boolean
+  authorTitle: string
+  comment: string
+  count: number
 }
 
 // Category type for type safety
 export type ProductCategory = "verified-bm" | "unverified-bm" | "profile" | "page"
-
-// Helper function to get display name from category
-export function getCategoryDisplayName(category: ProductCategory): string {
-  const categoryMap: Record<ProductCategory, string> = {
-    "verified-bm": "Business Manager",
-    "unverified-bm": "Unverified BM",
-    profile: "Profiles",
-    page: "Pages",
-  }
-  return categoryMap[category] || category
-}
-
-// Helper function to get category from display name
-export function getCategoryFromDisplayName(displayName: string): ProductCategory | null {
-  const reverseMap: Record<string, ProductCategory> = {
-    "Business Manager": "verified-bm",
-    "Unverified BM": "unverified-bm",
-    Profiles: "profile",
-    Pages: "page",
-  }
-  return reverseMap[displayName] || null
-}
 
 // This type matches the Product type in app/products-section.tsx
 export interface ProductSectionItem {
@@ -60,40 +20,28 @@ export interface ProductSectionItem {
   category: ProductCategory
   badge?: string
   href?: string
-  reviewCount?: number
   purchases?: number
   gradient?: string
   bgGradient?: string
 }
 
-// This type matches the Product type in app/products/page.tsx
-export interface ProductPageItem {
-  id: string
-  name: string
-  description: string
-  price: string
-  category: string
-  image: string
-  badge?: string
-  url: string
-  purchases?: number
-}
-
 // This type matches the Product type in app/products/[product]/page.tsx
-export interface ProductDetailItem {
+export interface ProductDetailItem extends Product {
   id: string
   slug: string
   name: string
   description: string
-  detail?: string
   price: number
   comparePrice?: number
-  image: string
   category: ProductCategory
-  badge?: string
+  image: string
   stock: "in-stock" | "low-stock" | "out-of-stock"
-  deliveryTime: string
+  badge?: string
+  purchases?: number
+
+  detail?: string
   imageDescription?: string
+
   reviewComment?: string
   reviewAuthor?: string
   reviewAuthorTitle?: string
@@ -105,26 +53,23 @@ export interface Product {
   slug: string
   name: string
   description: string
+  price: number
+  comparePrice?: number
+  category: ProductCategory // Single category field with machine-readable values
+  image: string
+  stock?: "in-stock" | "low-stock" | "out-of-stock"
+  badge?: string
+  purchases?: number
+
   detail?: string
   imageDescription?: string // Path to the product image
+
   reviewComment?: string
   reviewAuthor?: string
   reviewAuthorTitle?: string
-  price: number
-  originalPrice?: number
-  comparePrice?: number
-  discount?: number
-  popular?: boolean
-  category: ProductCategory // Single category field with machine-readable values
-  image: string
-  images?: string[]
-  reviews?: ProductReview[]
-  stock?: "in-stock" | "low-stock" | "out-of-stock"
-  badge?: string
-  tags?: string[]
-  relatedProducts?: string[] // Array of product IDs
   reviewCount?: number
-  purchases?: number
+  reviews?: ProductReview[]
+
   gradient?: string
   bgGradient?: string
 }
@@ -169,11 +114,9 @@ export const products: Product[] = [
     comparePrice: 249,
     category: "verified-bm",
     image: "/products/bm_verified.png",
-    badge: "Popular",
     stock: "in-stock",
     reviewCount: 78,
     purchases: 256,
-    relatedProducts: ["verified-bm-3", "verified-bm-4", "unverified-bm-1"],
     gradient: "from-blue-600 to-indigo-600",
     bgGradient: "from-blue-50 to-indigo-50",
   },
@@ -325,7 +268,6 @@ export const products: Product[] = [
     imageDescription: "/product-detail/usa-reinstated-3gl.png",
     reviewCount: 72,
     purchases: 155,
-    relatedProducts: ["profile-3", "profile-2", "profile-1"],
     gradient: "from-rose-500 to-pink-500",
     bgGradient: "from-rose-50 to-pink-50",
   },
@@ -347,6 +289,28 @@ export const products: Product[] = [
     bgGradient: "from-blue-50 to-indigo-50",
   },
 ]
+
+// Helper function to get display name from category
+export function getCategoryDisplayName(category: ProductCategory): string {
+  const categoryMap: Record<ProductCategory, string> = {
+    "verified-bm": "Business Manager",
+    "unverified-bm": "Unverified BM",
+    profile: "Profiles",
+    page: "Pages",
+  }
+  return categoryMap[category] || category
+}
+
+// Helper function to get category from display name
+export function getCategoryFromDisplayName(displayName: string): ProductCategory | null {
+  const reverseMap: Record<string, ProductCategory> = {
+    "Business Manager": "verified-bm",
+    "Unverified BM": "unverified-bm",
+    Profiles: "profile",
+    Pages: "page",
+  }
+  return reverseMap[displayName] || null
+}
 
 // Helper functions
 export function getAllProducts(): Product[] {
@@ -375,21 +339,10 @@ export function getPopularProducts(): Product[] {
   return [...products].sort((a, b) => (b.purchases || 0) - (a.purchases || 0)).slice(0, 5)
 }
 
-export function getProductsWithDiscount(): Product[] {
-  return products.filter((product) => product.comparePrice && product.price < product.comparePrice)
-}
-
 export function getRelatedProducts(productId: string): Product[] {
   const product = getProductById(productId)
-  if (!product || !product.relatedProducts || product.relatedProducts.length === 0) {
-    // If no related products specified, return other products in the same category
-    const category = product?.category || "verified-bm"
-    return products.filter((p) => p.id !== productId && p.category === category).slice(0, 3)
-  }
-
-  return product.relatedProducts
-    .map((id) => getProductById(id))
-    .filter((p): p is Product => p !== undefined)
+  const category = product?.category || "verified-bm"
+  return products.filter((p) => p.id !== productId && p.category === category).slice(0, 3)
 }
 
 // PRODUCTS SECTION SPECIFIC HELPERS (for landing page)
@@ -404,146 +357,10 @@ export function getProductSectionItems(): ProductSectionItem[] {
     category: product.category,
     badge: product.badge,
     href: `/products/${product.slug}`,
-    reviewCount: product.reviewCount,
     purchases: product.purchases,
     gradient: product.gradient,
     bgGradient: product.bgGradient,
   }))
-}
-
-export function getProductSectionFilterOptions() {
-  return [
-    { label: "All Products", value: "all" },
-    { label: "Business Manager", value: "verified-bm" },
-    { label: "Unverified BM", value: "unverified-bm" },
-    { label: "Profiles", value: "profile" },
-    { label: "Pages", value: "page" },
-  ]
-}
-
-export function filterProductSectionItems(category: string): ProductSectionItem[] {
-  const items = getProductSectionItems()
-  if (category === "all") {
-    return items
-  }
-  return items.filter((product) => product.category === category)
-}
-
-// PRODUCTS PAGE SPECIFIC HELPERS
-export function getProductsPageData(): ProductPageItem[] {
-  return products.map((product) => ({
-    id: product.id,
-    name: product.name,
-    description: product.description,
-    price: `€${product.price}`,
-    category: product.category,
-    image: product.image,
-    badge: product.badge,
-    url: `/products/${product.slug}`,
-    purchases: product.purchases,
-  }))
-}
-
-export function getProductPageCategories() {
-  const categories = [
-    {
-      id: "all",
-      name: "All Products",
-      count: products.length,
-    },
-  ]
-
-  // Get unique categories and their counts
-  const uniqueCategories: ProductCategory[] = [
-    ...new Set(products.map((product) => product.category)),
-  ]
-  uniqueCategories.forEach((category) => {
-    const count = products.filter((product) => product.category === category).length
-    categories.push({
-      id: category,
-      name: getCategoryDisplayName(category),
-      count,
-    })
-  })
-
-  return categories
-}
-
-export function filterProductPageItems(category: string): ProductPageItem[] {
-  const items = getProductsPageData()
-  if (category === "all") {
-    return items
-  }
-  return items.filter((product) => product.category === category)
-}
-
-// Pagination helper for products page
-export function paginateProductPageItems(
-  items: ProductPageItem[],
-  currentPage: number,
-  itemsPerPage: number
-): ProductPageItem[] {
-  const indexOfLastItem = currentPage * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  return items.slice(indexOfFirstItem, indexOfLastItem)
-}
-
-// Calculate total pages for pagination
-export function calculateTotalPages(items: ProductPageItem[], itemsPerPage: number): number {
-  return Math.ceil(items.length / itemsPerPage)
-}
-
-// Generate page numbers array for pagination
-export function generatePageNumbers(
-  currentPage: number,
-  totalPages: number,
-  maxPageNumbersToShow = 5
-): (number | string)[] {
-  const pageNumbers = []
-
-  if (totalPages <= maxPageNumbersToShow) {
-    // If we have 5 or fewer pages, show all page numbers
-    for (let i = 1; i <= totalPages; i++) {
-      pageNumbers.push(i)
-    }
-  } else {
-    // Always include first page
-    pageNumbers.push(1)
-
-    // Calculate start and end of page numbers to show
-    let startPage = Math.max(2, currentPage - 1)
-    let endPage = Math.min(totalPages - 1, currentPage + 1)
-
-    // Adjust if we're near the beginning
-    if (currentPage <= 2) {
-      endPage = 4
-    }
-
-    // Adjust if we're near the end
-    if (currentPage >= totalPages - 2) {
-      startPage = totalPages - 3
-    }
-
-    // Add ellipsis after first page if needed
-    if (startPage > 2) {
-      pageNumbers.push("ellipsis-start")
-    }
-
-    // Add middle pages
-    for (let i = startPage; i <= endPage; i++) {
-      pageNumbers.push(i)
-    }
-
-    // Add ellipsis before last page if needed
-    if (endPage < totalPages - 1) {
-      pageNumbers.push("ellipsis-end")
-    }
-
-    // Always include last page
-    pageNumbers.push(totalPages)
-  }
-
-  return pageNumbers
 }
 
 // PRODUCT DETAIL PAGE SPECIFIC HELPERS
@@ -569,76 +386,4 @@ export function getProductDetailData(slug: string): ProductDetailItem | null {
     reviewAuthor: product.reviewAuthor,
     reviewAuthorTitle: product.reviewAuthorTitle,
   }
-}
-
-// Get stock status for product detail page
-export function getStockStatusInfo(status: string) {
-  const stockStatus = {
-    "in-stock": {
-      label: "In Stock",
-      color: "bg-gradient-to-r from-green-400 to-emerald-500 text-white",
-    },
-    "low-stock": {
-      label: "Low Stock",
-      color: "bg-gradient-to-r from-amber-400 to-orange-500 text-white",
-    },
-    "out-of-stock": {
-      label: "Out of Stock",
-      color: "bg-gradient-to-r from-red-400 to-rose-500 text-white",
-    },
-  }
-  return stockStatus[status as keyof typeof stockStatus] || stockStatus["in-stock"]
-}
-
-// Get related products for product detail page
-export function getRelatedProductsForDetail(productId: string): any[] {
-  const product = getProductById(productId)
-  if (!product) return []
-
-  // Get related products
-  const relatedProducts = getRelatedProducts(productId)
-
-  // Format for the detail page
-  return relatedProducts.map((p) => ({
-    id: p.id,
-    name: p.name,
-    description: p.description,
-    price: `€${p.price}`,
-    image: p.image,
-    url: `/products/${p.slug}`,
-  }))
-}
-
-// Landing page specific helper
-export function getLandingPageProducts(): Product[] {
-  // Return featured or popular products for the landing page
-  const featuredProducts = getFeaturedProducts()
-  if (featuredProducts.length >= 3) {
-    return featuredProducts.slice(0, 3)
-  }
-
-  // If not enough featured products, include popular ones
-  const popularProducts = getPopularProducts().filter(
-    (p) => !featuredProducts.some((fp) => fp.id === p.id)
-  )
-
-  return [...featuredProducts, ...popularProducts].slice(0, 3)
-}
-
-// Search products
-export function searchProducts(query: string): Product[] {
-  const searchTerms = query.toLowerCase().split(" ")
-
-  return products.filter((product) => {
-    const searchableText = [
-      product.name,
-      product.description,
-      ...(product.tags || []),
-      getCategoryDisplayName(product.category),
-    ]
-      .join(" ")
-      .toLowerCase()
-
-    return searchTerms.every((term) => searchableText.includes(term))
-  })
 }
