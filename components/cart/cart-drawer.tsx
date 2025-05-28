@@ -305,7 +305,7 @@ function CartItemCard({ item }: { item: CartItem }) {
 
   const handleProductClick = () => {
     closeCart()
-    router.push(`/products/${item.productId}`)
+    router.push(`/${item.slug}`)
   }
 
   return (

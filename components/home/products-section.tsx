@@ -61,7 +61,8 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
 
     try {
       const item = {
-        id: product.slug,
+        id: product.id,
+        slug: `products/${product.id}`,
         name: product.name,
         price: product.price,
         quantity: 1,

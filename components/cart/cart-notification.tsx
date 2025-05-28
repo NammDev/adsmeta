@@ -12,6 +12,7 @@ interface CartNotificationProps {
   show: boolean
   item?: {
     id: string
+    slug: string
     name: string
     price: number
     quantity: number
@@ -65,7 +66,7 @@ export function CartNotification({ show, item, onClose }: CartNotificationProps)
   }
 
   const handleProductClick = () => {
-    router.push(`/products/${item.id}`)
+    router.push(`/${item.slug}`)
   }
 
   // The actual notification content
