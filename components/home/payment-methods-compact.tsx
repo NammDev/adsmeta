@@ -30,7 +30,7 @@ export default function PaymentMethodsCompact() {
           <path d="M50,90 C25,65 0,50 0,25 C0,10 10,0 25,0 C35,0 45,5 50,15 C55,5 65,0 75,0 C90,0 100,10 100,25 C100,50 75,65 50,90 Z" />
         </svg>
       </div>
-      <div className="absolute right-40 top-40 w-12 h-12 hidden sm:block">
+      <div className="absolute right-60 top-60 w-12 h-12 hidden sm:block">
         <svg viewBox="0 0 100 100" className="w-full h-full text-blue-500/20 fill-current">
           <path d="M50,90 C25,65 0,50 0,25 C0,10 10,0 25,0 C35,0 45,5 50,15 C55,5 65,0 75,0 C90,0 100,10 100,25 C100,50 75,65 50,90 Z" />
         </svg>
@@ -77,13 +77,12 @@ export default function PaymentMethodsCompact() {
 
         {/* Title and Description */}
         <div className="text-center">
-          <h2 className="text-xl font-bold text-gray-800 mb-1">Buy Facebook ads Accounts Using</h2>
-          <p className="text-lg text-gray-700">These Payment Methods.</p>
+          <p className="text-lg text-gray-700">Using these Payment Methods.</p>
         </div>
 
         {/* Blue Heart Decorations for Mobile */}
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
-          <svg viewBox="0 0 100 100" className="w-16 h-16 text-blue-500/40 fill-current">
+        <div className="absolute -bottom-8 left-4 transform -translate-x-1/2">
+          <svg viewBox="0 0 100 100" className="w-24 h-24 text-blue-500/40 fill-current">
             <path d="M50,90 C25,65 0,50 0,25 C0,10 10,0 25,0 C35,0 45,5 50,15 C55,5 65,0 75,0 C90,0 100,10 100,25 C100,50 75,65 50,90 Z" />
           </svg>
         </div>
@@ -94,7 +93,7 @@ export default function PaymentMethodsCompact() {
         {/* Left Content */}
         <div className="w-[55%] p-8 flex flex-col justify-between">
           <div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">Buy Facebook ads Accounts</h2>
+            {/* <h2 className="text-3xl font-bold text-gray-800 mb-2">Buy Facebook ads Accounts</h2> */}
             <p className="text-lg text-gray-600">Using These Payment Methods</p>
           </div>
 

@@ -1,9 +1,9 @@
-import Image from 'next/image'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Star } from 'lucide-react'
-import SectionHeader from '../ui/section-header'
+import Image from "next/image"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Star } from "lucide-react"
+import SectionHeader from "../ui/section-header"
 
 export default function TestimonialsSection() {
   return (
@@ -23,7 +23,7 @@ export default function TestimonialsSection() {
                 <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-indigo-500 overflow-hidden mr-4 p-0.5">
                   <div className="w-full h-full rounded-full overflow-hidden bg-white">
                     <Image
-                      src="/placeholder.svg?height=48&width=48"
+                      src="/avatar/sarah.png"
                       alt="Sarah"
                       width={48}
                       height={48}
@@ -32,7 +32,7 @@ export default function TestimonialsSection() {
                   </div>
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">Sarah Johnson</p>
+                  <p className="font-bold text-gray-900 mb-0">Sarah Johnson</p>
                   <p className="text-sm text-blue-600">Digital Marketing Freelancer</p>
                 </div>
               </div>
@@ -58,7 +58,7 @@ export default function TestimonialsSection() {
                 <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 overflow-hidden mr-4 p-0.5">
                   <div className="w-full h-full rounded-full overflow-hidden bg-white">
                     <Image
-                      src="/placeholder.svg?height=48&width=48"
+                      src="/avatar/michael.png"
                       alt="Mike"
                       width={48}
                       height={48}
@@ -67,7 +67,7 @@ export default function TestimonialsSection() {
                   </div>
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">Michael Chen</p>
+                  <p className="font-bold text-gray-900 mb-0">Michael Chen</p>
                   <p className="text-sm text-purple-600">Small Agency Owner</p>
                 </div>
               </div>
@@ -93,7 +93,7 @@ export default function TestimonialsSection() {
                 <div className="w-14 h-14 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 overflow-hidden mr-4 p-0.5">
                   <div className="w-full h-full rounded-full overflow-hidden bg-white">
                     <Image
-                      src="/placeholder.svg?height=48&width=48"
+                      src="/avatar/alex.png"
                       alt="John"
                       width={48}
                       height={48}
@@ -102,7 +102,7 @@ export default function TestimonialsSection() {
                   </div>
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">John Rodriguez</p>
+                  <p className="font-bold text-gray-900 mb-0">John Rodriguez</p>
                   <p className="text-sm text-amber-600">ROAS Agency Director</p>
                 </div>
               </div>
