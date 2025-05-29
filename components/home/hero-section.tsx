@@ -6,7 +6,7 @@ import { useMediaQuery } from "@/hooks/use-media-query"
 import PaymentMethodsCompact from "./payment-methods-compact"
 
 // Import social media icons from lucide-react
-import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
+import { Facebook, Instagram, Linkedin } from "lucide-react"
 
 // Custom Discord icon component
 const DiscordIcon = ({ className }: { className?: string }) => (
@@ -29,59 +29,6 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
   </svg>
 )
 
-// Custom Messenger icon component
-const MessengerIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.301 2.246.464 3.443.464c6.627 0 12-4.974 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26l-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z" />
-  </svg>
-)
-
-// Payment method icons
-const StripeIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409c0-.831.683-1.305 1.901-1.305c2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0C9.667 0 7.589.654 6.104 1.872C4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219c2.585.92 3.445 1.574 3.445 2.583c0 .98-.84 1.545-2.354 1.545c-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813c1.664-1.305 2.525-3.236 2.525-5.732c0-4.128-2.524-5.851-6.591-7.305z" />
-  </svg>
-)
-
-const PayPalIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81c1.01 1.15 1.304 2.42 1.012 4.287c-.023.143-.047.288-.077.437c-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254c-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788l.038-.242l.733-4.655l.047-.301a.92.92 0 0 1 .91-.788h.58c3.76 0 6.705-1.528 7.565-5.946c.36-1.847.174-3.388-.777-4.471z" />
-  </svg>
-)
-
-const VisaIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M9.112 8.262L5.97 15.758l-.89-4.628c-.132-.683-.553-.89-1.06-.916H.062L0 9.887c.827.178 1.704.431 2.478.759c.476.202.612.377.77.865l2.52 9.661h2.473l4.5-11.11zm3.757 11.11h2.329l1.459-11.11h-2.329zm7.159-11.115l-2.329.004l-2.317 11.11h2.211l.36-1.92h2.727l.203 1.92h2.023l-1.731-11.11c-.162-.995-.626-1.11-1.147-1.11zm-1.303 6.85l.805-4.539l.524 4.54zm7.354-6.11c-.57-.038-1.353.03-2.077.312c-.527.204-.521.473-.806 1.074l-2.734 9.36h2.48l.402-1.463c.189-.682.488-.962.917-1.005c.163-.017.302-.024.415-.024c.68 0 .987.248.987.827c0 .418-.23.849-.768 1.015c-.577.177-1.648.264-2.875.264c-1.529 0-2.666-.417-2.666-1.903c0-.498.037-1.084.164-1.762l.316-1.412h2.47l-.255 1.242c-.059.318-.08.584-.08.802c0 .54.351.912 1.202.912c.728 0 1.145-.178 1.145-.67c0-.342-.233-.472-.722-.472c-.383 0-.774.024-1.152.024c-1.159 0-1.871-.427-1.871-1.279c0-.255.04-.553.132-.907l.44-1.639c.124-.442.26-.758.418-.979c.535-.743 1.433-1.043 2.784-1.043c1.705 0 2.812.41 2.812 1.606c0 .397-.058.849-.191 1.347z" />
-  </svg>
-)
-
-const MastercardIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M11.343 18.031c.058.049.12.098.181.146c-1.177.783-2.59 1.238-4.107 1.238C3.32 19.416 0 16.096 0 12c0-4.095 3.32-7.416 7.416-7.416c1.518 0 2.931.456 4.105 1.238c-.06.051-.12.098-.165.15C9.6 7.489 8.595 9.688 8.595 12c0 2.311 1.001 4.51 2.748 6.031zm5.241-13.447c-1.52 0-2.931.456-4.105 1.238c.06.051.12.098.165.15C14.4 7.489 15.405 9.688 15.405 12c0 2.31-1.001 4.507-2.748 6.031c-.058.049-.12.098-.181.146c1.177.783 2.588 1.238 4.107 1.238c4.094 0 7.416-3.32 7.416-7.416c0-4.095-3.322-7.416-7.416-7.416zM12 7.174c-.931 0-1.794.315-2.485.851c-.698.54-1.254 1.31-1.594 2.225c-.318.855-.479 1.766-.479 2.685c0 .919.164 1.829.479 2.684c.339.915.896 1.686 1.594 2.225c.689.536 1.554.851 2.485.851c.93 0 1.793-.315 2.484-.851c.697-.54 1.254-1.31 1.594-2.225c.318-.855.48-1.765.48-2.684c0-.919-.165-1.83-.48-2.685c-.339-.915-.896-1.685-1.594-2.225c-.69-.536-1.554-.851-2.484-.851z" />
-  </svg>
-)
-
-const BitcoinIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M23.638 14.904c-1.602 6.43-8.113 10.34-14.542 8.736C2.67 22.05-1.244 15.525.362 9.105C1.962 2.67 8.475-1.243 14.9.358c6.43 1.605 10.342 8.115 8.738 14.548v-.002zm-6.35-4.613c.24-1.59-.974-2.45-2.64-3.03l.54-2.153l-1.315-.33l-.525 2.107c-.345-.087-.705-.167-1.064-.25l.526-2.127l-1.32-.33l-.54 2.165c-.285-.067-.565-.132-.84-.2l-1.815-.45l-.35 1.407s.975.225.955.236c.535.136.63.486.615.766l-1.477 5.92c-.075.166-.24.406-.614.314c.015.02-.96-.24-.96-.24l-.66 1.51l1.71.426l.93.242l-.54 2.19l1.32.327l.54-2.17c.36.1.705.19 1.05.273l-.51 2.154l1.32.33l.545-2.19c2.24.427 3.93.257 4.64-1.774c.57-1.637-.03-2.58-1.217-3.196c.854-.193 1.5-.76 1.68-1.93h.01zm-3.01 4.22c-.404 1.64-3.157.75-4.05.53l.72-2.9c.896.23 3.757.67 3.33 2.37zm.41-4.24c-.37 1.49-2.662.735-3.405.55l.654-2.64c.744.18 3.137.524 2.75 2.084v.006z" />
-  </svg>
-)
-
-const WiseIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M8.37 24h6.14l3.67-8.37h5.82l-3.67 8.37h6.14L30.34 15.63H24.52l2.76-6.3h-6.14l-2.76 6.3h-5.82l2.76-6.3H9.18L6.42 15.63H.6L0 24h8.37zm0 0" />
-  </svg>
-)
-
-const IbanIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <rect x="2" y="5" width="20" height="14" rx="2" />
-    <path d="M2 10h20" />
-    <path d="M7 15h2" />
-    <path d="M13 15h4" />
-  </svg>
-)
-
 export default function HeroSection() {
   const isMobile = useMediaQuery("(max-width: 768px)")
 
@@ -89,16 +36,12 @@ export default function HeroSection() {
   if (isMobile) {
     return (
       <section className="py-12 relative overflow-hidden">
-        {/* Colorful background elements */}
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-50 to-purple-50 opacity-70"></div>
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.1),transparent_25%),radial-gradient(circle_at_70%_60%,rgba(147,51,234,0.1),transparent_25%)]"></div>
-
         {/* Floating social media icons - mobile version */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-10 left-5 animate-float">
+          <div className="absolute top-[8%] left-10 animate-float">
             <div className="relative">
-              <div className="absolute inset-0 bg-blue-400 rounded-full blur-lg opacity-20"></div>
-              <Facebook className="h-10 w-10 text-blue-400/25 relative" />
+              <div className="absolute inset-0 bg-green-400 rounded-full blur-lg opacity-20"></div>
+              <WhatsAppIcon className="h-10 w-10 text-green-400/25 relative" />
             </div>
           </div>
           <div className="absolute top-20 right-10 animate-float-delay">
@@ -107,26 +50,10 @@ export default function HeroSection() {
               <Instagram className="h-10 w-10 text-pink-400/25 relative" />
             </div>
           </div>
-          <div className="absolute bottom-40 left-10 animate-float-slow">
-            <div className="relative">
-              <div className="absolute inset-0 bg-blue-300 rounded-full blur-lg opacity-20"></div>
-              <TelegramIcon className="h-10 w-10 text-blue-300/25 relative" />
-            </div>
-          </div>
-          <div className="absolute bottom-20 right-5 animate-float-delay-2">
-            <div className="relative">
-              <div className="absolute inset-0 bg-green-400 rounded-full blur-lg opacity-20"></div>
-              <WhatsAppIcon className="h-10 w-10 text-green-400/25 relative" />
-            </div>
-          </div>
         </div>
 
         <div className="container mx-auto px-4 relative">
           <div className="flex flex-col items-center text-center">
-            <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-2 rounded-full text-sm font-medium mb-6 shadow-md">
-              Professional Facebook Ads Solutions
-            </div>
-
             {/* Enhanced Facebook Logo for Mobile */}
             <div className="relative mb-8 mt-2">
               <div className="w-28 h-28 rounded-full bg-gradient-to-br from-blue-500 via-blue-600 to-purple-600 p-0.5 shadow-xl animate-pulse-slow">
@@ -179,44 +106,45 @@ export default function HeroSection() {
               Your Marketing Partner for Success!
             </p>
 
-            {/* Mobile buttons - main CTAs */}
-            <div className="mb-6"></div>
-
-            {/* Social media buttons - mobile clean style */}
-            <div className="flex flex-col space-y-4 w-full max-w-xs mb-12">
+            {/* Social media buttons - mobile responsive grid */}
+            <div className="grid grid-cols-2 gap-3 w-full max-w-sm mb-12">
               <Button
                 variant="ghost"
-                className="flex items-center justify-start gap-3 hover:bg-transparent group transition-all duration-300"
+                className="flex items-center justify-center gap-2 px-3 py-3 rounded-lg hover:bg-indigo-50 hover:border-indigo-200 hover:shadow-md border border-transparent group transition-all duration-300 relative overflow-hidden"
               >
-                <DiscordIcon className="h-6 w-6 text-indigo-600 group-hover:scale-110 transition-transform duration-300" />
-                <span className="text-lg font-medium text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
+                <div className="absolute inset-0 bg-indigo-100 opacity-0 group-hover:opacity-20 blur-xl transition-all duration-300"></div>
+                <DiscordIcon className="h-5 w-5 text-indigo-600 group-hover:scale-110 transition-transform duration-300 relative z-10" />
+                <span className="text-sm font-medium text-gray-900 group-hover:text-indigo-600 transition-colors duration-300 relative z-10">
                   Discord
                 </span>
               </Button>
               <Button
                 variant="ghost"
-                className="flex items-center justify-start gap-3 hover:bg-transparent group transition-all duration-300"
+                className="flex items-center justify-center gap-2 px-3 py-3 rounded-lg hover:bg-blue-50 hover:border-blue-200 hover:shadow-md border border-transparent group transition-all duration-300 relative overflow-hidden"
               >
-                <TelegramIcon className="h-6 w-6 text-blue-500 group-hover:scale-110 transition-transform duration-300" />
-                <span className="text-lg font-medium text-gray-900 group-hover:text-blue-500 transition-colors duration-300">
+                <div className="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-20 blur-xl transition-all duration-300"></div>
+                <TelegramIcon className="h-5 w-5 text-blue-500 group-hover:scale-110 transition-transform duration-300 relative z-10" />
+                <span className="text-sm font-medium text-gray-900 group-hover:text-blue-500 transition-colors duration-300 relative z-10">
                   Telegram
                 </span>
               </Button>
               <Button
                 variant="ghost"
-                className="flex items-center justify-start gap-3 hover:bg-transparent group transition-all duration-300"
+                className="flex items-center justify-center gap-2 px-3 py-3 rounded-lg hover:bg-green-50 hover:border-green-200 hover:shadow-md border border-transparent group transition-all duration-300 relative overflow-hidden"
               >
-                <WhatsAppIcon className="h-6 w-6 text-green-500 group-hover:scale-110 transition-transform duration-300" />
-                <span className="text-lg font-medium text-gray-900 group-hover:text-green-500 transition-colors duration-300">
+                <div className="absolute inset-0 bg-green-100 opacity-0 group-hover:opacity-20 blur-xl transition-all duration-300"></div>
+                <WhatsAppIcon className="h-5 w-5 text-green-500 group-hover:scale-110 transition-transform duration-300 relative z-10" />
+                <span className="text-sm font-medium text-gray-900 group-hover:text-green-500 transition-colors duration-300 relative z-10">
                   WhatsApp
                 </span>
               </Button>
               <Button
                 variant="ghost"
-                className="flex items-center justify-start gap-3 hover:bg-transparent group transition-all duration-300"
+                className="flex items-center justify-center gap-2 px-3 py-3 rounded-lg hover:bg-blue-50 hover:border-blue-200 hover:shadow-md border border-transparent group transition-all duration-300 relative overflow-hidden"
               >
-                <Linkedin className="h-6 w-6 text-blue-700 group-hover:scale-110 transition-transform duration-300" />
-                <span className="text-lg font-medium text-gray-900 group-hover:text-blue-700 transition-colors duration-300">
+                <div className="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-20 blur-xl transition-all duration-300"></div>
+                <Linkedin className="h-5 w-5 text-blue-700 group-hover:scale-110 transition-transform duration-300 relative z-10" />
+                <span className="text-sm font-medium text-gray-900 group-hover:text-blue-700 transition-colors duration-300 relative z-10">
                   LinkedIn
                 </span>
               </Button>
@@ -237,40 +165,24 @@ export default function HeroSection() {
     <section className="py-16 relative overflow-hidden">
       {/* Floating social media icons with blur/glow effects - strategically placed in corners */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Top left - Discord */}
-        <div className="absolute top-10 left-10 animate-float">
+        {/* Top right - Telegram */}
+        <div className="absolute top-[13%] right-[17%] animate-float">
           <div className="relative">
             <div className="absolute inset-0 bg-indigo-400 rounded-full blur-2xl opacity-25"></div>
-            <DiscordIcon className="h-16 w-16 text-indigo-400/30 relative" />
-          </div>
-        </div>
-
-        {/* Top right - Telegram */}
-        <div className="absolute top-10 right-10 animate-float-delay">
-          <div className="relative">
-            <div className="absolute inset-0 bg-blue-300 rounded-full blur-2xl opacity-25"></div>
-            <TelegramIcon className="h-18 w-18 text-blue-300/30 relative" />
+            <TelegramIcon className="h-16 w-16 text-indigo-400/100 relative" />
           </div>
         </div>
 
         {/* Middle left - Facebook */}
-        <div className="absolute top-1/3 left-20 animate-float-slow">
+        <div className="absolute top-[6%] left-[18%] animate-float-slow">
           <div className="relative">
             <div className="absolute inset-0 bg-blue-400 rounded-full blur-2xl opacity-25"></div>
-            <Facebook className="h-14 w-14 text-blue-400/30 relative" />
-          </div>
-        </div>
-
-        {/* Middle right - Messenger */}
-        <div className="absolute top-1/3 right-20 animate-float">
-          <div className="relative">
-            <div className="absolute inset-0 bg-blue-500 rounded-full blur-2xl opacity-25"></div>
-            <MessengerIcon className="h-14 w-14 text-blue-500/30 relative" />
+            <Facebook className="h-14 w-14 text-blue-400/100 relative" />
           </div>
         </div>
 
         {/* Bottom left - Instagram */}
-        <div className="absolute bottom-32 left-10 animate-float-delay-2">
+        <div className="absolute top-[52%] left-[22%] animate-float-delay-2">
           <div className="relative">
             <div className="absolute inset-0 bg-pink-400 rounded-full blur-2xl opacity-25"></div>
             <Instagram className="h-16 w-16 text-pink-400/30 relative" />
@@ -278,30 +190,13 @@ export default function HeroSection() {
         </div>
 
         {/* Bottom right - WhatsApp */}
-        <div className="absolute bottom-32 right-10 animate-float-slow">
+        <div className="absolute top-[62%] right-[24%] animate-float-slow">
           <div className="relative">
             <div className="absolute inset-0 bg-green-400 rounded-full blur-2xl opacity-25"></div>
             <WhatsAppIcon className="h-16 w-16 text-green-400/30 relative" />
           </div>
         </div>
-
-        {/* Bottom middle left - LinkedIn */}
-        <div className="absolute bottom-10 left-1/3 animate-float">
-          <div className="relative">
-            <div className="absolute inset-0 bg-blue-500 rounded-full blur-2xl opacity-25"></div>
-            <Linkedin className="h-14 w-14 text-blue-500/30 relative" />
-          </div>
-        </div>
-
-        {/* Bottom middle right - Twitter */}
-        <div className="absolute bottom-10 right-1/3 animate-float-delay">
-          <div className="relative">
-            <div className="absolute inset-0 bg-sky-400 rounded-full blur-2xl opacity-25"></div>
-            <Twitter className="h-14 w-14 text-sky-400/30 relative" />
-          </div>
-        </div>
       </div>
-
       <div className="container mx-auto px-4 relative">
         <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
           <h1
@@ -325,55 +220,56 @@ export default function HeroSection() {
             for Advertising!
           </h1>
 
-          <p className="text-xl text-gray-600 mb-24 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 mb-32 max-w-2xl mx-auto">
             Your Marketing Partner for Success!
           </p>
 
-          {/* Main CTA buttons section */}
-          <div className="mb-8"></div>
-
           {/* Social media buttons - clean style */}
-          <div className="flex justify-center items-center gap-12 mb-8">
+          <div className="flex justify-center items-center gap-8 mb-10">
             <Button
               variant="ghost"
-              className="flex items-center justify-start gap-3 hover:bg-transparent group transition-all duration-300"
+              className="flex items-center justify-start gap-3 px-6 py-3 rounded-lg hover:bg-indigo-50 hover:border-indigo-300 hover:shadow-lg border-2 border-transparent group transition-all duration-300 relative overflow-hidden"
             >
-              <DiscordIcon className="h-7 w-7 text-indigo-600 group-hover:scale-110 transition-transform duration-300" />
-              <span className="text-xl font-medium text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
+              <div className="absolute inset-0 bg-indigo-100 opacity-0 group-hover:opacity-30 blur-xl transition-all duration-300"></div>
+              <DiscordIcon className="h-7 w-7 text-indigo-600 group-hover:scale-110 transition-transform duration-300 relative z-10" />
+              <span className="text-xl font-medium text-gray-900 group-hover:text-indigo-600 transition-colors duration-300 relative z-10">
                 Discord
               </span>
             </Button>
             <Button
               variant="ghost"
-              className="flex items-center justify-start gap-3 hover:bg-transparent group transition-all duration-300"
+              className="flex items-center justify-start gap-3 px-6 py-3 rounded-lg hover:bg-blue-50 hover:border-blue-300 hover:shadow-lg border-2 border-transparent group transition-all duration-300 relative overflow-hidden"
             >
-              <TelegramIcon className="h-7 w-7 text-blue-500 group-hover:scale-110 transition-transform duration-300" />
-              <span className="text-xl font-medium text-gray-900 group-hover:text-blue-500 transition-colors duration-300">
+              <div className="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-30 blur-xl transition-all duration-300"></div>
+              <TelegramIcon className="h-7 w-7 text-blue-500 group-hover:scale-110 transition-transform duration-300 relative z-10" />
+              <span className="text-xl font-medium text-gray-900 group-hover:text-blue-500 transition-colors duration-300 relative z-10">
                 Telegram
               </span>
             </Button>
             <Button
               variant="ghost"
-              className="flex items-center justify-start gap-3 hover:bg-transparent group transition-all duration-300"
+              className="flex items-center justify-start gap-3 px-6 py-3 rounded-lg hover:bg-green-50 hover:border-green-300 hover:shadow-lg border-2 border-transparent group transition-all duration-300 relative overflow-hidden"
             >
-              <WhatsAppIcon className="h-7 w-7 text-green-500 group-hover:scale-110 transition-transform duration-300" />
-              <span className="text-xl font-medium text-gray-900 group-hover:text-green-500 transition-colors duration-300">
+              <div className="absolute inset-0 bg-green-100 opacity-0 group-hover:opacity-30 blur-xl transition-all duration-300"></div>
+              <WhatsAppIcon className="h-7 w-7 text-green-500 group-hover:scale-110 transition-transform duration-300 relative z-10" />
+              <span className="text-xl font-medium text-gray-900 group-hover:text-green-500 transition-colors duration-300 relative z-10">
                 WhatsApp
               </span>
             </Button>
             <Button
               variant="ghost"
-              className="flex items-center justify-start gap-3 hover:bg-transparent group transition-all duration-300"
+              className="flex items-center justify-start gap-3 px-6 py-3 rounded-lg hover:bg-blue-50 hover:border-blue-300 hover:shadow-lg border-2 border-transparent group transition-all duration-300 relative overflow-hidden"
             >
-              <Linkedin className="h-7 w-7 text-blue-700 group-hover:scale-110 transition-transform duration-300" />
-              <span className="text-xl font-medium text-gray-900 group-hover:text-blue-700 transition-colors duration-300">
+              <div className="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-30 blur-xl transition-all duration-300"></div>
+              <Linkedin className="h-7 w-7 text-blue-700 group-hover:scale-110 transition-transform duration-300 relative z-10" />
+              <span className="text-xl font-medium text-gray-900 group-hover:text-blue-700 transition-colors duration-300 relative z-10">
                 LinkedIn
               </span>
             </Button>
           </div>
 
           {/* Enhanced Payment methods block */}
-          <div className="flex justify-center mb-16 mt-8">
+          <div className="flex justify-center my-0">
             <PaymentMethodsCompact />
           </div>
         </div>
