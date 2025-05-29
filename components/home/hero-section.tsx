@@ -162,7 +162,7 @@ export default function HeroSection() {
 
   // Desktop hero section - centered layout with illustrations
   return (
-    <section className="py-16 pt:20 relative overflow-hidden">
+    <section className="py-16 pt-24 relative overflow-hidden">
       {/* Floating social media icons with blur/glow effects - strategically placed in corners */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Top right - Telegram */}
@@ -220,8 +220,8 @@ export default function HeroSection() {
             for Advertising!
           </h1>
 
-          <p className="text-xl text-gray-600 mb-40 max-w-2xl mx-auto">
-            Your Marketing Partner for Success!
+          <p className="text-xl text-gray-600 mb-48 max-w-2xl mx-auto">
+            Your Marketing Partner for Success: GoAds Agency
           </p>
 
           {/* Social media buttons - clean style */}
