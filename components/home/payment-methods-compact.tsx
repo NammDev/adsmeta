@@ -89,7 +89,7 @@ export default function PaymentMethodsCompact() {
       </div>
 
       {/* Desktop View */}
-      <div className="hidden md:flex relative z-10 h-[300px]">
+      <div className="hidden md:flex relative z-10 h-[260px]">
         {/* Left Content */}
         <div className="w-[55%] p-8 flex flex-col justify-between">
           <div>
