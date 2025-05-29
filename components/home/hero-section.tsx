@@ -162,7 +162,7 @@ export default function HeroSection() {
 
   // Desktop hero section - centered layout with illustrations
   return (
-    <section className="py-16 relative overflow-hidden">
+    <section className="py-16 pt:20 relative overflow-hidden">
       {/* Floating social media icons with blur/glow effects - strategically placed in corners */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Top right - Telegram */}
@@ -220,7 +220,7 @@ export default function HeroSection() {
             for Advertising!
           </h1>
 
-          <p className="text-xl text-gray-600 mb-32 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 mb-40 max-w-2xl mx-auto">
             Your Marketing Partner for Success!
           </p>
 
@@ -232,7 +232,7 @@ export default function HeroSection() {
             >
               <div className="absolute inset-0 bg-indigo-100 opacity-0 group-hover:opacity-30 blur-xl transition-all duration-300"></div>
               <DiscordIcon className="h-7 w-7 text-indigo-600 group-hover:scale-110 transition-transform duration-300 relative z-10" />
-              <span className="text-xl font-medium text-gray-900 group-hover:text-indigo-600 transition-colors duration-300 relative z-10">
+              <span className="text-lg font-medium text-gray-900 group-hover:text-indigo-600 transition-colors duration-300 relative z-10">
                 Discord
               </span>
             </Button>
@@ -242,7 +242,7 @@ export default function HeroSection() {
             >
               <div className="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-30 blur-xl transition-all duration-300"></div>
               <TelegramIcon className="h-7 w-7 text-blue-500 group-hover:scale-110 transition-transform duration-300 relative z-10" />
-              <span className="text-xl font-medium text-gray-900 group-hover:text-blue-500 transition-colors duration-300 relative z-10">
+              <span className="text-lg font-medium text-gray-900 group-hover:text-blue-500 transition-colors duration-300 relative z-10">
                 Telegram
               </span>
             </Button>
@@ -252,7 +252,7 @@ export default function HeroSection() {
             >
               <div className="absolute inset-0 bg-green-100 opacity-0 group-hover:opacity-30 blur-xl transition-all duration-300"></div>
               <WhatsAppIcon className="h-7 w-7 text-green-500 group-hover:scale-110 transition-transform duration-300 relative z-10" />
-              <span className="text-xl font-medium text-gray-900 group-hover:text-green-500 transition-colors duration-300 relative z-10">
+              <span className="text-lg font-medium text-gray-900 group-hover:text-green-500 transition-colors duration-300 relative z-10">
                 WhatsApp
               </span>
             </Button>
@@ -262,7 +262,7 @@ export default function HeroSection() {
             >
               <div className="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-30 blur-xl transition-all duration-300"></div>
               <Linkedin className="h-7 w-7 text-blue-700 group-hover:scale-110 transition-transform duration-300 relative z-10" />
-              <span className="text-xl font-medium text-gray-900 group-hover:text-blue-700 transition-colors duration-300 relative z-10">
+              <span className="text-lg font-medium text-gray-900 group-hover:text-blue-700 transition-colors duration-300 relative z-10">
                 LinkedIn
               </span>
             </Button>
