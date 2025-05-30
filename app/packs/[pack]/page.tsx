@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -43,146 +43,26 @@ import { processContent } from "@/lib/utils"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { CartNotification } from "@/components/cart/cart-notification"
 import { cn } from "@/lib/utils"
-
-// Mock data for the pack - as provided in the current file
-const packsData = {
-  id: "popular-pack",
-  slug: "popular-pack",
-  name: "Popular Pack",
-  description: "Perfect for beginners and small businesses",
-  price: 420,
-  comparePrice: 500,
-  category: "agency",
-  image: "/placeholder.svg?width=400&height=400", // Placeholder image
-  stock: "in-stock",
-  badge: "Best Value",
-  purchases: 250,
-  products: [
-    {
-      productId: "bm-verified-250",
-      quantity: 1,
-      role: "1 Admin + 2 Employee Ad Account (BM Verified $250 Limit)",
-    },
-    {
-      productId: "bm-verified-250-pixel",
-      quantity: 1,
-      role: "Pixel & Page, 2 Admin (BM Verified $250 Limit)",
-    },
-    { productId: "fanpage", quantity: 2, role: "Optimized Advertising Page" },
-    { productId: "via-usa-greenline", quantity: 5, role: "USA Via (Including 2 Greenline)" },
-  ],
-  detail: `<p><strong>Popular Pack</strong> is specially designed for agencies and professional advertisers, offering a complete solution to scale your campaigns.</p><ul><li>Includes <strong>2 BM Verified $250 Limit:</strong> One BM with <span>1 Admin + 2 Employee</span> permissions, and another with <span>Pixel & Page + 2 Admin</span> for flexible management and delegation.</li><li>Comes with <strong>2 high-quality Fanpages:</strong> Pre-optimized for advertising, boosting engagement and credibility.</li><li>Features <strong>5 USA Via accounts:</strong> Including <span>2 Greenline Vias</span>, ensuring high trust and stability for critical ad campaigns.</li><li><strong>Ready to use:</strong> All accounts and pages are meticulously prepared — <span>start your campaigns immediately</span> without complex setup.</li></ul>`,
-  solution:
-    "A comprehensive solution for agencies aiming to run large-scale ads with reliable USA accounts, optimizing performance and minimizing risks.",
-  faq: [
-    {
-      question: "What is a Greenline Via, and why is it important?",
-      answer:
-        "A Greenline Via is a high-quality USA account with verified status, ensuring higher trust and stability for managing ad accounts. It’s ideal for agencies running large-scale campaigns as it reduces the risk of restrictions.",
-    },
-    {
-      question: "How do I set up the BM and Via in this pack?",
-      answer:
-        "Your pack comes with a detailed Setup Guide (see the 'Setup Guide' tab). You can also contact our support team via Live Chat or Email for personalized assistance during business hours.",
-    },
-    {
-      question: "Can I customize this pack or request different components?",
-      answer:
-        "While this pack is pre-configured for optimal value, we do offer custom solutions. Please contact our support team to discuss your specific needs, and we'll do our best to accommodate them.",
-    },
-    {
-      question: "What happens if an account in the pack gets restricted?",
-      answer:
-        "All accounts in the Popular Pack come with a 30-day replacement warranty. If any account is restricted within 30 days of purchase due to issues not caused by policy violations on your part, we’ll replace it free of charge.",
-    },
-  ],
-  budgetInfo: {
-    dailyBudget: 250,
-    warning:
-      "Each BM in this pack supports a $250 daily spend limit per ad account. This is ideal for scaling campaigns effectively while maintaining account health.",
-  },
-  review: {
-    rating: 4.8,
-    count: 60,
-    comments: [
-      "High-quality USA accounts!",
-      "Great value for agencies.",
-      "Fast and effective support.",
-    ],
-  },
-}
-
-type Pack = typeof packsData
-
-// Stock status indicator
-const stockStatusConfig = {
-  "in-stock": {
-    label: "In Stock",
-    color: "bg-gradient-to-r from-green-400 to-emerald-500 text-white",
-    icon: <CheckCircle2 className="h-4 w-4 mr-1.5" />,
-  },
-  "low-stock": {
-    label: "Low Stock",
-    color: "bg-gradient-to-r from-amber-400 to-orange-500 text-white",
-    icon: <AlertCircle className="h-4 w-4 mr-1.5" />,
-  },
-  "out-of-stock": {
-    label: "Out of Stock",
-    color: "bg-gradient-to-r from-red-400 to-rose-500 text-white",
-    icon: <Info className="h-4 w-4 mr-1.5" />,
-  },
-}
+import { getPackageDetailBySlug } from "@/data/packs"
+import type { FAQ, Package, ProductInPack } from "@/data/packs"
+import { useParams } from "next/navigation"
 
 export default function PackPage() {
-  const pack: Pack = packsData // In a real app, you'd fetch this based on params
-  const { addItem, openCart } = useCart()
+  const params = useParams()
+  const packSlug = params.pack as string
+  const [pack, setPack] = useState<Package | null>(null)
+  const { addToCart } = useCart()
   const [quantity, setQuantity] = useState(1)
   const [showNotification, setShowNotification] = useState(false)
   const [addedItem, setAddedItem] = useState<any>(null)
   const [isAddingToCart, setIsAddingToCart] = useState(false)
   const isMobile = useMediaQuery("(max-width: 768px)")
 
-  const handleAddToCart = () => {
-    if (!addItem) return
-    setIsAddingToCart(true)
-
-    const cartItem = {
-      id: pack.id,
-      slug: `/packs/${pack.slug}`,
-      name: pack.name,
-      price: pack.price,
-      image: pack.image,
-      quantity: quantity,
-      category: "pack",
-    }
-
-    addItem(cartItem)
-    setAddedItem(cartItem)
-
-    if (isMobile) {
-      setShowNotification(true)
-    } else if (openCart) {
-      openCart()
-    }
-
-    setTimeout(() => setIsAddingToCart(false), 1000)
-  }
-
-  // Stock status indicator
-  const stockStatus = {
-    "in-stock": {
-      label: "In Stock",
-      color: "bg-gradient-to-r from-green-400 to-emerald-500 text-white",
-    },
-    "low-stock": {
-      label: "Low Stock",
-      color: "bg-gradient-to-r from-amber-400 to-orange-500 text-white",
-    },
-    "out-of-stock": {
-      label: "Out of Stock",
-      color: "bg-gradient-to-r from-red-400 to-rose-500 text-white",
-    },
-  }
+  useEffect(() => {
+    // Get the product based on the slug
+    const pack = getPackageDetailBySlug(packSlug)
+    setPack(pack || null)
+  }, [packSlug])
 
   if (!pack) {
     return (
@@ -202,6 +82,45 @@ export default function PackPage() {
         </div>
       </SupportingPageLayout>
     )
+  }
+
+  const handleAddToCart = async () => {
+    setIsAddingToCart(true)
+
+    const cartItem = {
+      id: pack.id,
+      name: pack.name,
+      price: pack.price,
+      image: pack.image,
+      quantity: quantity,
+      category: pack.category,
+    }
+
+    addToCart(cartItem)
+
+    // Show notification on mobile, direct cart access on desktop
+    if (isMobile) {
+      setAddedItem(cartItem)
+      setShowNotification(true)
+    }
+
+    setIsAddingToCart(false)
+  }
+
+  // Stock status indicator
+  const stockStatus = {
+    "in-stock": {
+      label: "In Stock",
+      color: "bg-gradient-to-r from-green-400 to-emerald-500 text-white",
+    },
+    "low-stock": {
+      label: "Low Stock",
+      color: "bg-gradient-to-r from-amber-400 to-orange-500 text-white",
+    },
+    "out-of-stock": {
+      label: "Out of Stock",
+      color: "bg-gradient-to-r from-red-400 to-rose-500 text-white",
+    },
   }
 
   return (
@@ -347,7 +266,7 @@ export default function PackPage() {
                 </h4>
 
                 <ul className="space-y-3">
-                  {pack.products.map((item, index) => (
+                  {pack.products.map((item: ProductInPack, index: number) => (
                     <li
                       key={index}
                       className="flex items-start p-3 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow"
@@ -439,7 +358,7 @@ export default function PackPage() {
                         </CardHeader>
                         <CardContent>
                           <Accordion type="single" collapsible className="w-full">
-                            {pack.faq.map((item, index) => (
+                            {pack.faq.map((item: FAQ, index: number) => (
                               <AccordionItem value={`item-${index}`} key={index}>
                                 <AccordionTrigger className="text-left hover:no-underline text-gray-800 font-medium">
                                   {item.question}
@@ -629,6 +548,7 @@ export default function PackPage() {
       {showNotification && addedItem && (
         <CartNotification
           item={addedItem}
+          show={showNotification}
           onClose={() => {
             setShowNotification(false)
             setAddedItem(null)
