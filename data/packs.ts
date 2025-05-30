@@ -40,6 +40,21 @@ export interface Package {
   review: Review
 }
 
+export interface PackageLandingPage {
+  id: string
+  slug: string
+  name: string
+  description: string
+  price: number
+  image: string
+  badge?: string
+  products: ProductInPack[]
+  gradient: string
+  bgGradient: string
+  borderColor: string
+  hoverGradient: string
+}
+
 // Mock data for the pack - as provided in the current file
 const packsData: Package[] = [
   {
@@ -140,7 +155,7 @@ const packsData: Package[] = [
       "An all-in-one solution for small businesses to set up and run professional Facebook ad campaigns with ease.",
     faq: [
       {
-        question: "What’s the difference between a BM Verified and BM Unverified?",
+        question: "What's the difference between a BM Verified and BM Unverified?",
         answer:
           "A BM Verified is authenticated with higher trust, ideal for adding Agency accounts, while a BM Unverified is suitable for basic ad setups with Pixel and Page integration. Both are pre-configured for immediate use.",
       },
@@ -157,7 +172,7 @@ const packsData: Package[] = [
       {
         question: "What happens if an account in the pack gets restricted?",
         answer:
-          "All accounts in the Basic Pack come with a 30-day replacement warranty. If any account is restricted within 30 days due to issues not caused by policy violations on your part, we’ll replace it free of charge.",
+          "All accounts in the Basic Pack come with a 30-day replacement warranty. If any account is restricted within 30 days due to issues not caused by policy violations on your part, we'll replace it free of charge.",
       },
     ],
     budgetInfo: {
@@ -211,7 +226,7 @@ const packsData: Package[] = [
       {
         question: "What happens if an account in the pack gets restricted?",
         answer:
-          "All accounts in the Super Basic Pack come with a 30-day replacement warranty. If any account is restricted within 30 days due to issues not caused by policy violations on your part, we’ll replace it free of charge.",
+          "All accounts in the Super Basic Pack come with a 30-day replacement warranty. If any account is restricted within 30 days due to issues not caused by policy violations on your part, we'll replace it free of charge.",
       },
     ],
     budgetInfo: {
@@ -274,7 +289,7 @@ const packsData: Package[] = [
       {
         question: "What happens if an account in the pack gets restricted?",
         answer:
-          "All accounts in the Vip Pro Max Pack come with a 30-day replacement warranty. If any account is restricted within 30 days due to issues not caused by policy violations on your part, we’ll replace it free of charge.",
+          "All accounts in the Vip Pro Max Pack come with a 30-day replacement warranty. If any account is restricted within 30 days due to issues not caused by policy violations on your part, we'll replace it free of charge.",
       },
     ],
     budgetInfo: {
@@ -296,4 +311,43 @@ const packsData: Package[] = [
 
 export function getPackageDetailBySlug(slug: string): Package | undefined {
   return packsData.find((pack) => pack.slug === slug)
+}
+
+// Landing page specific helper
+export function getPackagesLandingPage(): PackageLandingPage[] {
+  const styles = [
+    {
+      gradient: "from-purple-600 to-pink-600",
+      bgGradient: "bg-gradient-to-r from-purple-600 to-pink-600",
+      hoverGradient: "from-purple-700 to-pink-700",
+      borderColor: "border-purple-200",
+    },
+    {
+      gradient: "from-blue-600 to-indigo-600",
+      bgGradient: "bg-gradient-to-r from-blue-600 to-indigo-600",
+      hoverGradient: "from-blue-700 to-indigo-700",
+      borderColor: "border-blue-200",
+    },
+    {
+      gradient: "from-green-600 to-teal-600",
+      bgGradient: "bg-gradient-to-r from-green-600 to-teal-600",
+      hoverGradient: "from-green-700 to-teal-700",
+      borderColor: "border-green-200",
+    },
+  ]
+
+  return [...packsData]
+    .sort((a, b) => b.price - a.price)
+    .slice(0, 3)
+    .map(({ id, slug, name, description, price, image, badge, products }, index) => ({
+      id,
+      slug,
+      name,
+      description,
+      price,
+      image,
+      badge,
+      products,
+      ...styles[index],
+    }))
 }
