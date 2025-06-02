@@ -1,5 +1,5 @@
 export const CONTACT_INFO = {
-  phone: "+84 865046497", // Replace with your actual phone number
+  phone: "+84 865717497", // Replace with your actual phone number
   telegram: "@goads_official",
   telegramUrl: "https://t.me/goads_official",
   website: "https://goads.shop",

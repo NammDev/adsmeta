@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
+import { CONTACT_INFO } from "@/config"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -30,26 +31,30 @@ export function processContent(content: string) {
 }
 
 // Contact utility functions
-export function openWhatsApp(phoneNumber?: string, message?: string) {
-  const defaultPhone = "1234567890" // Replace with your actual phone number
+export function openWhatsApp(message?: string) {
+  const defaultPhone = CONTACT_INFO.phone.replace(/\D/g, "") // Remove non-digits
   const defaultMessage = "Hello! I'm interested in your products."
 
-  const phone = phoneNumber || defaultPhone
+  const phone = defaultPhone
   const msg = message || defaultMessage
   const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
 
   window.open(url, "_blank")
 }
 
-export function openTelegram(username?: string) {
-  const defaultUsername = "yourusername" // Replace with your actual Telegram username
-  const telegramUsername = username || defaultUsername
+export function openTelegram(message?: string) {
+  const defaultUsername = CONTACT_INFO.telegram.replace("@", "") // Remove @ symbol
+  const defaultMessage = "Hello! I'm interested in your products."
 
-  window.open(`https://t.me/${telegramUsername}`, "_blank")
+  const telegramUsername = defaultUsername
+  const msg = message || defaultMessage
+  const url = `https://t.me/${telegramUsername}?text=${encodeURIComponent(msg)}`
+
+  window.open(url, "_blank")
 }
 
 export function openEmail(email?: string, subject?: string, body?: string) {
-  const defaultEmail = "your-email@gmail.com" // Replace with your actual email
+  const defaultEmail = CONTACT_INFO.email
   const defaultSubject = "Inquiry about your products"
   const defaultBody = "Hello! I'm interested in learning more about your products."
 

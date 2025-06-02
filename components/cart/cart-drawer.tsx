@@ -16,6 +16,16 @@ export function CartDrawer() {
   const [isAnimating, setIsAnimating] = useState(false)
   const isMobile = useMediaQuery("(max-width: 767px)")
 
+  // Helper function to generate cart message
+  const generateCartMessage = () => {
+    return `I'm interested in your products:\n${items
+      .map(
+        (item) =>
+          `- ${item.name} (Qty: ${item.quantity}) - €${(item.price * item.quantity).toFixed(2)}`
+      )
+      .join("\n")}\n\nTotal: €${subtotal.toFixed(2)}`
+  }
+
   // Handle animations and keyboard events
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -226,7 +236,7 @@ export function CartDrawer() {
                   <div className="flex gap-2 mb-4">
                     <Button
                       key="telegram"
-                      onClick={() => openTelegram()}
+                      onClick={() => openTelegram(generateCartMessage())}
                       className="flex-1 h-10 relative overflow-hidden group"
                     >
                       <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:from-blue-600 group-hover:to-purple-600 transition-colors"></span>
@@ -240,7 +250,7 @@ export function CartDrawer() {
 
                     <Button
                       key="whatsapp"
-                      onClick={() => openWhatsApp()}
+                      onClick={() => openWhatsApp(generateCartMessage())}
                       className="flex-1 h-10 relative overflow-hidden group"
                     >
                       <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:from-blue-600 group-hover:to-purple-600 transition-colors"></span>
