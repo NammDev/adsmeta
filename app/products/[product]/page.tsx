@@ -313,9 +313,9 @@ export default function ProductPage() {
             {/* Product Overview */}
             <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
               <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-200/20 to-purple-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
-              <CardContent className="p-6 relative z-10">
-                <div className="flex flex-col md:flex-row gap-6">
-                  {/* Product Image */}
+              <CardContent className="p-6 md:px-10 relative z-10">
+                <div className="flex flex-col md:flex-row md:gap-20">
+                  {/* product Image */}
                   <div className="md:w-1/4 flex-shrink-0">
                     <div className="relative aspect-square rounded-xl overflow-hidden border-0 bg-white shadow-lg hover:shadow-xl transition-all duration-300 group">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay group-hover:opacity-70 transition-opacity duration-300"></div>
@@ -335,9 +335,9 @@ export default function ProductPage() {
                     </div>
                   </div>
 
-                  {/* Product Details */}
+                  {/* product Details */}
                   <div className="md:w-3/4">
-                    <div className="flex items-center gap-2 mb-2">
+                    <div className="flex items-center gap-2 mb-4">
                       <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center shadow-md">
                         <Package2 className="h-5 w-5 text-white" />
                       </div>

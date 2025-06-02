@@ -1,24 +1,22 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Check, ArrowRight, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react"
 import { useCart } from "@/context/cart-context"
 import { CartNotification } from "@/components/cart/cart-notification"
-import { getLandingPagePackages } from "@/data/packages"
 import SectionHeader from "../ui/section-header"
+import { getPackagesLandingPage } from "@/data/packs"
 
 export default function PackagesSection() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
   const [isMobile, setIsMobile] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [isAdding, setIsAdding] = useState<number | null>(null)
+  const [isAdding, setIsAdding] = useState<string | null>(null)
   const [showNotification, setShowNotification] = useState(false)
   const [addedItem, setAddedItem] = useState<any>(null)
   const { addItem, openCart } = useCart() || {}
@@ -39,20 +37,7 @@ export default function PackagesSection() {
   }, [])
 
   // Get packages from centralized data source
-  const packages = getLandingPagePackages().map((pack) => ({
-    id: pack.numericId,
-    slug: pack.slug,
-    name: pack.name,
-    description: pack.description,
-    price: pack.price,
-    features: pack.simpleFeatures || [],
-    image: typeof pack.image === "string" ? pack.image : pack.image.src,
-    gradient: pack.gradient,
-    bgGradient: pack.bgGradient,
-    borderColor: pack.borderColor,
-    hoverGradient: pack.hoverGradient,
-    popular: pack.popular,
-  }))
+  const packages = getPackagesLandingPage()
 
   const handleAddToCart = (pkg: any) => {
     if (!addItem) {
@@ -152,7 +137,7 @@ export default function PackagesSection() {
                 onMouseEnter={() => setHoveredCard(index)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
-                {pkg.popular && (
+                {pkg.badge && (
                   <div className="absolute -top-4 left-0 right-0 flex justify-center z-10">
                     <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-medium px-4 py-1 rounded-full shadow-md">
                       Most Popular
@@ -194,14 +179,14 @@ export default function PackagesSection() {
 
                   <CardContent className="p-6 pt-0">
                     <ul className="space-y-3 mb-6">
-                      {pkg.features.map((feature, i) => (
+                      {pkg.products.map((product, i) => (
                         <li key={i} className="flex items-start">
                           <div
                             className={`w-5 h-5 rounded-full bg-gradient-to-r ${pkg.gradient} flex-shrink-0 flex items-center justify-center mt-0.5 mr-3`}
                           >
                             <Check className="h-3 w-3 text-white" />
                           </div>
-                          <span className="text-gray-700">{feature}</span>
+                          <span className="text-gray-700">{product.role}</span>
                         </li>
                       ))}
                     </ul>
@@ -221,10 +206,7 @@ export default function PackagesSection() {
                           </>
                         )}
                       </Button>
-                      <Link
-                        href={`/packs/${pkg.name.toLowerCase().replace(" ", "-")}`}
-                        className="flex-1"
-                      >
+                      <Link href={`/packs/${pkg.slug}`} className="flex-1">
                         <Button
                           className={`w-full bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 group`}
                         >
@@ -257,7 +239,7 @@ export default function PackagesSection() {
                 {packages.map((pkg, index) => (
                   <div key={pkg.id} className="w-full flex-shrink-0 px-2">
                     <div className="relative">
-                      {pkg.popular && (
+                      {pkg.badge && (
                         <div className="absolute -top-4 left-0 right-0 flex justify-center z-20">
                           <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-medium px-4 py-1 rounded-full shadow-md">
                             Most Popular
@@ -268,7 +250,7 @@ export default function PackagesSection() {
                         className={`border ${
                           pkg.borderColor
                         } rounded-xl overflow-hidden bg-white/90 backdrop-blur-sm shadow-md h-full ${
-                          pkg.popular ? "mt-4" : ""
+                          pkg.badge ? "mt-4" : ""
                         }`}
                       >
                         <div className="p-6 pb-0">
@@ -299,19 +281,19 @@ export default function PackagesSection() {
 
                         <CardContent className="p-6 pt-0">
                           <ul className="space-y-3 mb-6">
-                            {pkg.features.slice(0, 4).map((feature, i) => (
+                            {pkg.products.slice(0, 4).map((product, i) => (
                               <li key={i} className="flex items-start">
                                 <div
                                   className={`w-5 h-5 rounded-full bg-gradient-to-r ${pkg.gradient} flex-shrink-0 flex items-center justify-center mt-0.5 mr-3`}
                                 >
                                   <Check className="h-3 w-3 text-white" />
                                 </div>
-                                <span className="text-gray-700">{feature}</span>
+                                <span className="text-gray-700">{product.role}</span>
                               </li>
                             ))}
-                            {pkg.features.length > 4 && (
+                            {pkg.products.length > 4 && (
                               <li className="text-sm text-gray-500 italic">
-                                +{pkg.features.length - 4} more features
+                                +{pkg.products.length - 4} more products
                               </li>
                             )}
                           </ul>
@@ -331,10 +313,7 @@ export default function PackagesSection() {
                                 </>
                               )}
                             </Button>
-                            <Link
-                              href={`/packs/${pkg.name.toLowerCase().replace(" ", "-")}`}
-                              className="flex-1"
-                            >
+                            <Link href={`/packs/${pkg.slug}`} className="flex-1">
                               <Button
                                 className={`w-full bg-white border border-gray-200 text-gray-700 hover:bg-gray-50`}
                               >
