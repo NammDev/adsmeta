@@ -351,3 +351,35 @@ export function getPackagesLandingPage(): PackageLandingPage[] {
       ...styles[index],
     }))
 }
+
+export interface PackageListPage {
+  id: string
+  name: string
+  description: string
+  price: string
+  badge?: string
+  image: string
+  url: string
+  products: ProductInPack[]
+}
+
+// Pages pack specific helper
+export function getPackagesListPage(): PackageListPage[] {
+  return packsData
+    .map((pack) => ({
+      id: pack.id,
+      name: pack.name,
+      description: pack.description,
+      price: `€${pack.price}`,
+      badge: pack.badge,
+      image: typeof pack.image === "string" ? pack.image : pack.image,
+      url: `/packs/${pack.slug}`,
+      products: pack.products,
+    }))
+    .sort((a, b) => {
+      // Extract numeric price values by removing the € symbol and converting to number
+      const priceA = parseFloat(a.price.replace("€", ""))
+      const priceB = parseFloat(b.price.replace("€", ""))
+      return priceA - priceB
+    })
+}

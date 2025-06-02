@@ -10,21 +10,8 @@ import { Button } from "@/components/ui/button"
 import { Package2, Star, ChevronLeft, ChevronRight, Sparkles } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import PageSection from "@/components/page-section"
-import { getPacksPageData } from "@/data/packages"
 import SectionHeader from "@/components/ui/section-header"
-
-// Pack type definition
-interface Pack {
-  id: string
-  name: string
-  description: string
-  price: string
-  features: string[]
-  image: string
-  badge?: string
-  url: string
-  featured?: boolean
-}
+import { getPackagesListPage, PackageListPage } from "@/data/packs"
 
 export default function PacksPage() {
   // Use media query to detect mobile screens
@@ -38,11 +25,11 @@ export default function PacksPage() {
   const [isScrolling, setIsScrolling] = useState(false)
 
   // Get packs data from centralized source
-  const packs: Pack[] = getPacksPageData()
+  const packs: PackageListPage[] = getPackagesListPage()
 
   // Separate featured packs from regular packs
-  const featuredPacks = packs.filter((pack) => pack.featured)
-  const regularPacks = packs.filter((pack) => !pack.featured)
+  const featuredPacks = packs.slice(0, 2) // Get first two items (index 0 and 1)
+  const regularPacks = packs.slice(2, 4) // Get items from index 2 to 32
 
   // Handle manual scroll and update active index
   useEffect(() => {
@@ -263,7 +250,7 @@ export default function PacksPage() {
                       <p className="text-gray-600 mb-4">{pack.description}</p>
 
                       <ul className="mb-6 space-y-2" style={{ minHeight: "180px" }}>
-                        {pack.features.map((feature, index) => (
+                        {pack.products.map((product, index) => (
                           <li key={index} className="flex items-start">
                             <div className="h-5 w-5 text-facebook mr-2 mt-0.5 flex-shrink-0 relative">
                               <svg
@@ -281,7 +268,7 @@ export default function PacksPage() {
                               </svg>
                               <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-purple-200 rounded-full opacity-0 group-hover:opacity-30 transition-opacity"></div>
                             </div>
-                            <span className="text-sm">{feature}</span>
+                            <span className="text-sm">{product.role}</span>
                           </li>
                         ))}
                       </ul>
@@ -346,7 +333,7 @@ export default function PacksPage() {
                           <p className="text-gray-600 mb-4">{pack.description}</p>
 
                           <ul className="mb-6 space-y-2">
-                            {pack.features.slice(0, 3).map((feature, index) => (
+                            {pack.products.slice(0, 3).map((product, index) => (
                               <li key={index} className="flex items-start">
                                 <div className="h-5 w-5 text-facebook mr-2 mt-0.5 flex-shrink-0 relative">
                                   <svg
@@ -364,7 +351,7 @@ export default function PacksPage() {
                                   </svg>
                                   <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-purple-200 rounded-full opacity-0 group-hover:opacity-30 transition-opacity"></div>
                                 </div>
-                                <span className="text-sm">{feature}</span>
+                                <span className="text-sm">{product.role}</span>
                               </li>
                             ))}
                           </ul>
