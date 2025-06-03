@@ -6,7 +6,7 @@ export default function WhyChooseUsSection() {
   return (
     <section id="about" className="py-8 md:py-16 relative overflow-hidden">
       <div className="container mx-auto px-4 relative">
-        <SectionHeader badge="Why Us" title="Why Agencies Trust Us" />
+        <SectionHeader title="Why Agencies Trust Us" />
 
         {/* Mobile view (stacked cards with horizontal layout) */}
         <div className="md:hidden space-y-4">

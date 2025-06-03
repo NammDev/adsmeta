@@ -3,7 +3,6 @@
 import type { ReactNode } from "react"
 import SiteFooter from "./site-footer"
 import NewsletterSection from "./newsletter-section"
-import BackgroundDecorations from "./background-decorations"
 
 interface SupportingPageLayoutProps {
   title: string

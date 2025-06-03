@@ -133,7 +133,7 @@ export default function PacksPage() {
     >
       {/* Title Section */}
       <PageSection className="pt-6 md:pt-8 pb-0">
-        <SectionHeader badge="Premium" title="Packages" />
+        <SectionHeader title="Packages" />
       </PageSection>
 
       {/* Content Section */}
