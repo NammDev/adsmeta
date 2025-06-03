@@ -30,7 +30,7 @@ export default function SupportingPageLayout({
       {/* Newsletter Section (optional) with specific padding */}
       {showNewsletter && (
         <div className="py-0">
-          <NewsletterSection className="py-8 md:py-12" />
+          <NewsletterSection className="py-8 md:py-16" />
         </div>
       )}
 

@@ -25,12 +25,14 @@ import { getRandomAvatar } from "@/config/avatars"
 import { processContent } from "@/lib/utils"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { CartNotification } from "@/components/cart/cart-notification"
+import ProductLoading from "./loading"
 
 export default function ProductPage() {
   const params = useParams()
   const productSlug = params.product as string
   const [product, setProduct] = useState<Product | null>(null)
   const { addToCart } = useCart()
+  const [isLoading, setIsLoading] = useState(true)
   const [quantity, setQuantity] = useState(1)
   const [showNotification, setShowNotification] = useState(false)
   const [addedItem, setAddedItem] = useState<any>(null)
@@ -41,7 +43,12 @@ export default function ProductPage() {
     // Get the product based on the slug
     const productData = getProductDetailData(productSlug)
     setProduct(productData || null)
+    setIsLoading(false)
   }, [productSlug])
+
+  if (isLoading) {
+    return <ProductLoading />
+  }
 
   if (!product) {
     return (

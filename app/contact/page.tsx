@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
 import {
@@ -9,15 +11,60 @@ import {
   ExternalLink,
   CheckCircle,
   HelpCircle,
+  Copy,
+  Check,
 } from "lucide-react"
 import SupportingPageLayout from "@/components/layout/supporting-page-layout"
 import PageSection from "@/components/page-section"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import SectionHeader from "@/components/ui/section-header"
 import { CONTACT_INFO } from "@/config"
+import { openTelegram, openWhatsApp } from "@/lib/utils"
+import { useState } from "react"
+
+// Function to save contact information
+function useSaveContact() {
+  const [copied, setCopied] = useState(false)
+
+  const saveContact = async () => {
+    const contactInfo = {
+      name: "GoAds Support",
+      phone: CONTACT_INFO.phone,
+      telegram: CONTACT_INFO.telegram,
+      email: CONTACT_INFO.email,
+    }
+
+    // Try to use Web Share API first
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "GoAds Contact Information",
+          text: `Contact GoAds Support:\nPhone: ${contactInfo.phone}\nTelegram: ${contactInfo.telegram}\nEmail: ${contactInfo.email}`,
+        })
+        return
+      } catch (err) {
+        console.log("Error sharing:", err)
+      }
+    }
+
+    // Fallback to clipboard copy
+    const text = `GoAds Support\nPhone: ${contactInfo.phone}\nTelegram: ${contactInfo.telegram}\nEmail: ${contactInfo.email}`
+
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (err) {
+      console.error("Failed to copy:", err)
+    }
+  }
+
+  return { saveContact, copied }
+}
 
 export default function ContactPage() {
+  const { saveContact, copied } = useSaveContact()
+
   return (
     <SupportingPageLayout
       title="Contact Us"
@@ -59,16 +106,30 @@ export default function ContactPage() {
                   </h3>
                   <p className="text-green-700 font-medium mb-4">{CONTACT_INFO.phone}</p>
                   <div className="flex space-x-3">
-                    <Button className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white border-0 shadow-md">
-                      <Link href="https://wa.me/84123456789" className="flex items-center">
+                    <Button
+                      className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white border-0 shadow-md"
+                      onClick={() => openWhatsApp()}
+                    >
+                      <div className="flex items-center">
                         <MessageCircle className="mr-2 h-4 w-4" /> Chat Now
-                      </Link>
+                      </div>
                     </Button>
                     <Button
                       variant="outline"
                       className="border-green-400 text-green-700 hover:bg-green-50"
+                      onClick={saveContact}
                     >
-                      Save Contact
+                      <div className="flex items-center">
+                        {copied ? (
+                          <>
+                            <Check className="mr-2 h-4 w-4" /> Copied!
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="mr-2 h-4 w-4" /> Save Contact
+                          </>
+                        )}
+                      </div>
                     </Button>
                   </div>
                 </div>
@@ -102,14 +163,18 @@ export default function ContactPage() {
                   </h3>
                   <p className="text-blue-700 font-medium mb-4">{CONTACT_INFO.telegram}</p>
                   <div className="flex space-x-3">
-                    <Button className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0 shadow-md">
-                      <Link href={CONTACT_INFO.telegramUrl} className="flex items-center">
+                    <Button
+                      onClick={() => openTelegram()}
+                      className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0 shadow-md"
+                    >
+                      <div className="flex items-center">
                         <Send className="mr-2 h-4 w-4" /> Join Channel
-                      </Link>
+                      </div>
                     </Button>
                     <Button
                       variant="outline"
                       className="border-blue-400 text-blue-700 hover:bg-blue-50"
+                      onClick={() => openTelegram()}
                     >
                       Direct Message
                     </Button>
@@ -192,7 +257,7 @@ export default function ContactPage() {
                 <div className="text-center">
                   <div className="bg-white p-2 rounded-lg shadow-md inline-block border border-green-200 hover:shadow-lg transition-all">
                     <Image
-                      src="/placeholder.svg?key=1cbyk"
+                      src="/about/whatsapp.png"
                       alt="WhatsApp QR Code"
                       width={120}
                       height={120}
@@ -217,7 +282,7 @@ export default function ContactPage() {
                 <div className="text-center">
                   <div className="bg-white p-2 rounded-lg shadow-md inline-block border border-blue-200 hover:shadow-lg transition-all">
                     <Image
-                      src="/placeholder.svg?key=qpwpi"
+                      src="/about/telegram.png"
                       alt="Telegram QR Code"
                       width={120}
                       height={120}

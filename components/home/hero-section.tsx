@@ -7,7 +7,7 @@ import PaymentMethodsCompact from "./payment-methods-compact"
 
 // Import social media icons from lucide-react
 import { Facebook, Instagram, Linkedin } from "lucide-react"
-import { openTelegram, openWhatsApp } from "@/lib/utils"
+import { openLinkedin, openTelegram, openWhatsApp } from "@/lib/utils"
 
 // Custom Discord icon component
 const DiscordIcon = ({ className }: { className?: string }) => (
@@ -264,6 +264,7 @@ export default function HeroSection() {
             <Button
               variant="ghost"
               className="flex items-center justify-start gap-3 px-6 py-3 rounded-lg hover:bg-blue-50 hover:border-blue-300 hover:shadow-lg border-2 border-transparent group transition-all duration-300 relative overflow-hidden"
+              onClick={() => openLinkedin()}
             >
               <div className="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-30 blur-xl transition-all duration-300"></div>
               <Linkedin className="h-7 w-7 text-blue-700 group-hover:scale-110 transition-transform duration-300 relative z-10" />
