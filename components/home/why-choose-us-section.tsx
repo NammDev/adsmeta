@@ -1,16 +1,12 @@
-import { Badge } from '@/components/ui/badge'
-import { Shield, Clock, Tag } from 'lucide-react'
-import SectionHeader from '../ui/section-header'
+import { Badge } from "@/components/ui/badge"
+import { Shield, Clock, Tag } from "lucide-react"
+import SectionHeader from "../ui/section-header"
 
 export default function WhyChooseUsSection() {
   return (
     <section id="about" className="py-8 md:py-16 relative overflow-hidden">
       <div className="container mx-auto px-4 relative">
-        <SectionHeader
-          badge="Why Us"
-          title="Why Agencies Trust Us"
-          subtitle="Simple solutions that deliver results"
-        />
+        <SectionHeader badge="Why Us" title="Why Agencies Trust Us" />
 
         {/* Mobile view (stacked cards with horizontal layout) */}
         <div className="md:hidden space-y-4">

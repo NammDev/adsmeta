@@ -1,9 +1,9 @@
 export const CONTACT_INFO = {
-  phone: "+84 865717497", // Replace with your actual phone number
+  phone: "+84 865 717 497", // Replace with your actual phone number
   telegram: "@goads_official",
   telegramUrl: "https://t.me/goads_official",
   website: "https://goads.shop",
-  email: "goads@gmail.com",
+  email: "info@goads.shop",
   linkedin: "https://www.linkedin.com/company/goads-agency-vn",
 } as const
 
@@ -16,9 +16,9 @@ export const SITE_CONFIG = {
 
 export const TEAM_MEMBERS = [
   {
-    name: "Alex Johnson",
-    role: "Founder",
-    email: "alex@gmail.com",
+    name: "Justin Bui",
+    role: "Co-Founder",
+    email: "justinbui@goads.shop",
     image: "/avatar/alex.png",
     gradient: "from-blue-500 to-indigo-600",
   },
@@ -30,9 +30,9 @@ export const TEAM_MEMBERS = [
     gradient: "from-purple-500 to-pink-600",
   },
   {
-    name: "Michael Chen",
-    role: "Developer",
-    email: "michael@gmail.com",
+    name: "Kevin Nguyen",
+    role: "Co-Founder",
+    email: "kevin@goads.shop",
     image: "/avatar/michael.png",
     gradient: "from-green-500 to-teal-600",
   },

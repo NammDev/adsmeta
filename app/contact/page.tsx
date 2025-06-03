@@ -75,7 +75,6 @@ export default function ContactPage() {
         <SectionHeader
           badge="Fast Response Channels"
           title="Connect With Us Instantly"
-          subtitle="Get the fastest support through our messaging channels"
           badgeClassName="bg-gradient-to-r from-pink-500 to-purple-600"
         />
       </PageSection>
@@ -197,7 +196,6 @@ export default function ContactPage() {
         <SectionHeader
           badge="Additional Options"
           title="Other Ways to Reach Us"
-          subtitle="While WhatsApp and Telegram offer the fastest response times, you can also reach us through these channels"
           badgeClassName="bg-gradient-to-r from-purple-500 to-indigo-600"
           borderClassName="from-purple-400 to-indigo-500 h-2"
         />
@@ -232,9 +230,9 @@ export default function ContactPage() {
                   <h3 className="font-bold text-lg text-indigo-900 mb-1 group-hover:text-indigo-700 transition-colors">
                     Business Hours
                   </h3>
-                  <p className="text-indigo-800 font-medium">Monday-Friday: 9am-6pm EST</p>
+                  <p className="text-indigo-800 font-medium">Open 24/7</p>
                   <p className="text-indigo-600 text-sm mt-2 flex items-center">
-                    <Clock className="h-4 w-4 mr-1" /> We're closed on weekends and holidays
+                    <Clock className="h-4 w-4 mr-1" /> Always available to assist you
                   </p>
                 </div>
               </div>
@@ -315,7 +313,6 @@ export default function ContactPage() {
         <SectionHeader
           badge="Quick Answers"
           title="Frequently Asked Questions"
-          subtitle="Find quick answers to common questions"
           badgeClassName="bg-gradient-to-r from-blue-500 to-cyan-600"
           borderClassName="from-blue-400 to-cyan-500 h-2"
         />

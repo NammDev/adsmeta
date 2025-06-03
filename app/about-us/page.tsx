@@ -13,11 +13,7 @@ export default function AboutUsPage() {
     >
       {/* Company Background - Title Section */}
       <PageSection className="pt-6 md:pt-8 pb-0">
-        <SectionHeader
-          badge="Our Journey Since 2016"
-          title="Our Story"
-          subtitle="From a small operation to a trusted provider of Facebook advertising solutions worldwide"
-        />
+        <SectionHeader badge="Our Journey Since 2016" title="Our Story" />
       </PageSection>
 
       {/* Company Background - Content Section */}
@@ -96,11 +92,7 @@ export default function AboutUsPage() {
 
       {/* Mission Statement - Title Section */}
       <PageSection className="pt-6 md:pt-8 pb-0">
-        <SectionHeader
-          badge="Our Purpose"
-          title="Our Mission"
-          subtitle="To empower businesses of all sizes with reliable, high-quality Facebook advertising assets that drive growth and success in the digital marketplace."
-        />
+        <SectionHeader badge="Our Purpose" title="Our Mission" />
       </PageSection>
 
       {/* Mission Statement - Content Section */}
@@ -168,8 +160,7 @@ export default function AboutUsPage() {
       <PageSection className="pt-6 md:pt-8 pb-0">
         <SectionHeader
           badge="Meet Our Experts"
-          title="Team Members"
-          subtitle="The experts behind EasyAdsPack committed to your success"
+          title="Team Founders"
           badgeClassName="bg-gradient-to-r from-green-500 to-teal-600"
           borderClassName="from-green-500 to-teal-600"
         />

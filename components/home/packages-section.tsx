@@ -121,11 +121,7 @@ export default function PackagesSection() {
   return (
     <section id="packages" className="py-8 md:py-16 relative overflow-hidden">
       <div className="container mx-auto px-4 relative">
-        <SectionHeader
-          badge="Packages"
-          title="Choose Your Package"
-          subtitle="Select the perfect solution for your advertising needs"
-        />
+        <SectionHeader badge="Packages" title="Choose Your Package" />
 
         {/* Desktop Grid View */}
         {!isMobile && (
