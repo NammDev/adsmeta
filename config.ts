@@ -5,6 +5,7 @@ export const CONTACT_INFO = {
   website: "https://goads.shop",
   email: "info@goads.shop",
   linkedin: "https://www.linkedin.com/company/goads-agency-vn",
+  discord: "https://discord.com/invite/WJ6wdcMEkg",
 } as const
 
 // You can add more global configurations here

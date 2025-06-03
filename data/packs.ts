@@ -27,8 +27,9 @@ export interface Package {
   description: string
   price: number
   comparePrice: number
-  category: "agency" | "basic" | "premium"
+  category: "basic" | "advanced" | "premium" | "elite"
   image: string
+  imageDesign?: string
   stock: "in-stock" | "low-stock" | "out-of-stock"
   badge?: string
   purchases: number
@@ -97,6 +98,7 @@ const packsData: Package[] = [
     detail: `<p><strong>Popular Pack</strong> is specially designed for agencies and professional advertisers, offering a complete solution to scale your campaigns.</p><ul><li>Includes <strong>2 BM Verified $250 Limit:</strong> One BM with <span>1 Admin + 2 Employee</span> permissions, and another with <span>Pixel & Page + 2 Admin</span> for flexible management and delegation.</li><li>Comes with <strong>2 high-quality Fanpages:</strong> Pre-optimized for advertising, boosting engagement and credibility.</li><li>Features <strong>5 USA Profile accounts:</strong> Including <span>2 Greenline Profiles</span>, ensuring high trust and stability for critical ads campaigns.</li><li><strong>Ready to use:</strong> All accounts and pages are meticulously prepared — <span>start your campaigns immediately</span> without complex setup.</li></ul>`,
     solution:
       "A comprehensive solution for agencies aiming to run large-scale ads with reliable USA accounts, optimizing performance and minimizing risks.",
+    imageDesign: "/packs/premium-design.jpg",
     faq: [
       {
         question: "What is a Greenline Profile, and why is it important?",
@@ -164,6 +166,7 @@ const packsData: Package[] = [
     detail: `<p><strong>Basic Pack</strong> is designed for small businesses and individuals, providing essential tools to launch effective ads campaigns.</p><ul><li>Includes <strong>1 BM Verified $250 Limit:</strong> Perfect for <span>adding Agency accounts</span> with high stability.</li><li>Comes with <strong>1 BM Unverified:</strong> Equipped with <span>Pixel & Page</span> for seamless tracking and management.</li><li>Features <strong>1 high-quality Fanpage:</strong> Pre-optimized for advertising to <span>boost engagement</span>.</li><li>Provides <strong>2 Asia Profile accounts:</strong> Reliable for <span>admin roles</span>, ensuring smooth operations.</li><li><strong>Ready to use:</strong> Start your campaigns <span>immediately</span> with minimal setup.</li></ul>`,
     solution:
       "An all-in-one solution for small businesses to set up and run professional Facebook ads campaigns with ease.",
+    imageDesign: "/packs/advanced-design.png",
     faq: [
       {
         question: "What's the difference between a BM Verified and BM Unverified?",
@@ -218,6 +221,7 @@ const packsData: Package[] = [
     detail: `<p><strong>Super Basic Pack</strong> is tailored for beginners, providing the essentials to start your Facebook ads campaigns.</p><ul><li>Includes <strong>1 Business Manager (Unverified):</strong> Ready for <span>basic ads management</span>.</li><li>Comes with <strong>1 Asia Profile:</strong> A reliable <span>admin account</span> for smooth operations.</li><li>Features <strong>1 high-quality Fanpage:</strong> Pre-optimized to <span>boost engagement</span> and credibility.</li><li><strong>Ready to use:</strong> Launch your first campaign <span>immediately</span> with no complicated setup.</li></ul>`,
     solution:
       "A simple solution for beginners to start running Facebook ads quickly and affordably.",
+    imageDesign: "/packs/basic-design.png",
     faq: [
       {
         question: "Is this pack suitable for complete beginners?",
@@ -284,6 +288,7 @@ const packsData: Package[] = [
     detail: `<p><strong>Vip Pro Max Pack</strong> is the ultimate choice for large agencies, delivering powerful tools for advanced ads campaigns.</p><ul><li>Includes <strong>1 BM5:</strong> Comes with <span>4 Profile accounts (2 Admin + 2 Employee)</span> for maximum control and scalability.</li><li>Features <strong>1 BM Verified $250 Limit:</strong> Equipped with <span>2 Admin + 2 Pages</span> for flexible management.</li><li>Comes with <strong>2 high-quality Fanpages:</strong> Pre-optimized for <span>high engagement</span> and credibility.</li><li>Provides <strong>6 USA Profile accounts:</strong> Including <span>3 Greenline Profiles</span>, ensuring top-tier trust and stability.</li><li><strong>Ready to use:</strong> Launch your campaigns <span>immediately</span> with seamless integration.</li></ul>`,
     solution:
       "The premium solution for large agencies to run high-volume ads campaigns with top-tier USA accounts and seamless Shopify integration.",
+    imageDesign: "/packs/elite-design.png",
     faq: [
       {
         question: "What makes BM5 different from a regular BM?",

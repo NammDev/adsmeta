@@ -30,6 +30,11 @@ export function processContent(content: string) {
   return processed
 }
 
+export function openDiscord() {
+  const discordUrl = CONTACT_INFO.discord
+  window.open(discordUrl, "_blank")
+}
+
 // Contact utility functions
 export function openWhatsApp(message?: string) {
   const defaultPhone = CONTACT_INFO.phone.replace(/\D/g, "") // Remove non-digits

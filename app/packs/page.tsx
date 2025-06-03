@@ -168,7 +168,8 @@ export default function PacksPage() {
                         <Image
                           src={pack.image || "/placeholder.svg"}
                           alt={pack.name}
-                          fill
+                          width={250}
+                          height={250}
                           className="object-cover p-2 transition-transform duration-300 group-hover:scale-105"
                         />
                         {pack.badge && (
@@ -284,7 +285,8 @@ export default function PacksPage() {
                             <Image
                               src={pack.image || "/placeholder.svg"}
                               alt={pack.name}
-                              fill
+                              width={400}
+                              height={400}
                               className="object-cover transition-transform duration-500 group-hover:scale-105 p-4"
                             />
                           </div>
