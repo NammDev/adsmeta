@@ -1,11 +1,16 @@
+"use client"
+
 import Image from "next/image"
 import SupportingPageLayout from "@/components/layout/supporting-page-layout"
-import { Award, Users, Globe, Shield } from "lucide-react"
+import { Award, Users, Shield } from "lucide-react"
 import PageSection from "@/components/page-section"
 import SectionHeader from "@/components/ui/section-header"
 import { TEAM_MEMBERS } from "@/config"
+import { useState } from "react"
 
 export default function AboutUsPage() {
+  const [activeQuote, setActiveQuote] = useState<number | null>(null)
+
   return (
     <SupportingPageLayout
       title="About Us"
@@ -23,7 +28,7 @@ export default function AboutUsPage() {
             <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
               <p className="text-gray-600 mb-4 leading-relaxed">
                 GoAds was founded in response to a growing challenge faced by digital marketers. As
-                Facebook’s advertising environment became increasingly unstable and complex,
+                Facebook's advertising environment became increasingly unstable and complex,
                 advertisers began struggling with account bans, constant checkpoints, and the stress
                 of campaigns being disrupted without warning.
               </p>
@@ -166,20 +171,41 @@ export default function AboutUsPage() {
         />
       </PageSection>
 
-      {/* Team Introduction - Content Section */}
+      {/* Team Introduction - Content Section - REDESIGNED */}
       <PageSection className="pt-0 pb-12">
         <div className="container px-4 md:px-6 mx-auto">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-6">
-              {TEAM_MEMBERS.map((member, index) => (
+          {/* Team Members Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
+            {TEAM_MEMBERS.map((member, index) => (
+              <div
+                key={index}
+                className={`relative group cursor-pointer transition-all duration-500 ${
+                  activeQuote === index ? "z-20" : "z-10"
+                }`}
+                onClick={() => setActiveQuote(activeQuote === index ? null : index)}
+              >
+                {/* Card */}
                 <div
-                  key={index}
-                  className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 group"
+                  className={`bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition-all duration-500 ${
+                    activeQuote === index ? "shadow-2xl ring-2" : "hover:shadow-lg"
+                  }`}
+                  style={{
+                    borderColor:
+                      activeQuote === index
+                        ? `rgb(var(--color-${
+                            index === 0 ? "blue" : index === 1 ? "purple" : "green"
+                          }-500))`
+                        : "",
+                  }}
                 >
+                  {/* Gradient Header */}
                   <div className={`h-2 bg-gradient-to-r ${member.gradient}`}></div>
-                  <div className="p-6">
-                    <div className="flex justify-center mb-4">
-                      <div className="relative h-24 w-24 rounded-full overflow-hidden border-4 border-white shadow-md">
+
+                  {/* Content */}
+                  <div className="p-5">
+                    <div className="flex items-center space-x-4">
+                      {/* Avatar */}
+                      <div className="relative h-16 w-16 rounded-full overflow-hidden border-2 border-white shadow-md flex-shrink-0">
                         <Image
                           src={member.image || "/placeholder.svg"}
                           alt={member.name}
@@ -187,18 +213,34 @@ export default function AboutUsPage() {
                           className="object-cover"
                         />
                       </div>
-                    </div>
-                    <div className="text-center">
-                      <h3 className="font-bold text-xl mb-1">{member.name}</h3>
-                      <div
-                        className={`inline-block px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r ${member.gradient} text-white mb-2`}
-                      >
-                        {member.role}
+
+                      {/* Info */}
+                      <div>
+                        <h3 className="font-bold text-lg mb-0">{member.name}</h3>
+                        <div
+                          className={`inline-block px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${member.gradient} text-white my-1`}
+                        >
+                          {member.role}
+                        </div>
                       </div>
-                      <p className="text-gray-500 flex items-center justify-center">
+                    </div>
+
+                    {/* Quote Button */}
+                    <div className="mt-4 flex justify-end">
+                      <button
+                        className={`flex items-center space-x-1 text-xs font-medium px-3 py-1.5 rounded-full transition-colors ${
+                          activeQuote === index
+                            ? `bg-gradient-to-r ${member.gradient} text-white`
+                            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                        }`}
+                        aria-label={activeQuote === index ? "Hide quote" : "Show quote"}
+                      >
+                        <span>{activeQuote === index ? "Hide quote" : "View philosophy"}</span>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className="h-4 w-4 mr-1"
+                          className={`h-3 w-3 transition-transform ${
+                            activeQuote === index ? "rotate-180" : ""
+                          }`}
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -207,15 +249,89 @@ export default function AboutUsPage() {
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth={2}
-                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                            d="M19 9l-7 7-7-7"
                           />
                         </svg>
-                        {member.email}
-                      </p>
+                      </button>
                     </div>
                   </div>
                 </div>
-              ))}
+
+                {/* Expandable Quote */}
+                {/* <div
+                  className={`absolute left-0 right-0 bg-white rounded-xl shadow-xl border border-gray-100 p-5 mt-2 transition-all duration-500 overflow-hidden ${
+                    activeQuote === index
+                      ? "opacity-100 max-h-96 translate-y-0"
+                      : "opacity-0 max-h-0 translate-y-4 pointer-events-none"
+                  }`}
+                  style={{
+                    borderColor:
+                      activeQuote === index
+                        ? `rgb(var(--color-${
+                            index === 0 ? "blue" : index === 1 ? "purple" : "green"
+                          }-500))`
+                        : "",
+                  }}
+                >
+                  <div className="relative">
+                    <div className="absolute -top-1 -left-1 text-3xl text-gray-200 font-serif">
+                      "
+                    </div>
+                    <blockquote className="text-gray-600 italic text-sm leading-relaxed pl-4 pr-2">
+                      {member.quote}
+                    </blockquote>
+                    <div className="absolute -bottom-1 -right-1 text-3xl text-gray-200 font-serif rotate-180">
+                      "
+                    </div>
+                  </div>
+                </div> */}
+              </div>
+            ))}
+          </div>
+
+          {/* Large Quote Display */}
+          <div className="max-w-4xl mx-auto">
+            <div
+              className={`bg-white rounded-2xl shadow-lg p-8 transition-all duration-500 overflow-hidden relative ${
+                activeQuote !== null ? "opacity-100 max-h-96" : "opacity-0 max-h-0"
+              }`}
+            >
+              {activeQuote !== null && (
+                <>
+                  <div
+                    className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${TEAM_MEMBERS[activeQuote].gradient}`}
+                  ></div>
+                  <div className="flex items-center mb-6">
+                    <div className="relative h-16 w-16 rounded-full overflow-hidden border-2 border-white shadow-md mr-4">
+                      <Image
+                        src={TEAM_MEMBERS[activeQuote].image || "/placeholder.svg"}
+                        alt={TEAM_MEMBERS[activeQuote].name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-xl">{TEAM_MEMBERS[activeQuote].name}</h3>
+                      <div
+                        className={`inline-block px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r ${TEAM_MEMBERS[activeQuote].gradient} text-white`}
+                      >
+                        {TEAM_MEMBERS[activeQuote].role}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="relative">
+                    <div className="absolute -top-2 -left-2 text-5xl text-gray-200 font-serif">
+                      "
+                    </div>
+                    <blockquote className="text-gray-600 italic text-lg leading-relaxed px-6">
+                      {TEAM_MEMBERS[activeQuote].quote}
+                    </blockquote>
+                    <div className="absolute -bottom-2 -right-2 text-5xl text-gray-200 font-serif rotate-180">
+                      "
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>

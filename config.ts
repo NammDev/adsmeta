@@ -20,21 +20,28 @@ export const TEAM_MEMBERS = [
     role: "Co-Founder",
     email: "justinbui@goads.shop",
     image: "/avatar/alex.png",
+    quote:
+      "We built GoAds with one mission, to give power back to advertisers who refuse to let setbacks define their growth. We don’t just offer BM and VIA; we offer freedom to scale without fear. When others see risk, we engineer resilience",
     gradient: "from-blue-500 to-indigo-600",
   },
-  {
-    name: "Sarah Williams",
-    role: "Operations",
-    email: "sarah@gmail.com",
-    image: "/avatar/sarah.png",
-    gradient: "from-purple-500 to-pink-600",
-  },
+
   {
     name: "Kevin Nguyen",
     role: "Co-Founder",
     email: "kevin@goads.shop",
     image: "/avatar/michael.png",
+    quote:
+      "Behind every stable ad account is a system built to withstand chaos, that’s what I focus on. At GoAds, we don’t chase trends; we build tech that outlasts them. My goal is simple: create infrastructure so solid, our clients forget what 'restricted' even feels like.",
     gradient: "from-green-500 to-teal-600",
+  },
+  {
+    name: "Emma Bennet",
+    role: "Client Solution Manager",
+    email: "emma@goads.shop",
+    image: "/avatar/sarah.png",
+    quote:
+      "Behind every stable ads account is a system built to withstand chaos, that’s what I focus on. At GoAds, we don’t chase trends; we build tech that outlasts them. My goal is simple: create infrastructure so solid, our clients forget what 'restricted' even feels like.",
+    gradient: "from-purple-500 to-pink-600",
   },
 ] as const
 
