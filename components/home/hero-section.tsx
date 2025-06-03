@@ -7,7 +7,7 @@ import PaymentMethodsCompact from "./payment-methods-compact"
 
 // Import social media icons from lucide-react
 import { Facebook, Instagram, Linkedin } from "lucide-react"
-import { openLinkedin, openTelegram, openWhatsApp } from "@/lib/utils"
+import { openDiscord, openLinkedin, openTelegram, openWhatsApp } from "@/lib/utils"
 
 // Custom Discord icon component
 const DiscordIcon = ({ className }: { className?: string }) => (
@@ -112,7 +112,7 @@ export default function HeroSection() {
               <Button
                 variant="ghost"
                 className="flex items-center justify-center gap-2 px-3 py-3 rounded-lg hover:bg-indigo-50 hover:border-indigo-200 hover:shadow-md border border-transparent group transition-all duration-300 relative overflow-hidden"
-                onClick={() => openWhatsApp()}
+                onClick={() => openDiscord()}
               >
                 <div className="absolute inset-0 bg-indigo-100 opacity-0 group-hover:opacity-20 blur-xl transition-all duration-300"></div>
                 <DiscordIcon className="h-5 w-5 text-indigo-600 group-hover:scale-110 transition-transform duration-300 relative z-10" />
@@ -231,6 +231,7 @@ export default function HeroSection() {
           {/* Social media buttons - clean style */}
           <div className="flex justify-center items-center gap-8 mb-10">
             <Button
+              onClick={() => openDiscord()}
               variant="ghost"
               className="flex items-center justify-start gap-3 px-6 py-3 rounded-lg hover:bg-indigo-50 hover:border-indigo-300 hover:shadow-lg border-2 border-transparent group transition-all duration-300 relative overflow-hidden"
             >

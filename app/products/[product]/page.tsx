@@ -29,14 +29,14 @@ import ProductLoading from "./loading"
 
 export default function ProductPage() {
   const params = useParams()
-  const productSlug = params.product as string
+  const productSlug = params?.product as string
   const [product, setProduct] = useState<Product | null>(null)
-  const { addToCart } = useCart()
   const [isLoading, setIsLoading] = useState(true)
   const [quantity, setQuantity] = useState(1)
   const [showNotification, setShowNotification] = useState(false)
   const [addedItem, setAddedItem] = useState<any>(null)
   const [isAddingToCart, setIsAddingToCart] = useState(false)
+  const { addItem, openCart } = useCart() || {}
   const isMobile = useMediaQuery("(max-width: 768px)")
 
   useEffect(() => {
@@ -78,6 +78,7 @@ export default function ProductPage() {
 
     const cartItem = {
       id: product.id,
+      slug: product.slug,
       name: product.name,
       price: product.price,
       image: product.image,
@@ -85,12 +86,14 @@ export default function ProductPage() {
       category: getCategoryDisplayName(product.category),
     }
 
-    addToCart(cartItem)
+    addItem(cartItem)
 
-    // Show notification on mobile, direct cart access on desktop
+    // Show notification on mobile, open cart on desktop
     if (isMobile) {
       setAddedItem(cartItem)
       setShowNotification(true)
+    } else if (!isMobile && openCart) {
+      openCart()
     }
 
     setIsAddingToCart(false)
@@ -662,12 +665,12 @@ export default function ProductPage() {
         </div>
       </div>
       {/* Cart Notification for Mobile */}
-      {showNotification && addedItem && (
+      {isMobile && (
         <CartNotification
+          show={showNotification}
           item={addedItem}
           onClose={() => {
             setShowNotification(false)
-            setAddedItem(null)
           }}
         />
       )}

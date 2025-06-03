@@ -47,6 +47,10 @@ import { getPackageDetailBySlug } from "@/data/packs"
 import type { FAQ, Package, ProductInPack } from "@/data/packs"
 import { useParams } from "next/navigation"
 import PackLoading from "./loading"
+import PackFAQ from "@/components/pack/pack-faq"
+import PackImageDesign from "@/components/pack/pack-imageDesign"
+import PackSetup from "@/components/pack/pack-setup"
+import PackSuccessStories from "@/components/pack/pack-successStories"
 
 // Stock status indicator
 const stockStatus = {
@@ -66,9 +70,9 @@ const stockStatus = {
 
 export default function PackPage() {
   const params = useParams()
-  const packSlug = params.pack as string
+  const packSlug = params?.pack as string
   const [pack, setPack] = useState<Package | null>(null)
-  const { addToCart } = useCart()
+  const { addItem, openCart } = useCart() || {}
   const [isLoading, setIsLoading] = useState(true)
   const [quantity, setQuantity] = useState(1)
   const [showNotification, setShowNotification] = useState(false)
@@ -112,14 +116,17 @@ export default function PackPage() {
 
     const cartItem = {
       id: pack.id,
+      slug: pack.slug,
       name: pack.name,
       price: pack.price,
       image: pack.image,
       quantity: quantity,
       category: pack.category,
     }
-
-    addToCart(cartItem)
+    addItem(cartItem)
+    if (openCart) {
+      openCart()
+    }
 
     // Show notification on mobile, direct cart access on desktop
     if (isMobile) {
@@ -301,7 +308,7 @@ export default function PackPage() {
                       className="data-[state=active]:bg-white data-[state=active]:text-purple-700 data-[state=active]:shadow-md"
                     >
                       <Package2 className="h-4 w-4 mr-2" />
-                      Solution for
+                      Pack's Design
                     </TabsTrigger>
                     <TabsTrigger
                       value="setup"
@@ -327,57 +334,16 @@ export default function PackPage() {
                   </TabsList>
                   <div className="pt-6">
                     <TabsContent value="components">
-                      <Card className="border-purple-200 bg-purple-50/30">
-                        <CardHeader>
-                          <CardTitle>Solution for</CardTitle>
-                        </CardHeader>
-                        <CardContent className="prose max-w-none text-gray-700">
-                          {pack.solution}
-                        </CardContent>
-                      </Card>
+                      <PackImageDesign imageDesign={pack.imageDesign} />
                     </TabsContent>
                     <TabsContent value="setup">
-                      <Card className="border-blue-200 bg-blue-50/30">
-                        <CardHeader>
-                          <CardTitle>Setup Guide</CardTitle>
-                        </CardHeader>
-                        <CardContent className="prose max-w-none text-gray-700">
-                          A comprehensive, step-by-step guide to help you get started with your Gói
-                          Hay Mua pack. Includes instructions on accessing accounts, setting up
-                          pixels, and launching your first campaign smoothly.
-                        </CardContent>
-                      </Card>
+                      <PackSetup />
                     </TabsContent>
                     <TabsContent value="stories">
-                      <Card className="border-amber-200 bg-amber-50/30">
-                        <CardHeader>
-                          <CardTitle>Success Stories</CardTitle>
-                        </CardHeader>
-                        <CardContent className="prose max-w-none text-gray-700">
-                          Này là phần review
-                        </CardContent>
-                      </Card>
+                      <PackSuccessStories />
                     </TabsContent>
                     <TabsContent value="faq">
-                      <Card className="border-gray-200">
-                        <CardHeader>
-                          <CardTitle>Frequently Asked Questions</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <Accordion type="single" collapsible className="w-full">
-                            {pack.faq.map((item: FAQ, index: number) => (
-                              <AccordionItem value={`item-${index}`} key={index}>
-                                <AccordionTrigger className="text-left hover:no-underline text-gray-800 font-medium">
-                                  {item.question}
-                                </AccordionTrigger>
-                                <AccordionContent className="prose max-w-none text-gray-700">
-                                  {item.answer}
-                                </AccordionContent>
-                              </AccordionItem>
-                            ))}
-                          </Accordion>
-                        </CardContent>
-                      </Card>
+                      <PackFAQ faq={pack.faq} />
                     </TabsContent>
                   </div>
                 </Tabs>
