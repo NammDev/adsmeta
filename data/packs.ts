@@ -71,7 +71,7 @@ const packsData: Package[] = [
   {
     id: "premium-pack",
     slug: "premium-pack",
-    name: "Goads Premium",
+    name: "GoAds Premium",
     description: "A perfect pack for individuals who working with Ad Agency!",
     price: 420,
     comparePrice: 500,

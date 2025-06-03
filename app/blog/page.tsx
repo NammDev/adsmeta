@@ -487,10 +487,6 @@ export default function BlogPage() {
                     <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-50 rounded-full"></div>
                   </h3>
                 </div>
-                <p className="text-gray-600 text-sm mb-0">
-                  Get the latest Facebook advertising tips, strategies, and updates delivered
-                  straight to your inbox.
-                </p>
               </div>
               <div className="md:w-1/3 w-full">
                 <div className="flex">

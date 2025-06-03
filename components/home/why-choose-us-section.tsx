@@ -20,7 +20,8 @@ export default function WhyChooseUsSection() {
               <div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Verified Quality</h3>
                 <p className="text-gray-600">
-                  All accounts verified with 2-3 green line tick for maximum performance.
+                  Premium quality service delivery with rigorous quality control and attention to
+                  detail.
                 </p>
               </div>
             </div>
@@ -70,7 +71,8 @@ export default function WhyChooseUsSection() {
               <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-cyan-200 opacity-0 group-hover:opacity-50 transition-opacity rounded-full"></div>
             </h3>
             <p className="text-gray-600">
-              All accounts verified with 2-3 green line tick for maximum performance.
+              Premium quality service delivery with rigorous quality control and attention to
+              detail.
             </p>
           </div>
 

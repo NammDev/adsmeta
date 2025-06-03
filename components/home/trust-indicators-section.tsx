@@ -27,23 +27,7 @@ export default function TrustIndicatorsSection() {
         <div className="block md:hidden">
           <div className="text-center mb-8">
             <p className="text-lg text-gray-600 flex flex-wrap items-center justify-center gap-2">
-              Trusted by
-              <span className="relative inline-block group">
-                {/* Animated background */}
-                <span className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 rounded-full blur-md opacity-70 group-hover:opacity-100 animate-pulse"></span>
-
-                {/* Main badge */}
-                <span className="relative inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-4 py-2 rounded-full font-bold text-base transform -rotate-2 hover:rotate-0 transition-all duration-300 hover:scale-110 shadow-lg">
-                  <Sparkles className="w-4 h-4 animate-spin-slow" />
-                  Leading Marketing Agencies
-                  <Star className="w-4 h-4 animate-bounce" />
-                </span>
-
-                {/* Decorative elements */}
-                <span className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-ping"></span>
-                <span className="absolute -bottom-1 -left-1 w-2 h-2 bg-pink-400 rounded-full animate-ping animation-delay-200"></span>
-              </span>
-              Worldwide
+              Trusted by Leading Marketing Agencies Worldwide
             </p>
           </div>
 
@@ -81,22 +65,7 @@ export default function TrustIndicatorsSection() {
             <div className="text-center">
               <p className="text-lg text-gray-600 flex flex-col items-center gap-3">
                 <span>Trusted by</span>
-                <span className="relative inline-block group">
-                  {/* Animated background */}
-                  <span className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 rounded-full blur-md opacity-70 group-hover:opacity-100 animate-pulse"></span>
-
-                  {/* Main badge */}
-                  <span className="relative inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-6 py-3 rounded-full font-bold text-lg lg:text-xl transform -rotate-2 hover:rotate-0 transition-all duration-300 hover:scale-110 shadow-lg">
-                    <Sparkles className="w-5 h-5 animate-spin-slow" />
-                    Marketing Agencies
-                    <Star className="w-5 h-5 animate-bounce" />
-                  </span>
-
-                  {/* Decorative elements */}
-                  <span className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-ping"></span>
-                  <span className="absolute -bottom-1 -left-1 w-2 h-2 bg-pink-400 rounded-full animate-ping animation-delay-200"></span>
-                </span>
-                <span>Worldwide</span>
+                <span>Marketing Agencies Worldwide</span>
               </p>
             </div>
           </div>
