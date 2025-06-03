@@ -60,10 +60,6 @@ export interface PackageLandingPage {
   image: string
   badge?: string
   products: ProductInPack[]
-  gradient: string
-  bgGradient: string
-  borderColor: string
-  hoverGradient: string
 }
 
 // Mock data for the pack - as provided in the current file
@@ -72,7 +68,7 @@ const packsData: Package[] = [
     id: "premium-pack",
     slug: "premium-pack",
     name: "GoAds Premium",
-    description: "A perfect pack for individuals who working with Ad Agency!",
+    description: "A perfect pack for individuals who working with ads Agency!",
     price: 420,
     comparePrice: 500,
     category: "premium",
@@ -84,7 +80,7 @@ const packsData: Package[] = [
       {
         productId: "bm-verified-250",
         quantity: 1,
-        role: "1 Admin + 2 Employee Ad Account (BM Verified $250 Limit)",
+        role: "1 Admin + 2 Employee ads Account (BM Verified $250 Limit)",
       },
       {
         productId: "bm-verified-250-pixel",
@@ -92,21 +88,25 @@ const packsData: Package[] = [
         role: "Pixel & Page, 2 Admin (BM Verified $250 Limit)",
       },
       { productId: "fanpage", quantity: 2, role: "Optimized Advertising Page" },
-      { productId: "via-usa-greenline", quantity: 5, role: "USA Via (Including 2 Greenline)" },
+      {
+        productId: "Profile-usa-greenline",
+        quantity: 5,
+        role: "USA Profile (Including 2 Greenline)",
+      },
     ],
-    detail: `<p><strong>Popular Pack</strong> is specially designed for agencies and professional advertisers, offering a complete solution to scale your campaigns.</p><ul><li>Includes <strong>2 BM Verified $250 Limit:</strong> One BM with <span>1 Admin + 2 Employee</span> permissions, and another with <span>Pixel & Page + 2 Admin</span> for flexible management and delegation.</li><li>Comes with <strong>2 high-quality Fanpages:</strong> Pre-optimized for advertising, boosting engagement and credibility.</li><li>Features <strong>5 USA Via accounts:</strong> Including <span>2 Greenline Vias</span>, ensuring high trust and stability for critical ad campaigns.</li><li><strong>Ready to use:</strong> All accounts and pages are meticulously prepared — <span>start your campaigns immediately</span> without complex setup.</li></ul>`,
+    detail: `<p><strong>Popular Pack</strong> is specially designed for agencies and professional advertisers, offering a complete solution to scale your campaigns.</p><ul><li>Includes <strong>2 BM Verified $250 Limit:</strong> One BM with <span>1 Admin + 2 Employee</span> permissions, and another with <span>Pixel & Page + 2 Admin</span> for flexible management and delegation.</li><li>Comes with <strong>2 high-quality Fanpages:</strong> Pre-optimized for advertising, boosting engagement and credibility.</li><li>Features <strong>5 USA Profile accounts:</strong> Including <span>2 Greenline Profiles</span>, ensuring high trust and stability for critical ads campaigns.</li><li><strong>Ready to use:</strong> All accounts and pages are meticulously prepared — <span>start your campaigns immediately</span> without complex setup.</li></ul>`,
     solution:
       "A comprehensive solution for agencies aiming to run large-scale ads with reliable USA accounts, optimizing performance and minimizing risks.",
     faq: [
       {
-        question: "What is a Greenline Via, and why is it important?",
+        question: "What is a Greenline Profile, and why is it important?",
         answer:
-          "A Greenline Via is a high-quality USA account with verified status, ensuring higher trust and stability for managing ad accounts. It's ideal for agencies running large-scale campaigns as it reduces the risk of restrictions.",
+          "A Greenline Profile is a high-quality USA account with verified status, ensuring higher trust and stability for managing ads accounts. It's ideal for agencies running large-scale campaigns as it reduces the risk of restrictions.",
       },
       {
-        question: "How do I set up the BM and Via in this pack?",
+        question: "How do I set up the BM and Profile in this pack?",
         answer:
-          "Your pack comes with a detailed Setup Guide (see the 'Setup Guide' tab). You can also contact our support team via Live Chat or Email for personalized assistance during business hours.",
+          "Your pack comes with a detailed Setup Guide (see the 'Setup Guide' tab). You can also contact our support team Profile Live Chat or Email for personalized assistance during business hours.",
       },
       {
         question: "Can I customize this pack or request different components?",
@@ -122,7 +122,7 @@ const packsData: Package[] = [
     budgetInfo: {
       dailyBudget: 250,
       warning:
-        "Each BM in this pack supports a $250 daily spend limit per ad account. This is ideal for scaling campaigns effectively while maintaining account health.",
+        "Each BM in this pack supports a $250 daily spend limit per ads account. This is ideal for scaling campaigns effectively while maintaining account health.",
     },
     review: {
       rating: 4.8,
@@ -139,7 +139,7 @@ const packsData: Package[] = [
     slug: "advanced-pack",
     name: "GoAds Advanced",
     description:
-      "A perfect starter pack for Beginners who want to start their Facebook ad journey!",
+      "A perfect starter pack for Beginners who want to start their Facebook ads journey!",
     price: 170,
     comparePrice: 200,
     category: "advanced",
@@ -159,21 +159,21 @@ const packsData: Package[] = [
         role: "Pixel & Page (BM Unverified)",
       },
       { productId: "fanpage", quantity: 1, role: "Optimized Advertising Page" },
-      { productId: "via-asia", quantity: 2, role: "Asia Via (Admin Accounts)" },
+      { productId: "Profile-asia", quantity: 2, role: "Asia Profile (Admin Accounts)" },
     ],
-    detail: `<p><strong>Basic Pack</strong> is designed for small businesses and individuals, providing essential tools to launch effective ad campaigns.</p><ul><li>Includes <strong>1 BM Verified $250 Limit:</strong> Perfect for <span>adding Agency accounts</span> with high stability.</li><li>Comes with <strong>1 BM Unverified:</strong> Equipped with <span>Pixel & Page</span> for seamless tracking and management.</li><li>Features <strong>1 high-quality Fanpage:</strong> Pre-optimized for advertising to <span>boost engagement</span>.</li><li>Provides <strong>2 Asia Via accounts:</strong> Reliable for <span>admin roles</span>, ensuring smooth operations.</li><li><strong>Ready to use:</strong> Start your campaigns <span>immediately</span> with minimal setup.</li></ul>`,
+    detail: `<p><strong>Basic Pack</strong> is designed for small businesses and individuals, providing essential tools to launch effective ads campaigns.</p><ul><li>Includes <strong>1 BM Verified $250 Limit:</strong> Perfect for <span>adding Agency accounts</span> with high stability.</li><li>Comes with <strong>1 BM Unverified:</strong> Equipped with <span>Pixel & Page</span> for seamless tracking and management.</li><li>Features <strong>1 high-quality Fanpage:</strong> Pre-optimized for advertising to <span>boost engagement</span>.</li><li>Provides <strong>2 Asia Profile accounts:</strong> Reliable for <span>admin roles</span>, ensuring smooth operations.</li><li><strong>Ready to use:</strong> Start your campaigns <span>immediately</span> with minimal setup.</li></ul>`,
     solution:
-      "An all-in-one solution for small businesses to set up and run professional Facebook ad campaigns with ease.",
+      "An all-in-one solution for small businesses to set up and run professional Facebook ads campaigns with ease.",
     faq: [
       {
         question: "What's the difference between a BM Verified and BM Unverified?",
         answer:
-          "A BM Verified is authenticated with higher trust, ideal for adding Agency accounts, while a BM Unverified is suitable for basic ad setups with Pixel and Page integration. Both are pre-configured for immediate use.",
+          "A BM Verified is authenticated with higher trust, ideal for adding Agency accounts, while a BM Unverified is suitable for basic ads setups with Pixel and Page integration. Both are pre-configured for immediate use.",
       },
       {
-        question: "How do I set up the BM and Via in this pack?",
+        question: "How do I set up the BM and Profile in this pack?",
         answer:
-          "Your pack includes a detailed Setup Guide (see the 'Setup Guide' tab). You can also reach out to our support team via Live Chat or Email for assistance during business hours.",
+          "Your pack includes a detailed Setup Guide (see the 'Setup Guide' tab). You can also reach out to our support team Profile Live Chat or Email for assistance during business hours.",
       },
       {
         question: "Can I upgrade this pack to include USA accounts?",
@@ -189,7 +189,7 @@ const packsData: Package[] = [
     budgetInfo: {
       dailyBudget: 250,
       warning:
-        "The BM Verified in this pack supports a $250 daily spend limit per ad account, perfect for small to medium campaigns.",
+        "The BM Verified in this pack supports a $250 daily spend limit per ads account, perfect for small to medium campaigns.",
     },
     review: {
       rating: 4.7,
@@ -202,7 +202,7 @@ const packsData: Package[] = [
     slug: "basic-pack",
     name: "GoAds Basic",
     description:
-      "An affordable entry-level pack for individuals or small businesses starting their Facebook ad journey.",
+      "An affordable entry-level pack for individuals or small businesses starting their Facebook ads journey.",
     price: 90,
     comparePrice: 120,
     category: "basic",
@@ -212,10 +212,10 @@ const packsData: Package[] = [
     purchases: 200,
     products: [
       { productId: "bm-unverified", quantity: 1, role: "Business Manager (Unverified)" },
-      { productId: "via-asia", quantity: 1, role: "Asia Via (Admin Account)" },
+      { productId: "Profile-asia", quantity: 1, role: "Asia Profile (Admin Account)" },
       { productId: "fanpage", quantity: 1, role: "Optimized Advertising Page" },
     ],
-    detail: `<p><strong>Super Basic Pack</strong> is tailored for beginners, providing the essentials to start your Facebook ad campaigns.</p><ul><li>Includes <strong>1 Business Manager (Unverified):</strong> Ready for <span>basic ad management</span>.</li><li>Comes with <strong>1 Asia Via:</strong> A reliable <span>admin account</span> for smooth operations.</li><li>Features <strong>1 high-quality Fanpage:</strong> Pre-optimized to <span>boost engagement</span> and credibility.</li><li><strong>Ready to use:</strong> Launch your first campaign <span>immediately</span> with no complicated setup.</li></ul>`,
+    detail: `<p><strong>Super Basic Pack</strong> is tailored for beginners, providing the essentials to start your Facebook ads campaigns.</p><ul><li>Includes <strong>1 Business Manager (Unverified):</strong> Ready for <span>basic ads management</span>.</li><li>Comes with <strong>1 Asia Profile:</strong> A reliable <span>admin account</span> for smooth operations.</li><li>Features <strong>1 high-quality Fanpage:</strong> Pre-optimized to <span>boost engagement</span> and credibility.</li><li><strong>Ready to use:</strong> Launch your first campaign <span>immediately</span> with no complicated setup.</li></ul>`,
     solution:
       "A simple solution for beginners to start running Facebook ads quickly and affordably.",
     faq: [
@@ -227,7 +227,7 @@ const packsData: Package[] = [
       {
         question: "How do I set up the components in this pack?",
         answer:
-          "Your pack includes a step-by-step Setup Guide (see the 'Setup Guide' tab). You can also contact our support team via Live Chat or Email for assistance during business hours.",
+          "Your pack includes a step-by-step Setup Guide (see the 'Setup Guide' tab). You can also contact our support team Profile Live Chat or Email for assistance during business hours.",
       },
       {
         question: "Can I upgrade this pack for more features?",
@@ -267,7 +267,7 @@ const packsData: Package[] = [
       {
         productId: "bm5",
         quantity: 1,
-        role: "4 Via Accounts: 2 Admin + 2 Employee (BM5)",
+        role: "4 Profile Accounts: 2 Admin + 2 Employee (BM5)",
       },
       {
         productId: "bm-verified-250",
@@ -275,26 +275,30 @@ const packsData: Package[] = [
         role: "2 Admin + 2 Pages (BM Verified $250 Limit)",
       },
       { productId: "fanpage", quantity: 2, role: "Optimized Advertising Page" },
-      { productId: "via-usa-greenline", quantity: 6, role: "USA Via (Including 3 Greenline)" },
+      {
+        productId: "Profile-usa-greenline",
+        quantity: 6,
+        role: "USA Profile (Including 3 Greenline)",
+      },
     ],
-    detail: `<p><strong>Vip Pro Max Pack</strong> is the ultimate choice for large agencies, delivering powerful tools for advanced ad campaigns.</p><ul><li>Includes <strong>1 BM5:</strong> Comes with <span>4 Via accounts (2 Admin + 2 Employee)</span> for maximum control and scalability.</li><li>Features <strong>1 BM Verified $250 Limit:</strong> Equipped with <span>2 Admin + 2 Pages</span> for flexible management.</li><li>Comes with <strong>2 high-quality Fanpages:</strong> Pre-optimized for <span>high engagement</span> and credibility.</li><li>Provides <strong>6 USA Via accounts:</strong> Including <span>3 Greenline Vias</span>, ensuring top-tier trust and stability.</li><li><strong>Ready to use:</strong> Launch your campaigns <span>immediately</span> with seamless integration.</li></ul>`,
+    detail: `<p><strong>Vip Pro Max Pack</strong> is the ultimate choice for large agencies, delivering powerful tools for advanced ads campaigns.</p><ul><li>Includes <strong>1 BM5:</strong> Comes with <span>4 Profile accounts (2 Admin + 2 Employee)</span> for maximum control and scalability.</li><li>Features <strong>1 BM Verified $250 Limit:</strong> Equipped with <span>2 Admin + 2 Pages</span> for flexible management.</li><li>Comes with <strong>2 high-quality Fanpages:</strong> Pre-optimized for <span>high engagement</span> and credibility.</li><li>Provides <strong>6 USA Profile accounts:</strong> Including <span>3 Greenline Profiles</span>, ensuring top-tier trust and stability.</li><li><strong>Ready to use:</strong> Launch your campaigns <span>immediately</span> with seamless integration.</li></ul>`,
     solution:
-      "The premium solution for large agencies to run high-volume ad campaigns with top-tier USA accounts and seamless Shopify integration.",
+      "The premium solution for large agencies to run high-volume ads campaigns with top-tier USA accounts and seamless Shopify integration.",
     faq: [
       {
         question: "What makes BM5 different from a regular BM?",
         answer:
-          "A BM5 is a high-capacity Business Manager that supports more ad accounts and higher spend limits, ideal for large agencies. It comes with 4 Via accounts (2 Admin + 2 Employee) for advanced management.",
+          "A BM5 is a high-capacity Business Manager that supports more ads accounts and higher spend limits, ideal for large agencies. It comes with 4 Profile accounts (2 Admin + 2 Employee) for advanced management.",
       },
       {
-        question: "How do I set up the BM and Via in this pack?",
+        question: "How do I set up the BM and Profile in this pack?",
         answer:
-          "Your pack includes a comprehensive Setup Guide (see the 'Setup Guide' tab). You can also contact our support team via Live Chat or Email for personalized assistance during business hours.",
+          "Your pack includes a comprehensive Setup Guide (see the 'Setup Guide' tab). You can also contact our support team Profile Live Chat or Email for personalized assistance during business hours.",
       },
       {
-        question: "Can I use this pack for Shopify ad campaigns?",
+        question: "Can I use this pack for Shopify ads campaigns?",
         answer:
-          "Yes! The Vip Pro Max Pack is optimized for Shopify integration, with pre-configured Pages and Vias to help you run effective e-commerce ad campaigns.",
+          "Yes! The Vip Pro Max Pack is optimized for Shopify integration, with pre-configured Pages and Profiles to help you run effective e-commerce ads campaigns.",
       },
       {
         question: "What happens if an account in the pack gets restricted?",
@@ -305,7 +309,7 @@ const packsData: Package[] = [
     budgetInfo: {
       dailyBudget: 250,
       warning:
-        "The BM Verified in this pack supports a $250 daily spend limit per ad account, while the BM5 allows for higher scalability.",
+        "The BM Verified in this pack supports a $250 daily spend limit per ads account, while the BM5 allows for higher scalability.",
     },
     review: {
       rating: 4.9,
@@ -313,7 +317,7 @@ const packsData: Package[] = [
       comments: [
         "Perfect for large agencies!",
         "High-quality accounts and great support.",
-        "Transformed our ad campaigns.",
+        "Transformed our ads campaigns.",
       ],
     },
   },
@@ -325,27 +329,6 @@ export function getPackageDetailBySlug(slug: string): Package | undefined {
 
 // Landing page specific helper
 export function getPackagesLandingPage(): PackageLandingPage[] {
-  const styles = [
-    {
-      gradient: "from-purple-600 to-pink-600",
-      bgGradient: "bg-gradient-to-r from-purple-600 to-pink-600",
-      hoverGradient: "from-purple-700 to-pink-700",
-      borderColor: "border-purple-200",
-    },
-    {
-      gradient: "from-blue-600 to-indigo-600",
-      bgGradient: "bg-gradient-to-r from-blue-600 to-indigo-600",
-      hoverGradient: "from-blue-700 to-indigo-700",
-      borderColor: "border-blue-200",
-    },
-    {
-      gradient: "from-green-600 to-teal-600",
-      bgGradient: "bg-gradient-to-r from-green-600 to-teal-600",
-      hoverGradient: "from-green-700 to-teal-700",
-      borderColor: "border-green-200",
-    },
-  ]
-
   return [...packsData]
     .sort((a, b) => a.price - b.price)
     .slice(1, 4)
@@ -358,7 +341,6 @@ export function getPackagesLandingPage(): PackageLandingPage[] {
       image,
       badge,
       products,
-      ...styles[index],
     }))
 }
 
