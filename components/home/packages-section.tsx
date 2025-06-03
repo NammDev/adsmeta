@@ -67,11 +67,11 @@ export default function PackagesSection() {
   return (
     <section id="packages" className="py-6 md:py-12 relative overflow-hidden">
       <div className="container mx-auto px-4 relative">
-        <SectionHeader badge="Packages" title="Choose Your Package" />
+        <SectionHeader title="Choose Your Package" />
 
         {/* Desktop Grid View */}
         {!isMobile && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto md:mt-24">
             {packages.map((pkg, index) => {
               const isPremium = pkg.name === "GoAds Premium"
               const isAdvanced = pkg.name === "GoAds Advanced"

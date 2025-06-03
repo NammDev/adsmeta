@@ -2,53 +2,74 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { Sparkles, Star } from "lucide-react"
 
 const companies = [
-  { name: "Vercel", logo: "/logos/vercel.svg" },
-  { name: "Supabase", logo: "/logos/supabase.svg" },
-  { name: "Raycast", logo: "/logos/raycast.svg" },
-  { name: "Agency Partner", logo: "/logos/agency-partner-logo.svg" },
+  { name: "NL Agency 1", logo: "/logos/nl-agency-1.svg" },
+  { name: "NL Agency 2", logo: "/logos/nl-agency-2.svg" },
+  { name: "NL Agency 3", logo: "/logos/nl-agency-3.svg" },
+  { name: "NL Agency 4", logo: "/logos/nl-agency-4.svg" },
+  { name: "NL Agency 5", logo: "/logos/nl-agency-5.svg" },
+  { name: "NL Agency 6", logo: "/logos/nl-agency-6.svg" },
+  { name: "NL Agency 8", logo: "/logos/nl-agency-8.svg" },
 ]
 
 export default function TrustIndicatorsSection() {
-  const [duplicatedCompanies, setDuplicatedCompanies] = useState(companies)
+  const duplicatedCompanies = [...companies, ...companies, ...companies, ...companies]
   const containerRef = useRef<HTMLDivElement>(null)
+  const [animationDuration, setAnimationDuration] = useState(0)
 
   useEffect(() => {
-    // Duplicate the companies array to ensure smooth infinite scrolling
-    setDuplicatedCompanies([...companies, ...companies, ...companies])
-  }, [])
+    const calculateDuration = () => {
+      if (containerRef.current) {
+        const containerWidth = containerRef.current.offsetWidth
+        const totalWidth = containerWidth * (duplicatedCompanies.length / 4) // Divide by 4 because we have 4 sets
+        const speed = 250 // pixels per second
+        const duration = totalWidth / speed
+        setAnimationDuration(duration)
+      }
+    }
+
+    calculateDuration()
+    window.addEventListener("resize", calculateDuration)
+    return () => window.removeEventListener("resize", calculateDuration)
+  }, [duplicatedCompanies.length])
 
   return (
-    <section className="py-8 md:py-16 relative overflow-hidden">
-      <div className="container mx-auto px-4 relative">
+    <section className="py-16 md:py-24">
+      <div className="container mx-auto px-4">
         {/* Mobile Layout - Stacked */}
         <div className="block md:hidden">
-          <div className="text-center mb-8">
-            <p className="text-lg text-gray-600 flex flex-wrap items-center justify-center gap-2">
-              Trusted by Leading Marketing Agencies Worldwide
+          <div className="text-center mb-12">
+            <p className="text-lg text-gray-500 font-medium">
+              Trusted by marketing agencies worldwide
             </p>
           </div>
 
-          <div className="relative overflow-hidden rounded-2xl backdrop-blur-sm p-6">
+          <div className="relative overflow-hidden">
             <div
+              ref={containerRef}
               className="relative overflow-hidden"
               style={{
                 maskImage:
                   "linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 10%, rgb(0, 0, 0) 90%, rgba(0, 0, 0, 0) 100%)",
               }}
             >
-              <div ref={containerRef} className="flex items-center animate-marquee">
+              <div
+                className="flex items-center"
+                style={{
+                  animation: `marquee ${animationDuration}s linear infinite`,
+                  width: "fit-content",
+                }}
+              >
                 {duplicatedCompanies.map((company, index) => (
-                  <div key={`${company.name}-${index}`} className="flex-shrink-0 mx-6">
-                    <div className="relative h-10 w-full max-w-[120px] group">
+                  <div key={`${company.name}-${index}`} className="flex-shrink-0 mx-8">
+                    <div className="relative h-8 w-full max-w-[120px]">
                       <Image
                         src={company.logo || "/placeholder.svg"}
                         alt={`${company.name} logo`}
                         width={120}
-                        height={40}
-                        className="h-full w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300 filter grayscale hover:grayscale-0"
+                        height={32}
+                        className="h-full w-auto object-contain opacity-40 hover:opacity-60 transition-opacity duration-300 filter grayscale"
                       />
                     </div>
                   </div>
@@ -58,38 +79,42 @@ export default function TrustIndicatorsSection() {
           </div>
         </div>
 
-        {/* Desktop Layout - Side by Side (1/3 + 2/3) */}
-        <div className="hidden md:flex items-center gap-12">
-          {/* Left Side - Title with Badge (1/3) */}
-          <div className="w-1/3 flex justify-center">
-            <div className="text-center">
-              <p className="text-lg text-gray-600 flex flex-col items-center gap-3">
-                <span>Trusted by</span>
-                <span>Marketing Agencies Worldwide</span>
-              </p>
-            </div>
+        {/* Desktop Layout - Left Title, Right Logos */}
+        <div className="hidden md:flex items-center gap-20">
+          {/* Left Side - Clean Title */}
+          <div className="w-1/4">
+            <p className="text-lg text-gray-500 font-medium leading-relaxed">
+              Trusted by marketing agencies around the world
+            </p>
           </div>
 
-          {/* Right Side - Scrolling Logos (2/3) */}
-          <div className="w-2/3">
-            <div className="relative overflow-hidden rounded-2xl backdrop-blur-sm p-8">
+          {/* Right Side - Logo Flow */}
+          <div className="w-3/4">
+            <div className="relative overflow-hidden">
               <div
+                ref={containerRef}
                 className="relative overflow-hidden"
                 style={{
                   maskImage:
-                    "linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 8%, rgb(0, 0, 0) 92%, rgba(0, 0, 0, 0) 100%)",
+                    "linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 5%, rgb(0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%)",
                 }}
               >
-                <div ref={containerRef} className="flex items-center animate-marquee">
+                <div
+                  className="flex items-center"
+                  style={{
+                    animation: `marquee ${animationDuration}s linear infinite`,
+                    width: "fit-content",
+                  }}
+                >
                   {duplicatedCompanies.map((company, index) => (
-                    <div key={`${company.name}-${index}`} className="flex-shrink-0 mx-8 lg:mx-12">
-                      <div className="relative h-12 w-full max-w-[120px] bg-white/60 backdrop-blur-sm rounded-lg p-2 shadow-sm border border-gray-100/50 hover:bg-white/80 transition-all duration-300">
+                    <div key={`${company.name}-${index}`} className="flex-shrink-0 mx-12">
+                      <div className="relative h-10 w-full max-w-[140px]">
                         <Image
                           src={company.logo || "/placeholder.svg"}
                           alt={`${company.name} logo`}
-                          width={120}
+                          width={140}
                           height={40}
-                          className="h-full w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300 filter grayscale hover:grayscale-0"
+                          className="h-full w-auto object-contain opacity-40 hover:opacity-60 transition-opacity duration-300 filter grayscale"
                         />
                       </div>
                     </div>
@@ -107,33 +132,8 @@ export default function TrustIndicatorsSection() {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-33.33%);
+            transform: translateX(-50%);
           }
-        }
-
-        .animate-marquee {
-          animation: marquee 25s linear infinite;
-        }
-
-        .animate-marquee:hover {
-          animation-play-state: paused;
-        }
-
-        @keyframes spin-slow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        .animate-spin-slow {
-          animation: spin-slow 3s linear infinite;
-        }
-
-        .animation-delay-200 {
-          animation-delay: 200ms;
         }
       `}</style>
     </section>

@@ -145,11 +145,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
     >
       {/* Title Section */}
       <PageSection className="pt-6 md:pt-8 pb-0">
-        <SectionHeader
-          badge={blogPost.category}
-          title={blogPost.title}
-          subtitle={blogPost.excerpt}
-        />
+        <SectionHeader title={blogPost.title} subtitle={blogPost.excerpt} />
       </PageSection>
 
       {/* Content Section */}

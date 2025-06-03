@@ -34,7 +34,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <LoadingProvider>
             <SiteHeader />
             <main className="flex min-h-screen flex-col overflow-x-hidden relative">
-              <BackgroundDecorations />
               {children}
             </main>
             <CartDrawer />

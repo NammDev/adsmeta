@@ -14,11 +14,11 @@ export default function AboutUsPage() {
   return (
     <SupportingPageLayout
       title="About Us"
-      subtitle="Learn more about EasyAdsPack and our mission to help businesses succeed on Facebook"
+      subtitle="Learn more about GoAds and our mission to help businesses succeed on Facebook"
     >
       {/* Company Background - Title Section */}
       <PageSection className="pt-6 md:pt-8 pb-0">
-        <SectionHeader badge="Our Journey Since 2016" title="Our Story" />
+        <SectionHeader title="Our Story" />
       </PageSection>
 
       {/* Company Background - Content Section */}
@@ -56,13 +56,13 @@ export default function AboutUsPage() {
               <div className="grid grid-cols-3 gap-4 mt-6">
                 <div className="text-center">
                   <div className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-                    7+
+                    4+
                   </div>
                   <div className="text-sm text-gray-500">Years</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-600 bg-clip-text text-transparent">
-                    5k+
+                    3k+
                   </div>
                   <div className="text-sm text-gray-500">Clients</div>
                 </div>
@@ -80,7 +80,7 @@ export default function AboutUsPage() {
               <div className="relative h-[400px]">
                 <Image
                   src="about/digital-marketing-team-illustration.png"
-                  alt="EasyAdsPack team"
+                  alt="GoAds team"
                   fill
                   className="object-cover"
                 />
@@ -97,7 +97,7 @@ export default function AboutUsPage() {
 
       {/* Mission Statement - Title Section */}
       <PageSection className="pt-6 md:pt-8 pb-0">
-        <SectionHeader badge="Our Purpose" title="Our Mission" />
+        <SectionHeader title="Our Mission" />
       </PageSection>
 
       {/* Mission Statement - Content Section */}
@@ -163,12 +163,7 @@ export default function AboutUsPage() {
 
       {/* Team Introduction - Title Section */}
       <PageSection className="pt-6 md:pt-8 pb-0">
-        <SectionHeader
-          badge="Meet Our Experts"
-          title="Team Founders"
-          badgeClassName="bg-gradient-to-r from-green-500 to-teal-600"
-          borderClassName="from-green-500 to-teal-600"
-        />
+        <SectionHeader title="Team Founders" />
       </PageSection>
 
       {/* Team Introduction - Content Section - REDESIGNED */}

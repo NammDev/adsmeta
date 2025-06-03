@@ -125,7 +125,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
     >
       <div className="container mx-auto px-4 relative">
         {/* Header Section */}
-        <SectionHeader badge="Our Products" title="Premium Services" />
+        <SectionHeader title="Premium Services" />
 
         {/* Category-based Product Listing */}
         <div className="space-y-8">

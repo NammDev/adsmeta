@@ -73,7 +73,6 @@ export default function ContactPage() {
       {/* Title Section with proper spacing */}
       <PageSection className="pt-6 md:pt-8 pb-0">
         <SectionHeader
-          badge="Fast Response Channels"
           title="Connect With Us Instantly"
           badgeClassName="bg-gradient-to-r from-pink-500 to-purple-600"
         />
@@ -194,7 +193,6 @@ export default function ContactPage() {
       {/* Additional Options Section */}
       <PageSection className="pt-6 md:pt-8 pb-0">
         <SectionHeader
-          badge="Additional Options"
           title="Other Ways to Reach Us"
           badgeClassName="bg-gradient-to-r from-purple-500 to-indigo-600"
           borderClassName="from-purple-400 to-indigo-500 h-2"
@@ -311,7 +309,6 @@ export default function ContactPage() {
       {/* FAQ Section */}
       <PageSection className="pt-6 md:pt-8 pb-0">
         <SectionHeader
-          badge="Quick Answers"
           title="Frequently Asked Questions"
           badgeClassName="bg-gradient-to-r from-blue-500 to-cyan-600"
           borderClassName="from-blue-400 to-cyan-500 h-2"

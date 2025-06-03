@@ -29,7 +29,6 @@ export default function FAQPage() {
       {/* Page Title Section - Adjusted spacing */}
       <PageSection className="pt-6 md:pt-8 pb-0">
         <SectionHeader
-          badge="Help Center"
           title="Frequently Asked Questions"
           badgeClassName="bg-gradient-to-r from-blue-500 to-indigo-600"
           borderClassName="from-blue-400 to-indigo-500 h-2"
@@ -186,7 +185,6 @@ export default function FAQPage() {
       <div className="py-12 bg-transparent">
         <div className="container px-4 md:px-6">
           <SectionHeader
-            badge="Payment"
             title="Ordering & Payment"
             badgeClassName="bg-gradient-to-r from-purple-500 to-pink-600"
             borderClassName="from-red-400 to-pink-600 h-2"
@@ -243,7 +241,6 @@ export default function FAQPage() {
         <div className="container px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
             <SectionHeader
-              badge="Common Questions"
               title="Other Frequently Asked Questions"
               badgeClassName="bg-gradient-to-r from-indigo-500 to-blue-600"
               borderClassName="from-indigo-400 to-blue-600 h-2"
