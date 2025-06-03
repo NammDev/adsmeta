@@ -7,11 +7,12 @@ import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Package2, Star, ChevronLeft, ChevronRight, Sparkles } from "lucide-react"
+import { Package2, Star, ChevronLeft, ChevronRight } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import PageSection from "@/components/page-section"
 import SectionHeader from "@/components/ui/section-header"
-import { getPackagesListPage, PackageListPage } from "@/data/packs"
+import { getPackagesListPage, type PackageListPage } from "@/data/packs"
+import MobilePackagesCarousel from "@/components/home/mobile-packages-carousel"
 
 export default function PacksPage() {
   // Use media query to detect mobile screens
@@ -28,7 +29,7 @@ export default function PacksPage() {
   const packs: PackageListPage[] = getPackagesListPage()
 
   // Separate featured packs from regular packs
-  const featuredPacks = packs.slice(1, 3) // Get first two items (index 0 and 1)
+  const featuredPacks = [packs[2], packs[1]] // Get Premium (index 2) then Advanced (index 1)
 
   // Handle manual scroll and update active index
   useEffect(() => {
@@ -216,201 +217,187 @@ export default function PacksPage() {
 
           {/* All Packs Section Content */}
           <div className="relative pt-0">
-            {/* Desktop View - Original Layout */}
+            {/* Desktop View - Redesigned Layout with Square Images */}
             {!isMobile && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
-                {packs.map((pack) => (
-                  <Card
-                    key={pack.id}
-                    className="overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-xl group relative"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="relative aspect-video bg-gradient-to-br from-gray-50 to-white overflow-hidden">
-                      <Image
-                        src={pack.image || "/placeholder.svg"}
-                        alt={pack.name}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      {pack.badge && (
-                        <Badge className="absolute top-3 right-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 border-0 shadow-sm">
-                          {pack.badge}
-                        </Badge>
-                      )}
-                    </div>
-                    <CardContent className="p-6 relative z-10">
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-facebook transition-colors">
-                        {pack.name}
-                      </h3>
-                      <p className="text-gray-600 mb-4">{pack.description}</p>
+              <div className="max-w-7xl mx-auto relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {packs.map((pack, index) => {
+                    const isPremium = pack.name === "GoAds Premium"
+                    const isAdvanced = pack.name === "GoAds Advanced"
+                    const isElite = pack.name === "GoAds Elite"
+                    const isBasic = pack.name === "GoAds Basic"
 
-                      <ul className="mb-6 space-y-2" style={{ minHeight: "180px" }}>
-                        {pack.products.map((product, index) => (
-                          <li key={index} className="flex items-start">
-                            <div className="h-5 w-5 text-facebook mr-2 mt-0.5 flex-shrink-0 relative">
-                              <svg
-                                className="absolute inset-0 text-facebook"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M5 13l4 4L19 7"
-                                />
-                              </svg>
-                              <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-purple-200 rounded-full opacity-0 group-hover:opacity-30 transition-opacity"></div>
-                            </div>
-                            <span className="text-sm">{product.role}</span>
-                          </li>
-                        ))}
-                      </ul>
-
-                      <div className="flex items-center justify-between mt-auto">
-                        <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                          {pack.price}
-                        </span>
-                        <Button
-                          asChild
-                          className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 border-0 text-white shadow-sm"
-                        >
-                          <Link href={pack.url}>View Pack</Link>
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            )}
-
-            {/* Mobile View - Carousel Layout (like on landing page) */}
-            {isMobile && (
-              <div className="relative">
-                {/* Mobile Carousel */}
-                <div
-                  ref={carouselRef}
-                  className="flex overflow-x-scroll scrollbar-hide touch-pan-x"
-                  style={{
-                    scrollSnapType: "x mandatory",
-                    WebkitOverflowScrolling: "touch",
-                  }}
-                  onTouchStart={handleTouchStart}
-                  onTouchMove={handleTouchMove}
-                  onTouchEnd={handleTouchEnd}
-                >
-                  {packs.map((pack) => (
-                    <div
-                      key={pack.id}
-                      className="min-w-full w-full flex-shrink-0 px-4"
-                      style={{ scrollSnapAlign: "center" }}
-                    >
-                      <Card className="overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-lg group relative">
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div className="relative aspect-video bg-gradient-to-br from-gray-50 to-white overflow-hidden">
-                          <Image
-                            src={pack.image || "/placeholder.svg"}
-                            alt={pack.name}
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
-                          {pack.badge && (
-                            <Badge className="absolute top-3 right-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 border-0 shadow-sm">
-                              {pack.badge}
-                            </Badge>
-                          )}
-                        </div>
-                        <CardContent className="p-6 relative z-10">
-                          <h3 className="text-xl font-bold mb-2 group-hover:text-facebook transition-colors">
-                            {pack.name}
-                          </h3>
-                          <p className="text-gray-600 mb-4">{pack.description}</p>
-
-                          <ul className="mb-6 space-y-2">
-                            {pack.products.slice(0, 3).map((product, index) => (
-                              <li key={index} className="flex items-start">
-                                <div className="h-5 w-5 text-facebook mr-2 mt-0.5 flex-shrink-0 relative">
-                                  <svg
-                                    className="absolute inset-0 text-facebook"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth={2}
-                                      d="M5 13l4 4L19 7"
-                                    />
-                                  </svg>
-                                  <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-purple-200 rounded-full opacity-0 group-hover:opacity-30 transition-opacity"></div>
-                                </div>
-                                <span className="text-sm">{product.role}</span>
-                              </li>
-                            ))}
-                          </ul>
-
-                          <div className="flex items-center justify-between mt-auto">
-                            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                              {pack.price}
+                    return (
+                      <div
+                        key={pack.id}
+                        className={`relative ${
+                          isPremium ? "lg:transform lg:scale-105 lg:z-10" : ""
+                        }`}
+                      >
+                        {pack.badge && (
+                          <div className="absolute -top-4 left-0 right-0 flex justify-center z-20">
+                            <span
+                              className={`${
+                                isPremium
+                                  ? "bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-amber-900 shadow-xl border border-amber-300"
+                                  : "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg"
+                              } text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1`}
+                            >
+                              {isPremium ? "👑" : "⭐"} {pack.badge}
                             </span>
+                          </div>
+                        )}
+
+                        <Card
+                          className={`${
+                            isPremium
+                              ? "border-2 border-amber-400 shadow-xl bg-gradient-to-br from-amber-50 via-white to-yellow-50 relative overflow-hidden"
+                              : isAdvanced
+                              ? "border border-blue-200 shadow-md bg-white hover:shadow-lg hover:border-blue-300"
+                              : isElite
+                              ? "border border-purple-200 shadow-md bg-white hover:shadow-lg hover:border-purple-300"
+                              : "border border-gray-200 shadow-md bg-white hover:shadow-lg"
+                          } rounded-xl transition-all duration-300 h-full group ${
+                            isPremium
+                              ? "hover:shadow-amber-200/50 hover:shadow-2xl"
+                              : "hover:transform hover:scale-102"
+                          }`}
+                        >
+                          {/* Premium Background Pattern */}
+                          {isPremium && (
+                            <div className="absolute inset-0 opacity-5">
+                              <div className="absolute top-2 right-2 text-amber-400">
+                                <svg className="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                              </div>
+                              <div className="absolute bottom-2 left-2 text-amber-400">
+                                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Square Image Container - Perfect for 400x400 images */}
+                          <div className="relative aspect-square bg-gradient-to-br from-gray-50 to-white overflow-hidden rounded-t-xl">
+                            <Image
+                              src={pack.image || "/placeholder.svg"}
+                              alt={pack.name}
+                              fill
+                              className="object-cover transition-transform duration-500 group-hover:scale-105 p-4"
+                            />
+                          </div>
+
+                          {/* Header Section - Inspired by landing page */}
+                          <div
+                            className={`${
+                              isPremium ? "p-5 pb-3" : "p-4 pb-3"
+                            } text-center relative`}
+                          >
+                            <h3
+                              className={`${
+                                isPremium ? "text-base" : "text-sm"
+                              } font-semibold mb-2 ${
+                                isPremium ? "text-amber-700" : "text-gray-600"
+                              } uppercase tracking-wide relative z-10`}
+                            >
+                              {pack.name.replace("GoAds ", "")}
+                            </h3>
+
+                            <div className={`${isPremium ? "mb-4" : "mb-3"} relative z-10`}>
+                              <span
+                                className={`${isPremium ? "text-3xl" : "text-2xl"} font-bold ${
+                                  isPremium
+                                    ? "bg-gradient-to-r from-amber-600 to-yellow-600 bg-clip-text text-transparent"
+                                    : "text-gray-900"
+                                }`}
+                              >
+                                {pack.price}
+                              </span>
+                              <span className="text-gray-500 text-sm ml-1">/ one-time</span>
+                            </div>
+
+                            <p className={`text-gray-600 text-sm leading-relaxed relative z-10`}>
+                              {pack.description}
+                            </p>
+                          </div>
+
+                          {/* Features Section */}
+                          <CardContent
+                            className={`${isPremium ? "px-5 pb-5" : "px-4 pb-4"} relative z-10`}
+                          >
+                            <ul
+                              className={`${
+                                isPremium ? "space-y-2.5 mb-6" : "space-y-2 mb-5"
+                              } min-h-[100px]`}
+                            >
+                              {pack.products.slice(0, 3).map((product, i) => (
+                                <li key={i} className="flex items-start">
+                                  <div
+                                    className={`${isPremium ? "w-4 h-4" : "w-3 h-3"} rounded-full ${
+                                      isPremium
+                                        ? "bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 shadow-md"
+                                        : "bg-gradient-to-r from-green-400 to-blue-500"
+                                    } flex-shrink-0 flex items-center justify-center mt-0.5 mr-2`}
+                                  >
+                                    <svg
+                                      className={`${
+                                        isPremium ? "h-2.5 w-2.5" : "h-2 w-2"
+                                      } text-white`}
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      stroke="currentColor"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M5 13l4 4L19 7"
+                                      />
+                                    </svg>
+                                  </div>
+                                  <span className={`text-gray-700 text-sm leading-relaxed`}>
+                                    {product.role}
+                                  </span>
+                                </li>
+                              ))}
+                              {pack.products.length > 3 && (
+                                <li className={`text-sm text-gray-500 italic ml-5`}>
+                                  +{pack.products.length - 3} more products
+                                </li>
+                              )}
+                            </ul>
+
                             <Button
                               asChild
-                              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 border-0 text-white shadow-sm"
+                              className={`w-full ${
+                                isPremium ? "py-2.5" : "py-2"
+                              } font-semibold text-sm rounded-lg transition-all duration-200 ${
+                                isPremium
+                                  ? "bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-600 hover:via-yellow-600 hover:to-amber-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 border border-amber-400"
+                                  : isAdvanced
+                                  ? "bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white"
+                                  : isElite
+                                  ? "bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+                                  : "bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-800 hover:to-gray-900 text-white"
+                              }`}
                             >
-                              <Link href={pack.url}>View Pack</Link>
+                              <Link href={pack.url} className="flex items-center justify-center">
+                                {isPremium ? "👑" : "📦"} View Pack
+                              </Link>
                             </Button>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Navigation Arrows */}
-                <button
-                  onClick={handlePrev}
-                  disabled={activeIndex === 0}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white rounded-full p-2 shadow-md disabled:opacity-30 z-10 transition-transform hover:scale-110 active:scale-95"
-                  aria-label="Previous package"
-                >
-                  <ChevronLeft className="h-6 w-6 text-facebook" />
-                </button>
-
-                <button
-                  onClick={handleNext}
-                  disabled={activeIndex === packs.length - 1}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-white rounded-full p-2 shadow-md disabled:opacity-30 z-10 transition-transform hover:scale-110 active:scale-95"
-                  aria-label="Next package"
-                >
-                  <ChevronRight className="h-6 w-6 text-facebook" />
-                </button>
-
-                {/* Pagination Indicators */}
-                <div className="flex justify-center mt-6 gap-2">
-                  {packs.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => scrollToCard(index)}
-                      className="relative h-2.5 rounded-full bg-gray-300 overflow-hidden transition-all duration-300"
-                      style={{
-                        width: activeIndex === index ? "1.5rem" : "0.625rem",
-                      }}
-                      aria-label={`Go to package ${index + 1}`}
-                    >
-                      <span
-                        className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
-                        style={{
-                          opacity: activeIndex === index ? 1 : 0,
-                          transition: "opacity 0.3s ease-in-out",
-                        }}
-                      />
-                    </button>
-                  ))}
+                          </CardContent>
+                        </Card>
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
             )}
+
+            {/* Mobile Carousel View */}
+            {isMobile && <MobilePackagesCarousel packages={packs} />}
           </div>
         </div>
       </PageSection>
