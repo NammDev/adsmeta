@@ -140,7 +140,7 @@ export default function PackagesSection() {
                 {pkg.badge && (
                   <div className="absolute -top-4 left-0 right-0 flex justify-center z-10">
                     <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-medium px-4 py-1 rounded-full shadow-md">
-                      Most Popular
+                      {pkg.badge}
                     </span>
                   </div>
                 )}
