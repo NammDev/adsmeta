@@ -47,6 +47,22 @@ import { getPackageDetailBySlug } from "@/data/packs"
 import type { FAQ, Package, ProductInPack } from "@/data/packs"
 import { useParams } from "next/navigation"
 
+// Stock status indicator
+const stockStatus = {
+  "in-stock": {
+    label: "In Stock",
+    color: "bg-gradient-to-r from-green-400 to-emerald-500 text-white",
+  },
+  "low-stock": {
+    label: "Low Stock",
+    color: "bg-gradient-to-r from-amber-400 to-orange-500 text-white",
+  },
+  "out-of-stock": {
+    label: "Out of Stock",
+    color: "bg-gradient-to-r from-red-400 to-rose-500 text-white",
+  },
+}
+
 export default function PackPage() {
   const params = useParams()
   const packSlug = params.pack as string
@@ -105,22 +121,6 @@ export default function PackPage() {
     }
 
     setIsAddingToCart(false)
-  }
-
-  // Stock status indicator
-  const stockStatus = {
-    "in-stock": {
-      label: "In Stock",
-      color: "bg-gradient-to-r from-green-400 to-emerald-500 text-white",
-    },
-    "low-stock": {
-      label: "Low Stock",
-      color: "bg-gradient-to-r from-amber-400 to-orange-500 text-white",
-    },
-    "out-of-stock": {
-      label: "Out of Stock",
-      color: "bg-gradient-to-r from-red-400 to-rose-500 text-white",
-    },
   }
 
   return (
@@ -544,6 +544,7 @@ export default function PackPage() {
           </div>
         </div>
       </div>
+
       {/* Cart Notification for Mobile */}
       {showNotification && addedItem && (
         <CartNotification

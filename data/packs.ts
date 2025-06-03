@@ -40,6 +40,17 @@ export interface Package {
   review: Review
 }
 
+export interface PackageListPage {
+  id: string
+  name: string
+  description: string
+  price: string
+  badge?: string
+  image: string
+  url: string
+  products: ProductInPack[]
+}
+
 export interface PackageLandingPage {
   id: string
   slug: string
@@ -58,14 +69,14 @@ export interface PackageLandingPage {
 // Mock data for the pack - as provided in the current file
 const packsData: Package[] = [
   {
-    id: "popular-pack",
-    slug: "popular-pack",
-    name: "Popular Pack",
-    description: "Perfect for beginners and small businesses",
+    id: "premium-pack",
+    slug: "premium-pack",
+    name: "Premium Pack",
+    description: "A perfect pack for individuals who working with Ad Agency!",
     price: 420,
     comparePrice: 500,
-    category: "agency",
-    image: "/placeholder.svg?width=400&height=400", // Placeholder image
+    category: "premium",
+    image: "/packs/premium.png", // Placeholder image
     stock: "in-stock",
     badge: "Best Value",
     purchases: 250,
@@ -124,15 +135,15 @@ const packsData: Package[] = [
     },
   },
   {
-    id: "basic-pack",
-    slug: "basic-pack",
-    name: "Basic Pack",
+    id: "advanced-pack",
+    slug: "advanced-pack",
+    name: "Advanced Pack",
     description:
-      "A perfect starter pack for small businesses or individuals looking to run effective ads with quality Business Managers.",
+      "A perfect starter pack for Beginners who want to start their Facebook ad journey!",
     price: 170,
     comparePrice: 200,
-    category: "basic",
-    image: "/placeholder.svg?width=400&height=400",
+    category: "advanced",
+    image: "/packs/advanced.png",
     stock: "in-stock",
     badge: "Great Start",
     purchases: 150,
@@ -187,15 +198,15 @@ const packsData: Package[] = [
     },
   },
   {
-    id: "super-basic-pack",
-    slug: "super-basic-pack",
-    name: "Super Basic Pack",
+    id: "basic-pack",
+    slug: "basic-pack",
+    name: "Basic Pack",
     description:
       "An affordable entry-level pack for individuals or small businesses starting their Facebook ad journey.",
     price: 90,
     comparePrice: 120,
     category: "basic",
-    image: "/placeholder.svg?width=400&height=400",
+    image: "/packs/basic.png",
     stock: "in-stock",
     badge: "Entry Level",
     purchases: 200,
@@ -241,15 +252,14 @@ const packsData: Package[] = [
     },
   },
   {
-    id: "vip-pro-max-pack",
-    slug: "vip-pro-max-pack",
-    name: "Vip Pro Max Pack",
-    description:
-      "The ultimate pack for large agencies, offering powerful Business Managers and high-quality USA accounts.",
+    id: "elite-pack",
+    slug: "elite-pack",
+    name: "Elite Pack",
+    description: "The ultimate pack for large agencies, offering powerful Business Managers",
     price: 790,
     comparePrice: 1000,
     category: "premium",
-    image: "/placeholder.svg?width=400&height=400",
+    image: "/packs/elite.png",
     stock: "in-stock",
     badge: "Premium Choice",
     purchases: 100,
@@ -337,8 +347,8 @@ export function getPackagesLandingPage(): PackageLandingPage[] {
   ]
 
   return [...packsData]
-    .sort((a, b) => b.price - a.price)
-    .slice(0, 3)
+    .sort((a, b) => a.price - b.price)
+    .slice(1, 4)
     .map(({ id, slug, name, description, price, image, badge, products }, index) => ({
       id,
       slug,
@@ -350,17 +360,6 @@ export function getPackagesLandingPage(): PackageLandingPage[] {
       products,
       ...styles[index],
     }))
-}
-
-export interface PackageListPage {
-  id: string
-  name: string
-  description: string
-  price: string
-  badge?: string
-  image: string
-  url: string
-  products: ProductInPack[]
 }
 
 // Pages pack specific helper
