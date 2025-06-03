@@ -37,3 +37,54 @@ export const TEAM_MEMBERS = [
     gradient: "from-green-500 to-teal-600",
   },
 ] as const
+
+export const TESTIMONIALS = [
+  {
+    name: "David Anderson",
+    role: "Digital Marketing Agency Director",
+    avatar: "/avatar/alex.png",
+    rating: 5,
+    testimonial:
+      "The Premium Pack has been a game-changer for our agency. The combination of BM Verified accounts with $250 limits and Greenline Vias has allowed us to scale our campaigns with confidence. The quality of the accounts is outstanding!",
+    pack: "Premium Pack (€420) Customer",
+    gradient: {
+      card: "from-blue-200 to-indigo-200",
+      avatar: "from-blue-500 to-indigo-500",
+      badge: "from-blue-100 to-indigo-100",
+      text: "text-blue-600",
+      badgeText: "text-blue-700",
+    },
+  },
+  {
+    name: "Emma Thompson",
+    role: "E-commerce Marketing Manager",
+    avatar: "/avatar/sarah.png",
+    rating: 5,
+    testimonial:
+      "The Advanced Pack is perfect for my e-commerce business. Having a BM Verified account with $250 limit and the Pixel & Page setup has streamlined my ad campaigns. The Asia Via accounts are reliable, and the setup process was straightforward.",
+    pack: "Advanced Pack (€170) Customer",
+    gradient: {
+      card: "from-purple-200 to-pink-200",
+      avatar: "from-purple-500 to-pink-500",
+      badge: "from-purple-100 to-pink-100",
+      text: "text-purple-600",
+      badgeText: "text-purple-700",
+    },
+  },
+  {
+    name: "James Wilson",
+    role: "Performance Marketing Specialist",
+    avatar: "/avatar/michael.png",
+    rating: 5,
+    testimonial:
+      "Starting with the Basic Pack was the right choice for me. The unverified BM and Asia Via account provide everything I need to begin my Facebook ad journey. The optimized fanpage has helped me establish a strong presence quickly.",
+    pack: "Basic Pack (€90) Customer",
+    gradient: {
+      card: "from-amber-200 to-orange-200",
+      avatar: "from-amber-500 to-orange-500",
+      badge: "from-amber-100 to-orange-100",
+      text: "text-amber-600",
+      badgeText: "text-amber-700",
+    },
+  },
+]

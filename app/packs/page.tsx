@@ -28,8 +28,7 @@ export default function PacksPage() {
   const packs: PackageListPage[] = getPackagesListPage()
 
   // Separate featured packs from regular packs
-  const featuredPacks = packs.slice(0, 2) // Get first two items (index 0 and 1)
-  const regularPacks = packs.slice(2, 4) // Get items from index 2 to 32
+  const featuredPacks = packs.slice(1, 3) // Get first two items (index 0 and 1)
 
   // Handle manual scroll and update active index
   useEffect(() => {
@@ -42,7 +41,7 @@ export default function PacksPage() {
         const newIndex = Math.round(scrollPosition / cardWidth)
 
         // Only update if the index has actually changed
-        if (newIndex !== activeIndex && newIndex >= 0 && newIndex < regularPacks.length) {
+        if (newIndex !== activeIndex && newIndex >= 0 && newIndex < packs.length) {
           setActiveIndex(newIndex)
         }
       }
@@ -61,7 +60,7 @@ export default function PacksPage() {
         carousel.removeEventListener("scrollend", handleScrollEnd)
       }
     }
-  }, [activeIndex, isMobile, regularPacks.length])
+  }, [activeIndex, isMobile, packs.length])
 
   // Navigate to specific card
   const scrollToCard = (index: number) => {
@@ -90,7 +89,7 @@ export default function PacksPage() {
 
   // Navigate to next card
   const handleNext = () => {
-    if (activeIndex < regularPacks.length - 1) {
+    if (activeIndex < packs.length - 1) {
       scrollToCard(activeIndex + 1)
     }
   }
@@ -111,7 +110,7 @@ export default function PacksPage() {
     const isLeftSwipe = distance > 50
     const isRightSwipe = distance < -50
 
-    if (isLeftSwipe && activeIndex < regularPacks.length - 1) {
+    if (isLeftSwipe && activeIndex < packs.length - 1) {
       handleNext()
     }
 
@@ -301,7 +300,7 @@ export default function PacksPage() {
                   onTouchMove={handleTouchMove}
                   onTouchEnd={handleTouchEnd}
                 >
-                  {regularPacks.map((pack) => (
+                  {packs.map((pack) => (
                     <div
                       key={pack.id}
                       className="min-w-full w-full flex-shrink-0 px-4"
@@ -381,7 +380,7 @@ export default function PacksPage() {
 
                 <button
                   onClick={handleNext}
-                  disabled={activeIndex === regularPacks.length - 1}
+                  disabled={activeIndex === packs.length - 1}
                   className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-white rounded-full p-2 shadow-md disabled:opacity-30 z-10 transition-transform hover:scale-110 active:scale-95"
                   aria-label="Next package"
                 >
@@ -390,7 +389,7 @@ export default function PacksPage() {
 
                 {/* Pagination Indicators */}
                 <div className="flex justify-center mt-6 gap-2">
-                  {regularPacks.map((_, index) => (
+                  {packs.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => scrollToCard(index)}
@@ -416,16 +415,7 @@ export default function PacksPage() {
         </div>
       </PageSection>
 
-      {/* Additional Info Section */}
-      <PageSection className="pt-6 md:pt-8 pb-0">
-        <SectionHeader
-          badge="Need a?"
-          title="Custom Solutions"
-          subtitle="We offer tailored packages for businesses with specific requirements. Contact our team to discuss your needs."
-        />
-      </PageSection>
-
-      <PageSection className="pt-0 pb-12">
+      <PageSection className="py-8 md:py-16">
         <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 md:p-8 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-blue-200 to-indigo-200 rounded-full opacity-20 -translate-y-1/2 translate-x-1/2"></div>
           <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-purple-200 to-pink-200 rounded-full opacity-20 translate-y-1/2 -translate-x-1/4"></div>
