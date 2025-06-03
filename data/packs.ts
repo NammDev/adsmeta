@@ -71,7 +71,7 @@ const packsData: Package[] = [
   {
     id: "premium-pack",
     slug: "premium-pack",
-    name: "Premium Pack",
+    name: "Goads Premium",
     description: "A perfect pack for individuals who working with Ad Agency!",
     price: 420,
     comparePrice: 500,
@@ -137,7 +137,7 @@ const packsData: Package[] = [
   {
     id: "advanced-pack",
     slug: "advanced-pack",
-    name: "Advanced Pack",
+    name: "GoAds Advanced",
     description:
       "A perfect starter pack for Beginners who want to start their Facebook ad journey!",
     price: 170,
@@ -200,7 +200,7 @@ const packsData: Package[] = [
   {
     id: "basic-pack",
     slug: "basic-pack",
-    name: "Basic Pack",
+    name: "GoAds Basic",
     description:
       "An affordable entry-level pack for individuals or small businesses starting their Facebook ad journey.",
     price: 90,
@@ -254,7 +254,7 @@ const packsData: Package[] = [
   {
     id: "elite-pack",
     slug: "elite-pack",
-    name: "Elite Pack",
+    name: "GoAds Elite",
     description: "The ultimate pack for large agencies, offering powerful Business Managers",
     price: 790,
     comparePrice: 1000,

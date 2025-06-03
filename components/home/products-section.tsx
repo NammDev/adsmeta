@@ -125,11 +125,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
     >
       <div className="container mx-auto px-4 relative">
         {/* Header Section */}
-        <SectionHeader
-          badge="Our Products"
-          title="Premium Solutions"
-          subtitle="Discover our carefully crafted solutions designed to elevate your marketing strategy and drive results"
-        />
+        <SectionHeader badge="Our Products" title="Premium Services" />
 
         {/* Category-based Product Listing */}
         <div className="space-y-8">
@@ -141,9 +137,9 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                   <span className="text-white font-bold text-xl">🏢</span>
                 </div>
                 <h3 className="text-xl md:text-2xl font-bold text-gray-900">Business Managers</h3>
-                <Badge className="bg-blue-100 text-blue-700 border-0 animate-bounce hover:bg-transparent">
+                {/* <Badge className="bg-blue-100 text-blue-700 border-0 animate-bounce hover:bg-transparent">
                   Premium Quality
-                </Badge>
+                </Badge> */}
               </div>
 
               <div className="grid gap-6 md:grid-cols-2">
@@ -245,9 +241,9 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                   <span className="text-white font-bold text-xl">👤</span>
                 </div>
                 <h3 className="text-xl md:text-2xl font-bold text-gray-900">Profile Accounts</h3>
-                <Badge className="bg-purple-100 text-purple-700 border-0 animate-bounce hover:bg-transparent">
+                {/* <Badge className="bg-purple-100 text-purple-700 border-0 animate-bounce hover:bg-transparent">
                   Enterprise Ready
-                </Badge>
+                </Badge> */}
               </div>
 
               <div className="grid gap-6 md:grid-cols-2">
@@ -354,9 +350,9 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                 <h3 className="text-xl md:text-2xl font-bold text-gray-900 capitalize">
                   {category.replace("-", " ")} Products
                 </h3>
-                <Badge className="bg-green-100 text-green-700 border-0 animate-bounce hover:bg-transparent">
+                {/* <Badge className="bg-green-100 text-green-700 border-0 animate-bounce hover:bg-transparent">
                   Professional
-                </Badge>
+                </Badge> */}
               </div>
 
               <div className="grid gap-6 md:grid-cols-2">

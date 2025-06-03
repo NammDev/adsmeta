@@ -9,11 +9,7 @@ export default function TestimonialsSection() {
   return (
     <section className="py-8 md:py-16 relative overflow-hidden">
       <div className="container mx-auto px-4 relative">
-        <SectionHeader
-          badge="Testimonials"
-          title="What Our Clients Say"
-          subtitle="Real feedback from agencies using our solutions"
-        />
+        <SectionHeader badge="Testimonials" title="What Our Clients Say" />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <Card className="border-0 rounded-xl overflow-hidden bg-white/90 backdrop-blur-sm shadow-md hover:shadow-lg transition-shadow">

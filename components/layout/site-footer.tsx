@@ -21,7 +21,7 @@ export default function SiteFooter({ className }: SiteFooterProps) {
               </div>
             </Link>
             <p className="text-gray-600 mb-6">
-              Professional Facebook advertising solutions for agencies and marketers worldwide.
+              Professional Facebook advertising solutions for agencies worldwide.
             </p>
             <div className="flex gap-4">
               <Link
@@ -92,7 +92,7 @@ export default function SiteFooter({ className }: SiteFooterProps) {
                     href="/products"
                     className="text-gray-600 hover:text-blue-500 transition-colors"
                   >
-                    Via XMDT
+                    Profile Accounts
                   </Link>
                 </li>
                 <li>
@@ -100,7 +100,7 @@ export default function SiteFooter({ className }: SiteFooterProps) {
                     href="/products"
                     className="text-gray-600 hover:text-blue-500 transition-colors"
                   >
-                    Pixels
+                    Fanpages
                   </Link>
                 </li>
                 <li>
@@ -242,7 +242,7 @@ export default function SiteFooter({ className }: SiteFooterProps) {
               </div>
             </Link>
             <p className="text-gray-600 text-center mb-6">
-              Professional Facebook advertising solutions for agencies and marketers worldwide.
+              Professional Facebook advertising solutions for agencies worldwide.
             </p>
             <div className="flex justify-center gap-6">
               <Link href="contact" className="text-gray-500 hover:text-blue-500 transition-colors">

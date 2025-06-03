@@ -133,11 +133,7 @@ export default function PacksPage() {
     >
       {/* Title Section */}
       <PageSection className="pt-6 md:pt-8 pb-0">
-        <SectionHeader
-          badge="Value Packs"
-          title="Facebook Ads Solutions"
-          subtitle="Choose the perfect package for your advertising needs"
-        />
+        <SectionHeader badge="Premium" title="Packages" />
       </PageSection>
 
       {/* Content Section */}

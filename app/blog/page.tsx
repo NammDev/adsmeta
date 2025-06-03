@@ -66,11 +66,7 @@ export default function BlogPage() {
     >
       {/* Title Section with proper spacing */}
       <PageSection className="pt-6 md:pt-8 pb-0">
-        <SectionHeader
-          badge="Facebook Ads Insights"
-          title="Expert Knowledge & Strategies"
-          subtitle="Stay updated with the latest Facebook advertising tips and techniques"
-        />
+        <SectionHeader badge="Facebook Ads Insights" title="Expert Knowledge & Strategies" />
       </PageSection>
 
       {/* Content Section - with no top padding */}
@@ -298,11 +294,7 @@ export default function BlogPage() {
 
       {/* Daily New Posts Section Title */}
       <PageSection className="pt-6 md:pt-8 pb-0">
-        <SectionHeader
-          badge="Daily Updates"
-          title="New Posts Every Day"
-          subtitle="Stay updated with the latest Facebook advertising tips and techniques"
-        />
+        <SectionHeader badge="Daily Updates" title="New Posts Every Day" />
       </PageSection>
 
       {/* Daily New Posts Section Content */}

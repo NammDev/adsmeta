@@ -22,10 +22,7 @@ export default function NewsletterSection({ className }: { className?: string })
                 <h3 className="text-xl font-bold text-center text-gray-900 mb-3 relative z-10">
                   Get updates and special offers
                 </h3>
-                <p className="text-gray-600 text-center text-sm mb-4 max-w-md mx-auto relative z-10">
-                  Join our email list for exclusive discounts and the latest advertising updates.
-                </p>
-                <div className="flex flex-col space-y-3 relative z-10">
+                <div className="flex flex-col space-y-3 relative z-10 my-4">
                   <Input
                     type="email"
                     placeholder="Your email address"
@@ -131,12 +128,7 @@ export default function NewsletterSection({ className }: { className?: string })
                     <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-indigo-200 opacity-50 rounded-full"></div>
                   </span>
                 </h3>
-                <p className="text-gray-600 mb-4 mt-4 relative z-10">
-                  Don't want to miss any of our updates? Join our email list. You'll receive all of
-                  the most recent advertising updates, discounts, and other awesome news straight to
-                  your inbox.
-                </p>
-                <div className="flex relative z-10">
+                <div className="flex relative z-10 my-8">
                   <Input
                     type="email"
                     placeholder="Enter your email address..."

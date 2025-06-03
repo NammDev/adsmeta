@@ -142,6 +142,7 @@ export default function HeroSection() {
                 </span>
               </Button>
               <Button
+                onClick={() => openLinkedin()}
                 variant="ghost"
                 className="flex items-center justify-center gap-2 px-3 py-3 rounded-lg hover:bg-blue-50 hover:border-blue-200 hover:shadow-md border border-transparent group transition-all duration-300 relative overflow-hidden"
               >
