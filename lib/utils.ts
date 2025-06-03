@@ -53,6 +53,11 @@ export function openTelegram(message?: string) {
   window.open(url, "_blank")
 }
 
+export function openLinkedin() {
+  const linkedinUrl = CONTACT_INFO.linkedin
+  window.open(linkedinUrl, "_blank")
+}
+
 export function openEmail(email?: string, subject?: string, body?: string) {
   const defaultEmail = CONTACT_INFO.email
   const defaultSubject = "Inquiry about your products"

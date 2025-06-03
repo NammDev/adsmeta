@@ -123,7 +123,10 @@ export default function TestimonialsSection() {
         </div>
 
         <div className="mt-12 text-center">
-          <Button className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-medium text-lg py-6 px-8 rounded-md shadow-md hover:shadow-lg transition-all border-0">
+          <Button
+            onClick={() => (window.location.href = "/blog")}
+            className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-medium text-lg py-6 px-8 rounded-md shadow-md hover:shadow-lg transition-all border-0"
+          >
             Join Our Success Stories
           </Button>
         </div>

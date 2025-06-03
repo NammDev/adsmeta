@@ -46,6 +46,7 @@ import { cn } from "@/lib/utils"
 import { getPackageDetailBySlug } from "@/data/packs"
 import type { FAQ, Package, ProductInPack } from "@/data/packs"
 import { useParams } from "next/navigation"
+import PackLoading from "./loading"
 
 // Stock status indicator
 const stockStatus = {
@@ -68,6 +69,7 @@ export default function PackPage() {
   const packSlug = params.pack as string
   const [pack, setPack] = useState<Package | null>(null)
   const { addToCart } = useCart()
+  const [isLoading, setIsLoading] = useState(true)
   const [quantity, setQuantity] = useState(1)
   const [showNotification, setShowNotification] = useState(false)
   const [addedItem, setAddedItem] = useState<any>(null)
@@ -78,7 +80,12 @@ export default function PackPage() {
     // Get the product based on the slug
     const pack = getPackageDetailBySlug(packSlug)
     setPack(pack || null)
+    setIsLoading(false)
   }, [packSlug])
+
+  if (isLoading) {
+    return <PackLoading />
+  }
 
   if (!pack) {
     return (

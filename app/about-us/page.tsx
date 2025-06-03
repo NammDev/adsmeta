@@ -3,6 +3,7 @@ import SupportingPageLayout from "@/components/layout/supporting-page-layout"
 import { Award, Users, Globe, Shield } from "lucide-react"
 import PageSection from "@/components/page-section"
 import SectionHeader from "@/components/ui/section-header"
+import { TEAM_MEMBERS } from "@/config"
 
 export default function AboutUsPage() {
   return (
@@ -179,29 +180,7 @@ export default function AboutUsPage() {
         <div className="container px-4 md:px-6 mx-auto">
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-6">
-              {[
-                {
-                  name: "Alex Johnson",
-                  role: "Founder",
-                  email: "alex@gmail.com",
-                  image: "/avatar/alex.png",
-                  gradient: "from-blue-500 to-indigo-600",
-                },
-                {
-                  name: "Sarah Williams",
-                  role: "Operations",
-                  email: "sarah@gmail.com",
-                  image: "/avatar/sarah.png",
-                  gradient: "from-purple-500 to-pink-600",
-                },
-                {
-                  name: "Michael Chen",
-                  role: "Developer",
-                  email: "michael@gmail.com",
-                  image: "/avatar/michael.png",
-                  gradient: "from-green-500 to-teal-600",
-                },
-              ].map((member, index) => (
+              {TEAM_MEMBERS.map((member, index) => (
                 <div
                   key={index}
                   className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 group"
@@ -246,25 +225,6 @@ export default function AboutUsPage() {
                   </div>
                 </div>
               ))}
-            </div>
-
-            <div className="mt-12 bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl border border-blue-100">
-              <div className="flex items-center">
-                <div className="p-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white mr-4">
-                  <Globe className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-xl mb-1">Join Our Team</h3>
-                  <p className="text-gray-600">
-                    We're always looking for talented individuals to join our growing team.
-                  </p>
-                </div>
-              </div>
-              <div className="mt-4 flex justify-end">
-                <button className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium hover:shadow-lg transition-all duration-300">
-                  View Openings
-                </button>
-              </div>
             </div>
           </div>
         </div>
