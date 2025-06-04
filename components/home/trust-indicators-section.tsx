@@ -28,7 +28,7 @@ export default function TrustIndicatorsSection() {
         if (containerWidth > 0) {
           const numOriginalCompanies = companies.length
           const calculationFactor = containerWidth * numOriginalCompanies
-          const speed = 100
+          const speed = 150 // Increased speed from 100 to 150
           const newDuration = calculationFactor / speed
 
           if (newDuration > 0 && Number.isFinite(newDuration)) {
@@ -42,7 +42,7 @@ export default function TrustIndicatorsSection() {
         }
         return false
       }
-      return false // Added to ensure all paths return a boolean
+      return false
     }
 
     if (!calculateAndSetDuration()) {
@@ -98,7 +98,11 @@ export default function TrustIndicatorsSection() {
                   }}
                 >
                   {duplicatedCompanies.map((company, index) => (
-                    <div key={`${company.name}-${index}`} className="flex-shrink-0 mx-2 sm:mx-4 md:mx-8">
+                    <div
+                      key={`${company.name}-${index}`}
+                      // Increased mobile margin from mx-2 to mx-4
+                      className="flex-shrink-0 mx-4 sm:mx-6 md:mx-8"
+                    >
                       <div className="relative h-8 w-full max-w-[100px] sm:max-w-[120px]">
                         <Image
                           src={company.logo || "/placeholder.svg"}
@@ -129,7 +133,11 @@ export default function TrustIndicatorsSection() {
           <div className="w-3/4">
             <div className="relative overflow-hidden">
               <div
-                ref={containerRef}
+                // Note: The ref is on the mobile container. For desktop, if it uses a different container,
+                // the animation duration might not be perfectly synced if their widths differ significantly
+                // or if this specific containerRef isn't the one driving the desktop animation.
+                // However, since the animationDuration state is shared, it will use the calculated value.
+                // If desktop needs its own independent speed calculation, it would need its own ref and state.
                 className="relative overflow-hidden"
                 style={{
                   maskImage:
