@@ -21,14 +21,15 @@ import {
   HelpCircle,
   Sparkles,
   DollarSign,
+  ArrowRight,
 } from "lucide-react"
 import SupportingPageLayout from "@/components/layout/supporting-page-layout"
 import { useCart } from "@/context/cart-context"
 import { processContent } from "@/lib/utils"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { CartNotification } from "@/components/cart/cart-notification"
-import { getPackageDetailBySlug } from "@/data/packs"
-import type { Package, ProductInPack } from "@/data/packs"
+import { getPackageDetailBySlug, getPackagesListPage } from "@/data/packs"
+import type { Package, ProductInPack, PackageLandingPage } from "@/data/packs"
 import { useParams } from "next/navigation"
 import PackLoading from "./loading"
 import PackFAQ from "@/components/pack/pack-faq"
@@ -55,6 +56,7 @@ export default function PackPage() {
   const params = useParams()
   const packSlug = params?.pack as string
   const [pack, setPack] = useState<Package | null>(null)
+  const [suggestedPack, setSuggestedPack] = useState<PackageLandingPage | null>(null)
   const { addItem, openCart } = useCart() || {}
   const [isLoading, setIsLoading] = useState(true)
   const [quantity, setQuantity] = useState(1)
@@ -66,6 +68,19 @@ export default function PackPage() {
   useEffect(() => {
     const packData = getPackageDetailBySlug(packSlug)
     setPack(packData || null)
+
+    // Get all packs and find a suggested pack
+    if (packData) {
+      const allPacks = getPackagesListPage()
+      // Find a pack with higher price (next tier up) or if current is highest, suggest a lower tier
+      const currentPrice = packData.price
+      const higherPriced = allPacks.filter((p) => p.price > currentPrice).sort((a, b) => a.price - b.price)[0]
+      const lowerPriced = allPacks.filter((p) => p.price < currentPrice).sort((a, b) => b.price - a.price)[0]
+
+      // Suggest higher priced pack if available, otherwise suggest lower priced
+      setSuggestedPack(higherPriced || lowerPriced || null)
+    }
+
     setIsLoading(false)
   }, [packSlug])
 
@@ -550,6 +565,80 @@ export default function PackPage() {
                   >
                     {isAddingToCart ? "Adding..." : `Add to Cart - €${pack.price}`}
                   </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Suggested Pack Card */}
+            {suggestedPack && (
+              <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-amber-200/20 to-orange-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
+                <CardContent className="p-6 relative z-10">
+                  <h3 className="text-xl font-bold mb-5 relative inline-block">
+                    <span className="relative z-10">You Might Also Like</span>
+                    <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-amber-200 to-orange-200 opacity-70 rounded-full"></div>
+                  </h3>
+
+                  <div className="mb-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-md">
+                        <Package2 className="h-4 w-4 text-white" />
+                      </div>
+                      <h4 className="text-lg font-bold">{suggestedPack.name}</h4>
+                    </div>
+
+                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">{suggestedPack.description}</p>
+
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                        €{suggestedPack.price}
+                      </span>
+                      {suggestedPack.badge && (
+                        <Badge className="bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm">
+                          {suggestedPack.badge}
+                        </Badge>
+                      )}
+                    </div>
+
+                    <div className="space-y-2 mb-4">
+                      {suggestedPack.products.slice(0, 2).map((item, index) => (
+                        <div key={index} className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-amber-500 mt-1 flex-shrink-0" />
+                          <p className="text-sm text-gray-700">{item.role}</p>
+                        </div>
+                      ))}
+                      {suggestedPack.products.length > 2 && (
+                        <p className="text-xs text-gray-500 italic">+ {suggestedPack.products.length - 2} more items</p>
+                      )}
+                    </div>
+
+                    <Button
+                      asChild
+                      className="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-300"
+                    >
+                      <Link href={`/packs/${suggestedPack.slug}`} className="flex items-center justify-center gap-2">
+                        View Pack <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            )}
+
+            <Card className="shadow-lg border-gray-200">
+              <CardHeader>
+                <CardTitle className="flex items-center text-xl font-semibold text-gray-800">
+                  <DollarSign className="h-5 w-5 mr-2 text-green-600" />
+                  Budget Information
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="mb-2">
+                  <span className="text-gray-600">Daily Budget Limit per Ad Account: </span>
+                  <span className="font-bold text-green-700 text-lg">€{pack.budgetInfo.dailyBudget}</span>
+                </div>
+                <div className="mt-3 p-3 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-700 text-sm rounded-r-md">
+                  <p>{pack.budgetInfo.warning}</p>
                 </div>
               </CardContent>
             </Card>
