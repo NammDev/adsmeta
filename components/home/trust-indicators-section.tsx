@@ -19,27 +19,62 @@ export default function TrustIndicatorsSection() {
   const [animationDuration, setAnimationDuration] = useState(0)
 
   useEffect(() => {
-    const calculateDuration = () => {
+    let retryTimeoutId: NodeJS.Timeout | null = null
+
+    const calculateAndSetDuration = () => {
       if (containerRef.current) {
         const containerWidth = containerRef.current.offsetWidth
-        const totalWidth = containerWidth * (duplicatedCompanies.length / 4) // Divide by 4 because we have 4 sets
-        const speed = 100 // Reduced speed for smoother animation
-        const duration = totalWidth / speed
-        setAnimationDuration(duration)
+
+        if (containerWidth > 0) {
+          const numOriginalCompanies = companies.length
+          const calculationFactor = containerWidth * numOriginalCompanies
+          const speed = 150 // Increased speed from 100 to 150
+          const newDuration = calculationFactor / speed
+
+          if (newDuration > 0 && Number.isFinite(newDuration)) {
+            setAnimationDuration(newDuration)
+            if (retryTimeoutId) {
+              clearTimeout(retryTimeoutId)
+              retryTimeoutId = null
+            }
+            return true
+          }
+        }
+        return false
       }
+      return false
     }
 
-    calculateDuration()
-    window.addEventListener("resize", calculateDuration)
-    return () => window.removeEventListener("resize", calculateDuration)
-  }, [duplicatedCompanies.length])
+    if (!calculateAndSetDuration()) {
+      retryTimeoutId = setTimeout(() => {
+        calculateAndSetDuration()
+      }, 100)
+    }
+
+    const handleResize = () => {
+      if (retryTimeoutId) {
+        clearTimeout(retryTimeoutId)
+        retryTimeoutId = null
+      }
+      calculateAndSetDuration()
+    }
+
+    window.addEventListener("resize", handleResize)
+
+    return () => {
+      window.removeEventListener("resize", handleResize)
+      if (retryTimeoutId) {
+        clearTimeout(retryTimeoutId)
+      }
+    }
+  }, [companies.length])
 
   return (
     <section className="py-16 md:py-24">
       <div className="container mx-auto px-4">
         {/* Mobile Layout - Stacked */}
         <div className="block md:hidden">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <p className="text-lg text-gray-500 font-medium">
               Trusted by marketing agencies worldwide
             </p>
@@ -67,7 +102,8 @@ export default function TrustIndicatorsSection() {
                   {duplicatedCompanies.map((company, index) => (
                     <div
                       key={`${company.name}-${index}`}
-                      className="flex-shrink-0 mx-2 sm:mx-4 md:mx-8"
+                      // Increased mobile margin from mx-2 to mx-4
+                      className="flex-shrink-0 mx-4 sm:mx-6 md:mx-8"
                     >
                       <div className="relative h-8 w-full max-w-[100px] sm:max-w-[120px]">
                         <Image
@@ -100,6 +136,11 @@ export default function TrustIndicatorsSection() {
             <div className="relative overflow-hidden">
               <div
                 ref={containerRef}
+                // Note: The ref is on the mobile container. For desktop, if it uses a different container,
+                // the animation duration might not be perfectly synced if their widths differ significantly
+                // or if this specific containerRef isn't the one driving the desktop animation.
+                // However, since the animationDuration state is shared, it will use the calculated value.
+                // If desktop needs its own independent speed calculation, it would need its own ref and state.
                 className="relative overflow-hidden"
                 style={{
                   maskImage:

@@ -43,17 +43,6 @@ export interface Package {
   reviews: PackReview[]
 }
 
-export interface PackageListPage {
-  id: string
-  name: string
-  description: string
-  price: string
-  badge?: string
-  image: string
-  url: string
-  products: ProductInPack[]
-}
-
 export interface PackageLandingPage {
   id: string
   slug: string
@@ -376,22 +365,22 @@ export function getPackagesLandingPage(): PackageLandingPage[] {
 }
 
 // Pages pack specific helper
-export function getPackagesListPage(): PackageListPage[] {
+export function getPackagesListPage(): PackageLandingPage[] {
   return packsData
     .map((pack) => ({
       id: pack.id,
+      slug: pack.slug,
       name: pack.name,
       description: pack.description,
-      price: `€${pack.price}`,
+      price: pack.price,
+      image: pack.image,
       badge: pack.badge,
-      image: typeof pack.image === "string" ? pack.image : pack.image,
-      url: `/packs/${pack.slug}`,
       products: pack.products,
     }))
     .sort((a, b) => {
       // Extract numeric price values by removing the € symbol and converting to number
-      const priceA = parseFloat(a.price.replace("€", ""))
-      const priceB = parseFloat(b.price.replace("€", ""))
+      const priceA = parseFloat(a.price.toString().replace("€", ""))
+      const priceB = parseFloat(b.price.toString().replace("€", ""))
       return priceA - priceB
     })
 }

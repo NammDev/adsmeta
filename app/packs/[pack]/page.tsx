@@ -19,7 +19,6 @@ import {
   Users,
   CheckCircle2,
   HelpCircle,
-  BookOpen,
   Sparkles,
   DollarSign,
 } from "lucide-react"
@@ -70,6 +69,132 @@ export default function PackPage() {
     setIsLoading(false)
   }, [packSlug])
 
+  const handleAddToCart = async () => {
+    setIsAddingToCart(true)
+    const cartItem = {
+      id: pack.id,
+      slug: pack.slug,
+      name: pack.name,
+      price: pack.price,
+      image: pack.image,
+      quantity: quantity,
+      category: pack.category,
+    }
+    if (addItem) addItem(cartItem)
+
+    // For mobile, show notification. For desktop, open cart directly.
+    if (isMobile) {
+      setAddedItem(cartItem)
+      setShowNotification(true)
+    } else {
+      if (openCart) openCart()
+    }
+    setIsAddingToCart(false)
+  }
+
+  const mobilePackOverview = pack ? (
+    <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-200/20 to-purple-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
+      <CardContent className="p-4 relative z-10">
+        <div className="flex gap-4">
+          {/* Mobile Pack Image - Smaller */}
+          <div className="w-28 h-28 flex-shrink-0">
+            {/* Slightly larger than product example for pack image */}
+            <div className="relative w-full h-full rounded-lg overflow-hidden border-0 bg-white shadow-md group">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay group-hover:opacity-70 transition-opacity duration-300"></div>
+              <Image
+                src={pack.image || "/placeholder.svg"}
+                alt={pack.name}
+                fill
+                className="object-cover transform transition-transform group-hover:scale-105 duration-300"
+              />
+              {pack.badge && (
+                <div className="absolute -top-1 -right-1 rotate-3">
+                  <Badge className="bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-md px-1.5 py-0.5 text-xs font-bold">
+                    {pack.badge}
+                  </Badge>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Mobile Pack Details - Compact */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-start gap-2 mb-2">
+              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center shadow-sm flex-shrink-0 mt-0.5">
+                <Package2 className="h-3 w-3 text-white" />
+              </div>
+              <h2 className="text-lg font-bold leading-tight relative inline-block">
+                <span className="relative z-10">{pack.name}</span>
+                <div className="absolute -bottom-0.5 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
+              </h2>
+            </div>
+
+            <div className="flex items-center gap-2 mb-2 flex-wrap">
+              <span className="text-xl font-bold bg-gradient-to-r from-facebook to-blue-700 bg-clip-text text-transparent">
+                €{pack.price}
+              </span>
+              {pack.comparePrice && (
+                <span className="text-gray-500 line-through text-sm">€{pack.comparePrice}</span>
+              )}
+            </div>
+            <Badge
+              className={`text-xs ${stockStatus[pack.stock]?.color} border-0 shadow-sm mb-2 w-fit`}
+            >
+              {stockStatus[pack.stock]?.label}
+            </Badge>
+
+            <div className="flex items-center gap-1 mb-1">
+              {/* Reduced mb */}
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`h-3.5 w-3.5 ${
+                      i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="text-xs text-gray-500 ml-1">120 reviews</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Action Section */}
+        <div className="mt-4 pt-4 border-t border-gray-200">
+          {/* Increased pt for spacing */}
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
+              <button
+                className="px-2.5 py-1.5 text-gray-600 hover:bg-gray-100 transition-colors text-sm"
+                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              >
+                -
+              </button>
+              <span className="px-3 py-1.5 text-gray-900 bg-white text-sm">{quantity}</span>
+              {/* Increased px for quantity number */}
+              <button
+                className="px-2.5 py-1.5 text-gray-600 hover:bg-gray-100 transition-colors text-sm"
+                onClick={() => setQuantity(quantity + 1)}
+              >
+                +
+              </button>
+            </div>
+            <Button
+              onClick={handleAddToCart}
+              className="bg-gradient-to-r from-facebook to-blue-700 hover:from-facebook-dark hover:to-blue-800 text-white flex items-center gap-2 shadow-md hover:shadow-xl transition-all duration-300 px-4 py-2 text-sm flex-1"
+              disabled={pack.stock === "out-of-stock" || isAddingToCart}
+            >
+              <ShoppingCart className="h-4 w-4" />
+              {isAddingToCart ? "Adding..." : "Add to Cart"}
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  ) : null
+
   if (isLoading) {
     return <PackLoading />
   }
@@ -92,29 +217,6 @@ export default function PackPage() {
         </div>
       </SupportingPageLayout>
     )
-  }
-
-  const handleAddToCart = async () => {
-    setIsAddingToCart(true)
-    const cartItem = {
-      id: pack.id,
-      slug: pack.slug,
-      name: pack.name,
-      price: pack.price,
-      image: pack.image,
-      quantity: quantity,
-      category: pack.category,
-    }
-    if (addItem) addItem(cartItem)
-
-    // For mobile, show notification. For desktop, open cart directly.
-    if (isMobile) {
-      setAddedItem(cartItem)
-      setShowNotification(true)
-    } else {
-      if (openCart) openCart()
-    }
-    setIsAddingToCart(false)
   }
 
   const commonPackOverview = (
@@ -560,9 +662,8 @@ export default function PackPage() {
 
         {/* Mobile Layout */}
         <div className="md:hidden space-y-6">
-          <Card className="overflow-hidden border-0 shadow-xl bg-white/80 backdrop-blur-sm">
-            <CardContent className="p-4 sm:p-6">{commonPackOverview}</CardContent>
-          </Card>
+          {/* Replace the old Card with the new mobilePackOverview */}
+          {mobilePackOverview}
 
           <Card className="overflow-hidden border-0 shadow-xl bg-white/80 backdrop-blur-sm">
             <CardContent className="p-4 sm:p-6">{commonPackDescription}</CardContent>
