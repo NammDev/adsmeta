@@ -19,20 +19,57 @@ export default function TrustIndicatorsSection() {
   const [animationDuration, setAnimationDuration] = useState(0)
 
   useEffect(() => {
-    const calculateDuration = () => {
-      if (containerRef.current) {
-        const containerWidth = containerRef.current.offsetWidth
-        const totalWidth = containerWidth * (duplicatedCompanies.length / 4) // Divide by 4 because we have 4 sets
-        const speed = 100 // Reduced speed for smoother animation
-        const duration = totalWidth / speed
-        setAnimationDuration(duration)
-      }
-    }
+    let retryTimeoutId: NodeJS.Timeout | null = null;
 
-    calculateDuration()
-    window.addEventListener("resize", calculateDuration)
-    return () => window.removeEventListener("resize", calculateDuration)
-  }, [duplicatedCompanies.length])
+    const calculateAndSetDuration = () => {
+      if (containerRef.current) {
+        const containerWidth = containerRef.current.offsetWidth;
+
+        if (containerWidth > 0) {
+          // Use the original companies array length for the calculation factor
+          const numOriginalCompanies = companies.length;
+          // This factor was part of your original logic that seemed to work on desktop
+          const calculationFactor = containerWidth * numOriginalCompanies;
+          const speed = 100; // As in your original code
+          const newDuration = calculationFactor / speed;
+
+          if (newDuration > 0 && Number.isFinite(newDuration)) {
+            setAnimationDuration(newDuration);
+            if (retryTimeoutId) {
+              clearTimeout(retryTimeoutId); // Clear pending retry if successful
+              retryTimeoutId = null;
+            }
+            return true; // Indicate success
+          }
+        }
+        return false; // Indicate failure or width not ready
+      };
+
+      // Attempt initial calculation
+      if (!calculateAndSetDuration()) {
+        // If initial calculation failed (e.g., width was 0), retry after a delay
+        retryTimeoutId = setTimeout(() => {
+          calculateAndSetDuration();
+        }, 100); // Retry after 100ms
+      }
+
+      const handleResize = () => {
+        if (retryTimeoutId) {
+          clearTimeout(retryTimeoutId); // Clear pending retry on resize
+          retryTimeoutId = null;
+        }
+        calculateAndSetDuration();
+      };
+
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+        if (retryTimeoutId) {
+          clearTimeout(retryTimeoutId);
+        }
+      };\
+    }, [companies.length]);
 
   return (
     <section className="py-16 md:py-24">
