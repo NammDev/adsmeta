@@ -1,7 +1,10 @@
-export interface Review {
-  rating: number
-  count: number
-  comments: string[]
+export interface PackReview {
+  name: string
+  role: string
+  comment: string
+  achievement: string
+  rating?: number
+  count?: number
 }
 
 export interface BudgetInfo {
@@ -35,10 +38,9 @@ export interface Package {
   purchases: number
   products: ProductInPack[]
   detail: string
-  solution: string
   faq: FAQ[]
   budgetInfo: BudgetInfo
-  review: Review
+  reviews: PackReview[]
 }
 
 export interface PackageListPage {
@@ -96,9 +98,6 @@ const packsData: Package[] = [
       },
     ],
     detail: `<p><strong>Popular Pack</strong> is specially designed for agencies and professional advertisers, offering a complete solution to scale your campaigns.</p><ul><li>Includes <strong>2 BM Verified $250 Limit:</strong> One BM with <span>1 Admin + 2 Employee</span> permissions, and another with <span>Pixel & Page + 2 Admin</span> for flexible management and delegation.</li><li>Comes with <strong>2 high-quality Fanpages:</strong> Pre-optimized for advertising, boosting engagement and credibility.</li><li>Features <strong>5 USA Profile accounts:</strong> Including <span>2 Greenline Profiles</span>, ensuring high trust and stability for critical ads campaigns.</li><li><strong>Ready to use:</strong> All accounts and pages are meticulously prepared — <span>start your campaigns immediately</span> without complex setup.</li></ul>`,
-    solution:
-      "A comprehensive solution for agencies aiming to run large-scale ads with reliable USA accounts, optimizing performance and minimizing risks.",
-    imageDesign: "/packs/premium-design.jpg",
     faq: [
       {
         question: "What is a Greenline Profile, and why is it important?",
@@ -126,15 +125,22 @@ const packsData: Package[] = [
       warning:
         "Each BM in this pack supports a $250 daily spend limit per ads account. This is ideal for scaling campaigns effectively while maintaining account health.",
     },
-    review: {
-      rating: 4.8,
-      count: 60,
-      comments: [
-        "High-quality USA accounts!",
-        "Great value for agencies.",
-        "Fast and effective support.",
-      ],
-    },
+    reviews: [
+      {
+        name: "Alex Chen",
+        role: "Marketing Director at TechFlow Agency",
+        comment:
+          "GoAds Premium completely transformed our Facebook advertising approach. The account stability is incredible - no more worrying about sudden bans disrupting our campaigns.",
+        achievement: "300% ROI increase in 2 months",
+      },
+      {
+        name: "Sarah Johnson",
+        role: "E-commerce Owner at Fashion Forward",
+        comment:
+          "After losing 3 ad accounts in a month, I was desperate. GoAds saved my business. The verified business managers are rock solid and customer support is outstanding.",
+        achievement: "Scaled from $5K to $50K monthly ad spend",
+      },
+    ],
   },
   {
     id: "advanced-pack",
@@ -164,9 +170,6 @@ const packsData: Package[] = [
       { productId: "Profile-asia", quantity: 2, role: "Asia Profile (Admin Accounts)" },
     ],
     detail: `<p><strong>Basic Pack</strong> is designed for small businesses and individuals, providing essential tools to launch effective ads campaigns.</p><ul><li>Includes <strong>1 BM Verified $250 Limit:</strong> Perfect for <span>adding Agency accounts</span> with high stability.</li><li>Comes with <strong>1 BM Unverified:</strong> Equipped with <span>Pixel & Page</span> for seamless tracking and management.</li><li>Features <strong>1 high-quality Fanpage:</strong> Pre-optimized for advertising to <span>boost engagement</span>.</li><li>Provides <strong>2 Asia Profile accounts:</strong> Reliable for <span>admin roles</span>, ensuring smooth operations.</li><li><strong>Ready to use:</strong> Start your campaigns <span>immediately</span> with minimal setup.</li></ul>`,
-    solution:
-      "An all-in-one solution for small businesses to set up and run professional Facebook ads campaigns with ease.",
-    imageDesign: "/packs/advanced-design.png",
     faq: [
       {
         question: "What's the difference between a BM Verified and BM Unverified?",
@@ -194,11 +197,22 @@ const packsData: Package[] = [
       warning:
         "The BM Verified in this pack supports a $250 daily spend limit per ads account, perfect for small to medium campaigns.",
     },
-    review: {
-      rating: 4.7,
-      count: 40,
-      comments: ["Great for small businesses!", "Easy to set up and use.", "Good support team."],
-    },
+    reviews: [
+      {
+        name: "Alex Chen",
+        role: "Marketing Director at TechFlow Agency",
+        comment:
+          "GoAds Premium completely transformed our Facebook advertising approach. The account stability is incredible - no more worrying about sudden bans disrupting our campaigns.",
+        achievement: "300% ROI increase in 2 months",
+      },
+      {
+        name: "Sarah Johnson",
+        role: "E-commerce Owner at Fashion Forward",
+        comment:
+          "After losing 3 ad accounts in a month, I was desperate. GoAds saved my business. The verified business managers are rock solid and customer support is outstanding.",
+        achievement: "Scaled from $5K to $50K monthly ad spend",
+      },
+    ],
   },
   {
     id: "basic-pack",
@@ -219,9 +233,6 @@ const packsData: Package[] = [
       { productId: "fanpage", quantity: 1, role: "Optimized Advertising Page" },
     ],
     detail: `<p><strong>Super Basic Pack</strong> is tailored for beginners, providing the essentials to start your Facebook ads campaigns.</p><ul><li>Includes <strong>1 Business Manager (Unverified):</strong> Ready for <span>basic ads management</span>.</li><li>Comes with <strong>1 Asia Profile:</strong> A reliable <span>admin account</span> for smooth operations.</li><li>Features <strong>1 high-quality Fanpage:</strong> Pre-optimized to <span>boost engagement</span> and credibility.</li><li><strong>Ready to use:</strong> Launch your first campaign <span>immediately</span> with no complicated setup.</li></ul>`,
-    solution:
-      "A simple solution for beginners to start running Facebook ads quickly and affordably.",
-    imageDesign: "/packs/basic-design.png",
     faq: [
       {
         question: "Is this pack suitable for complete beginners?",
@@ -249,11 +260,22 @@ const packsData: Package[] = [
       warning:
         "The BM in this pack supports a starting $50 daily spend limit, suitable for small campaigns.",
     },
-    review: {
-      rating: 4.5,
-      count: 30,
-      comments: ["Perfect for beginners!", "Affordable and effective.", "Quick setup process."],
-    },
+    reviews: [
+      {
+        name: "Alex Chen",
+        role: "Marketing Director at TechFlow Agency",
+        comment:
+          "GoAds Premium completely transformed our Facebook advertising approach. The account stability is incredible - no more worrying about sudden bans disrupting our campaigns.",
+        achievement: "300% ROI increase in 2 months",
+      },
+      {
+        name: "Sarah Johnson",
+        role: "E-commerce Owner at Fashion Forward",
+        comment:
+          "After losing 3 ad accounts in a month, I was desperate. GoAds saved my business. The verified business managers are rock solid and customer support is outstanding.",
+        achievement: "Scaled from $5K to $50K monthly ad spend",
+      },
+    ],
   },
   {
     id: "elite-pack",
@@ -262,7 +284,7 @@ const packsData: Package[] = [
     description: "The ultimate pack for large agencies, offering powerful Business Managers",
     price: 790,
     comparePrice: 1000,
-    category: "premium",
+    category: "elite",
     image: "/packs/elite.png",
     stock: "in-stock",
     badge: "Premium Choice",
@@ -286,9 +308,6 @@ const packsData: Package[] = [
       },
     ],
     detail: `<p><strong>Vip Pro Max Pack</strong> is the ultimate choice for large agencies, delivering powerful tools for advanced ads campaigns.</p><ul><li>Includes <strong>1 BM5:</strong> Comes with <span>4 Profile accounts (2 Admin + 2 Employee)</span> for maximum control and scalability.</li><li>Features <strong>1 BM Verified $250 Limit:</strong> Equipped with <span>2 Admin + 2 Pages</span> for flexible management.</li><li>Comes with <strong>2 high-quality Fanpages:</strong> Pre-optimized for <span>high engagement</span> and credibility.</li><li>Provides <strong>6 USA Profile accounts:</strong> Including <span>3 Greenline Profiles</span>, ensuring top-tier trust and stability.</li><li><strong>Ready to use:</strong> Launch your campaigns <span>immediately</span> with seamless integration.</li></ul>`,
-    solution:
-      "The premium solution for large agencies to run high-volume ads campaigns with top-tier USA accounts and seamless Shopify integration.",
-    imageDesign: "/packs/elite-design.png",
     faq: [
       {
         question: "What makes BM5 different from a regular BM?",
@@ -316,15 +335,22 @@ const packsData: Package[] = [
       warning:
         "The BM Verified in this pack supports a $250 daily spend limit per ads account, while the BM5 allows for higher scalability.",
     },
-    review: {
-      rating: 4.9,
-      count: 25,
-      comments: [
-        "Perfect for large agencies!",
-        "High-quality accounts and great support.",
-        "Transformed our ads campaigns.",
-      ],
-    },
+    reviews: [
+      {
+        name: "Alex Chen",
+        role: "Marketing Director at TechFlow Agency",
+        comment:
+          "GoAds Premium completely transformed our Facebook advertising approach. The account stability is incredible - no more worrying about sudden bans disrupting our campaigns.",
+        achievement: "300% ROI increase in 2 months",
+      },
+      {
+        name: "Sarah Johnson",
+        role: "E-commerce Owner at Fashion Forward",
+        comment:
+          "After losing 3 ad accounts in a month, I was desperate. GoAds saved my business. The verified business managers are rock solid and customer support is outstanding.",
+        achievement: "Scaled from $5K to $50K monthly ad spend",
+      },
+    ],
   },
 ]
 
