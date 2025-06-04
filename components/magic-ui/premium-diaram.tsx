@@ -4,7 +4,7 @@ import React, { useRef } from "react"
 import { ShieldCheck, UserCog, User, Megaphone, FileText, Crosshair, type LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { AnimatedBeam } from "./animated-beam"
-import { useMediaQuery } from "@/hooks/use-media-query" // Import useMediaQuery
+import { useMediaQuery } from "@/hooks/use-media-query"
 
 interface NodeProps {
   IconComponent: LucideIcon
@@ -87,31 +87,32 @@ export default function PremiumDiagram() {
   const bus2StaffRes45Ref = useRef<HTMLDivElement>(null)
 
   const nodePositions = {
-    bmLeft: { top: "10%", left: getResponsiveValue("15%", "30%") },
-    bmRight: { top: "10%", left: getResponsiveValue("85%", "70%") },
+    // Mobile values adjusted for more internal space and less edge proximity
+    bmLeft: { top: "10%", left: getResponsiveValue("25%", "30%") }, // Moved inwards
+    bmRight: { top: "10%", left: getResponsiveValue("75%", "70%") }, // Moved inwards
 
-    adminL1: { top: "25%", left: getResponsiveValue("7%", "20%") },
-    adminL2: { top: "25%", left: getResponsiveValue("23%", "40%") },
-    adminR1: { top: "25%", left: getResponsiveValue("77%", "60%") },
-    adminR2: { top: "25%", left: getResponsiveValue("93%", "80%") },
+    adminL1: { top: "25%", left: getResponsiveValue("15%", "20%") }, // Grouped closer
+    adminL2: { top: "25%", left: getResponsiveValue("35%", "40%") }, // Grouped closer
+    adminR1: { top: "25%", left: getResponsiveValue("65%", "60%") }, // Grouped closer
+    adminR2: { top: "25%", left: getResponsiveValue("85%", "80%") }, // Grouped closer
 
-    bus1_AS_20: { top: "37.5%", left: getResponsiveValue("7%", "20%") },
-    bus1_AS_40: { top: "37.5%", left: getResponsiveValue("23%", "40%") },
+    bus1_AS_20: { top: "37.5%", left: getResponsiveValue("15%", "20%") },
+    bus1_AS_40: { top: "37.5%", left: getResponsiveValue("35%", "40%") },
 
-    staffL1: { top: "50%", left: getResponsiveValue("7%", "20%") },
-    staffL2: { top: "50%", left: getResponsiveValue("23%", "40%") },
+    staffL1: { top: "50%", left: getResponsiveValue("15%", "20%") }, // Grouped closer
+    staffL2: { top: "50%", left: getResponsiveValue("35%", "40%") }, // Grouped closer
 
-    bus2_SR_15: { top: "62.5%", left: getResponsiveValue("2%", "15%") }, // For AdsL1
-    bus2_SR_20: { top: "62.5%", left: getResponsiveValue("7%", "20%") }, // For StaffL1 tap
-    bus2_SR_30: { top: "62.5%", left: getResponsiveValue("12%", "30%") }, // For PageL1
-    bus2_SR_40: { top: "62.5%", left: getResponsiveValue("23%", "40%") }, // For StaffL2 tap
-    bus2_SR_45: { top: "62.5%", left: getResponsiveValue("28%", "45%") }, // For PageL2
+    bus2_SR_15: { top: "62.5%", left: getResponsiveValue("10%", "15%") },
+    bus2_SR_20: { top: "62.5%", left: getResponsiveValue("15%", "20%") },
+    bus2_SR_30: { top: "62.5%", left: getResponsiveValue("25%", "30%") },
+    bus2_SR_40: { top: "62.5%", left: getResponsiveValue("35%", "40%") },
+    bus2_SR_45: { top: "62.5%", left: getResponsiveValue("40%", "45%") },
 
-    adsL1: { top: "75%", left: getResponsiveValue("2%", "15%") },
-    pageL1: { top: "75%", left: getResponsiveValue("12%", "30%") },
-    pageL2: { top: "75%", left: getResponsiveValue("28%", "45%") },
+    adsL1: { top: "75%", left: getResponsiveValue("10%", "15%") }, // Outermost on this row
+    pageL1: { top: "75%", left: getResponsiveValue("25%", "30%") },
+    pageL2: { top: "75%", left: getResponsiveValue("40%", "45%") }, // Outermost on this row
 
-    pixelR1: { top: "50%", left: getResponsiveValue("93%", "80%") },
+    pixelR1: { top: "50%", left: getResponsiveValue("85%", "80%") }, // Aligned with StaffL, under AdminR2
   }
 
   const nodes = [
@@ -153,7 +154,7 @@ export default function PremiumDiagram() {
 
   return (
     <div
-      className="relative h-[700px] w-full rounded-lg bg-white px-1 py-4 sm:px-2 md:p-4 md:h-[650px]" // Adjusted padding
+      className="relative h-[700px] w-full rounded-lg bg-white px-2 py-4 sm:px-3 md:p-4 md:h-[650px]" // Adjusted padding: px-2 base, sm:px-3
       ref={containerRef}
     >
       {/* Render Visible Nodes */}
