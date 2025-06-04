@@ -19,7 +19,6 @@ import {
   Users,
   CheckCircle2,
   HelpCircle,
-  BookOpen,
   Sparkles,
   DollarSign,
 } from "lucide-react"
@@ -70,30 +69,6 @@ export default function PackPage() {
     setIsLoading(false)
   }, [packSlug])
 
-  if (isLoading) {
-    return <PackLoading />
-  }
-
-  if (!pack) {
-    return (
-      <SupportingPageLayout
-        title="Pack Not Found"
-        subtitle="The pack you're looking for doesn't exist."
-      >
-        <div className="py-12 flex flex-col items-center justify-center text-center">
-          <AlertCircle className="h-16 w-16 text-red-500 mb-4" />
-          <p className="text-gray-600 mb-6">Please check the URL or browse our packs.</p>
-          <Button
-            asChild
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-          >
-            <Link href="/packs">Browse Packs</Link>
-          </Button>
-        </div>
-      </SupportingPageLayout>
-    )
-  }
-
   const handleAddToCart = async () => {
     setIsAddingToCart(true)
     const cartItem = {
@@ -115,6 +90,124 @@ export default function PackPage() {
       if (openCart) openCart()
     }
     setIsAddingToCart(false)
+  }
+
+  const mobilePackOverview = pack ? (
+    <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-200/20 to-purple-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
+      <CardContent className="p-4 relative z-10">
+        <div className="flex gap-4">
+          {/* Mobile Pack Image - Smaller */}
+          <div className="w-28 h-28 flex-shrink-0">
+            {/* Slightly larger than product example for pack image */}
+            <div className="relative w-full h-full rounded-lg overflow-hidden border-0 bg-white shadow-md group">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay group-hover:opacity-70 transition-opacity duration-300"></div>
+              <Image
+                src={pack.image || "/placeholder.svg"}
+                alt={pack.name}
+                fill
+                className="object-cover transform transition-transform group-hover:scale-105 duration-300"
+              />
+              {pack.badge && (
+                <div className="absolute -top-1 -right-1 rotate-3">
+                  <Badge className="bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-md px-1.5 py-0.5 text-xs font-bold">
+                    {pack.badge}
+                  </Badge>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Mobile Pack Details - Compact */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-start gap-2 mb-2">
+              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center shadow-sm flex-shrink-0 mt-0.5">
+                <Package2 className="h-3 w-3 text-white" />
+              </div>
+              <h2 className="text-lg font-bold leading-tight relative inline-block">
+                <span className="relative z-10">{pack.name}</span>
+                <div className="absolute -bottom-0.5 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
+              </h2>
+            </div>
+
+            <div className="flex items-center gap-2 mb-2 flex-wrap">
+              <span className="text-xl font-bold bg-gradient-to-r from-facebook to-blue-700 bg-clip-text text-transparent">
+                €{pack.price}
+              </span>
+              {pack.comparePrice && <span className="text-gray-500 line-through text-sm">€{pack.comparePrice}</span>}
+            </div>
+            <Badge className={`text-xs ${stockStatus[pack.stock]?.color} border-0 shadow-sm mb-2 w-fit`}>
+              {stockStatus[pack.stock]?.label}
+            </Badge>
+
+            <div className="flex items-center gap-1 mb-1">
+              {/* Reduced mb */}
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`h-3.5 w-3.5 ${i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
+                  />
+                ))}
+              </div>
+              <span className="text-xs text-gray-500 ml-1">120 reviews</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Action Section */}
+        <div className="mt-4 pt-4 border-t border-gray-200">
+          {/* Increased pt for spacing */}
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
+              <button
+                className="px-2.5 py-1.5 text-gray-600 hover:bg-gray-100 transition-colors text-sm"
+                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              >
+                -
+              </button>
+              <span className="px-3 py-1.5 text-gray-900 bg-white text-sm">{quantity}</span>
+              {/* Increased px for quantity number */}
+              <button
+                className="px-2.5 py-1.5 text-gray-600 hover:bg-gray-100 transition-colors text-sm"
+                onClick={() => setQuantity(quantity + 1)}
+              >
+                +
+              </button>
+            </div>
+            <Button
+              onClick={handleAddToCart}
+              className="bg-gradient-to-r from-facebook to-blue-700 hover:from-facebook-dark hover:to-blue-800 text-white flex items-center gap-2 shadow-md hover:shadow-xl transition-all duration-300 px-4 py-2 text-sm flex-1"
+              disabled={pack.stock === "out-of-stock" || isAddingToCart}
+            >
+              <ShoppingCart className="h-4 w-4" />
+              {isAddingToCart ? "Adding..." : "Add to Cart"}
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  ) : null
+
+  if (isLoading) {
+    return <PackLoading />
+  }
+
+  if (!pack) {
+    return (
+      <SupportingPageLayout title="Pack Not Found" subtitle="The pack you're looking for doesn't exist.">
+        <div className="py-12 flex flex-col items-center justify-center text-center">
+          <AlertCircle className="h-16 w-16 text-red-500 mb-4" />
+          <p className="text-gray-600 mb-6">Please check the URL or browse our packs.</p>
+          <Button
+            asChild
+            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+          >
+            <Link href="/packs">Browse Packs</Link>
+          </Button>
+        </div>
+      </SupportingPageLayout>
+    )
   }
 
   const commonPackOverview = (
@@ -152,9 +245,7 @@ export default function PackPage() {
             <span className="text-3xl font-bold bg-gradient-to-r from-facebook to-blue-700 bg-clip-text text-transparent">
               €{pack.price}
             </span>
-            {pack.comparePrice && (
-              <span className="ml-2 text-gray-500 line-through">€{pack.comparePrice}</span>
-            )}
+            {pack.comparePrice && <span className="ml-2 text-gray-500 line-through">€{pack.comparePrice}</span>}
           </div>
           <Badge className={`${stockStatus[pack.stock]?.color} border-0 shadow-sm w-fit`}>
             {stockStatus[pack.stock]?.label}
@@ -190,18 +281,10 @@ export default function PackPage() {
         <div className="flex items-center gap-2 mb-4">
           <div className="flex">
             {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className={`h-5 w-5 ${
-                  i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
-                }`}
-              />
+              <Star key={i} className={`h-5 w-5 ${i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`} />
             ))}
           </div>
-          <a
-            href="#reviews"
-            className="text-sm text-gray-500 hover:text-facebook transition-colors"
-          >
+          <a href="#reviews" className="text-sm text-gray-500 hover:text-facebook transition-colors">
             120 reviews
           </a>
         </div>
@@ -334,9 +417,7 @@ export default function PackPage() {
                           €{pack.price}
                         </span>
                         {pack.comparePrice && (
-                          <span className="ml-2 text-gray-500 line-through">
-                            €{pack.comparePrice}
-                          </span>
+                          <span className="ml-2 text-gray-500 line-through">€{pack.comparePrice}</span>
                         )}
                       </div>
                       <Badge className={`${stockStatus[pack.stock]?.color} border-0 shadow-sm`}>
@@ -375,16 +456,11 @@ export default function PackPage() {
                         {[...Array(5)].map((_, i) => (
                           <Star
                             key={i}
-                            className={`h-5 w-5 ${
-                              i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
-                            }`}
+                            className={`h-5 w-5 ${i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
                           />
                         ))}
                       </div>
-                      <a
-                        href="#reviews"
-                        className="text-sm text-gray-500 hover:text-facebook transition-colors"
-                      >
+                      <a href="#reviews" className="text-sm text-gray-500 hover:text-facebook transition-colors">
                         120 reviews
                       </a>
                     </div>
@@ -463,9 +539,7 @@ export default function PackPage() {
                 <div className="mt-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-5 relative overflow-hidden border border-blue-100">
                   <div className="absolute top-0 right-0 w-20 h-20 bg-blue-200/20 rounded-full -translate-y-1/2 translate-x-1/2"></div>
                   <div className="absolute bottom-0 left-0 w-16 h-16 bg-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-                  <h4 className="font-bold mb-2 text-center relative z-10 text-gray-800">
-                    Ready to get started?
-                  </h4>
+                  <h4 className="font-bold mb-2 text-center relative z-10 text-gray-800">Ready to get started?</h4>
                   <p className="text-gray-600 text-sm mb-4 text-center relative z-10">
                     Get your {pack.name} now and start advertising!
                   </p>
@@ -490,9 +564,7 @@ export default function PackPage() {
               <CardContent>
                 <div className="mb-2">
                   <span className="text-gray-600">Daily Budget Limit per Ad Account: </span>
-                  <span className="font-bold text-green-700 text-lg">
-                    €{pack.budgetInfo.dailyBudget}
-                  </span>
+                  <span className="font-bold text-green-700 text-lg">€{pack.budgetInfo.dailyBudget}</span>
                 </div>
                 <div className="mt-3 p-3 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-700 text-sm rounded-r-md">
                   <p>{pack.budgetInfo.warning}</p>
@@ -518,9 +590,7 @@ export default function PackPage() {
                       </div>
                       <div>
                         <h4 className="font-bold text-blue-800 mb-1">Quick Setup</h4>
-                        <p className="text-sm text-gray-700">
-                          Get started with Facebook ads in minutes, not days.
-                        </p>
+                        <p className="text-sm text-gray-700">Get started with Facebook ads in minutes, not days.</p>
                       </div>
                     </div>
                   </div>
@@ -546,9 +616,7 @@ export default function PackPage() {
                       </div>
                       <div>
                         <h4 className="font-bold text-amber-800 mb-1">Expert Support</h4>
-                        <p className="text-sm text-gray-700">
-                          Get help from our team of Facebook ads specialists.
-                        </p>
+                        <p className="text-sm text-gray-700">Get help from our team of Facebook ads specialists.</p>
                       </div>
                     </div>
                   </div>
@@ -560,9 +628,8 @@ export default function PackPage() {
 
         {/* Mobile Layout */}
         <div className="md:hidden space-y-6">
-          <Card className="overflow-hidden border-0 shadow-xl bg-white/80 backdrop-blur-sm">
-            <CardContent className="p-4 sm:p-6">{commonPackOverview}</CardContent>
-          </Card>
+          {/* Replace the old Card with the new mobilePackOverview */}
+          {mobilePackOverview}
 
           <Card className="overflow-hidden border-0 shadow-xl bg-white/80 backdrop-blur-sm">
             <CardContent className="p-4 sm:p-6">{commonPackDescription}</CardContent>
