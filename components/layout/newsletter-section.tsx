@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useMediaQuery } from "@/hooks/use-media-query"
-import { openEmail, openTelegram, openWhatsApp } from "@/lib/utils"
+import { openTelegram, openWhatsApp } from "@/lib/utils"
 
 export default function NewsletterSection({ className }: { className?: string }) {
   const isMobile = useMediaQuery("(max-width: 768px)")
@@ -67,33 +67,6 @@ export default function NewsletterSection({ className }: { className?: string })
                     <div>
                       <h4 className="font-medium text-gray-900">Telegram Channel</h4>
                       <p className="text-sm text-gray-600">Join our channel for updates and offers</p>
-                    </div>
-                  </div>
-
-                  {/* Email */}
-                  <div
-                    onClick={() => openEmail()}
-                    className="flex items-center gap-4 p-4 rounded-lg bg-gradient-to-r from-blue-100/50 to-indigo-100/50 hover:from-blue-100 hover:to-indigo-100 transition-colors border border-blue-200/30 shadow-sm cursor-pointer"
-                  >
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="white"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                        <polyline points="22,6 12,13 2,6"></polyline>
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-gray-900">Email Support</h4>
-                      <p className="text-sm text-gray-600">Response within 24 hours</p>
                     </div>
                   </div>
                 </div>
@@ -167,35 +140,6 @@ export default function NewsletterSection({ className }: { className?: string })
                       Telegram Channel
                     </div>
                     <p className="text-sm text-gray-600">Join our channel for updates and offers</p>
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div className="flex items-center gap-3 group relative z-10">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-shadow">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="white"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                      <polyline points="22,6 12,13 2,6"></polyline>
-                    </svg>
-                  </div>
-                  <div>
-                    <div
-                      onClick={() => openEmail()}
-                      className="text-gray-800 font-medium group-hover:text-[#25D366] transition-colors cursor-pointer"
-                    >
-                      Email Support
-                    </div>
-                    <p className="text-sm text-gray-600">Response within 24 hours</p>
                   </div>
                 </div>
               </div>
