@@ -19,57 +19,55 @@ export default function TrustIndicatorsSection() {
   const [animationDuration, setAnimationDuration] = useState(0)
 
   useEffect(() => {
-    let retryTimeoutId: NodeJS.Timeout | null = null;
+    let retryTimeoutId: NodeJS.Timeout | null = null
 
     const calculateAndSetDuration = () => {
       if (containerRef.current) {
-        const containerWidth = containerRef.current.offsetWidth;
+        const containerWidth = containerRef.current.offsetWidth
 
         if (containerWidth > 0) {
-          // Use the original companies array length for the calculation factor
-          const numOriginalCompanies = companies.length;
-          // This factor was part of your original logic that seemed to work on desktop
-          const calculationFactor = containerWidth * numOriginalCompanies;
-          const speed = 100; // As in your original code
-          const newDuration = calculationFactor / speed;
+          const numOriginalCompanies = companies.length
+          const calculationFactor = containerWidth * numOriginalCompanies
+          const speed = 100
+          const newDuration = calculationFactor / speed
 
           if (newDuration > 0 && Number.isFinite(newDuration)) {
-            setAnimationDuration(newDuration);
+            setAnimationDuration(newDuration)
             if (retryTimeoutId) {
-              clearTimeout(retryTimeoutId); // Clear pending retry if successful
-              retryTimeoutId = null;
+              clearTimeout(retryTimeoutId)
+              retryTimeoutId = null
             }
-            return true; // Indicate success
+            return true
           }
         }
-        return false; // Indicate failure or width not ready
-      };
-
-      // Attempt initial calculation
-      if (!calculateAndSetDuration()) {
-        // If initial calculation failed (e.g., width was 0), retry after a delay
-        retryTimeoutId = setTimeout(() => {
-          calculateAndSetDuration();
-        }, 100); // Retry after 100ms
+        return false
       }
+      return false // Added to ensure all paths return a boolean
+    }
 
-      const handleResize = () => {
-        if (retryTimeoutId) {
-          clearTimeout(retryTimeoutId); // Clear pending retry on resize
-          retryTimeoutId = null;
-        }
-        calculateAndSetDuration();
-      };
+    if (!calculateAndSetDuration()) {
+      retryTimeoutId = setTimeout(() => {
+        calculateAndSetDuration()
+      }, 100)
+    }
 
-      window.addEventListener("resize", handleResize);
+    const handleResize = () => {
+      if (retryTimeoutId) {
+        clearTimeout(retryTimeoutId)
+        retryTimeoutId = null
+      }
+      calculateAndSetDuration()
+    }
 
-      return () => {
-        window.removeEventListener("resize", handleResize);
-        if (retryTimeoutId) {
-          clearTimeout(retryTimeoutId);
-        }
-      };\
-    }, [companies.length]);
+    window.addEventListener("resize", handleResize)
+
+    return () => {
+      window.removeEventListener("resize", handleResize)
+      if (retryTimeoutId) {
+        clearTimeout(retryTimeoutId)
+      }
+    }
+  }, [companies.length])
 
   return (
     <section className="py-16 md:py-24">
@@ -77,9 +75,7 @@ export default function TrustIndicatorsSection() {
         {/* Mobile Layout - Stacked */}
         <div className="block md:hidden">
           <div className="text-center mb-12">
-            <p className="text-lg text-gray-500 font-medium">
-              Trusted by marketing agencies worldwide
-            </p>
+            <p className="text-lg text-gray-500 font-medium">Trusted by marketing agencies worldwide</p>
           </div>
 
           <div className="w-full">
@@ -102,10 +98,7 @@ export default function TrustIndicatorsSection() {
                   }}
                 >
                   {duplicatedCompanies.map((company, index) => (
-                    <div
-                      key={`${company.name}-${index}`}
-                      className="flex-shrink-0 mx-2 sm:mx-4 md:mx-8"
-                    >
+                    <div key={`${company.name}-${index}`} className="flex-shrink-0 mx-2 sm:mx-4 md:mx-8">
                       <div className="relative h-8 w-full max-w-[100px] sm:max-w-[120px]">
                         <Image
                           src={company.logo || "/placeholder.svg"}
@@ -173,15 +166,15 @@ export default function TrustIndicatorsSection() {
       </div>
 
       <style jsx global>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
+      @keyframes marquee {
+        0% {
+          transform: translateX(0);
         }
-      `}</style>
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+    `}</style>
     </section>
   )
 }
