@@ -554,24 +554,6 @@ export default function PackPage() {
               </CardContent>
             </Card>
 
-            <Card className="shadow-lg border-gray-200">
-              <CardHeader>
-                <CardTitle className="flex items-center text-xl font-semibold text-gray-800">
-                  <DollarSign className="h-5 w-5 mr-2 text-green-600" />
-                  Budget Information
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="mb-2">
-                  <span className="text-gray-600">Daily Budget Limit per Ad Account: </span>
-                  <span className="font-bold text-green-700 text-lg">€{pack.budgetInfo.dailyBudget}</span>
-                </div>
-                <div className="mt-3 p-3 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-700 text-sm rounded-r-md">
-                  <p>{pack.budgetInfo.warning}</p>
-                </div>
-              </CardContent>
-            </Card>
-
             <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-200/10 to-purple-200/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
               <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tl from-pink-200/10 to-indigo-200/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
