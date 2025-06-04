@@ -8,6 +8,7 @@ import PaymentMethodsCompact from "./payment-methods-compact"
 // Import social media icons from lucide-react
 import { Facebook, Instagram, Linkedin } from "lucide-react"
 import { openDiscord, openLinkedin, openTelegram, openWhatsApp } from "@/lib/utils"
+import { TypingAnimation } from "../magic-ui/typing-animation"
 
 // Custom Discord icon component
 const DiscordIcon = ({ className }: { className?: string }) => (
@@ -224,9 +225,9 @@ export default function HeroSection() {
             for Advertising!
           </h1>
 
-          <p className="text-xl text-gray-600 mb-48 max-w-2xl mx-auto">
-            Your Marketing Partner for Success: GoAds Agency
-          </p>
+          <TypingAnimation className="text-lg text-gray-600 mb-48 max-w-2xl mx-auto">
+            Your Marketing Partner for Success - GoAds Agency
+          </TypingAnimation>
 
           {/* Social media buttons - clean style */}
           <div className="flex justify-center items-center gap-8 mb-10">

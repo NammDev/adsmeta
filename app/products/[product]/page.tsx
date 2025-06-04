@@ -291,7 +291,7 @@ export default function ProductPage() {
                   </div>
                   <div>
                     <h4 className="font-medium text-gray-900 text-sm">Warranty</h4>
-                    <p className="text-gray-700 text-sm">30-day replacement warranty</p>
+                    <p className="text-gray-700 text-sm">7-day replacement warranty</p>
                   </div>
                 </div>
               </div>
@@ -519,7 +519,7 @@ export default function ProductPage() {
                       <h4 className="font-medium text-gray-900 group-hover:text-emerald-600 transition-colors duration-300 text-sm">
                         Warranty
                       </h4>
-                      <p className="text-gray-700 text-sm">30-day replacement warranty</p>
+                      <p className="text-gray-700 text-sm">7-day replacement warranty</p>
                     </div>
                   </div>
                 </div>

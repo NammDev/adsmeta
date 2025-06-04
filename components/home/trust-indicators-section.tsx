@@ -23,7 +23,7 @@ export default function TrustIndicatorsSection() {
       if (containerRef.current) {
         const containerWidth = containerRef.current.offsetWidth
         const totalWidth = containerWidth * (duplicatedCompanies.length / 4) // Divide by 4 because we have 4 sets
-        const speed = 250 // pixels per second
+        const speed = 100 // Reduced speed for smoother animation
         const duration = totalWidth / speed
         setAnimationDuration(duration)
       }
@@ -45,35 +45,42 @@ export default function TrustIndicatorsSection() {
             </p>
           </div>
 
-          <div className="relative overflow-hidden">
-            <div
-              ref={containerRef}
-              className="relative overflow-hidden"
-              style={{
-                maskImage:
-                  "linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 10%, rgb(0, 0, 0) 90%, rgba(0, 0, 0, 0) 100%)",
-              }}
-            >
+          <div className="w-full">
+            <div className="relative overflow-hidden">
               <div
-                className="flex items-center"
+                ref={containerRef}
+                className="relative overflow-hidden"
                 style={{
-                  animation: `marquee ${animationDuration}s linear infinite`,
-                  width: "fit-content",
+                  maskImage:
+                    "linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 5%, rgb(0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%)",
+                  WebkitMaskImage:
+                    "linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 5%, rgb(0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%)",
                 }}
               >
-                {duplicatedCompanies.map((company, index) => (
-                  <div key={`${company.name}-${index}`} className="flex-shrink-0 mx-8">
-                    <div className="relative h-8 w-full max-w-[120px]">
-                      <Image
-                        src={company.logo || "/placeholder.svg"}
-                        alt={`${company.name} logo`}
-                        width={120}
-                        height={32}
-                        className="h-full w-auto object-contain opacity-40 hover:opacity-60 transition-opacity duration-300 filter grayscale"
-                      />
+                <div
+                  className="flex items-center"
+                  style={{
+                    animation: `marquee ${animationDuration}s linear infinite`,
+                    width: "fit-content",
+                  }}
+                >
+                  {duplicatedCompanies.map((company, index) => (
+                    <div
+                      key={`${company.name}-${index}`}
+                      className="flex-shrink-0 mx-2 sm:mx-4 md:mx-8"
+                    >
+                      <div className="relative h-8 w-full max-w-[100px] sm:max-w-[120px]">
+                        <Image
+                          src={company.logo || "/placeholder.svg"}
+                          alt={`${company.name} logo`}
+                          width={120}
+                          height={32}
+                          className="h-full w-auto object-contain opacity-40 hover:opacity-60 transition-opacity duration-300 filter grayscale"
+                        />
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -96,6 +103,8 @@ export default function TrustIndicatorsSection() {
                 className="relative overflow-hidden"
                 style={{
                   maskImage:
+                    "linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 5%, rgb(0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%)",
+                  WebkitMaskImage:
                     "linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 5%, rgb(0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%)",
                 }}
               >

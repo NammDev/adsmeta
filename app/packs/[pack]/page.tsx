@@ -1,7 +1,5 @@
 "use client"
 
-import type React from "react"
-
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
@@ -9,12 +7,6 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
 import {
   ShoppingCart,
   AlertCircle,
@@ -25,32 +17,24 @@ import {
   Zap,
   Clock,
   Users,
-  Award,
-  ChevronRight,
-  Info,
   CheckCircle2,
   HelpCircle,
-  TrendingUp,
-  ListChecks,
   BookOpen,
   Sparkles,
   DollarSign,
-  MessageSquare,
 } from "lucide-react"
 import SupportingPageLayout from "@/components/layout/supporting-page-layout"
 import { useCart } from "@/context/cart-context"
 import { processContent } from "@/lib/utils"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { CartNotification } from "@/components/cart/cart-notification"
-import { cn } from "@/lib/utils"
 import { getPackageDetailBySlug } from "@/data/packs"
-import type { FAQ, Package, ProductInPack } from "@/data/packs"
+import type { Package, ProductInPack } from "@/data/packs"
 import { useParams } from "next/navigation"
 import PackLoading from "./loading"
 import PackFAQ from "@/components/pack/pack-faq"
-import PackImageDesign from "@/components/pack/pack-imageDesign"
-import PackSetup from "@/components/pack/pack-setup"
-import PackSuccessStories from "@/components/pack/pack-successStories"
+import PackSuccessStories from "@/components/pack/pack-review"
+import PackDesign from "@/components/pack/pack-design"
 
 // Stock status indicator
 const stockStatus = {
@@ -78,12 +62,11 @@ export default function PackPage() {
   const [showNotification, setShowNotification] = useState(false)
   const [addedItem, setAddedItem] = useState<any>(null)
   const [isAddingToCart, setIsAddingToCart] = useState(false)
-  const isMobile = useMediaQuery("(max-width: 768px)")
+  const isMobile = useMediaQuery("(max-width: 768px)") // md breakpoint
 
   useEffect(() => {
-    // Get the product based on the slug
-    const pack = getPackageDetailBySlug(packSlug)
-    setPack(pack || null)
+    const packData = getPackageDetailBySlug(packSlug)
+    setPack(packData || null)
     setIsLoading(false)
   }, [packSlug])
 
@@ -113,7 +96,6 @@ export default function PackPage() {
 
   const handleAddToCart = async () => {
     setIsAddingToCart(true)
-
     const cartItem = {
       id: pack.id,
       slug: pack.slug,
@@ -123,19 +105,186 @@ export default function PackPage() {
       quantity: quantity,
       category: pack.category,
     }
-    addItem(cartItem)
-    if (openCart) {
-      openCart()
-    }
+    if (addItem) addItem(cartItem)
 
-    // Show notification on mobile, direct cart access on desktop
+    // For mobile, show notification. For desktop, open cart directly.
     if (isMobile) {
       setAddedItem(cartItem)
       setShowNotification(true)
+    } else {
+      if (openCart) openCart()
     }
-
     setIsAddingToCart(false)
   }
+
+  const commonPackOverview = (
+    <>
+      <div className="relative aspect-square rounded-xl overflow-hidden border-0 bg-white shadow-lg group mx-auto w-full max-w-xs sm:max-w-sm">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay group-hover:opacity-70 transition-opacity duration-300"></div>
+        <Image
+          src={pack.image || "/placeholder.svg"}
+          alt={pack.name}
+          fill
+          className="object-cover transform transition-transform group-hover:scale-105 duration-500"
+        />
+        {pack.badge && (
+          <div className="absolute top-3 right-3 rotate-3">
+            <Badge className="bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-md px-3 py-1.5 text-sm font-bold">
+              {pack.badge}
+            </Badge>
+          </div>
+        )}
+      </div>
+
+      <div className="mt-6">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center shadow-md">
+            <Package2 className="h-5 w-5 text-white" />
+          </div>
+          <h2 className="text-2xl font-bold relative inline-block">
+            <span className="relative z-10">{pack.name}</span>
+            <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
+          </h2>
+        </div>
+
+        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 mb-4">
+          <div className="flex items-center mb-2 sm:mb-0">
+            <span className="text-3xl font-bold bg-gradient-to-r from-facebook to-blue-700 bg-clip-text text-transparent">
+              €{pack.price}
+            </span>
+            {pack.comparePrice && (
+              <span className="ml-2 text-gray-500 line-through">€{pack.comparePrice}</span>
+            )}
+          </div>
+          <Badge className={`${stockStatus[pack.stock]?.color} border-0 shadow-sm w-fit`}>
+            {stockStatus[pack.stock]?.label}
+          </Badge>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-4">
+          <div className="flex items-center border border-gray-300 rounded-md overflow-hidden w-full sm:w-auto justify-between">
+            <button
+              className="px-4 py-2 text-gray-600 hover:bg-gray-100 transition-colors"
+              onClick={() => setQuantity(Math.max(1, quantity - 1))}
+            >
+              -
+            </button>
+            <span className="px-4 py-2 text-gray-900 bg-white">{quantity}</span>
+            <button
+              className="px-4 py-2 text-gray-600 hover:bg-gray-100 transition-colors"
+              onClick={() => setQuantity(quantity + 1)}
+            >
+              +
+            </button>
+          </div>
+          <Button
+            onClick={handleAddToCart}
+            className="bg-gradient-to-r from-facebook to-blue-700 hover:from-facebook-dark hover:to-blue-800 text-white flex items-center justify-center gap-2 shadow-md hover:shadow-xl transition-all duration-300 py-3 px-4 sm:px-6 w-full sm:w-auto"
+            disabled={pack.stock === "out-of-stock" || isAddingToCart}
+          >
+            <ShoppingCart className="h-5 w-5" />
+            {isAddingToCart ? "Adding..." : "Add to Cart"}
+          </Button>
+        </div>
+
+        <div className="flex items-center gap-2 mb-4">
+          <div className="flex">
+            {[...Array(5)].map((_, i) => (
+              <Star
+                key={i}
+                className={`h-5 w-5 ${
+                  i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+                }`}
+              />
+            ))}
+          </div>
+          <a
+            href="#reviews"
+            className="text-sm text-gray-500 hover:text-facebook transition-colors"
+          >
+            120 reviews
+          </a>
+        </div>
+      </div>
+    </>
+  )
+
+  const commonPackDescription = (
+    <>
+      <h3 className="text-xl font-bold mb-4 relative inline-block">
+        <span className="relative z-10">Pack Description</span>
+        <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
+      </h3>
+      {pack.detail && (
+        <div className="mb-6">
+          <div className="product-detail prose prose-sm sm:prose-base max-w-none mb-4">
+            <div dangerouslySetInnerHTML={{ __html: processContent(pack.detail) }} />
+          </div>
+        </div>
+      )}
+      <h4 className="text-lg font-semibold mb-6 relative inline-block">
+        <span className="relative z-10">What's in the pack:</span>
+        <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
+      </h4>
+      <ul className="space-y-3">
+        {pack.products.map((item: ProductInPack, index: number) => (
+          <li
+            key={index}
+            className="flex items-start p-3 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow"
+          >
+            <CheckCircle2 className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
+            <div>
+              <span className="font-medium text-gray-800">
+                {item.quantity}x {item.productId.replace(/-/g, " ")}
+              </span>
+              <p className="text-sm text-gray-600">{item.role}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </>
+  )
+
+  const commonTabsSection = (
+    <Tabs defaultValue="components" className="w-full">
+      <TabsList className="grid w-full grid-cols-3 sm:grid-cols-3 gap-2 bg-gray-100 p-1 rounded-lg">
+        <TabsTrigger
+          value="components"
+          className="data-[state=active]:bg-white data-[state=active]:text-purple-700 data-[state=active]:shadow-md text-xs sm:text-sm"
+        >
+          <Package2 className="h-4 w-4 mr-1 sm:mr-2" />
+          Design
+        </TabsTrigger>
+        <TabsTrigger
+          value="stories"
+          className="data-[state=active]:bg-white data-[state=active]:text-purple-700 data-[state=active]:shadow-md text-xs sm:text-sm"
+        >
+          <Sparkles className="h-4 w-4 mr-1 sm:mr-2" />
+          Stories
+        </TabsTrigger>
+        <TabsTrigger
+          value="faq"
+          className="data-[state=active]:bg-white data-[state=active]:text-purple-700 data-[state=active]:shadow-md text-xs sm:text-sm"
+        >
+          <HelpCircle className="h-4 w-4 mr-1 sm:mr-2" />
+          FAQ
+        </TabsTrigger>
+      </TabsList>
+      <div className="pt-6 min-h-[400px] sm:min-h-[500px]">
+        {" "}
+        {/* Adjusted min-height for tabs content */}
+        <TabsContent value="components" className="h-full">
+          <PackDesign category={pack.category} />
+        </TabsContent>
+        <TabsContent value="stories" className="h-full">
+          <PackSuccessStories reviews={pack.reviews} />
+        </TabsContent>
+        <TabsContent value="faq" className="h-full">
+          <PackFAQ faq={pack.faq} />
+        </TabsContent>
+      </div>
+    </Tabs>
+  )
 
   return (
     <SupportingPageLayout title={pack.name} subtitle={pack.description}>
@@ -144,13 +293,12 @@ export default function PackPage() {
         <div className="hidden md:grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - pack Info */}
           <div className="lg:col-span-2 space-y-8">
-            {/* pack Overview */}
             <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
               <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-200/20 to-purple-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
               <CardContent className="p-6 md:px-10 relative z-10">
                 <div className="flex flex-col md:flex-row md:gap-20">
-                  {/* pack Image */}
                   <div className="md:w-1/4 flex-shrink-0">
+                    {/* Re-using the image part of commonPackOverview, desktop specific styling if any can be here */}
                     <div className="relative aspect-square rounded-xl overflow-hidden border-0 bg-white shadow-lg hover:shadow-xl transition-all duration-300 group">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay group-hover:opacity-70 transition-opacity duration-300"></div>
                       <Image
@@ -168,9 +316,8 @@ export default function PackPage() {
                       )}
                     </div>
                   </div>
-
-                  {/* pack Details */}
                   <div className="md:w-3/4">
+                    {/* Re-using the details part of commonPackOverview */}
                     <div className="flex items-center gap-2 mb-4">
                       <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center shadow-md">
                         <Package2 className="h-5 w-5 text-white" />
@@ -192,16 +339,7 @@ export default function PackPage() {
                           </span>
                         )}
                       </div>
-
-                      <Badge
-                        className={`${
-                          pack.stock === "in-stock"
-                            ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white border-0 shadow-sm"
-                            : pack.stock === "low-stock"
-                            ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm"
-                            : "bg-gradient-to-r from-red-400 to-rose-500 text-white border-0 shadow-sm"
-                        }`}
-                      >
+                      <Badge className={`${stockStatus[pack.stock]?.color} border-0 shadow-sm`}>
                         {stockStatus[pack.stock]?.label}
                       </Badge>
                     </div>
@@ -255,105 +393,19 @@ export default function PackPage() {
               </CardContent>
             </Card>
 
-            {/* Pack Description */}
             <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
               <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-200/10 to-purple-200/10 rounded-full -translate-y-1/2 -translate-x-1/2"></div>
               <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-pink-200/10 to-indigo-200/10 rounded-full translate-y-1/2 translate-x-1/2"></div>
-
-              <CardContent className="p-6 relative z-10">
-                <h3 className="text-xl font-bold mb-4 relative inline-block">
-                  <span className="relative z-10">Pack Description</span>
-                  <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
-                </h3>
-
-                {pack.detail && (
-                  <div className="mb-6">
-                    <div className="product-detail prose prose-lg max-w-none mb-4">
-                      <div dangerouslySetInnerHTML={{ __html: processContent(pack.detail) }} />
-                    </div>
-                  </div>
-                )}
-
-                <h4 className="text-lg font-semibold mb-6 relative inline-block">
-                  <span className="relative z-10">What's in the pack:</span>
-                  <div className="absolute -bottom-1 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
-                </h4>
-
-                <ul className="space-y-3">
-                  {pack.products.map((item: ProductInPack, index: number) => (
-                    <li
-                      key={index}
-                      className="flex items-start p-3 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow"
-                    >
-                      <CheckCircle2 className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
-                      <div>
-                        <span className="font-medium text-gray-800">
-                          {item.quantity}x {item.productId.replace(/-/g, " ")}
-                        </span>
-                        <p className="text-sm text-gray-600">{item.role}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
+              <CardContent className="p-6 relative z-10">{commonPackDescription}</CardContent>
             </Card>
 
-            {/* Tabs Section */}
             <Card className="shadow-lg border-gray-200">
-              <CardContent className="p-0 md:p-6">
-                <Tabs defaultValue="components" className="w-full">
-                  <TabsList className="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 bg-gray-100 p-1 rounded-lg">
-                    <TabsTrigger
-                      value="components"
-                      className="data-[state=active]:bg-white data-[state=active]:text-purple-700 data-[state=active]:shadow-md"
-                    >
-                      <Package2 className="h-4 w-4 mr-2" />
-                      Pack's Design
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="setup"
-                      className="data-[state=active]:bg-white data-[state=active]:text-purple-700 data-[state=active]:shadow-md"
-                    >
-                      <BookOpen className="h-4 w-4 mr-2" />
-                      Setup Guide
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="stories"
-                      className="data-[state=active]:bg-white data-[state=active]:text-purple-700 data-[state=active]:shadow-md"
-                    >
-                      <Sparkles className="h-4 w-4 mr-2" />
-                      Success Stories
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="faq"
-                      className="data-[state=active]:bg-white data-[state=active]:text-purple-700 data-[state=active]:shadow-md"
-                    >
-                      <HelpCircle className="h-4 w-4 mr-2" />
-                      FAQ
-                    </TabsTrigger>
-                  </TabsList>
-                  <div className="pt-6">
-                    <TabsContent value="components">
-                      <PackImageDesign imageDesign={pack.imageDesign} />
-                    </TabsContent>
-                    <TabsContent value="setup">
-                      <PackSetup />
-                    </TabsContent>
-                    <TabsContent value="stories">
-                      <PackSuccessStories />
-                    </TabsContent>
-                    <TabsContent value="faq">
-                      <PackFAQ faq={pack.faq} />
-                    </TabsContent>
-                  </div>
-                </Tabs>
-              </CardContent>
+              <CardContent className="p-0 md:p-6">{commonTabsSection}</CardContent>
             </Card>
           </div>
 
-          {/* Right Column - Features & Purchase Info */}
+          {/* Right Column - Features & Purchase Info (Hidden on mobile by parent grid) */}
           <div className="space-y-6">
-            {/* Purchase Info Card */}
             <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2 z-0"></div>
               <CardContent className="p-6 relative z-10">
@@ -361,8 +413,8 @@ export default function PackPage() {
                   <span className="relative z-10">Purchase Information</span>
                   <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
                 </h3>
-
                 <div className="space-y-4">
+                  {/* Purchase info items */}
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group">
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0">
                       <Clock className="h-4 w-4 text-white" />
@@ -374,7 +426,6 @@ export default function PackPage() {
                       <p className="text-gray-700 text-sm">1 - 3 hours</p>
                     </div>
                   </div>
-
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group">
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0">
                       <CreditCard className="h-4 w-4 text-white" />
@@ -386,7 +437,6 @@ export default function PackPage() {
                       <p className="text-gray-700 text-sm">Credit Card, PayPal, Cryptocurrency</p>
                     </div>
                   </div>
-
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group">
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0">
                       <Users className="h-4 w-4 text-white" />
@@ -398,7 +448,6 @@ export default function PackPage() {
                       <p className="text-gray-700 text-sm">Email, Live Chat (Business Hours)</p>
                     </div>
                   </div>
-
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm group">
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-110 flex-shrink-0">
                       <Shield className="h-4 w-4 text-white" />
@@ -411,18 +460,15 @@ export default function PackPage() {
                     </div>
                   </div>
                 </div>
-
                 <div className="mt-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-5 relative overflow-hidden border border-blue-100">
                   <div className="absolute top-0 right-0 w-20 h-20 bg-blue-200/20 rounded-full -translate-y-1/2 translate-x-1/2"></div>
                   <div className="absolute bottom-0 left-0 w-16 h-16 bg-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-
                   <h4 className="font-bold mb-2 text-center relative z-10 text-gray-800">
                     Ready to get started?
                   </h4>
                   <p className="text-gray-600 text-sm mb-4 text-center relative z-10">
                     Get your {pack.name} now and start advertising!
                   </p>
-
                   <Button
                     onClick={handleAddToCart}
                     className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-300 relative z-10"
@@ -434,7 +480,6 @@ export default function PackPage() {
               </CardContent>
             </Card>
 
-            {/* Budget Info Card */}
             <Card className="shadow-lg border-gray-200">
               <CardHeader>
                 <CardTitle className="flex items-center text-xl font-semibold text-gray-800">
@@ -455,18 +500,16 @@ export default function PackPage() {
               </CardContent>
             </Card>
 
-            {/* Key Benefits Card - Hidden on Mobile */}
             <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-200/10 to-purple-200/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
               <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tl from-pink-200/10 to-indigo-200/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-
               <CardContent className="p-6 relative z-10">
                 <h3 className="text-xl font-bold mb-5 relative inline-block">
                   <span className="relative z-10">Key Benefits</span>
                   <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-200 to-purple-200 opacity-70 rounded-full"></div>
                 </h3>
-
                 <div className="space-y-4">
+                  {/* Key benefit items */}
                   <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-100 relative group overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div className="flex items-center gap-3">
@@ -481,7 +524,6 @@ export default function PackPage() {
                       </div>
                     </div>
                   </div>
-
                   <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-xl border border-purple-100 relative group overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div className="flex items-center gap-3">
@@ -496,7 +538,6 @@ export default function PackPage() {
                       </div>
                     </div>
                   </div>
-
                   <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-4 rounded-xl border border-amber-100 relative group overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div className="flex items-center gap-3">
@@ -516,9 +557,23 @@ export default function PackPage() {
             </Card>
           </div>
         </div>
+
+        {/* Mobile Layout */}
+        <div className="md:hidden space-y-6">
+          <Card className="overflow-hidden border-0 shadow-xl bg-white/80 backdrop-blur-sm">
+            <CardContent className="p-4 sm:p-6">{commonPackOverview}</CardContent>
+          </Card>
+
+          <Card className="overflow-hidden border-0 shadow-xl bg-white/80 backdrop-blur-sm">
+            <CardContent className="p-4 sm:p-6">{commonPackDescription}</CardContent>
+          </Card>
+
+          <Card className="shadow-lg border-gray-200">
+            <CardContent className="p-4 sm:p-6">{commonTabsSection}</CardContent>
+          </Card>
+        </div>
       </div>
 
-      {/* Cart Notification for Mobile */}
       {showNotification && addedItem && (
         <CartNotification
           item={addedItem}
