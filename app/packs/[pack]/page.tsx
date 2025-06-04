@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import { useEffect, useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
   ShoppingCart,
   AlertCircle,
@@ -21,33 +21,34 @@ import {
   HelpCircle,
   Sparkles,
   DollarSign,
-} from "lucide-react"
-import SupportingPageLayout from "@/components/layout/supporting-page-layout"
-import { useCart } from "@/context/cart-context"
-import { processContent } from "@/lib/utils"
-import { useMediaQuery } from "@/hooks/use-media-query"
-import { CartNotification } from "@/components/cart/cart-notification"
-import { getPackageDetailBySlug } from "@/data/packs"
-import type { Package, ProductInPack } from "@/data/packs"
-import { useParams } from "next/navigation"
-import PackLoading from "./loading"
-import PackFAQ from "@/components/pack/pack-faq"
-import PackSuccessStories from "@/components/pack/pack-review"
-import PackDesign from "@/components/pack/pack-design"
+  ArrowRight,
+} from 'lucide-react'
+import SupportingPageLayout from '@/components/layout/supporting-page-layout'
+import { useCart } from '@/context/cart-context'
+import { processContent } from '@/lib/utils'
+import { useMediaQuery } from '@/hooks/use-media-query'
+import { CartNotification } from '@/components/cart/cart-notification'
+import { getPackageDetailBySlug, getPackagesListPage } from '@/data/packs'
+import type { Package, ProductInPack, PackageLandingPage } from '@/data/packs'
+import { useParams } from 'next/navigation'
+import PackLoading from './loading'
+import PackFAQ from '@/components/pack/pack-faq'
+import PackSuccessStories from '@/components/pack/pack-review'
+import PackDesign from '@/components/pack/pack-design'
 
 // Stock status indicator
 const stockStatus = {
-  "in-stock": {
-    label: "In Stock",
-    color: "bg-gradient-to-r from-green-400 to-emerald-500 text-white",
+  'in-stock': {
+    label: 'In Stock',
+    color: 'bg-gradient-to-r from-green-400 to-emerald-500 text-white',
   },
-  "low-stock": {
-    label: "Low Stock",
-    color: "bg-gradient-to-r from-amber-400 to-orange-500 text-white",
+  'low-stock': {
+    label: 'Low Stock',
+    color: 'bg-gradient-to-r from-amber-400 to-orange-500 text-white',
   },
-  "out-of-stock": {
-    label: "Out of Stock",
-    color: "bg-gradient-to-r from-red-400 to-rose-500 text-white",
+  'out-of-stock': {
+    label: 'Out of Stock',
+    color: 'bg-gradient-to-r from-red-400 to-rose-500 text-white',
   },
 }
 
@@ -55,17 +56,35 @@ export default function PackPage() {
   const params = useParams()
   const packSlug = params?.pack as string
   const [pack, setPack] = useState<Package | null>(null)
+  const [suggestedPack, setSuggestedPack] = useState<PackageLandingPage | null>(null)
   const { addItem, openCart } = useCart() || {}
   const [isLoading, setIsLoading] = useState(true)
   const [quantity, setQuantity] = useState(1)
   const [showNotification, setShowNotification] = useState(false)
   const [addedItem, setAddedItem] = useState<any>(null)
   const [isAddingToCart, setIsAddingToCart] = useState(false)
-  const isMobile = useMediaQuery("(max-width: 768px)") // md breakpoint
+  const isMobile = useMediaQuery('(max-width: 768px)') // md breakpoint
 
   useEffect(() => {
     const packData = getPackageDetailBySlug(packSlug)
     setPack(packData || null)
+
+    // Get all packs and find a suggested pack
+    if (packData) {
+      const allPacks = getPackagesListPage()
+      // Find a pack with higher price (next tier up) or if current is highest, suggest a lower tier
+      const currentPrice = packData.price
+      const higherPriced = allPacks
+        .filter((p) => p.price > currentPrice)
+        .sort((a, b) => a.price - b.price)[0]
+      const lowerPriced = allPacks
+        .filter((p) => p.price < currentPrice)
+        .sort((a, b) => b.price - a.price)[0]
+
+      // Suggest higher priced pack if available, otherwise suggest lower priced
+      setSuggestedPack(higherPriced || lowerPriced || null)
+    }
+
     setIsLoading(false)
   }, [packSlug])
 
@@ -103,7 +122,7 @@ export default function PackPage() {
             <div className="relative w-full h-full rounded-lg overflow-hidden border-0 bg-white shadow-md group">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay group-hover:opacity-70 transition-opacity duration-300"></div>
               <Image
-                src={pack.image || "/placeholder.svg"}
+                src={pack.image || '/placeholder.svg'}
                 alt={pack.name}
                 fill
                 className="object-cover transform transition-transform group-hover:scale-105 duration-300"
@@ -151,7 +170,7 @@ export default function PackPage() {
                   <Star
                     key={i}
                     className={`h-3.5 w-3.5 ${
-                      i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+                      i < 4.5 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
                     }`}
                   />
                 ))}
@@ -184,10 +203,10 @@ export default function PackPage() {
             <Button
               onClick={handleAddToCart}
               className="bg-gradient-to-r from-facebook to-blue-700 hover:from-facebook-dark hover:to-blue-800 text-white flex items-center gap-2 shadow-md hover:shadow-xl transition-all duration-300 px-4 py-2 text-sm flex-1"
-              disabled={pack.stock === "out-of-stock" || isAddingToCart}
+              disabled={pack.stock === 'out-of-stock' || isAddingToCart}
             >
               <ShoppingCart className="h-4 w-4" />
-              {isAddingToCart ? "Adding..." : "Add to Cart"}
+              {isAddingToCart ? 'Adding...' : 'Add to Cart'}
             </Button>
           </div>
         </div>
@@ -224,7 +243,7 @@ export default function PackPage() {
       <div className="relative aspect-square rounded-xl overflow-hidden border-0 bg-white shadow-lg group mx-auto w-full max-w-xs sm:max-w-sm">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay group-hover:opacity-70 transition-opacity duration-300"></div>
         <Image
-          src={pack.image || "/placeholder.svg"}
+          src={pack.image || '/placeholder.svg'}
           alt={pack.name}
           fill
           className="object-cover transform transition-transform group-hover:scale-105 duration-500"
@@ -282,10 +301,10 @@ export default function PackPage() {
           <Button
             onClick={handleAddToCart}
             className="bg-gradient-to-r from-facebook to-blue-700 hover:from-facebook-dark hover:to-blue-800 text-white flex items-center justify-center gap-2 shadow-md hover:shadow-xl transition-all duration-300 py-3 px-4 sm:px-6 w-full sm:w-auto"
-            disabled={pack.stock === "out-of-stock" || isAddingToCart}
+            disabled={pack.stock === 'out-of-stock' || isAddingToCart}
           >
             <ShoppingCart className="h-5 w-5" />
-            {isAddingToCart ? "Adding..." : "Add to Cart"}
+            {isAddingToCart ? 'Adding...' : 'Add to Cart'}
           </Button>
         </div>
 
@@ -295,7 +314,7 @@ export default function PackPage() {
               <Star
                 key={i}
                 className={`h-5 w-5 ${
-                  i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+                  i < 4.5 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
                 }`}
               />
             ))}
@@ -337,7 +356,7 @@ export default function PackPage() {
             <CheckCircle2 className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
             <div>
               <span className="font-medium text-gray-800">
-                {item.quantity}x {item.productId.replace(/-/g, " ")}
+                {item.quantity}x {item.productId.replace(/-/g, ' ')}
               </span>
               <p className="text-sm text-gray-600">{item.role}</p>
             </div>
@@ -373,7 +392,7 @@ export default function PackPage() {
         </TabsTrigger>
       </TabsList>
       <div className="pt-6 min-h-[400px] sm:min-h-[500px]">
-        {" "}
+        {' '}
         {/* Adjusted min-height for tabs content */}
         <TabsContent value="components" className="h-full">
           <PackDesign category={pack.category} />
@@ -404,7 +423,7 @@ export default function PackPage() {
                     <div className="relative aspect-square rounded-xl overflow-hidden border-0 bg-white shadow-lg hover:shadow-xl transition-all duration-300 group">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 mix-blend-overlay group-hover:opacity-70 transition-opacity duration-300"></div>
                       <Image
-                        src={pack.image || "/placeholder.svg"}
+                        src={pack.image || '/placeholder.svg'}
                         alt={pack.name}
                         fill
                         className="object-cover transform transition-transform group-hover:scale-105 duration-500"
@@ -465,10 +484,10 @@ export default function PackPage() {
                       <Button
                         onClick={handleAddToCart}
                         className="bg-gradient-to-r from-facebook to-blue-700 hover:from-facebook-dark hover:to-blue-800 text-white flex items-center gap-2 shadow-md hover:shadow-xl transition-all duration-300 py-3 px-6"
-                        disabled={pack.stock === "out-of-stock" || isAddingToCart}
+                        disabled={pack.stock === 'out-of-stock' || isAddingToCart}
                       >
                         <ShoppingCart className="h-5 w-5" />
-                        {isAddingToCart ? "Adding..." : "Add to Cart"}
+                        {isAddingToCart ? 'Adding...' : 'Add to Cart'}
                       </Button>
                     </div>
 
@@ -478,7 +497,7 @@ export default function PackPage() {
                           <Star
                             key={i}
                             className={`h-5 w-5 ${
-                              i < 4.5 ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+                              i < 4.5 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
                             }`}
                           />
                         ))}
@@ -562,43 +581,6 @@ export default function PackPage() {
                     </div>
                   </div>
                 </div>
-                <div className="mt-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-5 relative overflow-hidden border border-blue-100">
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-blue-200/20 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-                  <div className="absolute bottom-0 left-0 w-16 h-16 bg-purple-200/20 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-                  <h4 className="font-bold mb-2 text-center relative z-10 text-gray-800">
-                    Ready to get started?
-                  </h4>
-                  <p className="text-gray-600 text-sm mb-4 text-center relative z-10">
-                    Get your {pack.name} now and start advertising!
-                  </p>
-                  <Button
-                    onClick={handleAddToCart}
-                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-300 relative z-10"
-                    disabled={pack.stock === "out-of-stock" || isAddingToCart}
-                  >
-                    {isAddingToCart ? "Adding..." : `Add to Cart - €${pack.price}`}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="shadow-lg border-gray-200">
-              <CardHeader>
-                <CardTitle className="flex items-center text-xl font-semibold text-gray-800">
-                  <DollarSign className="h-5 w-5 mr-2 text-green-600" />
-                  Budget Information
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="mb-2">
-                  <span className="text-gray-600">Daily Budget Limit per Ad Account: </span>
-                  <span className="font-bold text-green-700 text-lg">
-                    €{pack.budgetInfo.dailyBudget}
-                  </span>
-                </div>
-                <div className="mt-3 p-3 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-700 text-sm rounded-r-md">
-                  <p>{pack.budgetInfo.warning}</p>
-                </div>
               </CardContent>
             </Card>
 
@@ -657,6 +639,69 @@ export default function PackPage() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Suggested Pack Card */}
+            {suggestedPack && (
+              <Card className="overflow-hidden border-0 shadow-xl relative bg-white/80 backdrop-blur-sm">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-amber-200/20 to-orange-200/20 rounded-full -translate-y-1/2 translate-x-1/2 z-0"></div>
+                <CardContent className="p-6 relative z-10">
+                  <h3 className="text-xl font-bold mb-5 relative inline-block">
+                    <span className="relative z-10">You Might Also Like</span>
+                    <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-amber-200 to-orange-200 opacity-70 rounded-full"></div>
+                  </h3>
+
+                  <div className="mb-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-md">
+                        <Package2 className="h-4 w-4 text-white" />
+                      </div>
+                      <h4 className="text-lg font-bold">{suggestedPack.name}</h4>
+                    </div>
+
+                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                      {suggestedPack.description}
+                    </p>
+
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                        €{suggestedPack.price}
+                      </span>
+                      {suggestedPack.badge && (
+                        <Badge className="bg-gradient-to-r from-amber-400 to-orange-500 text-white border-0 shadow-sm">
+                          {suggestedPack.badge}
+                        </Badge>
+                      )}
+                    </div>
+
+                    <div className="space-y-2 mb-4">
+                      {suggestedPack.products.slice(0, 2).map((item, index) => (
+                        <div key={index} className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-amber-500 mt-1 flex-shrink-0" />
+                          <p className="text-sm text-gray-700">{item.role}</p>
+                        </div>
+                      ))}
+                      {suggestedPack.products.length > 2 && (
+                        <p className="text-xs text-gray-500 italic">
+                          + {suggestedPack.products.length - 2} more items
+                        </p>
+                      )}
+                    </div>
+
+                    <Button
+                      asChild
+                      className="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-300"
+                    >
+                      <Link
+                        href={`/packs/${suggestedPack.slug}`}
+                        className="flex items-center justify-center gap-2"
+                      >
+                        View Pack <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
 
