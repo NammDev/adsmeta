@@ -12,31 +12,40 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { AnimatedBeam } from "./animated-beam"
+import { useMediaQuery } from "@/hooks/use-media-query"
 
 interface NodeProps {
   IconComponent: LucideIcon
   label: string
+  mobileLabel?: string // New prop for shorter mobile label
   className?: string
   iconClassName?: string
   nodeSize?: string
   iconSize?: string
 }
 
-const CircleNode = React.forwardRef<HTMLDivElement, NodeProps & { outerClassName?: string }>(
+const CircleNode = React.forwardRef<
+  HTMLDivElement,
+  NodeProps & { outerClassName?: string; isDesktop: boolean } // Pass isDesktop
+>(
   (
     {
       IconComponent,
       label,
+      mobileLabel, // Destructure new prop
       className,
       iconClassName,
       nodeSize = "size-16 md:size-14",
       iconSize = "size-8 md:size-7",
       outerClassName,
+      isDesktop, // Receive isDesktop
     },
     ref
   ) => {
+    const displayLabel = !isDesktop && mobileLabel ? mobileLabel : label // Logic for choosing label
+
     return (
-      <div className={cn("flex flex-col items-center", outerClassName)} title={label}>
+      <div className={cn("flex flex-col items-center", outerClassName)} title={displayLabel}>
         <div
           ref={ref}
           className={cn(
@@ -44,12 +53,12 @@ const CircleNode = React.forwardRef<HTMLDivElement, NodeProps & { outerClassName
             nodeSize,
             className
           )}
-          aria-label={label}
+          aria-label={displayLabel}
         >
           <IconComponent className={cn("text-gray-600", iconSize, iconClassName)} />
         </div>
         <span className="mt-1 block w-20 text-center text-[9px] font-medium leading-tight text-gray-700 md:text-[10px] md:w-24">
-          {label}
+          {displayLabel}
         </span>
       </div>
     )
@@ -64,6 +73,11 @@ JunctionNode.displayName = "JunctionNode"
 
 export default function EliteDiagram() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const isDesktop = useMediaQuery("(min-width: 768px)")
+
+  const getResponsiveValue = (mobileValue: string, desktopValue: string) => {
+    return isDesktop ? desktopValue : mobileValue
+  }
 
   // Visible Nodes
   const bm5VerifiedRef = useRef<HTMLDivElement>(null)
@@ -83,59 +97,54 @@ export default function EliteDiagram() {
   const page2Ref = useRef<HTMLDivElement>(null) // Right branch page
   const pixel1Ref = useRef<HTMLDivElement>(null) // Right branch pixel
 
-  // Invisible Bus Bar Tap Points - Renamed for new positions
-  // Bus 1 (Admin <-> Staff) - Centered around new left branch positions
-  const bus1Point20Ref = useRef<HTMLDivElement>(null) // Corresponds to 20% left
-  const bus1Point30Ref = useRef<HTMLDivElement>(null) // Corresponds to 30% left
-  const bus1Point40Ref = useRef<HTMLDivElement>(null) // Corresponds to 40% left
+  // Invisible Bus Bar Tap Points
+  const bus1PointAdmin1Staff1Ref = useRef<HTMLDivElement>(null)
+  const bus1PointStaff2Ref = useRef<HTMLDivElement>(null)
+  const bus1PointAdmin2Staff3Ref = useRef<HTMLDivElement>(null)
 
-  // Bus 2 (Staff <-> Resources) - Centered around new left branch positions
-  const bus2Point10Ref = useRef<HTMLDivElement>(null) // Corresponds to 10% left
-  const bus2Point20Ref = useRef<HTMLDivElement>(null) // Corresponds to 20% left
-  const bus2Point30Ref = useRef<HTMLDivElement>(null) // Corresponds to 30% left
-  const bus2Point40Ref = useRef<HTMLDivElement>(null) // Corresponds to 40% left
-  const bus2Point50Ref = useRef<HTMLDivElement>(null) // Corresponds to 50% left
-
-  const beamPathColor = "rgb(203 213 225)"
-  const beamPathOpacity = 0.6
-  const beamPathWidth = 1.5
-  const beamDuration = 7
+  const bus2PointAds1Ref = useRef<HTMLDivElement>(null)
+  const bus2PointStaff1Ads2Ref = useRef<HTMLDivElement>(null)
+  const bus2PointStaff2Ads3Ref = useRef<HTMLDivElement>(null)
+  const bus2PointStaff3Ads4Ref = useRef<HTMLDivElement>(null)
+  const bus2PointPage1Ref = useRef<HTMLDivElement>(null)
 
   const nodePositions = {
-    // Visible Nodes - Adjusted for closer BMs and right branch alignment
-    bm5Verified: { top: "10%", left: "30%" }, // Shifted right
-    bmVerifiedRight: { top: "10%", left: "70%" }, // Shifted left
+    // Visible Nodes
+    bm5Verified: { top: "10%", left: getResponsiveValue("25%", "30%") },
+    bmVerifiedRight: { top: "10%", left: getResponsiveValue("75%", "70%") },
 
-    admin1: { top: "25%", left: "20%" }, // Shifted right
-    admin2: { top: "25%", left: "40%" }, // Shifted right
-    admin3: { top: "25%", left: "60%" }, // Shifted left
-    admin4: { top: "25%", left: "80%" }, // Shifted left
+    admin1: { top: "25%", left: getResponsiveValue("15%", "20%") },
+    admin2: { top: "25%", left: getResponsiveValue("35%", "40%") },
+    admin3: { top: "25%", left: getResponsiveValue("65%", "60%") },
+    admin4: { top: "25%", left: getResponsiveValue("85%", "80%") },
 
-    staff1: { top: "50%", left: "20%" }, // Shifted right
-    staff2: { top: "50%", left: "30%" }, // Shifted right
-    staff3: { top: "50%", left: "40%" }, // Shifted right
+    staff1: { top: "50%", left: getResponsiveValue("10%", "20%") },
+    staff2: { top: "50%", left: getResponsiveValue("25%", "30%") },
+    staff3: { top: "50%", left: getResponsiveValue("40%", "40%") },
 
-    ads1: { top: "75%", left: "10%" }, // Shifted right
-    ads2: { top: "75%", left: "20%" }, // Shifted right
-    ads3: { top: "75%", left: "30%" }, // Shifted right
-    ads4: { top: "75%", left: "40%" }, // Shifted right
-    page1: { top: "75%", left: "50%" }, // Shifted right (Left branch page)
+    ads1: { top: "75%", left: getResponsiveValue("5%", "10%") },
+    ads2: { top: "75%", left: getResponsiveValue("18%", "20%") }, // Adjusted for mobile
+    ads3: { top: "75%", left: getResponsiveValue("31%", "30%") }, // Adjusted for mobile
+    ads4: { top: "75%", left: getResponsiveValue("44%", "40%") }, // Adjusted for mobile
+    page1: { top: "75%", left: getResponsiveValue("58%", "50%") }, // Adjusted for mobile, increased gap
 
-    page2: { top: "50%", left: "60%" }, // Right branch page: aligned with admin3.left and staff.top
-    pixel1: { top: "50%", left: "80%" }, // Right branch pixel: aligned with admin4.left and staff.top
+    page2: { top: "50%", left: getResponsiveValue("65%", "60%") },
+    pixel1: { top: "50%", left: getResponsiveValue("85%", "80%") },
 
     // Invisible Bus Bar 1 Points (Admin <-> Staff)
-    bus1_20: { top: "37.5%", left: "20%" },
-    bus1_30: { top: "37.5%", left: "30%" },
-    bus1_40: { top: "37.5%", left: "40%" },
+    bus1_admin1_staff1: { top: "37.5%", left: getResponsiveValue("15%", "20%") },
+    bus1_staff2: { top: "37.5%", left: getResponsiveValue("25%", "30%") },
+    bus1_admin2_staff3: { top: "37.5%", left: getResponsiveValue("35%", "40%") },
 
     // Invisible Bus Bar 2 Points (Staff <-> Resources)
-    bus2_10: { top: "62.5%", left: "10%" },
-    bus2_20: { top: "62.5%", left: "20%" },
-    bus2_30: { top: "62.5%", left: "30%" },
-    bus2_40: { top: "62.5%", left: "40%" },
-    bus2_50: { top: "62.5%", left: "50%" },
+    bus2_ads1: { top: "62.5%", left: getResponsiveValue("5%", "10%") },
+    bus2_staff1_ads2: { top: "62.5%", left: getResponsiveValue("18%", "20%") }, // Adjusted
+    bus2_staff2_ads3: { top: "62.5%", left: getResponsiveValue("31%", "30%") }, // Adjusted
+    bus2_staff3_ads4: { top: "62.5%", left: getResponsiveValue("44%", "40%") }, // Adjusted
+    bus2_page1: { top: "62.5%", left: getResponsiveValue("58%", "50%") }, // Adjusted
   }
+
+  const adsAccountMobileLabel = "Ads Acct" // Shorter label for mobile
 
   const visibleNodesData = [
     {
@@ -167,32 +176,65 @@ export default function EliteDiagram() {
     { ref: staff1Ref, key: "staff1", Icon: User, label: "Staff" },
     { ref: staff2Ref, key: "staff2", Icon: User, label: "Staff" },
     { ref: staff3Ref, key: "staff3", Icon: User, label: "Staff" },
-    { ref: ads1Ref, key: "ads1", Icon: Megaphone, label: "Ads Account" },
-    { ref: ads2Ref, key: "ads2", Icon: Megaphone, label: "Ads Account" },
-    { ref: ads3Ref, key: "ads3", Icon: Megaphone, label: "Ads Account" },
-    { ref: ads4Ref, key: "ads4", Icon: Megaphone, label: "Ads Account" },
-    { ref: page1Ref, key: "page1", Icon: FileText, label: "Page" },
+    {
+      ref: ads1Ref,
+      key: "ads1",
+      Icon: Megaphone,
+      label: "Ads Account",
+      mobileLabel: adsAccountMobileLabel,
+    },
+    {
+      ref: ads2Ref,
+      key: "ads2",
+      Icon: Megaphone,
+      label: "Ads Account",
+      mobileLabel: adsAccountMobileLabel,
+    },
+    {
+      ref: ads3Ref,
+      key: "ads3",
+      Icon: Megaphone,
+      label: "Ads Account",
+      mobileLabel: adsAccountMobileLabel,
+    },
+    {
+      ref: ads4Ref,
+      key: "ads4",
+      Icon: Megaphone,
+      label: "Ads Account",
+      mobileLabel: adsAccountMobileLabel,
+    },
+    { ref: page1Ref, key: "page1", Icon: FileText, label: "Page" }, // Page label is already short
     { ref: page2Ref, key: "page2", Icon: FileText, label: "Page" },
     { ref: pixel1Ref, key: "pixel1", Icon: Crosshair, label: "Pixel" },
   ]
 
+  // ... (bus junction data remains the same)
   const bus1JunctionsData = [
-    { ref: bus1Point20Ref, key: "bus1_20", label: "Bus 1 Tap 20%" },
-    { ref: bus1Point30Ref, key: "bus1_30", label: "Bus 1 Tap 30%" },
-    { ref: bus1Point40Ref, key: "bus1_40", label: "Bus 1 Tap 40%" },
+    {
+      ref: bus1PointAdmin1Staff1Ref,
+      key: "bus1_admin1_staff1",
+      label: "Bus 1 Tap for Admin1/Staff1",
+    },
+    { ref: bus1PointStaff2Ref, key: "bus1_staff2", label: "Bus 1 Tap for Staff2" },
+    {
+      ref: bus1PointAdmin2Staff3Ref,
+      key: "bus1_admin2_staff3",
+      label: "Bus 1 Tap for Admin2/Staff3",
+    },
   ]
 
   const bus2JunctionsData = [
-    { ref: bus2Point10Ref, key: "bus2_10", label: "Bus 2 Tap 10%" },
-    { ref: bus2Point20Ref, key: "bus2_20", label: "Bus 2 Tap 20%" },
-    { ref: bus2Point30Ref, key: "bus2_30", label: "Bus 2 Tap 30%" },
-    { ref: bus2Point40Ref, key: "bus2_40", label: "Bus 2 Tap 40%" },
-    { ref: bus2Point50Ref, key: "bus2_50", label: "Bus 2 Tap 50%" },
+    { ref: bus2PointAds1Ref, key: "bus2_ads1", label: "Bus 2 Tap for Ads1" },
+    { ref: bus2PointStaff1Ads2Ref, key: "bus2_staff1_ads2", label: "Bus 2 Tap for Staff1/Ads2" },
+    { ref: bus2PointStaff2Ads3Ref, key: "bus2_staff2_ads3", label: "Bus 2 Tap for Staff2/Ads3" },
+    { ref: bus2PointStaff3Ads4Ref, key: "bus2_staff3_ads4", label: "Bus 2 Tap for Staff3/Ads4" },
+    { ref: bus2PointPage1Ref, key: "bus2_page1", label: "Bus 2 Tap for Page1" },
   ]
 
   return (
     <div
-      className="relative h-[800px] w-full rounded-lg bg-white p-4 md:h-[700px]"
+      className="relative h-[800px] w-full rounded-lg bg-white px-2 py-4 sm:px-3 md:p-4 md:h-[700px]"
       ref={containerRef}
     >
       {/* Render Visible Nodes */}
@@ -201,7 +243,8 @@ export default function EliteDiagram() {
           key={item.key}
           style={{
             position: "absolute",
-            ...nodePositions[item.key as keyof typeof nodePositions],
+            // @ts-ignore
+            ...nodePositions[item.key],
             transform: "translate(-50%, -50%)",
           }}
         >
@@ -209,18 +252,21 @@ export default function EliteDiagram() {
             ref={item.ref}
             IconComponent={item.Icon}
             label={item.label}
+            mobileLabel={item.mobileLabel} // Pass mobileLabel
+            isDesktop={isDesktop} // Pass isDesktop
             {...item.options}
           />
         </div>
       ))}
 
-      {/* Render Invisible Bus Junction Nodes */}
+      {/* ... (rest of the component: invisible nodes, animated beams) ... */}
       {[...bus1JunctionsData, ...bus2JunctionsData].map((item) => (
         <div
           key={item.key}
           style={{
             position: "absolute",
-            ...nodePositions[item.key as keyof typeof nodePositions],
+            // @ts-ignore
+            ...nodePositions[item.key],
             transform: "translate(-50%, -50%)",
           }}
         >
@@ -238,28 +284,63 @@ export default function EliteDiagram() {
         fromRef={bm5VerifiedRef}
         toRef={bmVerifiedRightRef}
       />
-      {/* Right branch Admin to Page/Pixel - now vertical */}
       <AnimatedBeam containerRef={containerRef} fromRef={admin3Ref} toRef={page2Ref} />
       <AnimatedBeam containerRef={containerRef} fromRef={admin4Ref} toRef={pixel1Ref} />
 
       {/* --- Bus 1 Beams (Admin <-> Staff) --- */}
-      <AnimatedBeam containerRef={containerRef} fromRef={bus1Point20Ref} toRef={bus1Point40Ref} />
-      <AnimatedBeam containerRef={containerRef} fromRef={admin1Ref} toRef={bus1Point20Ref} />
-      <AnimatedBeam containerRef={containerRef} fromRef={admin2Ref} toRef={bus1Point40Ref} />
-      <AnimatedBeam containerRef={containerRef} fromRef={bus1Point20Ref} toRef={staff1Ref} />
-      <AnimatedBeam containerRef={containerRef} fromRef={bus1Point30Ref} toRef={staff2Ref} />
-      <AnimatedBeam containerRef={containerRef} fromRef={bus1Point40Ref} toRef={staff3Ref} />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={bus1PointAdmin1Staff1Ref}
+        toRef={bus1PointAdmin2Staff3Ref}
+      />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={admin1Ref}
+        toRef={bus1PointAdmin1Staff1Ref}
+      />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={admin2Ref}
+        toRef={bus1PointAdmin2Staff3Ref}
+      />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={bus1PointAdmin1Staff1Ref}
+        toRef={staff1Ref}
+      />
+      <AnimatedBeam containerRef={containerRef} fromRef={bus1PointStaff2Ref} toRef={staff2Ref} />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={bus1PointAdmin2Staff3Ref}
+        toRef={staff3Ref}
+      />
 
       {/* --- Bus 2 Beams (Staff <-> Resources) --- */}
-      <AnimatedBeam containerRef={containerRef} fromRef={bus2Point10Ref} toRef={bus2Point50Ref} />
-      <AnimatedBeam containerRef={containerRef} fromRef={staff1Ref} toRef={bus2Point20Ref} />
-      <AnimatedBeam containerRef={containerRef} fromRef={staff2Ref} toRef={bus2Point30Ref} />
-      <AnimatedBeam containerRef={containerRef} fromRef={staff3Ref} toRef={bus2Point40Ref} />
-      <AnimatedBeam containerRef={containerRef} fromRef={bus2Point10Ref} toRef={ads1Ref} />
-      <AnimatedBeam containerRef={containerRef} fromRef={bus2Point20Ref} toRef={ads2Ref} />
-      <AnimatedBeam containerRef={containerRef} fromRef={bus2Point30Ref} toRef={ads3Ref} />
-      <AnimatedBeam containerRef={containerRef} fromRef={bus2Point40Ref} toRef={ads4Ref} />
-      <AnimatedBeam containerRef={containerRef} fromRef={bus2Point50Ref} toRef={page1Ref} />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={bus2PointAds1Ref}
+        toRef={bus2PointPage1Ref}
+      />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={staff1Ref}
+        toRef={bus2PointStaff1Ads2Ref}
+      />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={staff2Ref}
+        toRef={bus2PointStaff2Ads3Ref}
+      />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={staff3Ref}
+        toRef={bus2PointStaff3Ads4Ref}
+      />
+      <AnimatedBeam containerRef={containerRef} fromRef={bus2PointAds1Ref} toRef={ads1Ref} />
+      <AnimatedBeam containerRef={containerRef} fromRef={bus2PointStaff1Ads2Ref} toRef={ads2Ref} />
+      <AnimatedBeam containerRef={containerRef} fromRef={bus2PointStaff2Ads3Ref} toRef={ads3Ref} />
+      <AnimatedBeam containerRef={containerRef} fromRef={bus2PointStaff3Ads4Ref} toRef={ads4Ref} />
+      <AnimatedBeam containerRef={containerRef} fromRef={bus2PointPage1Ref} toRef={page1Ref} />
     </div>
   )
 }

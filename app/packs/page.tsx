@@ -11,7 +11,7 @@ import { Package2, Star, ChevronLeft, ChevronRight } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import PageSection from "@/components/page-section"
 import SectionHeader from "@/components/ui/section-header"
-import { getPackagesListPage, type PackageListPage } from "@/data/packs"
+import { getPackagesListPage, PackageLandingPage } from "@/data/packs"
 import MobilePackagesCarousel from "@/components/home/mobile-packages-carousel"
 
 export default function PacksPage() {
@@ -26,7 +26,7 @@ export default function PacksPage() {
   const [isScrolling, setIsScrolling] = useState(false)
 
   // Get packs data from centralized source
-  const packs: PackageListPage[] = getPackagesListPage()
+  const packs: PackageLandingPage[] = getPackagesListPage()
 
   // Separate featured packs from regular packs
   const featuredPacks = [packs[2], packs[1]] // Get Premium (index 2) then Advanced (index 1)
@@ -194,7 +194,7 @@ export default function PacksPage() {
                             size="sm"
                             className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 border-0 text-white px-2 h-8 shadow-sm"
                           >
-                            <Link href={pack.url}>View Pack</Link>
+                            <Link href={`/packs/${pack.slug}`}>View Pack</Link>
                           </Button>
                         </div>
                       </CardContent>
@@ -385,7 +385,10 @@ export default function PacksPage() {
                                   : "bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-800 hover:to-gray-900 text-white"
                               }`}
                             >
-                              <Link href={pack.url} className="flex items-center justify-center">
+                              <Link
+                                href={`/packs/${pack.slug}`}
+                                className="flex items-center justify-center"
+                              >
                                 {isPremium ? "👑" : "📦"} View Pack
                               </Link>
                             </Button>

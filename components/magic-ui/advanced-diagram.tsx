@@ -32,8 +32,8 @@ const CircleNode = React.forwardRef<
       label,
       className, // className for the circle div
       iconClassName,
-      nodeSize = "size-16",
-      iconSize = "size-8",
+      nodeSize = "size-16 md:size-14",
+      iconSize = "size-8 md:size-7",
       outerClassName, // className for the wrapper div (circle + label)
     },
     ref
@@ -91,8 +91,6 @@ export default function AdvancedDiagram() {
           IconComponent={ShieldCheck}
           label="BM Verified"
           iconClassName="text-green-500"
-          nodeSize="size-20"
-          iconSize="size-10"
         />
       </div>
       <div
@@ -104,8 +102,6 @@ export default function AdvancedDiagram() {
           IconComponent={ShieldAlert}
           label="BM Unverified"
           iconClassName="text-orange-500"
-          nodeSize="size-20"
-          iconSize="size-10"
         />
       </div>
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { PackReview } from "@/data/packs"
+import type { PackReview } from "@/data/packs"
 
 interface PackReviewProps {
   reviews: PackReview[]
@@ -26,12 +26,16 @@ export default function PackSuccessStories({ reviews }: PackReviewProps) {
               ></div>
               <div className="flex-1">
                 <div className="mb-3">
-                  <h4 className="font-medium text-gray-900">{review.name}</h4>
-                  <p className="text-sm text-gray-600">{review.role}</p>
+                  <h4 className="font-semibold text-gray-900 text-sm md:text-base">
+                    {review.name}
+                  </h4>
+                  <p className="text-xs md:text-sm text-gray-600">{review.role}</p>
                 </div>
-                <blockquote className="text-gray-700 mb-3 italic">"{review.comment}"</blockquote>
+                <blockquote className="text-gray-700 mb-3 italic text-sm md:text-base">
+                  "{review.comment}"
+                </blockquote>
                 {review.achievement && (
-                  <div className="inline-flex items-center px-3 py-1 rounded-full bg-green-50 text-green-700 text-sm font-medium">
+                  <div className="inline-flex items-center px-2.5 py-0.5 md:px-3 md:py-1 rounded-full bg-green-50 text-green-700 text-xs md:text-sm font-medium">
                     ✓ {review.achievement}
                   </div>
                 )}
