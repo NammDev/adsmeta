@@ -4,32 +4,40 @@ import React, { useRef } from "react"
 import { ShieldCheck, UserCog, User, Megaphone, FileText, Crosshair, type LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { AnimatedBeam } from "./animated-beam"
-import { useMediaQuery } from "@/hooks/use-media-query" // Import useMediaQuery
+import { useMediaQuery } from "@/hooks/use-media-query"
 
 interface NodeProps {
   IconComponent: LucideIcon
   label: string
+  mobileLabel?: string // New prop for shorter mobile label
   className?: string
   iconClassName?: string
   nodeSize?: string
   iconSize?: string
 }
 
-const CircleNode = React.forwardRef<HTMLDivElement, NodeProps & { outerClassName?: string }>(
+const CircleNode = React.forwardRef<
+  HTMLDivElement,
+  NodeProps & { outerClassName?: string; isDesktop: boolean } // Pass isDesktop
+>(
   (
     {
       IconComponent,
       label,
+      mobileLabel, // Destructure new prop
       className,
       iconClassName,
-      nodeSize = "size-16 md:size-14", // Default responsive sizes
-      iconSize = "size-8 md:size-7", // Default responsive sizes
+      nodeSize = "size-16 md:size-14",
+      iconSize = "size-8 md:size-7",
       outerClassName,
+      isDesktop, // Receive isDesktop
     },
     ref,
   ) => {
+    const displayLabel = !isDesktop && mobileLabel ? mobileLabel : label // Logic for choosing label
+
     return (
-      <div className={cn("flex flex-col items-center", outerClassName)} title={label}>
+      <div className={cn("flex flex-col items-center", outerClassName)} title={displayLabel}>
         <div
           ref={ref}
           className={cn(
@@ -37,12 +45,12 @@ const CircleNode = React.forwardRef<HTMLDivElement, NodeProps & { outerClassName
             nodeSize,
             className,
           )}
-          aria-label={label}
+          aria-label={displayLabel}
         >
           <IconComponent className={cn("text-gray-600", iconSize, iconClassName)} />
         </div>
         <span className="mt-1 block w-20 text-center text-[9px] font-medium leading-tight text-gray-700 md:text-[10px] md:w-24">
-          {label}
+          {displayLabel}
         </span>
       </div>
     )
@@ -107,26 +115,28 @@ export default function EliteDiagram() {
     staff3: { top: "50%", left: getResponsiveValue("40%", "40%") },
 
     ads1: { top: "75%", left: getResponsiveValue("5%", "10%") },
-    ads2: { top: "75%", left: getResponsiveValue("15%", "20%") },
-    ads3: { top: "75%", left: getResponsiveValue("25%", "30%") },
-    ads4: { top: "75%", left: getResponsiveValue("35%", "40%") },
-    page1: { top: "75%", left: getResponsiveValue("45%", "50%") },
+    ads2: { top: "75%", left: getResponsiveValue("18%", "20%") }, // Adjusted for mobile
+    ads3: { top: "75%", left: getResponsiveValue("31%", "30%") }, // Adjusted for mobile
+    ads4: { top: "75%", left: getResponsiveValue("44%", "40%") }, // Adjusted for mobile
+    page1: { top: "75%", left: getResponsiveValue("58%", "50%") }, // Adjusted for mobile, increased gap
 
     page2: { top: "50%", left: getResponsiveValue("65%", "60%") },
     pixel1: { top: "50%", left: getResponsiveValue("85%", "80%") },
 
     // Invisible Bus Bar 1 Points (Admin <-> Staff)
-    bus1_admin1_staff1: { top: "37.5%", left: getResponsiveValue("15%", "20%") }, // Connects Admin1 & Staff1
-    bus1_staff2: { top: "37.5%", left: getResponsiveValue("25%", "30%") }, // Connects to Staff2
-    bus1_admin2_staff3: { top: "37.5%", left: getResponsiveValue("35%", "40%") }, // Connects Admin2 & Staff3
+    bus1_admin1_staff1: { top: "37.5%", left: getResponsiveValue("15%", "20%") },
+    bus1_staff2: { top: "37.5%", left: getResponsiveValue("25%", "30%") },
+    bus1_admin2_staff3: { top: "37.5%", left: getResponsiveValue("35%", "40%") },
 
     // Invisible Bus Bar 2 Points (Staff <-> Resources)
-    bus2_ads1: { top: "62.5%", left: getResponsiveValue("5%", "10%") }, // Connects to Ads1
-    bus2_staff1_ads2: { top: "62.5%", left: getResponsiveValue("15%", "20%") }, // Connects Staff1 & Ads2
-    bus2_staff2_ads3: { top: "62.5%", left: getResponsiveValue("25%", "30%") }, // Connects Staff2 & Ads3
-    bus2_staff3_ads4: { top: "62.5%", left: getResponsiveValue("35%", "40%") }, // Connects Staff3 & Ads4
-    bus2_page1: { top: "62.5%", left: getResponsiveValue("45%", "50%") }, // Connects to Page1
+    bus2_ads1: { top: "62.5%", left: getResponsiveValue("5%", "10%") },
+    bus2_staff1_ads2: { top: "62.5%", left: getResponsiveValue("18%", "20%") }, // Adjusted
+    bus2_staff2_ads3: { top: "62.5%", left: getResponsiveValue("31%", "30%") }, // Adjusted
+    bus2_staff3_ads4: { top: "62.5%", left: getResponsiveValue("44%", "40%") }, // Adjusted
+    bus2_page1: { top: "62.5%", left: getResponsiveValue("58%", "50%") }, // Adjusted
   }
+
+  const adsAccountMobileLabel = "Ads Acct" // Shorter label for mobile
 
   const visibleNodesData = [
     {
@@ -134,22 +144,14 @@ export default function EliteDiagram() {
       key: "bm5Verified",
       Icon: ShieldCheck,
       label: "BM5 Verified",
-      options: {
-        iconClassName: "text-green-500",
-        nodeSize: "size-16 md:size-18", // Specific responsive sizes for BM
-        iconSize: "size-8 md:size-9", // Specific responsive sizes for BM
-      },
+      options: { iconClassName: "text-green-500", nodeSize: "size-16 md:size-18", iconSize: "size-8 md:size-9" },
     },
     {
       ref: bmVerifiedRightRef,
       key: "bmVerifiedRight",
       Icon: ShieldCheck,
       label: "BM Verified",
-      options: {
-        iconClassName: "text-green-500",
-        nodeSize: "size-16 md:size-18", // Specific responsive sizes for BM
-        iconSize: "size-8 md:size-9", // Specific responsive sizes for BM
-      },
+      options: { iconClassName: "text-green-500", nodeSize: "size-16 md:size-18", iconSize: "size-8 md:size-9" },
     },
     { ref: admin1Ref, key: "admin1", Icon: UserCog, label: "Admin" },
     { ref: admin2Ref, key: "admin2", Icon: UserCog, label: "Admin" },
@@ -158,15 +160,16 @@ export default function EliteDiagram() {
     { ref: staff1Ref, key: "staff1", Icon: User, label: "Staff" },
     { ref: staff2Ref, key: "staff2", Icon: User, label: "Staff" },
     { ref: staff3Ref, key: "staff3", Icon: User, label: "Staff" },
-    { ref: ads1Ref, key: "ads1", Icon: Megaphone, label: "Ads Account" },
-    { ref: ads2Ref, key: "ads2", Icon: Megaphone, label: "Ads Account" },
-    { ref: ads3Ref, key: "ads3", Icon: Megaphone, label: "Ads Account" },
-    { ref: ads4Ref, key: "ads4", Icon: Megaphone, label: "Ads Account" },
-    { ref: page1Ref, key: "page1", Icon: FileText, label: "Page" },
+    { ref: ads1Ref, key: "ads1", Icon: Megaphone, label: "Ads Account", mobileLabel: adsAccountMobileLabel },
+    { ref: ads2Ref, key: "ads2", Icon: Megaphone, label: "Ads Account", mobileLabel: adsAccountMobileLabel },
+    { ref: ads3Ref, key: "ads3", Icon: Megaphone, label: "Ads Account", mobileLabel: adsAccountMobileLabel },
+    { ref: ads4Ref, key: "ads4", Icon: Megaphone, label: "Ads Account", mobileLabel: adsAccountMobileLabel },
+    { ref: page1Ref, key: "page1", Icon: FileText, label: "Page" }, // Page label is already short
     { ref: page2Ref, key: "page2", Icon: FileText, label: "Page" },
     { ref: pixel1Ref, key: "pixel1", Icon: Crosshair, label: "Pixel" },
   ]
 
+  // ... (bus junction data remains the same)
   const bus1JunctionsData = [
     { ref: bus1PointAdmin1Staff1Ref, key: "bus1_admin1_staff1", label: "Bus 1 Tap for Admin1/Staff1" },
     { ref: bus1PointStaff2Ref, key: "bus1_staff2", label: "Bus 1 Tap for Staff2" },
@@ -183,7 +186,7 @@ export default function EliteDiagram() {
 
   return (
     <div
-      className="relative h-[800px] w-full rounded-lg bg-white px-2 py-4 sm:px-3 md:p-4 md:h-[700px]" // Responsive padding
+      className="relative h-[800px] w-full rounded-lg bg-white px-2 py-4 sm:px-3 md:p-4 md:h-[700px]"
       ref={containerRef}
     >
       {/* Render Visible Nodes */}
@@ -197,11 +200,18 @@ export default function EliteDiagram() {
             transform: "translate(-50%, -50%)",
           }}
         >
-          <CircleNode ref={item.ref} IconComponent={item.Icon} label={item.label} {...item.options} />
+          <CircleNode
+            ref={item.ref}
+            IconComponent={item.Icon}
+            label={item.label}
+            mobileLabel={item.mobileLabel} // Pass mobileLabel
+            isDesktop={isDesktop} // Pass isDesktop
+            {...item.options}
+          />
         </div>
       ))}
 
-      {/* Render Invisible Bus Junction Nodes */}
+      {/* ... (rest of the component: invisible nodes, animated beams) ... */}
       {[...bus1JunctionsData, ...bus2JunctionsData].map((item) => (
         <div
           key={item.key}
@@ -226,9 +236,7 @@ export default function EliteDiagram() {
       <AnimatedBeam containerRef={containerRef} fromRef={admin4Ref} toRef={pixel1Ref} />
 
       {/* --- Bus 1 Beams (Admin <-> Staff) --- */}
-      {/* Bus bar itself */}
       <AnimatedBeam containerRef={containerRef} fromRef={bus1PointAdmin1Staff1Ref} toRef={bus1PointAdmin2Staff3Ref} />
-      {/* Connections to bus bar */}
       <AnimatedBeam containerRef={containerRef} fromRef={admin1Ref} toRef={bus1PointAdmin1Staff1Ref} />
       <AnimatedBeam containerRef={containerRef} fromRef={admin2Ref} toRef={bus1PointAdmin2Staff3Ref} />
       <AnimatedBeam containerRef={containerRef} fromRef={bus1PointAdmin1Staff1Ref} toRef={staff1Ref} />
@@ -236,9 +244,7 @@ export default function EliteDiagram() {
       <AnimatedBeam containerRef={containerRef} fromRef={bus1PointAdmin2Staff3Ref} toRef={staff3Ref} />
 
       {/* --- Bus 2 Beams (Staff <-> Resources) --- */}
-      {/* Bus bar itself */}
       <AnimatedBeam containerRef={containerRef} fromRef={bus2PointAds1Ref} toRef={bus2PointPage1Ref} />
-      {/* Connections to bus bar */}
       <AnimatedBeam containerRef={containerRef} fromRef={staff1Ref} toRef={bus2PointStaff1Ads2Ref} />
       <AnimatedBeam containerRef={containerRef} fromRef={staff2Ref} toRef={bus2PointStaff2Ads3Ref} />
       <AnimatedBeam containerRef={containerRef} fromRef={staff3Ref} toRef={bus2PointStaff3Ads4Ref} />
