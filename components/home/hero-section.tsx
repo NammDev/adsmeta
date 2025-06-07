@@ -104,9 +104,13 @@ export default function HeroSection() {
               for Advertising!
             </h1>
 
-            <p className="text-base text-gray-600 mb-8 max-w-md mx-auto">
-              Your Marketing Partner for Success!
-            </p>
+            <TextAnimate
+              duration={0.5}
+              animation="slideUp"
+              className="text-base text-gray-600 mb-8 max-w-md mx-auto"
+            >
+              Your Marketing Partner - GoAds Agency
+            </TextAnimate>
 
             {/* Social media buttons - mobile responsive grid */}
             <div className="grid grid-cols-2 gap-3 w-full max-w-sm mb-12">
@@ -226,6 +230,7 @@ export default function HeroSection() {
           </h1>
 
           <TextAnimate
+            duration={0.5}
             animation="slideUp"
             className="text-xl text-gray-600 mb-48 max-w-2xl mx-auto"
           >
