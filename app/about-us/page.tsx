@@ -27,29 +27,25 @@ export default function AboutUsPage() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
               <p className="text-gray-600 mb-4 leading-relaxed">
-                GoAds was founded in response to a growing challenge faced by digital marketers. As
-                Facebook's advertising environment became increasingly unstable and complex,
-                advertisers began struggling with account bans, constant checkpoints, and the stress
-                of campaigns being disrupted without warning.
+                GoAds was founded in response to a growing challenge faced by digital marketers. As Facebook's
+                advertising environment became increasingly unstable and complex, advertisers began struggling with
+                account bans, constant checkpoints, and the stress of campaigns being disrupted without warning.
               </p>
               <p className="text-gray-600 mb-4 leading-relaxed">
-                We understand these challenges because we experienced them ourselves. Before GoAds,
-                we were advertisers too. We spent countless hours building campaigns, only to lose
-                everything in a moment. Through those hard lessons, we realized the market needed
-                more than just another account provider. It needed a partner that could offer
-                stability, honesty, and long-term value.
+                We understand these challenges because we experienced them ourselves. Before GoAds, we were advertisers
+                too. We spent countless hours building campaigns, only to lose everything in a moment. Through those
+                hard lessons, we realized the market needed more than just another account provider. It needed a partner
+                that could offer stability, honesty, and long-term value.
               </p>
               <p className="text-gray-600 leading-relaxed">
-                What started as a small operation supporting a few close teams has grown into a
-                trusted service for hundreds of clients each month. Our growth has been driven by a
-                strong belief in doing things the right way. We focus on quality, consistency, and a
-                commitment to helping our clients succeed.
+                What started as a small operation supporting a few close teams has grown into a trusted service for
+                hundreds of clients each month. Our growth has been driven by a strong belief in doing things the right
+                way. We focus on quality, consistency, and a commitment to helping our clients succeed.
               </p>
               <p className="text-gray-600 leading-relaxed">
-                In a crowded and often uncertain industry, we do not take your trust for granted.
-                Every client who chooses GoAds plays a part in our journey. Your support is the
-                reason we continue to grow and improve every day. Thank you for choosing GoAds. We
-                are here to support you, today and always.
+                In a crowded and often uncertain industry, we do not take your trust for granted. Every client who
+                chooses GoAds plays a part in our journey. Your support is the reason we continue to grow and improve
+                every day. Thank you for choosing GoAds. We are here to support you, today and always.
               </p>
 
               {/* Stats with Gradient */}
@@ -86,9 +82,7 @@ export default function AboutUsPage() {
                 />
               </div>
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                <p className="text-white font-medium">
-                  Our dedicated team of Facebook advertising experts
-                </p>
+                <p className="text-white font-medium">Our dedicated team of Facebook advertising experts</p>
               </div>
             </div>
           </div>
@@ -107,8 +101,8 @@ export default function AboutUsPage() {
             <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 mb-10 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-purple-500 to-pink-600"></div>
               <p className="text-xl text-gray-700 italic leading-relaxed relative z-10">
-                "To empower businesses of all sizes with reliable, high-quality Facebook advertising
-                assets that drive growth and success in the digital marketplace."
+                "To empower businesses of all sizes with reliable, high-quality Facebook advertising assets that drive
+                growth and success in the digital marketplace."
               </p>
               <div className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-purple-500/10 to-pink-600/10 rounded-tl-full"></div>
             </div>
@@ -123,8 +117,7 @@ export default function AboutUsPage() {
                 },
                 {
                   title: "Expertise",
-                  description:
-                    "Our team brings years of specialized knowledge in Facebook advertising.",
+                  description: "Our team brings years of specialized knowledge in Facebook advertising.",
                   icon: Award,
                   gradient: "from-purple-500 to-pink-600",
                 },
@@ -140,9 +133,7 @@ export default function AboutUsPage() {
                   className="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-xl transition-all duration-300 group"
                 >
                   <div className="flex items-center mb-4">
-                    <div
-                      className={`p-3 rounded-full bg-gradient-to-r ${value.gradient} text-white mr-3`}
-                    >
+                    <div className={`p-3 rounded-full bg-gradient-to-r ${value.gradient} text-white mr-3`}>
                       <value.icon className="w-5 h-5" />
                     </div>
                     <h3
@@ -169,164 +160,47 @@ export default function AboutUsPage() {
       {/* Team Introduction - Content Section - REDESIGNED */}
       <PageSection className="pt-0 pb-12">
         <div className="container px-4 md:px-6 mx-auto">
-          {/* Team Members Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
-            {TEAM_MEMBERS.map((member, index) => (
-              <div
-                key={index}
-                className={`relative group cursor-pointer transition-all duration-500 ${
-                  activeQuote === index ? "z-20" : "z-10"
-                }`}
-                onClick={() => setActiveQuote(activeQuote === index ? null : index)}
-              >
-                {/* Card */}
+          {/* Dark Background Container */}
+          <div className="bg-slate-900 rounded-2xl p-8 md:p-12">
+            {/* Team Members Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              {TEAM_MEMBERS.map((member, index) => (
                 <div
-                  className={`bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition-all duration-500 ${
-                    activeQuote === index ? "shadow-2xl ring-2" : "hover:shadow-lg"
-                  }`}
-                  style={{
-                    borderColor:
-                      activeQuote === index
-                        ? `rgb(var(--color-${
-                            index === 0 ? "blue" : index === 1 ? "purple" : "green"
-                          }-500))`
-                        : "",
-                  }}
+                  key={index}
+                  className="bg-slate-800/50 rounded-xl p-6 border border-slate-700/50 hover:border-slate-600/50 transition-all duration-300"
                 >
-                  {/* Gradient Header */}
-                  <div className={`h-2 bg-gradient-to-r ${member.gradient}`}></div>
-
-                  {/* Content */}
-                  <div className="p-5">
-                    <div className="flex items-center space-x-4">
-                      {/* Avatar */}
-                      <div className="relative h-16 w-16 rounded-full overflow-hidden border-2 border-white shadow-md flex-shrink-0">
-                        <Image
-                          src={member.image || "/placeholder.svg"}
-                          alt={member.name}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-
-                      {/* Info */}
-                      <div>
-                        <h3 className="font-bold text-lg mb-0">{member.name}</h3>
-                        <div
-                          className={`inline-block px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${member.gradient} text-white my-1`}
-                        >
-                          {member.role}
-                        </div>
-                      </div>
+                  {/* Header with Avatar and Info */}
+                  <div className="flex items-start space-x-4 mb-4">
+                    {/* Avatar */}
+                    <div className="relative h-16 w-16 rounded-full overflow-hidden border-2 border-slate-600 flex-shrink-0">
+                      <Image src={member.image || "/placeholder.svg"} alt={member.name} fill className="object-cover" />
                     </div>
 
-                    {/* Quote Button */}
-                    <div className="mt-4 flex justify-end">
-                      <button
-                        className={`flex items-center space-x-1 text-xs font-medium px-3 py-1.5 rounded-full transition-colors ${
-                          activeQuote === index
-                            ? `bg-gradient-to-r ${member.gradient} text-white`
-                            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                        }`}
-                        aria-label={activeQuote === index ? "Hide quote" : "Show quote"}
-                      >
-                        <span>{activeQuote === index ? "Hide quote" : "View philosophy"}</span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className={`h-3 w-3 transition-transform ${
-                            activeQuote === index ? "rotate-180" : ""
-                          }`}
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 9l-7 7-7-7"
-                          />
-                        </svg>
-                      </button>
+                    {/* Name and Role */}
+                    <div className="flex-1">
+                      <h3 className="font-bold text-xl text-white mb-1">{member.name}</h3>
+                      <p className="text-slate-300 text-sm font-medium">{member.role}</p>
                     </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-slate-300 text-sm leading-relaxed mb-6">{member.quote}</p>
+
+                  {/* Social Links */}
+                  <div className="flex space-x-3">
+                    <button className="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded-lg transition-colors duration-200">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                      </svg>
+                    </button>
+                    <button className="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded-lg transition-colors duration-200">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                      </svg>
+                    </button>
                   </div>
                 </div>
-
-                {/* Expandable Quote */}
-                {/* <div
-                  className={`absolute left-0 right-0 bg-white rounded-xl shadow-xl border border-gray-100 p-5 mt-2 transition-all duration-500 overflow-hidden ${
-                    activeQuote === index
-                      ? "opacity-100 max-h-96 translate-y-0"
-                      : "opacity-0 max-h-0 translate-y-4 pointer-events-none"
-                  }`}
-                  style={{
-                    borderColor:
-                      activeQuote === index
-                        ? `rgb(var(--color-${
-                            index === 0 ? "blue" : index === 1 ? "purple" : "green"
-                          }-500))`
-                        : "",
-                  }}
-                >
-                  <div className="relative">
-                    <div className="absolute -top-1 -left-1 text-3xl text-gray-200 font-serif">
-                      "
-                    </div>
-                    <blockquote className="text-gray-600 italic text-sm leading-relaxed pl-4 pr-2">
-                      {member.quote}
-                    </blockquote>
-                    <div className="absolute -bottom-1 -right-1 text-3xl text-gray-200 font-serif rotate-180">
-                      "
-                    </div>
-                  </div>
-                </div> */}
-              </div>
-            ))}
-          </div>
-
-          {/* Large Quote Display */}
-          <div className="max-w-4xl mx-auto">
-            <div
-              className={`bg-white rounded-2xl shadow-lg p-8 transition-all duration-500 overflow-hidden relative ${
-                activeQuote !== null ? "opacity-100 max-h-96" : "opacity-0 max-h-0"
-              }`}
-            >
-              {activeQuote !== null && (
-                <>
-                  <div
-                    className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${TEAM_MEMBERS[activeQuote].gradient}`}
-                  ></div>
-                  <div className="flex items-center mb-6">
-                    <div className="relative h-16 w-16 rounded-full overflow-hidden border-2 border-white shadow-md mr-4">
-                      <Image
-                        src={TEAM_MEMBERS[activeQuote].image || "/placeholder.svg"}
-                        alt={TEAM_MEMBERS[activeQuote].name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-xl">{TEAM_MEMBERS[activeQuote].name}</h3>
-                      <div
-                        className={`inline-block px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r ${TEAM_MEMBERS[activeQuote].gradient} text-white`}
-                      >
-                        {TEAM_MEMBERS[activeQuote].role}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="relative">
-                    <div className="absolute -top-2 -left-2 text-5xl text-gray-200 font-serif">
-                      "
-                    </div>
-                    <blockquote className="text-gray-600 italic text-lg leading-relaxed px-6">
-                      {TEAM_MEMBERS[activeQuote].quote}
-                    </blockquote>
-                    <div className="absolute -bottom-2 -right-2 text-5xl text-gray-200 font-serif rotate-180">
-                      "
-                    </div>
-                  </div>
-                </>
-              )}
+              ))}
             </div>
           </div>
         </div>
