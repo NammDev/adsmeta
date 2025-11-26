@@ -8,8 +8,6 @@ import { CartProvider } from '@/context/cart-context'
 import { LoadingProvider } from '@/context/loading-context'
 import SocialButtons from '@/components/layout/social-buttons'
 import { CartDrawer } from '@/components/cart/cart-drawer'
-import BackgroundDecorations from '@/components/layout/background-decorations'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -41,7 +39,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <SocialButtons />
           </LoadingProvider>
         </CartProvider>
-        <SpeedInsights />
       </body>
     </html>
   )
