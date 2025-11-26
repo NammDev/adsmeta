@@ -59,9 +59,9 @@ const packsData: Package[] = [
   {
     id: 'premium-pack',
     slug: 'premium-pack',
-    name: 'GoAds Premium',
+    name: 'GoAds Premium Bulleftproof Setup',
     description:
-      'The ultimate premium pack for agencies — BM5 verified with unlimited capacity, pixel management, and professional infrastructure!',
+      'The ultimate premium pack for agencies BM5 verified with unlimited capacity, pixel management, and professional infrastructure!',
     price: 550,
     comparePrice: 715,
     category: 'premium',
@@ -152,7 +152,7 @@ const packsData: Package[] = [
   {
     id: 'advanced-pack',
     slug: 'advanced-pack',
-    name: 'GoAds Advanced',
+    name: 'GoAds Advanced Setup',
     description:
       'Perfect for growing businesses ready to scale: includes verified BM, premium profiles, and aged pages for professional campaigns!',
     price: 180,
@@ -166,14 +166,14 @@ const packsData: Package[] = [
       {
         productId: 'bm-verified-250',
         quantity: 1,
-        role: 'BM1 Verified (Running Campaign & Create Pixel) - $100 Value',
+        role: 'BM1 Verified (Running Campaign & Create Pixel) - $80 Value',
       },
       {
         productId: 'Profile-premium-aged',
         quantity: 2,
-        role: 'Premium Aged Reinstated Profiles - $80 Value',
+        role: 'Premium Aged Reinstated Profiles (2x) - $80 Value',
       },
-      { productId: 'fanpage-aged', quantity: 2, role: 'Aged Reinstated Pages - $70 Value' },
+      { productId: 'fanpage-aged', quantity: 2, role: 'Aged Reinstated Pages (2x) - $70 Value' },
     ],
     detail: `<p><strong>GoAds Advanced Setup Pack</strong> is designed for entrepreneurs and growing businesses ready to scale their Facebook advertising campaigns professionally.</p><ul><li>Includes <strong>1 BM1 Verified:</strong> Fully capable of <span>running live campaigns</span> and <span>creating tracking pixels</span> for optimal performance measurement. High trust score ensures faster approvals and stable operations.</li><li>Features <strong>2 Premium Aged Reinstated Profiles:</strong> Established accounts with <span>proven history</span>, ensuring credibility and reduced risk of restrictions. Perfect for <span>admin and backup roles</span>.</li><li>Comes with <strong>2 Aged Reinstated Pages:</strong> Pre-warmed and <span>ready for immediate advertising</span>. These pages have organic history and green quality status for better ad delivery.</li><li><strong>Campaign Ready:</strong> Launch professional campaigns <span>immediately</span> without complex setup. All components are pre-configured and tested.</li><li><strong>Premium Quality:</strong> Each component has been <span>carefully vetted and aged</span> for maximum stability and performance.</li></ul>`,
     faq: [
@@ -303,11 +303,11 @@ const packsData: Package[] = [
   {
     id: 'elite-pack',
     slug: 'elite-pack',
-    name: 'GoAds Elite',
+    name: 'GoAds Elite Bulletproof Setup',
     description:
-      'The ultimate enterprise-grade pack for massive scale: dual BM5 verified accounts, 6 premium profiles, and 4 aged pages for unlimited campaign capacity!',
-    price: 790,
-    comparePrice: 1100,
+      'Enterprise-grade pack with dual BM5s, premium aged profiles, and aged pages — built for large-scale operations and maximum redundancy.',
+    price: 890,
+    comparePrice: 1175,
     category: 'elite',
     image: '/packs/elite.png',
     stock: 'in-stock',
@@ -331,70 +331,66 @@ const packsData: Package[] = [
       },
       {
         productId: 'fanpage-aged-elite',
-        quantity: 4,
-        role: 'Aged Reinstated Pages (4x) - $140 Value',
+        quantity: 3,
+        role: 'Aged Reinstated Pages (3x) - $105 Value',
       },
+      { productId: 'page-8', quantity: 1, role: '10k Follower Fanpage - $110 Value' },
     ],
-    detail: `<p><strong>GoAds Elite Bulletproof Setup</strong> is the pinnacle of Facebook advertising infrastructure, engineered for enterprise-level operations and unlimited scale.</p><ul><li>Includes <strong>2 BM5 Verified $250 DSL:</strong> Dual high-capacity Business Managers with <span>unlimited ads account capacity</span> and <span>$250 daily spend limit per account</span>. One dedicated for <span>live campaign management</span>, one for <span>pixel tracking and conversion optimization</span>. Enables <span>extreme scalability and organizational complexity</span>.</li><li>Features <strong>6 Premium Aged Reinstated Profiles:</strong> Maximum admin and operational capacity with <span>proven account history</span>. Supports <span>complex delegation hierarchies</span>, multiple team levels, and <span>white-label operations</span>.</li><li>Comes with <strong>4 Aged Reinstated Pages:</strong> Highly established pages with <span>organic credibility</span> and <span>green quality status</span>. Pre-warmed for <span>immediate high-volume campaigns</span> across multiple brands and verticals.</li><li><strong>Enterprise Scale Ready:</strong> Built for <span>managing $5M+ monthly ad spend</span> across hundreds of campaigns. Support <span>multiple agencies, brands, and business units</span> from a single infrastructure.</li><li><strong>Maximum Redundancy:</strong> Dual BM5 structure ensures <span>zero single points of failure</span>. If one BM needs maintenance, the other continues operations seamlessly.</li><li><strong>Premium Stability:</strong> Each component is <span>extensively aged and verified</span> for <span>maximum uptime and zero restrictions</span>. Enterprise-grade reliability for mission-critical campaigns.</li></ul>`,
+    detail: `<p><strong>GoAds Elite Bulletproof Setup</strong> is engineered for enterprise operations and maximum uptime.</p><ul><li>Includes <strong>2 BM5 Verified $250 DSL</strong>: one for live campaign management and another dedicated to pixel tracking and optimization. This separation prevents data conflicts and allows vastly increased capacity.</li><li><strong>6 Premium Aged Reinstated Profiles</strong> for robust delegation and team access.</li><li><strong>3 Aged Reinstated Pages</strong> plus an additional <strong>10k follower fanpage</strong> to expand audience reach and monetization opportunities.</li><li><strong>Enterprise Ready:</strong> Designed to support heavy ad spend and complex account hierarchies with redundancy and stability.</li><li><strong>30-day replacement warranty</strong> on components restricted through no fault of the purchaser.</li></ul>`,
     faq: [
       {
-        question: 'Why do I need 2 BM5 accounts in this pack?',
+        question: 'Why are there two BM5 accounts in this pack?',
         answer:
-          'Dual BM5 accounts provide operational redundancy and specialized functionality. One BM5 handles live campaign management across unlimited ads accounts, while the second manages all pixel tracking and conversion data. This separation ensures clean data and eliminates conflicts.',
+          'Having one BM5 for campaign management and another dedicated to pixel tracking ensures clean data separation and operational redundancy, which reduces risk and improves performance.',
       },
       {
         question: 'What does $250 DSL mean?',
         answer:
-          '$250 DSL (Daily Spend Limit) means each ads account under the BM5 can spend up to $250 per day. With unlimited ads account capacity and dual BM5s, you can scale to $5M+ monthly spend without hitting any limits.',
+          '$250 DSL (Daily Spend Limit) means each ads account under the BM5 can spend up to $250 per day. With the dual BM5 structure you can distribute spend across many accounts safely.',
       },
       {
-        question: 'How many campaigns can I manage with this setup?',
+        question: 'How does the 10k follower page help my campaigns?',
         answer:
-          'With dual BM5s and 6 premium profiles, you can manage virtually unlimited campaigns across any number of brands, clients, or business units. The architecture supports complex organizational hierarchies with multiple team levels.',
-      },
-      {
-        question: 'Are aged profiles and pages really that much better?',
-        answer:
-          'Absolutely. Aged accounts have established Facebook history, resulting in instant approvals, better pixel delivery, lower restriction risk, and higher trust score with the algorithm. Premium aged accounts are the gold standard for enterprise operations.',
+          'A 10k follower page provides an established audience for organic reach, remarketing, and higher initial engagement — useful for faster scaling and monetization.',
       },
       {
         question: 'Can I delegate to multiple teams with this pack?',
         answer:
-          'Yes! The 6 premium profiles and dual BM5 structure allows you to create complex delegation hierarchies with multiple team levels. You can set up department-level access, regional managers, or white-label operations.',
+          'Yes. The 6 premium profiles allow for multi-level delegation across teams, regions, or clients.',
       },
       {
         question: 'What happens if an account gets restricted?',
         answer:
-          "All components in the Elite Bulletproof Setup come with a 30-day replacement warranty. If any account is restricted within 30 days due to issues not caused by policy violations on your part, we'll replace it free of charge.",
+          'All components in the Elite Bulletproof Setup include a 30-day replacement warranty if restrictions occur for reasons unrelated to policy violations by the purchaser.',
       },
     ],
     budgetInfo: {
       dailyBudget: 250,
       warning:
-        'Each ads account under either BM5 supports a $250 daily spend limit. With unlimited ads account capacity and dual BM5s, your total monthly spend capacity is effectively unlimited (typical enterprise usage: $2M-$10M+ monthly).',
+        'Each ads account under the BM5 supports a $250 daily spend limit. With the dual BM5 setup you can scale spend across accounts while maintaining account health.',
     },
     reviews: [
       {
         name: 'Michael Thompson',
         role: 'Founder & CEO at Global Marketing Group',
         comment:
-          "The Elite Bulletproof Setup is a game-changer for enterprise operations. Managing $5M+ monthly spend across 20+ brands used to require juggling multiple vendors. Now it's all seamless with zero restrictions.",
+          'The Elite Bulletproof Setup is a game-changer for enterprise operations. Managing large-scale spend across brands is now seamless and reliable.',
         achievement:
-          'Managing $5M+ monthly ad spend across 20+ brands with zero account restrictions',
+          'Managing multi-million monthly ad spend with reliable uptime and zero account conflicts',
       },
       {
         name: 'Samantha Lee',
         role: 'VP of Operations at Digital Excellence Agency',
         comment:
-          'The dual BM5 architecture with pixel bank separation changed everything. Our data integrity is perfect, conversion tracking is 100% accurate, and we can scale clients without any concerns. The 6 premium profiles handle complex delegation beautifully.',
-        achievement: '60% improvement in operational efficiency, managing 100+ client accounts',
+          'The dual BM5 architecture with pixel bank separation gave us immediate improvements in data accuracy and campaign stability.',
+        achievement: 'Improved operational efficiency across 100+ managed accounts',
       },
       {
         name: 'Robert Davidson',
         role: 'Chief Revenue Officer at Scale Ventures',
         comment:
-          'As someone managing enterprise-level campaigns, this is exactly what I needed. The aged pages and profiles are rock solid. Zero downtime in 12 months, zero account restrictions. Customer support is exceptional. Worth every penny.',
-        achievement: 'Zero account restrictions in 365 days, 99.9% uptime',
+          'The upgraded pages and aged profiles are rock solid and deliver consistent results. Support is very responsive.',
+        achievement: 'Zero account restrictions in 12 months',
       },
     ],
   },

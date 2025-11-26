@@ -73,9 +73,9 @@ export default function PackagesSection() {
         {!isMobile && (
           <div className='grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto md:mt-24'>
             {packages.map((pkg, index) => {
-              const isPremium = pkg.name === 'GoAds Premium'
-              const isAdvanced = pkg.name === 'GoAds Advanced'
-              const isElite = pkg.name === 'GoAds Elite'
+              const isPremium = pkg.name === 'GoAds Premium Bulleftproof Setup'
+              const isAdvanced = pkg.name === 'GoAds Advanced Setup'
+              const isElite = pkg.name === 'GoAds Elite Setup'
               const isBasic = pkg.name === 'GoAds Basic'
 
               return (

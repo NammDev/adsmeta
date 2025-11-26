@@ -258,19 +258,20 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
             </div>
           )}
 
-          {/* Ad Account Category (new) */}
-          {adAccountProducts.length > 0 && (
-            <div className='bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-[1.01]'>
+          {/* WABA WhatsApp Business API Category */}
+          {wabaProducts.length > 0 && (
+            <div className='bg-gradient-to-r from-green-50 via-lime-50 to-emerald-50 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-[1.01]'>
               <div className='flex items-center gap-3 mb-6'>
-                <div className='w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl flex items-center justify-center shadow-lg transform hover:rotate-12 transition-transform duration-300'>
-                  <span className='text-white font-bold text-xl'>📣</span>
+                <div className='w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg transform hover:rotate-12 transition-transform duration-300'>
+                  <span className='text-white font-bold text-xl'>💬</span>
                 </div>
-                <h3 className='text-xl md:text-2xl font-bold text-gray-900'>Ad Accounts</h3>
-                {/* <Badge className="bg-amber-100 text-amber-700 border-0 animate-bounce hover:bg-transparent">Professional</Badge> */}
+                <h3 className='text-xl md:text-2xl font-bold text-gray-900'>
+                  WhatsApp Business API
+                </h3>
               </div>
 
               <div className='grid gap-6 md:grid-cols-2'>
-                {adAccountProducts.map((product, index) => (
+                {wabaProducts.map((product, index) => (
                   <div
                     key={product.slug}
                     className='bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1 cursor-pointer'
@@ -290,7 +291,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                         </p>
                         <div className='flex items-center gap-2 text-sm text-gray-500'>
                           <span className='flex items-center gap-1'>
-                            <ShoppingBag className='h-4 w-4 group-hover:text-amber-500 transition-colors duration-300' />
+                            <ShoppingBag className='h-4 w-4 group-hover:text-green-500 transition-colors duration-300' />
                             {product.purchases} purchased
                           </span>
                         </div>
@@ -298,7 +299,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
 
                       <div className='flex flex-row items-center justify-between gap-3'>
                         <div className='text-left'>
-                          <div className='text-xl font-bold text-amber-600 group-hover:text-amber-700 transition-colors duration-300'>
+                          <div className='text-xl font-bold text-green-600 group-hover:text-green-700 transition-colors duration-300'>
                             ${product.price}
                           </div>
                           <div className='text-xs text-gray-500'>per unit</div>
@@ -307,7 +308,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                           <Button
                             size='sm'
                             onClick={(e) => handleAddToCart(product, e)}
-                            className='bg-gradient-to-r from-amber-600 to-orange-700 hover:from-amber-700 hover:to-orange-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
+                            className='bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
                             disabled={isAdding === product.slug}
                           >
                             {isAdding === product.slug ? 'Adding...' : 'Buy Now'}
@@ -329,7 +330,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                         </p>
                         <div className='flex items-center gap-2 text-sm text-gray-500'>
                           <span className='flex items-center gap-1'>
-                            <ShoppingBag className='h-4 w-4 group-hover:text-amber-500 transition-colors duration-300' />
+                            <ShoppingBag className='h-4 w-4 group-hover:text-green-500 transition-colors duration-300' />
                             {product.purchases} purchased
                           </span>
                         </div>
@@ -337,7 +338,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
 
                       <div className='flex flex-row items-center gap-3'>
                         <div className='text-right'>
-                          <div className='text-xl font-bold text-amber-600 group-hover:text-amber-700 transition-colors duration-300'>
+                          <div className='text-xl font-bold text-green-600 group-hover:text-green-700 transition-colors duration-300'>
                             ${product.price}
                           </div>
                           <div className='text-xs text-gray-500'>per unit</div>
@@ -346,7 +347,7 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                           <Button
                             size='sm'
                             onClick={(e) => handleAddToCart(product, e)}
-                            className='bg-gradient-to-r from-amber-600 to-orange-700 hover:from-amber-700 hover:to-orange-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
+                            className='bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
                             disabled={isAdding === product.slug}
                           >
                             {isAdding === product.slug ? 'Adding...' : 'Buy Now'}
@@ -565,109 +566,6 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
             </div>
           )}
 
-          {/* WABA WhatsApp Business API Category */}
-          {wabaProducts.length > 0 && (
-            <div className='bg-gradient-to-r from-green-50 via-lime-50 to-emerald-50 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-[1.01]'>
-              <div className='flex items-center gap-3 mb-6'>
-                <div className='w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg transform hover:rotate-12 transition-transform duration-300'>
-                  <span className='text-white font-bold text-xl'>💬</span>
-                </div>
-                <h3 className='text-xl md:text-2xl font-bold text-gray-900'>
-                  WhatsApp Business API
-                </h3>
-              </div>
-
-              <div className='grid gap-6 md:grid-cols-2'>
-                {wabaProducts.map((product, index) => (
-                  <div
-                    key={product.slug}
-                    className='bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1 cursor-pointer'
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                    onClick={() => handleCardClick(product.slug)}
-                  >
-                    {/* Mobile Layout */}
-                    <div className='flex flex-col gap-3 md:hidden'>
-                      <div className='flex-1'>
-                        <div className='flex items-center gap-2 mb-2'>
-                          <h4 className='text-lg font-semibold text-gray-900 transition-colors duration-300 mb-0'>
-                            {highlightKeywords(product.name)}
-                          </h4>
-                        </div>
-                        <p className='text-gray-600 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-300'>
-                          {product.description}
-                        </p>
-                        <div className='flex items-center gap-2 text-sm text-gray-500'>
-                          <span className='flex items-center gap-1'>
-                            <ShoppingBag className='h-4 w-4 group-hover:text-green-500 transition-colors duration-300' />
-                            {product.purchases} purchased
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className='flex flex-row items-center justify-between gap-3'>
-                        <div className='text-left'>
-                          <div className='text-xl font-bold text-green-600 group-hover:text-green-700 transition-colors duration-300'>
-                            ${product.price}
-                          </div>
-                          <div className='text-xs text-gray-500'>per unit</div>
-                        </div>
-                        <div className='flex gap-2'>
-                          <Button
-                            size='sm'
-                            onClick={(e) => handleAddToCart(product, e)}
-                            className='bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
-                            disabled={isAdding === product.slug}
-                          >
-                            {isAdding === product.slug ? 'Adding...' : 'Buy Now'}
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Desktop Layout */}
-                    <div className='hidden md:flex md:flex-row md:items-center justify-between gap-2'>
-                      <div className='flex-1'>
-                        <div className='flex items-center gap-2 mb-1'>
-                          <h4 className='text-lg font-semibold text-gray-900 transition-colors duration-300 mb-0'>
-                            {highlightKeywords(product.name)}
-                          </h4>
-                        </div>
-                        <p className='text-gray-600 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-300'>
-                          {product.description}
-                        </p>
-                        <div className='flex items-center gap-2 text-sm text-gray-500'>
-                          <span className='flex items-center gap-1'>
-                            <ShoppingBag className='h-4 w-4 group-hover:text-green-500 transition-colors duration-300' />
-                            {product.purchases} purchased
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className='flex flex-row items-center gap-3'>
-                        <div className='text-right'>
-                          <div className='text-xl font-bold text-green-600 group-hover:text-green-700 transition-colors duration-300'>
-                            ${product.price}
-                          </div>
-                          <div className='text-xs text-gray-500'>per unit</div>
-                        </div>
-                        <div className='flex gap-2'>
-                          <Button
-                            size='sm'
-                            onClick={(e) => handleAddToCart(product, e)}
-                            className='bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
-                            disabled={isAdding === product.slug}
-                          >
-                            {isAdding === product.slug ? 'Adding...' : 'Buy Now'}
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Service Category */}
           {serviceProducts.length > 0 && (
             <div className='bg-gradient-to-r from-orange-50 via-red-50 to-pink-50 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-[1.01]'>
@@ -756,6 +654,108 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
                             size='sm'
                             onClick={(e) => handleAddToCart(product, e)}
                             className='bg-gradient-to-r from-orange-600 to-red-700 hover:from-orange-700 hover:to-red-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
+                            disabled={isAdding === product.slug}
+                          >
+                            {isAdding === product.slug ? 'Adding...' : 'Buy Now'}
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Ad Account Category (new) */}
+          {adAccountProducts.length > 0 && (
+            <div className='bg-gradient-to-r from-sky-50 via-cyan-50 to-teal-50 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-[1.01]'>
+              <div className='flex items-center gap-3 mb-6'>
+                <div className='w-12 h-12 bg-gradient-to-r from-sky-500 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg transform hover:rotate-12 transition-transform duration-300'>
+                  <span className='text-white font-bold text-xl'>📣</span>
+                </div>
+                <h3 className='text-xl md:text-2xl font-bold text-gray-900'>Ad Accounts</h3>
+                {/* <Badge className="bg-sky-100 text-sky-700 border-0 animate-bounce hover:bg-transparent">Professional</Badge> */}
+              </div>
+
+              <div className='grid gap-6 md:grid-cols-2'>
+                {adAccountProducts.map((product, index) => (
+                  <div
+                    key={product.slug}
+                    className='bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1 cursor-pointer'
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                    onClick={() => handleCardClick(product.slug)}
+                  >
+                    {/* Mobile Layout */}
+                    <div className='flex flex-col gap-3 md:hidden'>
+                      <div className='flex-1'>
+                        <div className='flex items-center gap-2 mb-2'>
+                          <h4 className='text-lg font-semibold text-gray-900 transition-colors duration-300 mb-0'>
+                            {highlightKeywords(product.name)}
+                          </h4>
+                        </div>
+                        <p className='text-gray-600 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-300'>
+                          {product.description}
+                        </p>
+                        <div className='flex items-center gap-2 text-sm text-gray-500'>
+                          <span className='flex items-center gap-1'>
+                            <ShoppingBag className='h-4 w-4 group-hover:text-sky-500 transition-colors duration-300' />
+                            {product.purchases} purchased
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className='flex flex-row items-center justify-between gap-3'>
+                        <div className='text-left'>
+                          <div className='text-xl font-bold text-sky-600 group-hover:text-sky-700 transition-colors duration-300'>
+                            ${product.price}
+                          </div>
+                          <div className='text-xs text-gray-500'>per unit</div>
+                        </div>
+                        <div className='flex gap-2'>
+                          <Button
+                            size='sm'
+                            onClick={(e) => handleAddToCart(product, e)}
+                            className='bg-gradient-to-r from-sky-600 to-cyan-700 hover:from-sky-700 hover:to-cyan-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
+                            disabled={isAdding === product.slug}
+                          >
+                            {isAdding === product.slug ? 'Adding...' : 'Buy Now'}
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Desktop Layout */}
+                    <div className='hidden md:flex md:flex-row md:items-center justify-between gap-2'>
+                      <div className='flex-1'>
+                        <div className='flex items-center gap-2 mb-1'>
+                          <h4 className='text-lg font-semibold text-gray-900 transition-colors duration-300 mb-0'>
+                            {highlightKeywords(product.name)}
+                          </h4>
+                        </div>
+                        <p className='text-gray-600 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-300'>
+                          {product.description}
+                        </p>
+                        <div className='flex items-center gap-2 text-sm text-gray-500'>
+                          <span className='flex items-center gap-1'>
+                            <ShoppingBag className='h-4 w-4 group-hover:text-sky-500 transition-colors duration-300' />
+                            {product.purchases} purchased
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className='flex flex-row items-center gap-3'>
+                        <div className='text-right'>
+                          <div className='text-xl font-bold text-sky-600 group-hover:text-sky-700 transition-colors duration-300'>
+                            ${product.price}
+                          </div>
+                          <div className='text-xs text-gray-500'>per unit</div>
+                        </div>
+                        <div className='flex gap-2'>
+                          <Button
+                            size='sm'
+                            onClick={(e) => handleAddToCart(product, e)}
+                            className='bg-gradient-to-r from-sky-600 to-cyan-700 hover:from-sky-700 hover:to-cyan-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
                             disabled={isAdding === product.slug}
                           >
                             {isAdding === product.slug ? 'Adding...' : 'Buy Now'}
