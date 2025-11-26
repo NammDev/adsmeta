@@ -303,7 +303,7 @@ const packsData: Package[] = [
   {
     id: 'elite-pack',
     slug: 'elite-pack',
-    name: 'GoAds Elite Bulletproof Setup',
+    name: 'GoAds Elite',
     description:
       'The ultimate enterprise-grade pack for massive scale: dual BM5 verified accounts, 6 premium profiles, and 4 aged pages for unlimited campaign capacity!',
     price: 790,
