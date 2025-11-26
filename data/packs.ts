@@ -60,74 +60,92 @@ const packsData: Package[] = [
     id: 'premium-pack',
     slug: 'premium-pack',
     name: 'GoAds Premium',
-    description: 'A perfect pack for individuals who working with ads Agency!',
-    price: 420,
-    comparePrice: 500,
+    description:
+      'The ultimate premium pack for agencies — BM5 verified with unlimited capacity, pixel management, and professional infrastructure!',
+    price: 550,
+    comparePrice: 715,
     category: 'premium',
-    image: '/packs/premium.png', // Placeholder image
+    image: '/packs/premium.png',
     stock: 'in-stock',
     badge: 'Best Value',
-    purchases: 250,
+    purchases: 280,
     products: [
       {
-        productId: 'bm-verified-250',
+        productId: 'bm5-verified-250',
         quantity: 1,
-        role: '1 Admin + 2 Employee ads Account (BM Verified $250 Limit)',
+        role: 'BM5 Verified $250 DSL (Running Campaign) - $330 Value',
       },
       {
-        productId: 'bm-verified-250-pixel',
+        productId: 'bm1-verified-pixel',
         quantity: 1,
-        role: 'Pixel & Page, 2 Admin (BM Verified $250 Limit)',
+        role: 'BM1 Verified (Pixel Bank) - $80 Value',
       },
-      { productId: 'fanpage', quantity: 2, role: 'Optimized Advertising Page' },
       {
-        productId: 'Profile-usa-greenline',
-        quantity: 5,
-        role: 'USA Profile (Including 2 Greenline)',
+        productId: 'Profile-premium-aged',
+        quantity: 4,
+        role: 'Premium Aged Reinstated Profiles (4x) - $200 Value',
       },
+      { productId: 'fanpage-aged', quantity: 3, role: 'Aged Reinstated Pages (3x) - $105 Value' },
     ],
-    detail: `<p><strong>Popular Pack</strong> is specially designed for agencies and professional advertisers, offering a complete solution to scale your campaigns.</p><ul><li>Includes <strong>2 BM Verified $250 Limit:</strong> One BM with <span>1 Admin + 2 Employee</span> permissions, and another with <span>Pixel & Page + 2 Admin</span> for flexible management and delegation.</li><li>Comes with <strong>2 high-quality Fanpages:</strong> Pre-optimized for advertising, boosting engagement and credibility.</li><li>Features <strong>5 USA Profile accounts:</strong> Including <span>2 Greenline Profiles</span>, ensuring high trust and stability for critical ads campaigns.</li><li><strong>Ready to use:</strong> All accounts and pages are meticulously prepared — <span>start your campaigns immediately</span> without complex setup.</li></ul>`,
+    detail: `<p><strong>GoAds Premium Bulletproof Setup</strong> is engineered for professional agencies and enterprises seeking maximum stability, capacity, and control.</p><ul><li>Includes <strong>1 BM5 Verified $250 DSL:</strong> Enterprise-grade Business Manager with <span>unlimited ads account capacity</span> and <span>$250 daily spend limit</span> per account. Perfect for <span>running high-volume campaigns</span> across multiple brands and clients.</li><li>Features <strong>1 BM1 Verified Pixel Bank:</strong> Dedicated Business Manager exclusively for <span>pixel tracking and conversion management</span>. Ensures optimal data collection and <span>zero pixel conflicts</span> across campaigns.</li><li>Comes with <strong>4 Premium Aged Reinstated Profiles:</strong> Highly trusted accounts with <span>proven history</span> for maximum <span>admin and operational roles</span>. Reduces risk and ensures smooth delegation.</li><li>Includes <strong>3 Aged Reinstated Pages:</strong> Established pages with <span>organic credibility</span> and <span>green quality status</span>. Ready for <span>immediate high-performing campaigns</span>.</li><li><strong>Enterprise Ready:</strong> This pack is built for <span>serious scale</span>. Support multiple teams, manage complex hierarchies, and run campaigns without restrictions.</li><li><strong>Maximum Stability:</strong> Each component is carefully vetted for <span>long-term reliability</span> and <span>zero downtime</span>.</li></ul>`,
     faq: [
       {
-        question: 'What is a Greenline Profile, and why is it important?',
+        question: 'What makes a BM5 different from BM1?',
         answer:
-          "A Greenline Profile is a high-quality USA account with verified status, ensuring higher trust and stability for managing ads accounts. It's ideal for agencies running large-scale campaigns as it reduces the risk of restrictions.",
+          'A BM5 supports unlimited ads accounts and multiple sub-business managers, making it ideal for large agencies. Our BM5 Verified includes a $250 daily spend limit per ads account and is optimized for running enterprise-scale campaigns.',
       },
       {
-        question: 'How do I set up the BM and Profile in this pack?',
+        question: 'Why is a separate pixel bank important?',
         answer:
-          "Your pack comes with a detailed Setup Guide (see the 'Setup Guide' tab). You can also contact our support team Profile Live Chat or Email for personalized assistance during business hours.",
+          'A dedicated BM1 Pixel Bank prevents pixel conflicts and ensures clean conversion tracking. This is critical when running multiple campaigns across different accounts, as it maintains data integrity and improves reporting accuracy.',
       },
       {
-        question: 'Can I customize this pack or request different components?',
+        question: 'How many campaigns can I run simultaneously?',
         answer:
-          "While this pack is pre-configured for optimal value, we do offer custom solutions. Please contact our support team to discuss your specific needs, and we'll do our best to accommodate them.",
+          'With the BM5 and 4 premium profiles included, you can manage virtually unlimited campaigns across multiple brands and business units. The architecture supports complex organizational hierarchies.',
       },
       {
-        question: 'What happens if an account in the pack gets restricted?',
+        question: 'Are these aged profiles better than new ones?',
         answer:
-          "All accounts in the Popular Pack come with a 30-day replacement warranty. If any account is restricted within 30 days of purchase due to issues not caused by policy violations on your part, we'll replace it free of charge.",
+          'Yes, aged profiles have established history with Facebook, resulting in faster approvals, better pixel delivery, and lower restriction risk. Premium aged profiles are the gold standard for serious advertisers.',
+      },
+      {
+        question: 'Can I delegate to team members?',
+        answer:
+          'Absolutely! The BM5 structure with 4 admin profiles allows you to create multiple levels of access for team members while maintaining security and control over accounts.',
+      },
+      {
+        question: 'What happens if an account gets restricted?',
+        answer:
+          "All accounts in the Premium Bulletproof Setup come with a 30-day replacement warranty. If any component is restricted within 30 days due to issues not caused by policy violations on your part, we'll replace it free of charge.",
       },
     ],
     budgetInfo: {
       dailyBudget: 250,
       warning:
-        'Each BM in this pack supports a $250 daily spend limit per ads account. This is ideal for scaling campaigns effectively while maintaining account health.',
+        'Each ads account under the BM5 supports a $250 daily spend limit. With unlimited ads account capacity, you can scale to millions in monthly spend while maintaining account health.',
     },
     reviews: [
       {
-        name: 'Alex Chen',
-        role: 'Marketing Director at TechFlow Agency',
+        name: 'Jennifer Martinez',
+        role: 'Agency Owner at Scale Marketing Co',
         comment:
-          'GoAds Premium completely transformed our Facebook advertising approach. The account stability is incredible - no more worrying about sudden bans disrupting our campaigns.',
-        achievement: '300% ROI increase in 2 months',
+          "The Bulletproof Setup changed everything for our agency. Managing 50+ client accounts used to be stressful. Now it's seamless. Zero restrictions in 6 months.",
+        achievement: 'Managing $2M+ monthly ad spend across 50+ clients',
       },
       {
-        name: 'Sarah Johnson',
-        role: 'E-commerce Owner at Fashion Forward',
+        name: 'Rajesh Patel',
+        role: 'Head of Advertising at TechStart Ventures',
         comment:
-          'After losing 3 ad accounts in a month, I was desperate. GoAds saved my business. The verified business managers are rock solid and customer support is outstanding.',
-        achievement: 'Scaled from $5K to $50K monthly ad spend',
+          'The separate pixel bank alone is worth the investment. Our data integrity improved immediately, and conversion tracking is now 100% accurate. The premium profiles are rock solid.',
+        achievement: '45% improvement in data accuracy and reporting',
+      },
+      {
+        name: 'Lisa Chen',
+        role: 'Performance Marketing Director',
+        comment:
+          'This is the premium pack agencies have been waiting for. BM5 capacity with aged pages means no limitations. Customer support is exceptional too.',
+        achievement: 'Zero account restrictions in 12 months',
       },
     ],
   },
@@ -136,70 +154,86 @@ const packsData: Package[] = [
     slug: 'advanced-pack',
     name: 'GoAds Advanced',
     description:
-      'A perfect starter pack for Beginners who want to start their Facebook ads journey!',
-    price: 170,
-    comparePrice: 200,
+      'Perfect for growing businesses ready to scale: includes verified BM, premium profiles, and aged pages for professional campaigns!',
+    price: 180,
+    comparePrice: 250,
     category: 'advanced',
     image: '/packs/advanced.png',
     stock: 'in-stock',
-    badge: 'Great Start',
-    purchases: 150,
+    badge: 'Recommended',
+    purchases: 180,
     products: [
       {
         productId: 'bm-verified-250',
         quantity: 1,
-        role: 'Add Account Agency (BM Verified $250 Limit)',
+        role: 'BM1 Verified (Running Campaign & Create Pixel) - $100 Value',
       },
       {
-        productId: 'bm-unverified',
-        quantity: 1,
-        role: 'Pixel & Page (BM Unverified)',
+        productId: 'Profile-premium-aged',
+        quantity: 2,
+        role: 'Premium Aged Reinstated Profiles - $80 Value',
       },
-      { productId: 'fanpage', quantity: 1, role: 'Optimized Advertising Page' },
-      { productId: 'Profile-asia', quantity: 2, role: 'Asia Profile (Admin Accounts)' },
+      { productId: 'fanpage-aged', quantity: 2, role: 'Aged Reinstated Pages - $70 Value' },
     ],
-    detail: `<p><strong>Basic Pack</strong> is designed for small businesses and individuals, providing essential tools to launch effective ads campaigns.</p><ul><li>Includes <strong>1 BM Verified $250 Limit:</strong> Perfect for <span>adding Agency accounts</span> with high stability.</li><li>Comes with <strong>1 BM Unverified:</strong> Equipped with <span>Pixel & Page</span> for seamless tracking and management.</li><li>Features <strong>1 high-quality Fanpage:</strong> Pre-optimized for advertising to <span>boost engagement</span>.</li><li>Provides <strong>2 Asia Profile accounts:</strong> Reliable for <span>admin roles</span>, ensuring smooth operations.</li><li><strong>Ready to use:</strong> Start your campaigns <span>immediately</span> with minimal setup.</li></ul>`,
+    detail: `<p><strong>GoAds Advanced Setup Pack</strong> is designed for entrepreneurs and growing businesses ready to scale their Facebook advertising campaigns professionally.</p><ul><li>Includes <strong>1 BM1 Verified:</strong> Fully capable of <span>running live campaigns</span> and <span>creating tracking pixels</span> for optimal performance measurement. High trust score ensures faster approvals and stable operations.</li><li>Features <strong>2 Premium Aged Reinstated Profiles:</strong> Established accounts with <span>proven history</span>, ensuring credibility and reduced risk of restrictions. Perfect for <span>admin and backup roles</span>.</li><li>Comes with <strong>2 Aged Reinstated Pages:</strong> Pre-warmed and <span>ready for immediate advertising</span>. These pages have organic history and green quality status for better ad delivery.</li><li><strong>Campaign Ready:</strong> Launch professional campaigns <span>immediately</span> without complex setup. All components are pre-configured and tested.</li><li><strong>Premium Quality:</strong> Each component has been <span>carefully vetted and aged</span> for maximum stability and performance.</li></ul>`,
     faq: [
       {
-        question: "What's the difference between a BM Verified and BM Unverified?",
+        question: 'What can I do with a BM1 Verified account?',
         answer:
-          'A BM Verified is authenticated with higher trust, ideal for adding Agency accounts, while a BM Unverified is suitable for basic ads setups with Pixel and Page integration. Both are pre-configured for immediate use.',
+          "A BM1 Verified account allows you to run live campaigns across multiple ads accounts, create and manage tracking pixels for conversion measurement, and manage Business assets with higher trust. It's ideal for businesses running campaigns professionally.",
       },
       {
-        question: 'How do I set up the BM and Profile in this pack?',
+        question: 'Why are aged profiles and pages better?',
         answer:
-          "Your pack includes a detailed Setup Guide (see the 'Setup Guide' tab). You can also reach out to our support team Profile Live Chat or Email for assistance during business hours.",
+          'Aged accounts have established history on Facebook, making them more trustworthy in the eyes of the algorithm. This results in faster ad approvals, better delivery rates, and lower risk of restrictions or policy issues.',
       },
       {
-        question: 'Can I upgrade this pack to include USA accounts?',
+        question: 'How do I set up this pack?',
         answer:
-          'Yes! You can upgrade to the Popular Pack or Vip Pro Max Pack for USA accounts, or contact our support team to customize your pack based on your needs.',
+          "Your pack includes a comprehensive Setup Guide with step-by-step instructions (see the 'Setup Guide' tab). Our support team is also available via Live Chat or Email to assist you during business hours.",
       },
       {
-        question: 'What happens if an account in the pack gets restricted?',
+        question: 'Can I run multiple campaigns simultaneously?',
         answer:
-          "All accounts in the Basic Pack come with a 30-day replacement warranty. If any account is restricted within 30 days due to issues not caused by policy violations on your part, we'll replace it free of charge.",
+          'Yes! With the BM1 Verified and 2 admin profiles included, you can manage and run multiple campaigns simultaneously across different audience segments.',
+      },
+      {
+        question: 'What happens if an account gets restricted?',
+        answer:
+          "All accounts in the Advanced Setup Pack come with a 30-day replacement warranty. If any component is restricted within 30 days due to issues not caused by policy violations on your part, we'll replace it free of charge.",
+      },
+      {
+        question: 'Can I upgrade to a higher tier pack later?',
+        answer:
+          'Absolutely! You can upgrade to the Popular Pack or Elite Pack anytime for additional capacity and features. Our support team can help you transition smoothly.',
       },
     ],
     budgetInfo: {
       dailyBudget: 250,
       warning:
-        'The BM Verified in this pack supports a $250 daily spend limit per ads account, perfect for small to medium campaigns.',
+        'The BM1 Verified in this pack supports a $250 daily spend limit per ads account, ideal for scaling campaigns while maintaining account health.',
     },
     reviews: [
       {
-        name: 'Alex Chen',
-        role: 'Marketing Director at TechFlow Agency',
+        name: 'Marcus Rodriguez',
+        role: 'E-commerce Business Owner',
         comment:
-          'GoAds Premium completely transformed our Facebook advertising approach. The account stability is incredible - no more worrying about sudden bans disrupting our campaigns.',
-        achievement: '300% ROI increase in 2 months',
+          'The Advanced Setup pack gave me exactly what I needed to scale. The aged pages had immediate approval and the verified BM is rock solid. Highly recommend!',
+        achievement: 'Scaled ad spend from $10K to $50K/month in 60 days',
       },
       {
-        name: 'Sarah Johnson',
-        role: 'E-commerce Owner at Fashion Forward',
+        name: 'Priya Patel',
+        role: 'Digital Marketing Consultant',
         comment:
-          'After losing 3 ad accounts in a month, I was desperate. GoAds saved my business. The verified business managers are rock solid and customer support is outstanding.',
-        achievement: 'Scaled from $5K to $50K monthly ad spend',
+          'My clients love the quality and stability of these accounts. The aged profiles and pages perform remarkably well. This pack offers incredible value.',
+        achievement: '250% average ROAS improvement for clients',
+      },
+      {
+        name: 'David Kim',
+        role: 'Agency Director',
+        comment:
+          "As an agency, we go through accounts fast. This Advanced pack's reliability means less downtime and more client satisfaction. Worth every penny.",
+        achievement: 'Zero account restrictions in 90 days',
       },
     ],
   },
@@ -269,10 +303,11 @@ const packsData: Package[] = [
   {
     id: 'elite-pack',
     slug: 'elite-pack',
-    name: 'GoAds Elite',
-    description: 'The ultimate pack for large agencies, offering powerful Business Managers',
+    name: 'GoAds Elite Bulletproof Setup',
+    description:
+      'The ultimate enterprise-grade pack for massive scale: dual BM5 verified accounts, 6 premium profiles, and 4 aged pages for unlimited campaign capacity!',
     price: 790,
-    comparePrice: 1000,
+    comparePrice: 1100,
     category: 'elite',
     image: '/packs/elite.png',
     stock: 'in-stock',
@@ -280,64 +315,86 @@ const packsData: Package[] = [
     purchases: 100,
     products: [
       {
-        productId: 'bm5',
+        productId: 'bm5-verified-250-dsl',
         quantity: 1,
-        role: '4 Profile Accounts: 2 Admin + 2 Employee (BM5)',
+        role: 'BM5 Verified $250 DSL (Running Campaign) - $330 Value',
       },
       {
-        productId: 'bm-verified-250',
+        productId: 'bm5-verified-250-pixel',
         quantity: 1,
-        role: '2 Admin + 2 Pages (BM Verified $250 Limit)',
+        role: 'BM5 Verified $250 DSL (Pixel Bank) - $330 Value',
       },
-      { productId: 'fanpage', quantity: 2, role: 'Optimized Advertising Page' },
       {
-        productId: 'Profile-usa-greenline',
+        productId: 'Profile-premium-aged-elite',
         quantity: 6,
-        role: 'USA Profile (Including 3 Greenline)',
+        role: 'Premium Aged Reinstated Profiles (6x) - $300 Value',
+      },
+      {
+        productId: 'fanpage-aged-elite',
+        quantity: 4,
+        role: 'Aged Reinstated Pages (4x) - $140 Value',
       },
     ],
-    detail: `<p><strong>Vip Pro Max Pack</strong> is the ultimate choice for large agencies, delivering powerful tools for advanced ads campaigns.</p><ul><li>Includes <strong>1 BM5:</strong> Comes with <span>4 Profile accounts (2 Admin + 2 Employee)</span> for maximum control and scalability.</li><li>Features <strong>1 BM Verified $250 Limit:</strong> Equipped with <span>2 Admin + 2 Pages</span> for flexible management.</li><li>Comes with <strong>2 high-quality Fanpages:</strong> Pre-optimized for <span>high engagement</span> and credibility.</li><li>Provides <strong>6 USA Profile accounts:</strong> Including <span>3 Greenline Profiles</span>, ensuring top-tier trust and stability.</li><li><strong>Ready to use:</strong> Launch your campaigns <span>immediately</span> with seamless integration.</li></ul>`,
+    detail: `<p><strong>GoAds Elite Bulletproof Setup</strong> is the pinnacle of Facebook advertising infrastructure, engineered for enterprise-level operations and unlimited scale.</p><ul><li>Includes <strong>2 BM5 Verified $250 DSL:</strong> Dual high-capacity Business Managers with <span>unlimited ads account capacity</span> and <span>$250 daily spend limit per account</span>. One dedicated for <span>live campaign management</span>, one for <span>pixel tracking and conversion optimization</span>. Enables <span>extreme scalability and organizational complexity</span>.</li><li>Features <strong>6 Premium Aged Reinstated Profiles:</strong> Maximum admin and operational capacity with <span>proven account history</span>. Supports <span>complex delegation hierarchies</span>, multiple team levels, and <span>white-label operations</span>.</li><li>Comes with <strong>4 Aged Reinstated Pages:</strong> Highly established pages with <span>organic credibility</span> and <span>green quality status</span>. Pre-warmed for <span>immediate high-volume campaigns</span> across multiple brands and verticals.</li><li><strong>Enterprise Scale Ready:</strong> Built for <span>managing $5M+ monthly ad spend</span> across hundreds of campaigns. Support <span>multiple agencies, brands, and business units</span> from a single infrastructure.</li><li><strong>Maximum Redundancy:</strong> Dual BM5 structure ensures <span>zero single points of failure</span>. If one BM needs maintenance, the other continues operations seamlessly.</li><li><strong>Premium Stability:</strong> Each component is <span>extensively aged and verified</span> for <span>maximum uptime and zero restrictions</span>. Enterprise-grade reliability for mission-critical campaigns.</li></ul>`,
     faq: [
       {
-        question: 'What makes BM5 different from a regular BM?',
+        question: 'Why do I need 2 BM5 accounts in this pack?',
         answer:
-          'A BM5 is a high-capacity Business Manager that supports more ads accounts and higher spend limits, ideal for large agencies. It comes with 4 Profile accounts (2 Admin + 2 Employee) for advanced management.',
+          'Dual BM5 accounts provide operational redundancy and specialized functionality. One BM5 handles live campaign management across unlimited ads accounts, while the second manages all pixel tracking and conversion data. This separation ensures clean data and eliminates conflicts.',
       },
       {
-        question: 'How do I set up the BM and Profile in this pack?',
+        question: 'What does $250 DSL mean?',
         answer:
-          "Your pack includes a comprehensive Setup Guide (see the 'Setup Guide' tab). You can also contact our support team Profile Live Chat or Email for personalized assistance during business hours.",
+          '$250 DSL (Daily Spend Limit) means each ads account under the BM5 can spend up to $250 per day. With unlimited ads account capacity and dual BM5s, you can scale to $5M+ monthly spend without hitting any limits.',
       },
       {
-        question: 'Can I use this pack for Shopify ads campaigns?',
+        question: 'How many campaigns can I manage with this setup?',
         answer:
-          'Yes! The Vip Pro Max Pack is optimized for Shopify integration, with pre-configured Pages and Profiles to help you run effective e-commerce ads campaigns.',
+          'With dual BM5s and 6 premium profiles, you can manage virtually unlimited campaigns across any number of brands, clients, or business units. The architecture supports complex organizational hierarchies with multiple team levels.',
       },
       {
-        question: 'What happens if an account in the pack gets restricted?',
+        question: 'Are aged profiles and pages really that much better?',
         answer:
-          "All accounts in the Vip Pro Max Pack come with a 30-day replacement warranty. If any account is restricted within 30 days due to issues not caused by policy violations on your part, we'll replace it free of charge.",
+          'Absolutely. Aged accounts have established Facebook history, resulting in instant approvals, better pixel delivery, lower restriction risk, and higher trust score with the algorithm. Premium aged accounts are the gold standard for enterprise operations.',
+      },
+      {
+        question: 'Can I delegate to multiple teams with this pack?',
+        answer:
+          'Yes! The 6 premium profiles and dual BM5 structure allows you to create complex delegation hierarchies with multiple team levels. You can set up department-level access, regional managers, or white-label operations.',
+      },
+      {
+        question: 'What happens if an account gets restricted?',
+        answer:
+          "All components in the Elite Bulletproof Setup come with a 30-day replacement warranty. If any account is restricted within 30 days due to issues not caused by policy violations on your part, we'll replace it free of charge.",
       },
     ],
     budgetInfo: {
       dailyBudget: 250,
       warning:
-        'The BM Verified in this pack supports a $250 daily spend limit per ads account, while the BM5 allows for higher scalability.',
+        'Each ads account under either BM5 supports a $250 daily spend limit. With unlimited ads account capacity and dual BM5s, your total monthly spend capacity is effectively unlimited (typical enterprise usage: $2M-$10M+ monthly).',
     },
     reviews: [
       {
-        name: 'Alex Chen',
-        role: 'Marketing Director at TechFlow Agency',
+        name: 'Michael Thompson',
+        role: 'Founder & CEO at Global Marketing Group',
         comment:
-          'GoAds Premium completely transformed our Facebook advertising approach. The account stability is incredible - no more worrying about sudden bans disrupting our campaigns.',
-        achievement: '300% ROI increase in 2 months',
+          "The Elite Bulletproof Setup is a game-changer for enterprise operations. Managing $5M+ monthly spend across 20+ brands used to require juggling multiple vendors. Now it's all seamless with zero restrictions.",
+        achievement:
+          'Managing $5M+ monthly ad spend across 20+ brands with zero account restrictions',
       },
       {
-        name: 'Sarah Johnson',
-        role: 'E-commerce Owner at Fashion Forward',
+        name: 'Samantha Lee',
+        role: 'VP of Operations at Digital Excellence Agency',
         comment:
-          'After losing 3 ad accounts in a month, I was desperate. GoAds saved my business. The verified business managers are rock solid and customer support is outstanding.',
-        achievement: 'Scaled from $5K to $50K monthly ad spend',
+          'The dual BM5 architecture with pixel bank separation changed everything. Our data integrity is perfect, conversion tracking is 100% accurate, and we can scale clients without any concerns. The 6 premium profiles handle complex delegation beautifully.',
+        achievement: '60% improvement in operational efficiency, managing 100+ client accounts',
+      },
+      {
+        name: 'Robert Davidson',
+        role: 'Chief Revenue Officer at Scale Ventures',
+        comment:
+          'As someone managing enterprise-level campaigns, this is exactly what I needed. The aged pages and profiles are rock solid. Zero downtime in 12 months, zero account restrictions. Customer support is exceptional. Worth every penny.',
+        achievement: 'Zero account restrictions in 365 days, 99.9% uptime',
       },
     ],
   },

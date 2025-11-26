@@ -44,12 +44,24 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
   // Page products - render separately so pages are visible (don't include them in otherProducts)
   const pageProducts = allProducts.filter((product) => String(product.category) === 'page')
 
+  // WABA products - WhatsApp Business API
+  const wabaProducts = allProducts.filter((product) => String(product.category) === 'waba')
+
+  // Service products - Services
+  const serviceProducts = allProducts.filter((product) => String(product.category) === 'service')
+
   // Other products: exclude known explicit categories so they don't render twice
   const otherProducts = allProducts.filter(
     (product) =>
-      !['verified-bm', 'unverified-bm', 'profile', 'page', 'ad-account'].includes(
-        String(product.category)
-      )
+      ![
+        'verified-bm',
+        'unverified-bm',
+        'profile',
+        'page',
+        'ad-account',
+        'waba',
+        'service',
+      ].includes(String(product.category))
   )
 
   // Group other products by category
@@ -552,6 +564,211 @@ export default function ProductsSection({ isProductsPage = false }: ProductsSect
               </div>
             </div>
           )}
+
+          {/* WABA WhatsApp Business API Category */}
+          {wabaProducts.length > 0 && (
+            <div className='bg-gradient-to-r from-green-50 via-lime-50 to-emerald-50 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-[1.01]'>
+              <div className='flex items-center gap-3 mb-6'>
+                <div className='w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg transform hover:rotate-12 transition-transform duration-300'>
+                  <span className='text-white font-bold text-xl'>💬</span>
+                </div>
+                <h3 className='text-xl md:text-2xl font-bold text-gray-900'>
+                  WhatsApp Business API
+                </h3>
+              </div>
+
+              <div className='grid gap-6 md:grid-cols-2'>
+                {wabaProducts.map((product, index) => (
+                  <div
+                    key={product.slug}
+                    className='bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1 cursor-pointer'
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                    onClick={() => handleCardClick(product.slug)}
+                  >
+                    {/* Mobile Layout */}
+                    <div className='flex flex-col gap-3 md:hidden'>
+                      <div className='flex-1'>
+                        <div className='flex items-center gap-2 mb-2'>
+                          <h4 className='text-lg font-semibold text-gray-900 transition-colors duration-300 mb-0'>
+                            {highlightKeywords(product.name)}
+                          </h4>
+                        </div>
+                        <p className='text-gray-600 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-300'>
+                          {product.description}
+                        </p>
+                        <div className='flex items-center gap-2 text-sm text-gray-500'>
+                          <span className='flex items-center gap-1'>
+                            <ShoppingBag className='h-4 w-4 group-hover:text-green-500 transition-colors duration-300' />
+                            {product.purchases} purchased
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className='flex flex-row items-center justify-between gap-3'>
+                        <div className='text-left'>
+                          <div className='text-xl font-bold text-green-600 group-hover:text-green-700 transition-colors duration-300'>
+                            ${product.price}
+                          </div>
+                          <div className='text-xs text-gray-500'>per unit</div>
+                        </div>
+                        <div className='flex gap-2'>
+                          <Button
+                            size='sm'
+                            onClick={(e) => handleAddToCart(product, e)}
+                            className='bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
+                            disabled={isAdding === product.slug}
+                          >
+                            {isAdding === product.slug ? 'Adding...' : 'Buy Now'}
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Desktop Layout */}
+                    <div className='hidden md:flex md:flex-row md:items-center justify-between gap-2'>
+                      <div className='flex-1'>
+                        <div className='flex items-center gap-2 mb-1'>
+                          <h4 className='text-lg font-semibold text-gray-900 transition-colors duration-300 mb-0'>
+                            {highlightKeywords(product.name)}
+                          </h4>
+                        </div>
+                        <p className='text-gray-600 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-300'>
+                          {product.description}
+                        </p>
+                        <div className='flex items-center gap-2 text-sm text-gray-500'>
+                          <span className='flex items-center gap-1'>
+                            <ShoppingBag className='h-4 w-4 group-hover:text-green-500 transition-colors duration-300' />
+                            {product.purchases} purchased
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className='flex flex-row items-center gap-3'>
+                        <div className='text-right'>
+                          <div className='text-xl font-bold text-green-600 group-hover:text-green-700 transition-colors duration-300'>
+                            ${product.price}
+                          </div>
+                          <div className='text-xs text-gray-500'>per unit</div>
+                        </div>
+                        <div className='flex gap-2'>
+                          <Button
+                            size='sm'
+                            onClick={(e) => handleAddToCart(product, e)}
+                            className='bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
+                            disabled={isAdding === product.slug}
+                          >
+                            {isAdding === product.slug ? 'Adding...' : 'Buy Now'}
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Service Category */}
+          {serviceProducts.length > 0 && (
+            <div className='bg-gradient-to-r from-orange-50 via-red-50 to-pink-50 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-[1.01]'>
+              <div className='flex items-center gap-3 mb-6'>
+                <div className='w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center shadow-lg transform hover:rotate-12 transition-transform duration-300'>
+                  <span className='text-white font-bold text-xl'>🛠️</span>
+                </div>
+                <h3 className='text-xl md:text-2xl font-bold text-gray-900'>Services</h3>
+              </div>
+
+              <div className='grid gap-6 md:grid-cols-2'>
+                {serviceProducts.map((product, index) => (
+                  <div
+                    key={product.slug}
+                    className='bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group transform hover:scale-[1.02] hover:-translate-y-1 cursor-pointer'
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                    onClick={() => handleCardClick(product.slug)}
+                  >
+                    {/* Mobile Layout */}
+                    <div className='flex flex-col gap-3 md:hidden'>
+                      <div className='flex-1'>
+                        <div className='flex items-center gap-2 mb-2'>
+                          <h4 className='text-lg font-semibold text-gray-900 transition-colors duration-300 mb-0'>
+                            {highlightKeywords(product.name)}
+                          </h4>
+                        </div>
+                        <p className='text-gray-600 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-300'>
+                          {product.description}
+                        </p>
+                        <div className='flex items-center gap-2 text-sm text-gray-500'>
+                          <span className='flex items-center gap-1'>
+                            <ShoppingBag className='h-4 w-4 group-hover:text-orange-500 transition-colors duration-300' />
+                            {product.purchases} purchased
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className='flex flex-row items-center justify-between gap-3'>
+                        <div className='text-left'>
+                          <div className='text-xl font-bold text-orange-600 group-hover:text-orange-700 transition-colors duration-300'>
+                            ${product.price}
+                          </div>
+                          <div className='text-xs text-gray-500'>per unit</div>
+                        </div>
+                        <div className='flex gap-2'>
+                          <Button
+                            size='sm'
+                            onClick={(e) => handleAddToCart(product, e)}
+                            className='bg-gradient-to-r from-orange-600 to-red-700 hover:from-orange-700 hover:to-red-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
+                            disabled={isAdding === product.slug}
+                          >
+                            {isAdding === product.slug ? 'Adding...' : 'Buy Now'}
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Desktop Layout */}
+                    <div className='hidden md:flex md:flex-row md:items-center justify-between gap-2'>
+                      <div className='flex-1'>
+                        <div className='flex items-center gap-2 mb-1'>
+                          <h4 className='text-lg font-semibold text-gray-900 transition-colors duration-300 mb-0'>
+                            {highlightKeywords(product.name)}
+                          </h4>
+                        </div>
+                        <p className='text-gray-600 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-300'>
+                          {product.description}
+                        </p>
+                        <div className='flex items-center gap-2 text-sm text-gray-500'>
+                          <span className='flex items-center gap-1'>
+                            <ShoppingBag className='h-4 w-4 group-hover:text-orange-500 transition-colors duration-300' />
+                            {product.purchases} purchased
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className='flex flex-row items-center gap-3'>
+                        <div className='text-right'>
+                          <div className='text-xl font-bold text-orange-600 group-hover:text-orange-700 transition-colors duration-300'>
+                            ${product.price}
+                          </div>
+                          <div className='text-xs text-gray-500'>per unit</div>
+                        </div>
+                        <div className='flex gap-2'>
+                          <Button
+                            size='sm'
+                            onClick={(e) => handleAddToCart(product, e)}
+                            className='bg-gradient-to-r from-orange-600 to-red-700 hover:from-orange-700 hover:to-red-800 text-white px-4 py-1.5 rounded-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg text-sm'
+                            disabled={isAdding === product.slug}
+                          >
+                            {isAdding === product.slug ? 'Adding...' : 'Buy Now'}
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Show other categories if they exist */}
           {Object.entries(groupedOtherProducts).map(([category, products]) => (
             <div

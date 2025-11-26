@@ -7,7 +7,14 @@ export interface ProductReview {
 }
 
 // Category type for type safety
-export type ProductCategory = 'verified-bm' | 'unverified-bm' | 'profile' | 'page' | 'ad-account'
+export type ProductCategory =
+  | 'verified-bm'
+  | 'unverified-bm'
+  | 'profile'
+  | 'page'
+  | 'ad-account'
+  | 'waba'
+  | 'service'
 
 // This type matches the Product type in app/products-section.tsx
 export interface ProductSectionItem {
@@ -392,52 +399,52 @@ export const products: Product[] = [
     gradient: 'from-blue-600 to-indigo-600',
     bgGradient: 'from-blue-50 to-indigo-50',
   },
-  // {
-  //   id: 'profile-11',
-  //   slug: 'asia-super-aged-double-reinstated',
-  //   name: 'Asia Super Aged (3 years+) & Double Reinstated Profile',
-  //   description: 'Super aged Asia profile, verified twice and highly stable.',
-  //   detail:
-  //     '<p><strong>Asia Super Aged + Double Reinstated Profile</strong></p><ul><li><strong>Super Aged Account:</strong> Created between 2009–2015 with extensive usage history.</li><li><strong>Double Reinstated:</strong> Verified twice with official ID for superior stability.</li><li><strong>Trusted for High Budgets:</strong> Strong approval and minimal checkpoint risk.</li><li><strong>Super Active:</strong> Real friends, timeline activity, and engagement.</li><li><strong>Ad Performance:</strong> Ideal for scaling campaigns quickly.</li><li><strong>Ad-Ready:</strong> Start campaigns after a simple 24h warm-up.</li><li><strong>Lifetime Support</strong> included.</li></ul>',
-  //   price: 95,
-  //   category: 'profile',
-  //   image: '/products/fb_via.png',
-  //   imageDescription: '/product-detail/asia-super-aged-double-reinstated.png',
-  //   stock: 'in-stock',
-  //   review: {
-  //     id: 'review-23',
-  //     author: 'Pham Tuan',
-  //     authorTitle: 'Agency Owner',
-  //     comment:
-  //       'Asia super aged profile works extremely well — stable, trusted, and great for long-term campaigns.',
-  //   },
-  //   purchases: 530,
-  //   gradient: 'from-purple-600 to-violet-600',
-  //   bgGradient: 'from-purple-50 to-violet-50',
-  // },
-  // {
-  //   id: 'profile-12',
-  //   slug: 'usa-super-aged-double-reinstated',
-  //   name: 'USA Super Aged (3 years+) & Double Reinstated Profile',
-  //   description: 'Super aged US profile with double reinstatement and maximum trust.',
-  //   detail:
-  //     '<p><strong>USA Super Aged + Double Reinstated Profile</strong></p><ul><li><strong>Aged Account:</strong> Created between 2010–2022 with long-term usage and history.</li><li><strong>Advertising Access Reinstated (Twice):</strong> Verified twice with government-issued ID.</li><li><strong>SARI Verified:</strong> 3x stronger than regular ARI profiles.</li><li><strong>High Ad Performance:</strong> Trusted and stable for long-term ad use.</li><li><strong>Created in the USA:</strong> Stronger delivery and fewer restrictions.</li><li><strong>Super Active:</strong> Real activity, friend list, and trusted digital footprint.</li><li><strong>Ad-Ready:</strong> Start running ads after a simple 24-hour warm-up.</li><li><strong>Lifetime Support:</strong> We’re always here to help.</li></ul>',
-  //   price: 110,
-  //   category: 'profile',
-  //   image: '/products/fb_via.png',
-  //   imageDescription: '/product-detail/usa-super-aged-double-reinstated.png',
-  //   stock: 'low-stock',
-  //   review: {
-  //     id: 'review-24',
-  //     author: 'Chris Martin',
-  //     authorTitle: 'Marketing Director',
-  //     comment:
-  //       'The US super aged profile is by far the strongest we’ve used. Reliable, high-trust, and great for premium clients.',
-  //   },
-  //   purchases: 460,
-  //   gradient: 'from-red-600 to-pink-600',
-  //   bgGradient: 'from-red-50 to-pink-50',
-  // },
+  {
+    id: 'profile-11',
+    slug: 'asia-super-aged-double-reinstated',
+    name: 'Asia Super Aged (7 years+) & Double Reinstated Profile',
+    description: 'Super aged Asia profile, verified twice and highly stable.',
+    detail:
+      '<p><strong>Asia Super Aged + Double Reinstated Profile</strong></p><ul><li><strong>Super Aged Account:</strong> Created between 2009–2015 with extensive usage history.</li><li><strong>Double Reinstated:</strong> Verified twice with official ID for superior stability.</li><li><strong>Trusted for High Budgets:</strong> Strong approval and minimal checkpoint risk.</li><li><strong>Super Active:</strong> Real friends, timeline activity, and engagement.</li><li><strong>Ad Performance:</strong> Ideal for scaling campaigns quickly.</li><li><strong>Ad-Ready:</strong> Start campaigns after a simple 24h warm-up.</li><li><strong>Lifetime Support</strong> included.</li></ul>',
+    price: 95,
+    category: 'profile',
+    image: '/products/fb_via.png',
+    imageDescription: '/product-detail/asia-super-aged-double-reinstated.png',
+    stock: 'in-stock',
+    review: {
+      id: 'review-23',
+      author: 'Pham Tuan',
+      authorTitle: 'Agency Owner',
+      comment:
+        'Asia super aged profile works extremely well — stable, trusted, and great for long-term campaigns.',
+    },
+    purchases: 530,
+    gradient: 'from-purple-600 to-violet-600',
+    bgGradient: 'from-purple-50 to-violet-50',
+  },
+  {
+    id: 'profile-12',
+    slug: 'usa-super-aged-double-reinstated',
+    name: 'USA Super Aged (7 years+) & Double Reinstated Profile',
+    description: 'Super aged US profile with double reinstatement and maximum trust.',
+    detail:
+      '<p><strong>USA Super Aged + Double Reinstated Profile</strong></p><ul><li><strong>Aged Account:</strong> Created between 2010–2022 with long-term usage and history.</li><li><strong>Advertising Access Reinstated (Twice):</strong> Verified twice with government-issued ID.</li><li><strong>SARI Verified:</strong> 3x stronger than regular ARI profiles.</li><li><strong>High Ad Performance:</strong> Trusted and stable for long-term ad use.</li><li><strong>Created in the USA:</strong> Stronger delivery and fewer restrictions.</li><li><strong>Super Active:</strong> Real activity, friend list, and trusted digital footprint.</li><li><strong>Ad-Ready:</strong> Start running ads after a simple 24-hour warm-up.</li><li><strong>Lifetime Support:</strong> We’re always here to help.</li></ul>',
+    price: 110,
+    category: 'profile',
+    image: '/products/fb_via.png',
+    imageDescription: '/product-detail/usa-super-aged-double-reinstated.png',
+    stock: 'low-stock',
+    review: {
+      id: 'review-24',
+      author: 'Chris Martin',
+      authorTitle: 'Marketing Director',
+      comment:
+        'The US super aged profile is by far the strongest we’ve used. Reliable, high-trust, and great for premium clients.',
+    },
+    purchases: 460,
+    gradient: 'from-red-600 to-pink-600',
+    bgGradient: 'from-red-50 to-pink-50',
+  },
   {
     id: 'page-1',
     slug: 'aged-reinstated-page',
@@ -596,6 +603,124 @@ export const products: Product[] = [
     gradient: 'from-purple-500 to-pink-500',
     bgGradient: 'from-purple-50 to-pink-50',
   },
+  {
+    id: 'waba-1',
+    slug: 'bm-whatsapp-api-250-limit-verified',
+    name: 'BM WhatsApp API 250 limit verified',
+    description:
+      'Business Manager with WhatsApp Business API — 250 message limit, verified account.',
+    detail:
+      '<p><strong>BM WhatsApp API 250 Limit Verified</strong> — for small to medium WhatsApp businesses.</p><ul><li><strong>Verified Business Manager</strong> with WhatsApp integration.</li><li><strong>250 message daily limit</strong> for customer interactions.</li><li>Fully compliant with Meta policies.</li><li>Ready for immediate deployment.</li><li>Includes support and monitoring.</li></ul>',
+    price: 100,
+    category: 'waba',
+    image: '/products/waba.png',
+    stock: 'in-stock',
+    purchases: 0,
+    imageDescription: '/product-detail/waba-250-limit.png',
+    gradient: 'from-green-500 to-emerald-500',
+    bgGradient: 'from-green-50 to-emerald-50',
+  },
+  {
+    id: 'waba-2',
+    slug: 'bm-whatsapp-api-2k-limit-verified',
+    name: 'BM WhatsApp API 2k limit verified',
+    description:
+      'Business Manager with WhatsApp Business API — 2,000 message limit, verified account.',
+    detail:
+      '<p><strong>BM WhatsApp API 2k Limit Verified</strong> — for growing WhatsApp businesses.</p><ul><li><strong>Verified Business Manager</strong> with full WhatsApp API access.</li><li><strong>2,000 message daily limit</strong> for scaling customer communication.</li><li>Advanced features and automations supported.</li><li>Higher throughput for business growth.</li><li>Priority support included.</li></ul>',
+    price: 280,
+    category: 'waba',
+    image: '/products/waba.png',
+    stock: 'in-stock',
+    purchases: 0,
+    imageDescription: '/product-detail/waba-2k-limit.png',
+    gradient: 'from-lime-500 to-green-600',
+    bgGradient: 'from-lime-50 to-green-50',
+  },
+  {
+    id: 'waba-3',
+    slug: 'bm-whatsapp-api-10k-limit-verified',
+    name: 'BM WhatsApp API 10k limit verified',
+    description:
+      'Business Manager with WhatsApp Business API — 10,000 message limit, verified account.',
+    detail:
+      '<p><strong>BM WhatsApp API 10k Limit Verified</strong> — for enterprise WhatsApp solutions.</p><ul><li><strong>Verified Business Manager</strong> with unlimited WhatsApp API capabilities.</li><li><strong>10,000 message daily limit</strong> for high-volume customer engagement.</li><li>Full API documentation and webhook support.</li><li>Custom integrations and advanced automation.</li><li><strong>24/7 dedicated support</strong> included.</li></ul>',
+    price: 1400,
+    category: 'waba',
+    image: '/products/waba.png',
+    stock: 'in-stock',
+    purchases: 0,
+    imageDescription: '/product-detail/waba-10k-limit.png',
+    gradient: 'from-teal-500 to-green-600',
+    bgGradient: 'from-teal-50 to-green-50',
+  },
+  {
+    id: 'page-6',
+    slug: 'monetized-page-10k-follower',
+    name: 'Monetized Page with 10k follower',
+    description:
+      'Monetized Facebook page with 10k followers — generate revenue through ads and engagement.',
+    detail:
+      '<p><strong>Monetized Page with 10k Followers</strong> — ready for instant monetization.</p><ul><li><strong>Facebook Partner Monetized</strong> — earn from ads and content.</li><li><strong>10,000 established followers</strong> with organic engagement.</li><li>Revenue sharing enabled — start earning immediately.</li><li>Higher CPM potential with larger audience base.</li><li><strong>Fully compliant</strong> with Facebook monetization policies.</li><li>Additional followers available at $190 per 10k.</li></ul>',
+    price: 300,
+    category: 'page',
+    image: '/products/fb_fanpage.png',
+    stock: 'in-stock',
+    purchases: 0,
+    imageDescription: '/product-detail/monetized-page-10k-follower.png',
+    gradient: 'from-blue-600 to-purple-600',
+    bgGradient: 'from-blue-50 to-purple-50',
+  },
+  {
+    id: 'page-7',
+    slug: 'blue-verification-badge-page',
+    name: 'Blue Verification BADGE Page',
+    description:
+      'Facebook page with official blue verification badge — maximum credibility and trust.',
+    detail:
+      '<p><strong>Blue Verification BADGE Page</strong> — the ultimate page authority.</p><ul><li><strong>Official blue verification badge</strong> — Facebook&apos;s highest trust indicator.</li><li>Instantly boosts credibility with audiences.</li><li><strong>Eligibility for premium features</strong> automatically granted.</li><li>Faster ad approvals and higher quality score.</li><li>Perfect for brands, influencers, and businesses.</li><li>Verified status never expires with proper maintenance.</li></ul>',
+    price: 400,
+    category: 'page',
+    image: '/products/fb_fanpage.png',
+    stock: 'in-stock',
+    purchases: 0,
+    imageDescription: '/product-detail/blue-verification-badge-page.png',
+    gradient: 'from-indigo-600 to-blue-600',
+    bgGradient: 'from-indigo-50 to-blue-50',
+  },
+  {
+    id: 'service-1',
+    slug: 'unbanned-bm-with-request-review-button',
+    name: 'Unbanned BM has request review button',
+    description: 'Unbanned Business Manager with request review button functionality enabled.',
+    detail:
+      '<p><strong>Unbanned BM with Request Review Button</strong> — reinstate your BM quickly.</p><ul><li><strong>Successfully unbanned</strong> and fully operational.</li><li><strong>Request review button active</strong> — appeal options still available.</li><li>Ready for immediate use in advertising campaigns.</li><li>Full access to all Business Manager features.</li><li>Stable account status with monitoring support.</li></ul>',
+    price: 400,
+    category: 'service',
+    image: '/products/service_unbanned_bm.png',
+    stock: 'in-stock',
+    purchases: 0,
+    imageDescription: '/product-detail/unbanned-bm-request-review.png',
+    gradient: 'from-orange-500 to-red-600',
+    bgGradient: 'from-orange-50 to-red-50',
+  },
+  {
+    id: 'service-2',
+    slug: 'unbanned-bm-no-request-review-button',
+    name: 'Unbanned BM has no request review button',
+    description:
+      'Unbanned Business Manager without request review button — fully closed account status.',
+    detail:
+      '<p><strong>Unbanned BM with No Request Review Button</strong> — permanently reinstated.</p><ul><li><strong>Permanently unbanned</strong> — no further review options needed.</li><li><strong>No request review button</strong> — account status is final and locked in.</li><li>Maximum stability and long-term reliability.</li><li>Full Business Manager access for all advertising functions.</li><li>Best choice for committed long-term campaigns.</li></ul>',
+    price: 600,
+    category: 'service',
+    image: '/products/service_unbanned_bm.png',
+    stock: 'in-stock',
+    purchases: 0,
+    imageDescription: '/product-detail/unbanned-bm-no-request-review.png',
+    gradient: 'from-red-600 to-pink-600',
+    bgGradient: 'from-red-50 to-pink-50',
+  },
 ]
 
 // Helper function to get display name from category
@@ -606,6 +731,8 @@ export function getCategoryDisplayName(category: ProductCategory): string {
     profile: 'Profiles',
     page: 'Pages',
     'ad-account': 'Ad Accounts',
+    waba: 'WhatsApp Business API',
+    service: 'Services',
   }
   return categoryMap[category] || category
 }
